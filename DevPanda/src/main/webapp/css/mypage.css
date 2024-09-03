@@ -1,0 +1,282 @@
+@charset "UTF-8";
+
+body, button, dd, div, dl, dt, fieldset, figcaption, figure, form, h1,
+	h2, h3, h4, h5, h6, input, legend, li, ol, p, select, table, td,
+	textarea, th, ul {
+	margin: 0;
+	padding: 0; font-family : "Nanum Gothic", sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	color: #222;
+	font-family: "Nanum Gothic", sans-serif;
+}
+
+a, a:active, a:focus, a:hover {
+	-webkit-text-decoration: none;
+	text-decoration: none
+}
+
+/*꽉 채워서*/
+/* .container.my {
+	display: flex;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 40px 40px 160px 5px; 
+	border-bottom: 0;
+} */
+/*중앙에배치*/
+.container.my{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1280px;
+    padding: 40px 40px 160px;
+}
+
+
+.container.my .content_area {
+	min-height: 380px;
+	overflow: hidden;
+}
+
+.content_area {
+	overflow: hidden;
+}
+
+.my-page-content {
+	flex: 1;
+}
+
+.my_profile {
+	padding: 0 24px 80px;
+}
+
+.content_title {
+	display: flex;
+}
+
+.content_title.border {
+	border-bottom: 3px solid #222;
+	padding-bottom: 16px;
+}
+
+.title {
+	font-size: 24px;
+	letter-spacing: -.36px
+}
+
+.title>h3 {
+	font-size: inherit;
+	line-height: 29px
+}
+/*user 사진관리 start */
+.user_profile[data-v-5691f94f] {
+	align-items: center;
+	background-color: #fff;
+	display: flex;
+	padding: 38px 0
+}
+
+.lg .user_profile[data-v-5691f94f] {
+	border-bottom: 1px solid #ebebeb
+}
+
+.profile_thumb[data-v-5691f94f] {
+	border-radius: 100%;
+	flex: none;
+	height: 80px;
+	margin-right: 12px;
+	overflow: hidden;
+	width: 80px
+}
+
+.lg .profile_thumb[data-v-5691f94f] {
+	height: 90px;
+	width: 90px
+}
+
+.profile_thumb .thumb_img[data-v-5691f94f] {
+	height: 100%;
+	-o-object-fit: cover;
+	object-fit: cover;
+	width: 100%
+}
+
+.profile_detail .name[data-v-5691f94f] {
+	margin-top: 3px;
+	color: #000;
+	font-size: 18px;
+	letter-spacing: -.27px;
+	line-height: 1.2222222222
+}
+
+.profile_detail .div_user[data-v-5691f94f] {
+	color: #ebebeb;;
+	font-size: 16px;
+	letter-spacing: -.27px;
+	line-height: 1.2222222222
+}
+
+.profile_btn_box[data-v-5691f94f] {
+	font-size: 0;
+	margin-top: 12px
+}
+
+.profile_btn_box .btn+.btn[data-v-5691f94f] {
+	margin-left: 8px
+}
+
+.btn[data-v-420a5cda] {
+	align-items: center;
+	background-color: #fff;
+	color: rgba(34, 34, 34, .8);
+	cursor: pointer;
+	display: inline-flex;
+	justify-content: center;
+	text-align: center;
+	vertical-align: middle
+}
+
+.outlinegrey[data-v-420a5cda] {
+	border: 1px solid #d3d3d3;
+	color: rgba(34, 34, 34, .8)
+}
+
+.outlinegrey[data-v-420a5cda]:active {
+	background-color: #f4f4f4;
+	border-color: #ebebeb;
+	color: rgba(34, 34, 34, .5)
+}
+
+.small[data-v-420a5cda] {
+	border-radius: 10px;
+	font-size: 12px;
+	height: 34px;
+	letter-spacing: -.06px;
+	padding: 0 14px
+}
+/*user 사진관리 End */
+
+/*개인계정,개인정보 Start*/
+.profile_info {
+	max-width: 480px;
+	padding-top: 38px;
+}
+
+.lg .profile_group {
+	padding-top: 58px;
+}
+
+.profile_group {
+	padding-top: 48px
+}
+
+.profile_group:first-of-type {
+	padding-top: 0
+}
+
+.group_title {
+	font-size: 18px;
+	letter-spacing: -.27px
+}
+
+.modify.name {
+	padding-top: 25px
+}
+
+.unit {
+	border-bottom: 1px solid #ebebeb;
+	display: flex;
+	flex-direction: column;
+	padding: 25px 0 12px;
+	position: relative;
+}
+
+.unit+.unit {
+	padding-top: 23px
+}
+
+.title[data-v-0c9f3f9e] {
+	color: rgba(34, 34, 34, .5);
+	font-size: 13px;
+	font-weight: 400;
+	letter-spacing: -.07px
+}
+
+.unit_content {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	width: 100%
+}
+
+.desc {
+	flex: 1;
+	font-size: 16px;
+	letter-spacing: -.16px;
+	overflow: hidden;
+	padding-bottom: 8px;
+	padding-top: 8px;
+	text-overflow: ellipsis;
+	white-space: nowrap
+}
+
+.desc_modify {
+	padding-right: 58px
+}
+/*개인계정,개인정보 End*/
+.btn_withdrawal {
+	color: rgba(34, 34, 34, .5);
+	display: inline-block;
+	font-size: 13px;
+	letter-spacing: -.07px;
+	margin-top: 55px;
+	padding: 5px 0
+}
+
+/*empty_area Start  */
+.empty_area {
+	padding: 81px 0 45px;
+	text-align: center
+}
+/*empty_area End  */
+
+
+.container.my .snb_area[data-v-0adb81cc] {
+	margin-right: 40px;
+	width: 180px;
+	background-color: #f9f9f9;
+}
+
+.container.my .snb_main_title {
+	font-size: 24px;
+	font-weight: 700;
+	letter-spacing: -.36px;
+	letter-spacing: -.15px;
+	line-height: 29px;
+	padding-bottom: 30px
+}
+
+.snb_list_strong {
+	display: flex;
+	align-items: center;
+}
+
+.cart_icon {
+	margin-right: 5px;
+}
+
+.snb_area+div {
+	flex: 1;
+}
+
+.menu_item {
+	list-style-type: none;
+	padding: 3px 0px 3px 0;
+}
+
+.menu_link {
+	text-decoration-line: none;
+	color: black;
+	font-size: 13px;
+}
