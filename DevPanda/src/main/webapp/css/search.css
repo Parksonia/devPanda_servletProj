@@ -1,0 +1,149 @@
+@charset "UTF-8";
+body{
+    background-color: rgb(255,254,247);
+}
+.entire-container{
+    width: 100%;
+    height: 100%;
+    display : flex;
+    flex-direction : column;
+    justify-content : center;
+    row-gap: 70px;
+    
+    
+    
+}
+
+.form{
+    width: 100%;
+    height: 100%;
+    display : flex;
+    flex-direction : column;
+    justify-content : center;
+    row-gap: 100px;
+    
+}
+
+.container{
+    display : flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+.hr-container{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+.title{
+    color : rgb(78,78,78);
+    font-size : 60px;
+    font-weight: bolder;
+}
+
+.sub-title{
+    font-size:24px;
+}
+
+.hr-content-container{
+    width:500px;
+    
+    
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    
+    
+}
+
+
+
+.form-container{
+    display : flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+.input-container{
+    display : flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 500px;
+    row-gap: 10px;
+}
+.input-title-1{
+
+}
+
+.input-1{
+    width: 500px;
+    height : 50px;
+    border-radius: 10px;
+    
+}
+.input-error-title-1{
+    color : rgba(255,5,5,0.8);
+}
+
+
+.input-title-2{
+
+}
+.input-2-container{
+    display : flex;
+    flex-direction: row;
+    
+    width: 500px;
+    column-gap: 10px;
+}
+.input-2{
+    width: 480px;
+    height : 50px;
+    border-radius: 10px;
+    
+}
+.check-button-container{
+    display : flex;
+    justify-content: center;
+    align-items : center;
+  
+}
+.check-button{
+    background-color: rgb(165,232,176);
+    border-radius: 5px;
+    padding-top : 3px;
+    padding-bottom : 3px;
+    display: inline;
+    justify-content: center;
+    text-align: center;
+    
+    
+    
+    
+}
+.input-error-title-2{
+    color : rgba(255,5,5,0.8);
+}
+
+.sign-in{
+    width: 500px;
+    height: 50px;
+    background-color: rgb(98,98,98);
+    color:aliceblue;
+    border-radius: 10px;
+    
+    font-size: 20px;
+    margin-bottom:50px;
+}
+
+.input-1::placeholder{
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+.input-2::placeholder{
+    font-size: 20px;
+    padding-left: 10px;
+}
