@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인|개인</title>
-<link href="./css/signIn.css" rel="stylesheet">
+<link href="../css/signIn.css" rel="stylesheet">
 <style>
 a,a:active,a:focus,a:hover {
     -webkit-text-decoration: none;
