@@ -1,35 +1,31 @@
 package util;
 
-import java.io.InputStream;
-
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-public class MybatisSqlSessionFactory {
-	
-	
+import java.io.IOException;
+import java.io.InputStream;
 
-	private static SqlSessionFactory sqlSessionFactory;
-	
-	static {
-		
-		try {
-			String resource = "resource/mybatis-config.xml";
-			InputStream inputStream = Resources.getResourceAsStream(resource);
-			
-			SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
-			// SqlSessionFactory 완성 서버 실행하고 문제 없는지 확인해보기
-			sqlSessionFactory = builder.build(inputStream);  
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	//생성된 SqlSessionFactory 사용 메서드
-	public static SqlSessionFactory getSqlSessionFactory() {
-		return sqlSessionFactory;
-	}
-	
+public class MybatisSqlSessionFactory {
+
+    private static SqlSessionFactory sqlSessionFactory;
+
+    static {
+        try {
+            String resource = "resource/mybatis-config.xml";  // 파일 경로
+            InputStream inputStream = Resources.getResourceAsStream(resource);
+            if (inputStream == null) {
+                throw new RuntimeException("Resource not found: " + resource);
+            }
+            sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+            
+        } catch (IOException e) {
+            throw new RuntimeException("Error initializing SqlSessionFactory", e);
+        }
+    }
+
+    public static SqlSessionFactory getSqlSessionFactory() {
+        return sqlSessionFactory;
+    }
 }
