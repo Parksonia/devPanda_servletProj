@@ -1,1 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.transaction">
+
+	<!-- resultMap -->
+	<resultMap id="transactionResultMap" type="dto.Transaction">
+		<result property="transactionNum" column="transactionNum"/>
+        <result property="sellerId" column="sellerId"/>
+        <result property="auctionNum" column="auctionNum"/>
+        <result property="price" column="price"/>
+        <result property="date" column="date"/>
+        <result property="buyerId" column="buyerId"/>
+        <result property="state" column="state"/>
+        <result property="memType" column="memType"/>
+        <!-- Auction 객체와 연결 -->
+        <association property="auction" javaType="dto.Auction">
+            <result property="maxSalary" column="maxSalary"/>
+        </association>
+	</resultMap>
+	
+	<!-- personBuyTransactionList -->
+	<select id="selectTransactionList" resultMap="transactionResultMap">
+		<![CDATA[
+			SELECT t.*, a.maxSalary 
+			FROM transaction t JOIN auction a
+			ON t.auctionNum = a.auctionNum
+			WHERE t.buyerid = 'abc007'
+			limit #{row}, 10;
+		]]>
+	</select>
+	
+	<select id="selectTransactionCount" resultType="Integer">
+		<![CDATA[
+			select count(*) from transaction;
+		]]>
+	</select>
+	
+</mapper>
