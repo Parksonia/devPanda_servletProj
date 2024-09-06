@@ -1,0 +1,199 @@
+@charset "UTF-8";
+.container.my .content_area {
+	min-height: 380px;
+
+}
+
+.container {
+	background-color: #fff;
+	padding: 0px 20px 20px 20px;
+	border-radius: 10px;
+	box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
+}
+.my_bidlist{
+	padding: 0 24px 80px;
+}
+.content_title {
+	display: flex;
+}
+
+.content_title.border {
+	border-bottom: 3px solid #222;
+	padding-bottom: 16px;
+}
+
+.title {
+	font-size: 24px;
+	letter-spacing: -.36px
+}
+
+.title>h3,h2 {
+	font-size: inherit;
+	line-height: 29px
+}
+
+
+.list_header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+	
+}
+
+.list_header input {
+	margin: 10px;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+	width: 60%;
+}
+
+.list_header select, .header button {
+	margin: 10px;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+}
+
+.searchBtn {
+	margin: 10px;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+}
+
+.filters {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 20px;
+	margin-top :20px;
+}
+
+.filters button {
+	flex: 1;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+	background-color: #f0f0f0;
+	cursor: pointer;
+}
+
+.filters button:hover {
+	background-color: #e0e0e0;
+}
+
+.item_container {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.item {
+	display: flex;
+	align-items: center;
+	position: relative;
+	margin-left: 20px;
+}
+
+.arrows {
+	display: flex;
+	flex-direction: column;
+	margin-left: 5px;
+	margin-bottom: 8px;
+}
+
+.arrow-up, .arrow-down {
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+}
+
+.arrow-up {
+	border-bottom: 5px solid #ccc;
+	margin-bottom: 2px;
+}
+
+.arrow-down {
+	border-top: 5px solid #ccc;
+	margin-top: 2px;
+}
+
+.item span {
+	font-size: 14px;
+	font-weight: bold;
+	margin-right: 5px;
+	margin-bottom: 10px;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background-color: #fafafa;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform-origin: center; /* 확대될 때 중심을 기준으로 확대되도록 설정 */
+}
+
+.history-item:hover {
+    background-color: #f5f5f5;
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* 확대 효과에 따른 그림자 */
+}
+
+.history-item img {
+	border-radius: 10px;
+	width: 80px;
+	height: 80px;
+	margin-right: 10px;
+}
+
+.history-content {
+	margin-left:20px;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+}
+
+.history-content .tags {
+	display: flex;
+	gap: 10px;
+	margin-top: 10px;
+}
+
+.history-content .tags span {
+	padding: 5px 10px;
+	background-color: #e0e0e0;
+	border-radius: 20px;
+	font-size: 12px;
+}
+
+.prices {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 20px;
+}
+
+.prices span {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-top: 20px;
+}
+
+.pagination a {
+	text-decoration: none;
+	color: blue;
+}
