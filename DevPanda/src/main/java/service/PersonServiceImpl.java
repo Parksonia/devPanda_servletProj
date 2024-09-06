@@ -9,6 +9,11 @@ public class PersonServiceImpl implements PersonService {
 	private PersonRepository personRepository = new PersonRepositoryImpl();
 
 	@Override
+	public boolean isIdExists(String id) {
+		return personRepository.isIdExists(id);
+	}
+
+	@Override
 	public void registerPerson(Person person) {
 
 		// ID 중복 체크

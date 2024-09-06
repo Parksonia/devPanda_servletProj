@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
-<mapper namespace="mapper.company">
-	
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.CompanyMapper">
+
+	<insert id="insertCompany" parameterType="company">
+		INSERT INTO company
+		(id, companyName, email, password, address, companyNum,
+		status,
+		companyImage)
+		VALUES (#{id}, #{companyName}, #{email}, #{password},
+		#{address},
+		#{companyNum}, #{status}, #{companyImage});
+	</insert>
+
+	<!-- ID 중복 확인 쿼리 -->
+	<select id="isIdExists" parameterType="String"
+		resultType="Integer">
+		SELECT COUNT(*) FROM company WHERE id = #{id}
+	</select>
+
 </mapper>
