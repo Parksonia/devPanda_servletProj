@@ -15,4 +15,6 @@ public interface PersonRepository {
 	String findPasswordByIdAndEmail(Map<String, String> parameterMap);
 	
 	List<Person> findPersonListByEmail(String email);
+	
+	Person findPersonByIdAndPassword(Map<String,String> parameterMap);
 }

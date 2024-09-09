@@ -52,7 +52,7 @@
 		<mapper resource ="mapper/transaction.xml"/>
 		<mapper resource ="mapper/company.xml"/>
 		<mapper resource ="mapper/bid.xml"/>
-		<mapper resource ="mapper/emailcertification.xml"/> 
+		<mapper resource ="mapper/emailCertification.xml"/> 
 		
 		<!-- 
 			

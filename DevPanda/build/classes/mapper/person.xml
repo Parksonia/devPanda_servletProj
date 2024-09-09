@@ -37,5 +37,8 @@
 		select password from person
 		where id=#{id} and email=#{email}
 	</select>
+	
+	
+	
 
 </mapper>

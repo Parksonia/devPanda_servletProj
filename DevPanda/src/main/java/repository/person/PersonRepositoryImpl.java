@@ -43,6 +43,8 @@ public class PersonRepositoryImpl implements PersonRepository {
 	
 	
 	
+	
+	
 	@Override
 	public String findPasswordByIdAndEmail(Map<String, String> parameterMap) {
 		SqlSession sqlSession = getSqlSession();
@@ -75,30 +77,52 @@ public class PersonRepositoryImpl implements PersonRepository {
 		return list;
 	}
 	
+	@Override
+	public Person findPersonByIdAndPassword(Map<String,String> parameterMap) {
+		SqlSession sqlSession = getSqlSession();
+		Person person = null;
+		try {
+			String statement = "mapper.PersonMapper.findPersonByIdAndPassword";
+			person = sqlSession.selectOne(statement, parameterMap);
+			
+			
+		}finally {
+			
+		}
+		return person;
+	}
+	
 	
 	
 	//테스트용 메인함수(db에 쿼리 잘 날라가는지 확인)
 	public static void main(String[] args) {
 		
 //		findPasswordByIdAndEmail test!!
-		Map<String,String> parameterMap = new HashMap();
-		
-		parameterMap.put("id", "a");
-		parameterMap.put("email", "aaa@gmail.com");
-		
+//		Map<String,String> parameterMap = new HashMap();
+//		
+//		parameterMap.put("id", "a");
+//		parameterMap.put("email", "aaa@gmail.com");
+//		
 		PersonRepositoryImpl personRepositoryImpl = new PersonRepositoryImpl();
-		String password = personRepositoryImpl.findPasswordByIdAndEmail(parameterMap);
-		System.out.println(password);
+//		String password = personRepositoryImpl.findPasswordByIdAndEmail(parameterMap);
+//		System.out.println(password);
 		
 		//findIdListByEmail test!
-		String email = "aaa@gma111il.com";
-		List<Person> list = personRepositoryImpl.findPersonListByEmail(email);
+//		String email = "aaa@gma111il.com";
+//		List<Person> list = personRepositoryImpl.findPersonListByEmail(email);
+//		
+//		
+//		for(Person person : list) {
+//			System.out.println(person);
+//		}
 		
 		
-		for(Person person : list) {
-			System.out.println(person);
-		}
-		
+		//findPersonByIdAndPassword
+		Map<String,String> parameterMap1 = new HashMap();
+		parameterMap1.put("id", "a");
+		parameterMap1.put("password", "password");
+		Person person = personRepositoryImpl.findPersonByIdAndPassword(parameterMap1);
+		System.out.println(person);
 		
 	}
 }
