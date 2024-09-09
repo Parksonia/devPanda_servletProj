@@ -1,5 +1,10 @@
 package repository.bid;
 
-public interface BidRepository {
+import dto.Bid;
 
+public interface BidRepository {
+	
+	
+	
+	int insertBid(Bid bid);
 }

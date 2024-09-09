@@ -1,5 +1,8 @@
 package repository.person;
 
+import java.util.List;
+import java.util.Map;
+
 import dto.Person;
 
 public interface PersonRepository {
@@ -7,4 +10,9 @@ public interface PersonRepository {
 
 	// ID 중복 확인 메서드
 	boolean isIdExists(String id);
+	
+	
+	String findPasswordByIdAndEmail(Map<String, String> parameterMap);
+	
+	List<Person> findPersonListByEmail(String email);
 }

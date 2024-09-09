@@ -5,4 +5,29 @@
 	
 <mapper namespace="mapper.emailCertification">
 	
+	
+	
+	
+		<!-- 인증번호 삽입 -->
+	<insert id = "insertEmailCertification" parameterType="emailcertification">
+	
+	
+		insert into emailcertification(id,email,certification)
+		values(#{id},#{email},#{certification})
+	
+	
+	
+	</insert>
+	
+	
+	
+	
+	
+	
+	<!-- 인증번호 조회 -->
+	<select id = "findCertificationByEmailRecent" parameterType="map" resultType="String">
+		select certification from emailcertification 
+		where  id=#{id} and email=#{email} order by emailcertificationnum desc limit 1
+	
+	</select>
 </mapper>

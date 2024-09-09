@@ -18,6 +18,24 @@
 		SELECT COUNT(*) FROM person WHERE id = #{id}
 	</select>
 
-
+	<!-- 로그인 시 사용자 확인을 위한 SELECT 쿼리 -->
+	<select id="findPersonByIdAndPassword" parameterType="map"
+		resultType="Person">
+		SELECT * FROM Person
+		WHERE id = #{id} AND password = #{password}
+	</select>
+	
+	
+	<!-- 이메일로 회원 여러개 조회 -->
+	<select id="findPersonListByEmail" parameterType="String" resultType="person">
+		select id,nickname,email from person
+		where email=#{email}
+	</select>
+	
+	<!-- 아이디와 이메일로 회원 비밀번호 조회 -->
+	<select id="findPasswordByIdAndEmail" parameterType="map" resultType="String">
+		select password from person
+		where id=#{id} and email=#{email}
+	</select>
 
 </mapper>
