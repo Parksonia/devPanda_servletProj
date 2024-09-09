@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        fetch(`/devPanda/checkCompanyId?id=${encodeURIComponent(idValue)}`)
+        fetch(`/DevPanda/checkCompanyId?id=${encodeURIComponent(idValue)}`)
 
         .then(response => {
             if (!response.ok) {
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		<div class="container">
 			<div class="sub-title">기업 회원가입</div>
 		</div>
-		<form class="form" method="post" action="/devPanda/signUpCom"
+		<form class="form" method="post" action="/DevPanda/signUpCom"
 			enctype="multipart/form-data">
 
 			<div class="form-container">

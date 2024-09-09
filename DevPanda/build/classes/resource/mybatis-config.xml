@@ -11,53 +11,45 @@
 		<typeAlias type="dto.Bid" alias="bid" />
 		<typeAlias type="dto.BlackList" alias="blacklist" />
 		<typeAlias type="dto.Company" alias="company" />
-		<typeAlias type="dto.EmailCertification" alias="emailcertification" />
+		<typeAlias type="dto.EmailCertification"
+			alias="emailcertification" />
 		<typeAlias type="dto.Person" alias="person" />
-		<typeAlias type="dto.SearchCondition" alias="searchcondition" />
+		<typeAlias type="dto.SearchCondition"
+			alias="searchcondition" />
 		<typeAlias type="dto.Transaction" alias="transaction" />
 	</typeAliases>
 
 
-	<!-- <environments default="development">
+	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
-				MySQL 드라이버 설정
+				<!-- MySQL 드라이버 설정 -->
 				<property name="driver" value="com.mysql.cj.jdbc.Driver" />
-				MySQL URL 설정
+				<!-- MySQL URL 설정 -->
 				<property name="url"
 					value="jdbc:mysql://localhost:3306/devPandaT?useSSL=false&amp;serverTimezone=UTC" />
 				<property name="username" value="root" />
 				<property name="password" value="98019801" />
 			</dataSource>
 		</environment>
-	</environments> -->
-
-	<environments default="development">
-		<environment id="development">
-			<transactionManager type="JDBC" />
-			<dataSource type="POOLED">
-				<property name="driver" value="org.mariadb.jdbc.Driver"></property>
-				<property name="url"
-					value="jdbc:mariadb://localhost:3306/devpanda"></property>
-				<property name="username" value="root"></property>
-				<property name="password" value="7564"></property>
-			</dataSource>
-		</environment>
 	</environments>
+
+	<!-- <environments default="development"> <environment id="development"> 
+		<transactionManager type="JDBC" /> <dataSource type="POOLED"> <property name="driver" 
+		value="org.mariadb.jdbc.Driver"></property> <property name="url" value="jdbc:mariadb://localhost:3306/devpanda"></property> 
+		<property name="username" value="root"></property> <property name="password" 
+		value="7564"></property> </dataSource> </environment> </environments> -->
 
 	<mappers>
 		<mapper resource="mapper/person.xml" />
-		<mapper resource ="mapper/auction.xml"/>
-		<mapper resource ="mapper/transaction.xml"/>
-		<mapper resource ="mapper/company.xml"/>
-		
-		<!-- 
-			<mapper resource ="mapper/bid.xml"/> 
-			<mapper resource ="mapper/blacklist.xml"/>  
-			<mapper resource ="mapper/emailcertification.xml"/> 
-			<mapper resource ="mapper/searchcondition.xml"/>  -->
-			
+		<mapper resource="mapper/auction.xml" />
+		<mapper resource="mapper/transaction.xml" />
+		<mapper resource="mapper/company.xml" />
+
+		<!-- <mapper resource ="mapper/bid.xml"/> <mapper resource ="mapper/blacklist.xml"/> 
+			<mapper resource ="mapper/emailcertification.xml"/> <mapper resource ="mapper/searchcondition.xml"/> -->
+
 	</mappers>
 
 </configuration>

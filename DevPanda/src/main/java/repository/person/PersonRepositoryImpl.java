@@ -35,5 +35,13 @@ public class PersonRepositoryImpl implements PersonRepository {
 			return false; // 예외 발생 시 false 반환
 		}
 	}
+	
+	
+//	@Override
+//    public Person findById(String id) {
+//        // 데이터베이스에서 Person 정보를 조회하는 로직
+//        // SQL 쿼리 실행 및 결과를 Person 객체로 반환
+//        // (예: MyBatis 또는 JDBC 사용)
+//    }
 
 }

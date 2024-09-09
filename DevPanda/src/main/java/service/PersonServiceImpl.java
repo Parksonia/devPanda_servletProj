@@ -24,4 +24,6 @@ public class PersonServiceImpl implements PersonService {
 		// 추가 비즈니스 로직을 여기에 구현할 수 있습니다.
 		personRepository.registerPerson(person);
 	}
+
+
 }

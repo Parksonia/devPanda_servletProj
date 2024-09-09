@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        fetch(`/devPanda/checkId?id=${encodeURIComponent(idValue)}`)
+        fetch(`/DevPanda/checkId?id=${encodeURIComponent(idValue)}`)
 
         .then(response => {
             if (!response.ok) {
@@ -120,9 +120,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			<div class="sub-title">개인 회원가입</div>
 		</div>
 
-		<form class="form" method="post" action="/devPanda/signUpPerson"
+		<form class="form" method="post" action="/DevPanda/signUpPerson"
 			enctype="multipart/form-data">
-			
+
 			<div class="form-container">
 				<div class="input-container">
 					<div class="input-title-1">닉네임*</div>

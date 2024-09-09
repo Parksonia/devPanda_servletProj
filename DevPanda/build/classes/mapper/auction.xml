@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
+
 <mapper namespace="mapper.auction">
-	<select id="selectAuctionNum" parameterType="Integer" resultType="auction">
-		<![CDATA[
-			select * from auction;
-		]]>
-	</select> 
+
+	<select id="selectAllAuctions" resultType="dto.Auction">
+		SELECT a.auctionNum,
+		a.title, a.minSalary, a.maxSalary, p.personImage,
+		p.nickName
+		FROM
+		auction a
+		JOIN person p ON a.id = p.id
+	</select>
+
+	<!-- 페이징 -->
+	<select id="selectAuctionsWithPagination" parameterType="map"
+		resultType="dto.Auction">
+		SELECT * FROM auction
+		ORDER BY auctionNum
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+
 </mapper>
