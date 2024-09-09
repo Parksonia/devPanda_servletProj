@@ -3,38 +3,100 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="mapper.transaction">
-
-	<!-- resultMap -->
-	<resultMap id="transactionResultMap" type="dto.Transaction">
-		<result property="transactionNum" column="transactionNum"/>
-        <result property="sellerId" column="sellerId"/>
-        <result property="auctionNum" column="auctionNum"/>
-        <result property="price" column="price"/>
-        <result property="date" column="date"/>
-        <result property="buyerId" column="buyerId"/>
-        <result property="state" column="state"/>
-        <result property="memType" column="memType"/>
-        <!-- Auction 객체와 연결 -->
-        <association property="auction" javaType="dto.Auction">
-            <result property="maxSalary" column="maxSalary"/>
-        </association>
-	</resultMap>
 	
 	<!-- personBuyTransactionList -->
-	<select id="selectTransactionList" resultMap="transactionResultMap">
+	<select id="selectPBTransactionList" parameterType="map" resultType="Map">
 		<![CDATA[
-			SELECT t.*, a.maxSalary 
-			FROM transaction t JOIN auction a
-			ON t.auctionNum = a.auctionNum
-			WHERE t.buyerid = 'abc007'
-			limit #{row}, 10;
+			SELECT distinct t.*, 
+					a.*, 
+					p.personImage,
+					b.bidState
+				FROM transaction t 
+				JOIN auction a 
+					ON t.auctionNum = a.auctionNum
+				JOIN person p
+					ON t.sellerId = p.id
+				join bid b
+					on b.buyPersonId = t.buyerId
+			WHERE t.buyerId=#{buyerId}
+			and (b.bidState = 2 or b.bidState = 3)
+			]]>
+			
+			<if test="filterDate != null and filterDate != ''">
+				<![CDATA[
+					and STR_TO_DATE(t.date, '%Y-%m-%d') >= STR_TO_DATE(#{filterDate}, '%Y-%m-%d')
+				]]>
+			</if>
+			
+			<if test="startDate != null and startDate !='' and endDate != null and endDate !=''">
+				<![CDATA[
+					and STR_TO_DATE(t.date, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+			
+			<![CDATA[
+				order by t.date desc;
+			]]>
+	</select>
+	
+	<!-- personSellTransactionList -->
+	<select id="selectPSTransactionList" parameterType="map" resultType="Map">
+		<![CDATA[
+			SELECT distinct t.*,
+					t.state as t_state, 
+					a.*,
+					a.state as a_state,
+					p.personImage,
+					b.bidState
+				FROM transaction t 
+				JOIN auction a 
+					ON t.auctionNum = a.auctionNum
+				JOIN person p
+					ON t.sellerId = p.id
+				join bid b
+					on b.buyPersonId = t.buyerId
+			WHERE t.sellerId=#{sellerId}
+			and (b.bidState = 2 or b.bidState = 3)
+			]]>
+			
+			<if test="filterDate != null and filterDate != ''">
+				<![CDATA[
+					and STR_TO_DATE(t.date, '%Y-%m-%d') >= STR_TO_DATE(#{filterDate}, '%Y-%m-%d')
+				]]>
+			</if>
+			
+			<if test="startDate != null and startDate !='' and endDate != null and endDate !=''">
+				<![CDATA[
+					and STR_TO_DATE(t.date, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+				]]>
+			</if>
+			
+			<![CDATA[
+				order by t.date desc;
+			]]>
+	</select>
+	
+	<select id="selectPSTransactionDetail" parameterType="map" resultType="Map">
+		<![CDATA[
+			SELECT DISTINCT p1.*, p2.*
+				FROM transaction t
+				join person p1
+					ON t.sellerId = p1.id
+				JOIN person p2
+					ON t.buyerId = p2.id
+			WHERE t.sellerId = #{sellerId} AND t.auctionNum = #{auctionNum};
 		]]>
 	</select>
 	
-	<select id="selectTransactionCount" resultType="Integer">
+	<select id="selectPSTransactionDetailBid" parameterType="map" resultType="Map">
 		<![CDATA[
-			select count(*) from transaction;
+			SELECT b.* 
+				FROM bid b 
+				JOIN transaction t 
+					ON t.auctionNum = b.auctionNum 
+			WHERE t.auctionNum = #{auctionNum};
 		]]>
+	
 	</select>
 	
 </mapper>
