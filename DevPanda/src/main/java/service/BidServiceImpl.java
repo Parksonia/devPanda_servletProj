@@ -24,7 +24,7 @@ public class BidServiceImpl implements BidService {
 		
 
 		//**bidState 업데이트를 먼저 진행하고 리스트를 호출해야함**(1:진행중/0: 종료/2: 기간종료낙찰/ 3:즉시 낙찰)
-		bidRepository.updateBidState(id);
+		//bidRepository.updateBidState(id);
 		
 		//더보기 기능 위한maxPage 계산
 		HashMap<String,Object>pageinfo = new HashMap<>();
@@ -53,7 +53,7 @@ public class BidServiceImpl implements BidService {
 	public List<Map> bidListAllWithCalDate(PageInfo pageInfo,String id, String nowStr, String pastDateStr) throws Exception {
 
 		//**bidState 업데이트를 먼저 진행하고 리스트를 호출해야함**  (1:진행중/0: 종료/2: 기간종료낙찰/ 3:즉시 낙찰)
-		bidRepository.updateBidState(id);
+		//bidRepository.updateBidState(id);
 		
 		//더보기 기능 위한maxPage 계산
 		HashMap<String,Object>pageinfo = new HashMap<>();

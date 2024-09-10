@@ -1,13 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>	
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
 <html>
 <head>
 <meta charset="UTF-8">
-<title>personAuctionSuc</title>
-<!-- 개인,기업|구매내역조회|입찰내역조회|입찰진행중|상세보기 -->
-
+<title>Insert title here</title>
 <style>
 .container {
 	padding: 0px 20px 20px 20px;
@@ -39,7 +38,6 @@
 	width: 100%;
 	height: auto;
 }
-
 
 .user-info .user {
 	/* width: 48%; */
@@ -163,7 +161,6 @@
 /*  price end */
 
 /* button start  */
-
 .button-container {
 	display: flex;
 	justify-content: space-around;
@@ -189,7 +186,6 @@
 }
 
 .custom-button {
-
 	background: none;
 	border: none;
 	color: white;
@@ -211,8 +207,6 @@
 }
 
 /* button end */
-
-
 .final-bid {
 	color: red;
 	font-weight: bold;
@@ -297,99 +291,97 @@
 
 /* Modal Styles */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	justify-content: center;
+	align-items: center;
 }
 
 .modal-content {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 15px;
-    width: 599px;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	background-color: #ffffff;
+	padding: 20px;
+	border-radius: 15px;
+	width: 599px;
+	text-align: center;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
+
 .modal-header {
-
-    font-weight: 700;
-    font-size: 32px;
-    color: #000000;
-    text-align: center;
-    margin-bottom: 40px;
+	font-weight: 700;
+	font-size: 32px;
+	color: #000000;
+	text-align: center;
+	margin-bottom: 40px;
 }
-
-
 
 .modal .price-info {
-    margin: 10px 0;
-    font-size: 16px;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 10px;
+	margin: 10px 0;
+	font-size: 16px;
+	display: flex;
+	justify-content: space-between;
+	padding: 0 10px;
 }
 
 .modal .register-bid {
-    margin: 40px 0;
+	margin: 40px 0;
 }
 
 .modal .register-bid input[type="text"] {
-    font-size: 22px;
-    padding: 8px;
-    width: calc(100% - 20px);
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    text-align: right;
+	font-size: 22px;
+	padding: 8px;
+	width: calc(100% - 20px);
+	border: 1px solid #e0e0e0;
+	border-radius: 5px;
+	text-align: right;
 }
 
 .modal .register-bid input[type="text"]:focus {
-    outline: none;
-    border-color: #ccc;
+	outline: none;
+	border-color: #ccc;
 }
 
 .modal .register-bid button {
-	height:35px;
-    background-color: #ff6b6b;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100%;
+	height: 35px;
+	background-color: #ff6b6b;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	width: 100%;
 }
 
 .modal .register-bid button:hover {
-    background-color: #ff5252;
+	background-color: #ff5252;
 }
 
 .modal .info-text {
-    font-size: 12px;
-    color: #777;
+	font-size: 12px;
+	color: #777;
 }
 
 .close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
 }
 </style>
 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 </head>
 <body>
 	<!-- Header Start -->
@@ -399,19 +391,19 @@
 	<!-- side+contents container  -->
 	<div class="container my">
 
-	<%@ include file="../inc/comSideNav.jsp"%>
-		<!--personAuctionSuc Start  -->
+		<%@ include file="../inc/comSideNav.jsp"%>
+	
 		<div class="container">
 			<div class="title">거래 상세 보기</div>
 			<div class="transaction-id">AB123-CD5678-${auctionNum}</div>
-
+		
 			<div class="user-info-container">
 				<div class="user-info">
 					<div class="user">
 						<img src="${pageContext.request.contextPath}/img/${sellerImage}" alt="SellerImg">
 						<p class="user_type">[개인회원]</p>
 						<p class="bold">${auction.id}</p>
-						<p class="title">자바 백엔드 일자리 구합니다.</p>
+						<p class="title">${auction.title}</p>
 						<div class="minmax">
 							<span class="bold">희망 최소 연봉</span>
 							<div>
@@ -479,13 +471,14 @@
 					<span class="extra-info final-bid"><fmt:formatNumber value="${bidPrice}" pattern="#,###"/>원</span>
 				</div>
 			</div>
-
+			
+			<!--modal로 데이터 각각 다른 데이터 전송하기   -->
 			<div class="button-container">
 				<div class="button-wrapper white-background">
-					<button class="custom-button black-text open-modal-btn" data-target="" data-bidNum="${bidNum}" data-newBidPrice="">입찰 변경하기</button>
+					<button class="custom-button black-text open-modal-btn" data-target="myModal" data-bidNum="${bidNum}" data-newBidPrice="" data-bidMaxPrice="${auction.bidMaxPrice}" data-myBidPrice="${bidPrice}">입찰 변경하기</button>
 				</div>
 				<div class="button-wrapper">
-					<button class="custom-button open-modal-btn" data-target="" data-bidNum="${bidNum}" data-newBidPrice="${auction.maxSalary}">즉시 구매하기</button>
+					<button class="custom-button open-modal-btn" data-target="myModal" data-bidNum="${bidNum}" data-newBidPrice="${auction.maxSalary}" data-bidMaxPrice="${auction.bidMaxPrice}" data-myBidPrice="${bidPrice}">즉시 구매하기</button>
 				</div>
 			</div>
 
@@ -501,21 +494,18 @@
 					<div class="detail_title">
 						<span>남은 기간</span>
 					</div>
-					<c:if test="${dDays > 0}">
+					<c:if test="${dDays>0}">
 					<div class="detail_text">D - ${dDays}</div>
 					</c:if>
-					<c:if test="${dDays < 0}">
+				 	<c:if test="${dDays<0}">
 					<div class="detail_text">종료</div>
 					</c:if>
-					
 				</div>
 			</div>
 
 
-
-
 			<div class="bid-history">
-				<table>
+					<table>
 					<thead>
 						<tr>
 							<th class="table_th">상태</th>
@@ -524,28 +514,29 @@
 							<th class="table_th align_right">입찰일</th>
 						</tr>
 					</thead>
-						<tbody>
+					<tbody>
 						<c:forEach items="${allBuyers}" var="buyer">
 						<c:choose>
-						<c:when test="${auction.bidMaxPrice == buyer.bidPrice}">
-						<tr>
-							<td class="table_td"><span class="status final-bid">입찰</span></td>
-							<td class="table_td final-bid">${buyer.buyPersonId == null?buyer.buyerId:buyer.buyPersonId}</td>
-							<td class="table_td align_right final-bid">${buyer.bidPrice}</td>
-							<td class="table_td align_right final-bid">${buyer.bidDate}</td>
-						</tr>
-						</c:when>
-						<c:otherwise>
+							<c:when test="${auction.bidMaxPrice==buyer.bidPrice}" >
 							<tr>
-							<td class="table_td"><span class="status">입찰</span></td>
-							<td class="table_td">${buyer.buyPersonId == null?buyer.buyerId:buyer.buyPersonId}</td>
-							<td class="table_td align_right">${buyer.bidPrice}</td>
-							<td class="table_td align_right">${buyer.bidDate}</td>
-						</tr>
-						</c:otherwise>
+								<td class="table_td"><span class="status final-bid">입찰</span></td>
+								<td class="table_td final-bid">${buyer.buyPersonId==null?buyer.buyerId:buyer.buyPersonId}</td>
+								<td class="table_td align_right final-bid">${buyer.bidPrice}</td>
+								<td class="table_td align_right final-bid">${buyer.bidDate}</td>
+							</tr>
+							</c:when>
+							<c:otherwise>
+								<tr>
+								<td class="table_td"><span class="status">입찰</span></td>
+								<td class="table_td">${buyer.buyPersonId==null?buyer.buyerId:buyer.buyPersonId}</td>
+								<td class="table_td align_right">${buyer.bidPrice}</td>
+								<td class="table_td align_right">${buyer.bidDate}</td>
+							</tr>
+							</c:otherwise>
 						</c:choose>
 						</c:forEach>
 	
+					</tbody>
 				</table>
 			</div>
 
@@ -554,31 +545,29 @@
 
 
 	<!-- 케이스로 즉시구매, 금액변경 나눌까 고민중...  -->
-	<!-- Modal structure -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-         	<div class="modal-header">입찰 금액 변경</div>
-            <div class="price-info">
-                <span>나의 입찰가</span>
-                <span>800,000원</span>
-            </div>
-            <div class="price-info">
-                <span>현재 최고 입찰가</span>
-                <span class="final-bid">900,000원</span>
-            </div>
-            <div class="register-bid">
-                <input type="hidden" value="" id="bidNum">
-                <input type="text" placeholder="금액을 입력해주세요" value="" id="newBidPrice">
-            </div>
-            <div class="info-text">새로운 금액으로 등록합니다</div>
-            <div class="register-bid">
-                <button id="updatePriceBtn">등록하기</button>
-            </div>
-        </div>
-    </div>
+			<!-- Modal structure -->
+			<div id="myModal" class="modal">
+				<div class="modal-content">
+					<span class="close">&times;</span>
+					<div class="modal-header">입찰 금액 변경</div>
+					<div class="price-info">
+						<span>나의 입찰가</span> <span class="myBidPrice" id="myBidPrice"></span>
+					</div>
+					<div class="price-info">
+						<span>현재 최고 입찰가</span> <span class="final-bid" id="bidMaxPrice"></span>
+					</div>
+					<div class="register-bid">
+						<input type="hidden" id="bidNum"> <input type="text"
+							placeholder="금액을 입력해주세요" id="newBidPrice">
+					</div>
+					<div class="info-text">새로운 금액으로 등록합니다</div>
+					<div class="register-bid">
+						<button id="updatePriceBtn">등록하기</button>
+					</div>
+				</div>
+			</div>
 
-    <script>
+			<script>
         var modal = document.getElementById("myModal");
         var btns = document.querySelectorAll(".open-modal-btn");
         var span = document.querySelector(".modal .close");
@@ -586,6 +575,23 @@
         
         btns.forEach(function(btn) {
             btn.onclick = function() {
+            	 
+            	 var bidNum = $(this).attr('data-bidNum');
+                 var newBidPrice = $(this).attr('data-newBidPrice');
+                 var bidMaxPrice = $(this).attr('data-bidMaxPrice').toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                 var myBidPrice = $(this).attr('data-myBidPrice').toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+             	 
+                 //모달에 데이터 표시
+                 document.getElementById('myBidPrice').innerText = myBidPrice + '원'; // 나의 입찰가
+                 document.getElementById('bidMaxPrice').innerText = bidMaxPrice + '원'; // 현재 최고 입찰가
+
+                 
+                 // 모달의 필드에 값 설정
+                 $('#myBidPrice').val(myBidPrice);
+                 $('#newBidPrice').val(newBidPrice);
+                 $('#bidMaxPrice').val(bidMaxPrice);
+
+            	//modal 띄우기
                 modal.style.display = "flex";
             }
         });
@@ -599,8 +605,7 @@
        
         
         }
-        
-        
+      
         
         $('#updatePriceBtn').click(function(){
         	// 입찰 진행 중 모달에서 금액 업데이트 하기 
@@ -622,7 +627,7 @@
             	
             });
             
-        });
+        }); 
 
     </script>
 </body>
