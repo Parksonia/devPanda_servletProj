@@ -1,6 +1,10 @@
 package repository.company;
 
 import dto.Company;
+
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import util.MybatisSqlSessionFactory;
@@ -35,4 +39,45 @@ public class CompanyRepositoryImpl implements CompanyRepository {
 			return false; // 예외 발생 시 false 반환
 		}
 	}
+	
+	
+	
+
+	@Override
+	public String findPasswordByIdAndEmail(Map<String, String> parameterMap) {
+		SqlSession sqlSession = getSqlSession();
+		String password = null;
+		
+		try {
+			String statement = "mapper.Company.findPasswordByIdAndEmail";
+			password = sqlSession.selectOne(statement, parameterMap);
+			
+			
+		}finally {
+			
+		}
+		return password;
+	}
+	
+	
+	
+	@Override
+	public List<Company> findCompanyListByEmail(String email) {
+		// TODO Auto-generated method stub
+		SqlSession sqlSession = getSqlSession();
+		List<Company> list = null;
+		try {
+			String statement = "mapper.PersonMapper.findCompanyListByEmail";
+			list = sqlSession.selectList(statement, email);
+			
+			
+		}finally {
+			
+		}
+		return list;
+	}
+	
+	
+	
+	
 }
