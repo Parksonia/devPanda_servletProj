@@ -165,12 +165,10 @@
 
 
 
-
-
 		<!-- 나만의 개발자 Section -->
 		<section class="mb-8">
 			<h2 class="text-xl font-bold mb-4">나만의 개발자</h2>
-			<div
+			<div id="auction-container"
 				class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 				<!-- 프로필 카드들 -->
 				<c:forEach var="auction" items="${auctions}">
@@ -198,6 +196,10 @@
 						</div>
 					</div>
 				</c:forEach>
+			</div>
+			<!-- 로딩 스피너 -->
+			<div id="loading" class="text-center mt-4 hidden">
+				<p>로딩 중...</p>
 			</div>
 		</section>
 
@@ -247,14 +249,84 @@
 		</div>
 	</div>
 
-	<script>
-		document.querySelectorAll('.category-item').forEach(button => {
-			button.addEventListener('click', function () {
-				const content = document.getElementById(this.id.replace('-toggle', '-content'));
-				content.classList.toggle('hidden');
-			});
-		});
 
+	<script>
+	
+	/* let currentPage = 1;
+    const pageSize = 9;
+
+    function loadMoreData() {
+        currentPage++;
+        fetch(`/auction?page=${currentPage}`)
+            .then(response => response.text())
+            .then(data => {
+                const newAuctions = document.createElement('div');
+                newAuctions.innerHTML = data;
+                document.querySelector('.grid').appendChild(newAuctions);
+            });
+    }
+
+    window.addEventListener('scroll', () => {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            loadMoreData();
+        }
+    });
+
+    document.querySelectorAll('.category-item').forEach(button => {
+        button.addEventListener('click', function () {
+            const content = document.getElementById(this.id.replace('-toggle', '-content'));
+            content.classList.toggle('hidden');
+        });
+    });
+ */
+ 
+ 
+ let page = 1;
+ const pageSize = 9;
+ const container = document.getElementById('auction-container');
+ const loading = document.getElementById('loading');
+
+ function loadMoreAuctions() {
+     fetch(`/auctions?page=${page}&pageSize=${pageSize}`)
+         .then(response => response.json())
+         .then(data => {
+             data.forEach(auction => {
+                 container.insertAdjacentHTML('beforeend', `
+                     <div class="profile-card bg-white shadow-md rounded p-4">
+                         <img src="${auction.personImage}" alt="${auction.nickName}의 이미지" class="rounded-full w-16 h-16 mx-auto mb-2">
+                         <h3 class="text-lg font-semibold text-center">${auction.title}</h3>
+                         <p class="text-center text-gray-600">${auction.nickName}</p>
+                         <p class="text-center text-gray-600">최소 금액: ${auction.minSalary}</p>
+                         <p class="text-center text-gray-600">최대 금액: ${auction.maxSalary}</p>
+                         <div class="text-center mt-4">
+                             <button onclick="openProfilePage(${auction.auctionNum})" class="bg-blue-500 text-white p-2 rounded">상세보기</button>
+                         </div>
+                     </div>
+                 `);
+             });
+             page++;
+             loading.classList.add('hidden');
+         })
+         .catch(() => {
+             loading.classList.add('hidden');
+             alert('데이터를 불러오는 중 오류가 발생했습니다.');
+         });
+ }
+
+ function handleScroll() {
+     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+         loading.classList.remove('hidden');
+         loadMoreAuctions();
+     }
+ }
+
+ window.addEventListener('scroll', handleScroll);
+
+    
+    
+    
+    
+    
 		function openAuctionModal() {
 			document.getElementById('auctionModal').style.display = 'block';
 		}
@@ -272,6 +344,9 @@
 				checkbox.checked = false;
 			});
 		}
+		
+		
+		
 	</script>
 
 	<style>

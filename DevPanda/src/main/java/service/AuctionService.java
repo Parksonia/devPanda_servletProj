@@ -4,7 +4,6 @@ import dto.Auction;
 import java.util.List;
 
 public interface AuctionService {
-//    List<Auction> getAllAuctions();  
+	// 페이징 처리된 경매 데이터 가져오기
 	List<Auction> getAllAuctions(int page, int pageSize);
-
 }

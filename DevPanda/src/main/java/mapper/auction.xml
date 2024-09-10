@@ -4,20 +4,26 @@
 
 <mapper namespace="mapper.auction">
 
-	<select id="selectAllAuctions" resultType="dto.Auction">
+	<!-- 모든 경매 데이터 조회 -->
+	<!-- <select id="selectAllAuctions" resultType="dto.Auction">
 		SELECT a.auctionNum,
 		a.title, a.minSalary, a.maxSalary, p.personImage,
 		p.nickName
 		FROM
 		auction a
 		JOIN person p ON a.id = p.id
-	</select>
+	</select> -->
 
-	<!-- 페이징 -->
-	<select id="selectAuctionsWithPagination" parameterType="map"
+	<!-- 페이징 처리된 경매 데이터 조회 -->
+	<select id="getAuctionsWithPagination" parameterType="map"
 		resultType="dto.Auction">
-		SELECT * FROM auction
-		ORDER BY auctionNum
+		SELECT a.auctionNum,
+		a.title, a.minSalary, a.maxSalary,
+		p.personImage,
+		p.nickName
+		FROM auction a
+		JOIN person p ON a.id = p.id
+		ORDER BY a.auctionNum
 		LIMIT #{limit} OFFSET #{offset}
 	</select>
 
