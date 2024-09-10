@@ -5,12 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>아이디 찾기</title>
-<link href="./css/search.css" rel="stylesheet">
+<link href="../css/search.css" rel="stylesheet">
 </head>
 <body>
 
 	<!-- Header Start -->
-	<%@ include file="./inc/header.jsp"%>
+	
 	<!-- Header End-->
 	
 	

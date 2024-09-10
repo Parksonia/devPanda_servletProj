@@ -19,7 +19,7 @@ public class MailUtil {
     /** 메일 PW **/
     private static final String MAIL_PW = "tjd801399";
 
-    public static void send(String receiveEmail) {
+    public static String send(String receiveEmail) {
         try {
             InternetAddress[] receiverList = new InternetAddress[1];
             receiverList[0] = new InternetAddress(receiveEmail);
@@ -51,16 +51,18 @@ public class MailUtil {
             mimeMessage.setRecipients(Message.RecipientType.TO, receiverList);
 
             mimeMessage.setSubject("----인증 메일입니다----");
-            String certificationNum = UUID.randomUUID().toString().substring(0,4);
-            String body = "<center><h2>인증 번호</h2></center>\n" + "<center><h3 style = \"font-weight: bolder\">"+certificationNum+"</h3></center>";
+            String certification = UUID.randomUUID().toString().substring(0,4);
+            String body = "<center><h2>인증 번호</h2></center>\n" + "<center><h3 style = \"font-weight: bolder\">"+certification+"</h3></center>";
             mimeMessage.setContent(body, "text/html; charset=UTF-8");
 
 
             Transport.send(mimeMessage);
+            return certification;
 
         } catch(Exception e) {
             System.out.println("error 발생!!");
             e.printStackTrace();
+            return null;
         }
     }
     
