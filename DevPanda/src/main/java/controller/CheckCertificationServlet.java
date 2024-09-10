@@ -29,6 +29,11 @@ public class CheckCertificationServlet extends HttpServlet{
 		
 		String certification = checkCertificationService.logic(jsonData);
 		
+		
+		if(certification == null) {
+			certification ="fail";
+		}
+		
 		response.getWriter().write(certification);
 		
 		
