@@ -25,9 +25,23 @@
 	
 	
 	<!-- 인증번호 조회 -->
-	<select id = "findCertificationByEmailRecent" parameterType="map" resultType="String">
+	<select id = "findCertificationByIdAndEmailRecent" parameterType="map" resultType="String">
 		select certification from emailcertification 
-		where  id=#{id} and email=#{email} order by emailcertificationnum desc limit 1
+		where  id=#{id} and email=#{email} 
+		order by emailcertificationnum desc 
+		limit 1
 	
 	</select>
+	
+	
+	
+		<!-- 인증번호 조회 -->
+	<select id = "findCertificationByEmailRecent" parameterType="String" resultType="String">
+		select certification from emailcertification 
+		where email=#{email} 
+		order by emailcertificationnum desc
+		limit 1
+	
+	</select>
+	
 </mapper>

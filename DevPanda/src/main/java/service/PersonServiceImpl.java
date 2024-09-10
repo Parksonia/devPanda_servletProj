@@ -1,12 +1,24 @@
 package service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.gson.Gson;
+
+import dto.EmailCertification;
+import dto.IdEmailJsonObject;
 import dto.Person;
 import repository.person.PersonRepository;
 import repository.person.PersonRepositoryImpl;
+import util.MailUtil;
 
 public class PersonServiceImpl implements PersonService {
 
 	private PersonRepository personRepository = new PersonRepositoryImpl();
+	private static Gson gson = new Gson();
+	
+	
 
 	@Override
 	public boolean isIdExists(String id) {
@@ -29,6 +41,38 @@ public class PersonServiceImpl implements PersonService {
 	public Person selectPersonInfo(String id) throws Exception { //거래 상세보기에서 id로 person정보 조회
 		return personRepository.selectOneId(id);
 	}
+
+	@Override
+	public String findPasswordByIdAndEmail(String id, String email) {
+		// TODO Auto-generated method stub
+		
+		Map<String,String> parameterMap = new HashMap<String, String>();
+		parameterMap.put("id", id);
+		parameterMap.put("email", email);
+		String password = personRepository.findPasswordByIdAndEmail(parameterMap);
+		
+		
+		return password;
+	}
+
+	@Override
+	public List<Person> findPersonByEmail(String email) {
+		// TODO Auto-generated method stub
+		List<Person> personList = personRepository.findPersonListByEmail(email);
+		return personList;
+	}
+
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 }

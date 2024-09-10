@@ -10,13 +10,17 @@ public interface EmailCertificationRepository {
 	
 	int insertEmailCertification(EmailCertification emailCertification);
 	
+	//아이디,이메일로 인증번호 조회
+	
+	String findCertificationByIdAndEmail(Map<String,String> parameterMap);
+	
+	
+	
+
+	
+	
 	//이메일로 인증번호 조회
 	
-	String findCertificationByEmail(Map<String,String> parameterMap);
-	
-	
-	
-	
-	
+	String findCertificationByEmail(String email);
 
 }
