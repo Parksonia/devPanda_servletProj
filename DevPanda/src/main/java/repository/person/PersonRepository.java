@@ -1,5 +1,8 @@
 package repository.person;
 
+import java.util.List;
+import java.util.Map;
+
 import dto.Person;
 
 public interface PersonRepository {
@@ -9,8 +12,9 @@ public interface PersonRepository {
 	boolean isIdExists(String id);
 	
 	
+	String findPasswordByIdAndEmail(Map<String, String> parameterMap);
 	
+	List<Person> findPersonListByEmail(String email);
 	
-	
-	 //Person findById(String id);
+	Person findPersonByIdAndPassword(Map<String,String> parameterMap);
 }
