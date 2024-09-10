@@ -60,6 +60,7 @@ body{
     background-color: rgb(98,98,98);
     color:aliceblue;
     border-radius: 5px;
+    cursor:pointer;
     
     font-size: 20px;
     
@@ -184,9 +185,9 @@ body{
 						<input placeholder="비밀번호를 입력해 주세요" name="password" class="password-input">
 					</div>
 					<div class="password-option-container">
-						<div class="password-option-container-item"><a href="./signUpPerson.jsp">회원가입</a></div>
-						<div class="password-option-container-item"><a href="./search_id.jsp">아이디 찾기</a></div>
-						<div class="password-option-container-item"><a href="./search_pwd.jsp">비밀번호 찾기</a></div>
+						<div class="password-option-container-item"><a href="/DevPanda/signUpPerson">회원가입</a></div>
+						<div class="password-option-container-item"><a href="/DevPanda/Person/SearchId">아이디 찾기</a></div>
+						<div class="password-option-container-item"><a href="/DevPanda/Person/SearchPassword">비밀번호 찾기</a></div>
 					</div>
 				</div>
 			</div>
