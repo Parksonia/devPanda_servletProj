@@ -1,6 +1,6 @@
 package dto;
 
-public class MailSendJsonObject {
+public class IdEmailJsonObject {
 	private String id;
 	private String email;
 	public String getId() {

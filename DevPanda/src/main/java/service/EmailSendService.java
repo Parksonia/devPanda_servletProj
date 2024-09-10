@@ -3,7 +3,7 @@ package service;
 import com.google.gson.Gson;
 
 import dto.EmailCertification;
-import dto.MailSendJsonObject;
+import dto.IdEmailJsonObject;
 import repository.emailcertification.EmailCertificationRepository;
 import repository.emailcertification.EmailCertificationRepositoryImpl;
 import util.MailUtil;
@@ -20,13 +20,13 @@ public class EmailSendService {
 		
 		try {
 			
-			MailSendJsonObject mailSendJsonObject = getMailSendJsonObject(jsonData);
-			String certification = MailUtil.send(mailSendJsonObject.getEmail());
+			IdEmailJsonObject idEmailJsonObject = getMailSendJsonObject(jsonData);
+			String certification = MailUtil.send(idEmailJsonObject.getEmail());
 			
 			EmailCertification emailCertification = new EmailCertification();
 			emailCertification.setCertification(certification);
-			emailCertification.setEmail(mailSendJsonObject.getEmail());
-			emailCertification.setId(mailSendJsonObject.getId());
+			emailCertification.setEmail(idEmailJsonObject.getEmail());
+			emailCertification.setId(idEmailJsonObject.getId());
 			
 			emailCertificationRepository.insertEmailCertification(emailCertification);
 			return "success";
@@ -42,8 +42,8 @@ public class EmailSendService {
 		
 	}
 	
-	public static MailSendJsonObject getMailSendJsonObject(String jsonData) {
-		return gson.fromJson(jsonData, MailSendJsonObject.class);
+	public static IdEmailJsonObject getMailSendJsonObject(String jsonData) {
+		return gson.fromJson(jsonData, IdEmailJsonObject.class);
 	}
 
 }

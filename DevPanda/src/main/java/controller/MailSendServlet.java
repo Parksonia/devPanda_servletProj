@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import dto.EmailCertification;
-import dto.MailSendJsonObject;
+import dto.IdEmailJsonObject;
 import repository.emailcertification.EmailCertificationRepository;
 import repository.emailcertification.EmailCertificationRepositoryImpl;
 import service.EmailSendService;
@@ -25,8 +25,6 @@ public class MailSendServlet extends HttpServlet{
 
 	
 	private static EmailSendService emailSendService = new EmailSendService();
-	private static EmailCertificationRepository emailCertificationRepository = new EmailCertificationRepositoryImpl();
-	private static Gson gson = new Gson();
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

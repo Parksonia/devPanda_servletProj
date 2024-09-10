@@ -12,7 +12,7 @@ public class SearchIdPersonServlet extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.print(1);
+		
 		request.getRequestDispatcher("/view/search_id.jsp").forward(request, response);
 		
 	}
@@ -20,6 +20,7 @@ public class SearchIdPersonServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		super.doPost(request, response);
 	}
 
