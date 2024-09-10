@@ -51,13 +51,13 @@ public class SignUpCompany extends HttpServlet {
 
 			Company company = new Company();
 			company.setId(id);
-//			company.setCompanyName(companyName);
+			company.setCompanyName(companyName);
 			company.setEmail(email);
 			company.setPassword(password);
 			company.setAddress(address);
 			company.setCompanyNum(companyNum);
 			company.setStatus(status);
-//			company.setCompanyImage(filePath);
+			company.setCompanyImage(filePath);
 
 			companyService.registerCompany(company);
 
