@@ -28,48 +28,26 @@ public class SearchPasswordPersonServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		InputStream inputStream = request.getInputStream();
-		String jsonData = getBody(request);
+		String id = request.getParameter("id");
+		String email = request.getParameter("email");
 		
-		String password = personService.searchPassword(jsonData);
+		String password = personService.findPasswordByIdAndEmail(id, email);
+		if(password != null) {
+			request.setAttribute("id", id);
+			request.setAttribute("email", email);
+			request.setAttribute("password",password);
+			//TODO : 비밀번호 보여주기 화면
 		
-		response.getWriter().write(password);
+		}else {
+			// TODO : 오류 보여주기 화면
+		}
+		
 		
 	}
 	
 	
 	
 	
-	public static String getBody(HttpServletRequest request) throws IOException {
-		 
-        String body = null;
-        StringBuilder stringBuilder = new StringBuilder();
-        BufferedReader bufferedReader = null;
- 
-        try {
-            InputStream inputStream = request.getInputStream();
-            if (inputStream != null) {
-                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                char[] charBuffer = new char[128];
-                int bytesRead = -1;
-                while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
-                    stringBuilder.append(charBuffer, 0, bytesRead);
-                }
-            }
-        } catch (IOException ex) {
-            throw ex;
-        } finally {
-            if (bufferedReader != null) {
-                try {
-                    bufferedReader.close();
-                } catch (IOException ex) {
-                    throw ex;
-                }
-            }
-        }
- 
-        body = stringBuilder.toString();
-        return body;
-    }
+	
 
 }

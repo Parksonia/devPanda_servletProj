@@ -1,5 +1,7 @@
 package service;
 
+import java.util.List;
+
 import dto.IdEmailJsonObject;
 import dto.Person;
 
@@ -8,11 +10,13 @@ public interface PersonService {
 
 	boolean isIdExists(String id);
 
-	String searchPassword(String jsonData);
 	
 	
 	
-	String searchid(String jsonData);
+	String findPasswordByIdAndEmail(String id,String email);
+	
+	
+	List<Person> findPersonByEmail(String email);
 	
 	
 	

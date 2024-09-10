@@ -1,6 +1,7 @@
 package service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
@@ -37,36 +38,32 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public String searchPassword(String jsonData) {
-		try {
-			
-			IdEmailJsonObject idEmailJsonObject = getMailSendJsonObject(jsonData);
-			
-			Map<String,String> parameterMap = new HashMap();
-			parameterMap.put("id", idEmailJsonObject.getId());
-			parameterMap.put("email", idEmailJsonObject.getEmail());
-			
-			String password = personRepository.findPasswordByIdAndEmail(parameterMap);
-			return "password";
-			
-		}catch (Exception e) {
-			return null;
-			
-		}
+	public String findPasswordByIdAndEmail(String id, String email) {
+		// TODO Auto-generated method stub
 		
+		Map<String,String> parameterMap = new HashMap<String, String>();
+		parameterMap.put("id", id);
+		parameterMap.put("email", email);
+		String password = personRepository.findPasswordByIdAndEmail(parameterMap);
+		
+		
+		return password;
 	}
 
 	@Override
-	public String searchid(String jsonData) {
+	public List<Person> findPersonByEmail(String email) {
 		// TODO Auto-generated method stub
-		return null;
+		List<Person> personList = personRepository.findPersonListByEmail(email);
+		return personList;
 	}
+
+	
+
 	
 	
 	
-	public static IdEmailJsonObject getMailSendJsonObject(String jsonData) {
-		return gson.fromJson(jsonData, IdEmailJsonObject.class);
-	}
+	
+	
 	
 	
 	
