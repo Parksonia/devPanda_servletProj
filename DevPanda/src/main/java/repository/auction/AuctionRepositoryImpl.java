@@ -24,4 +24,13 @@ public class AuctionRepositoryImpl implements AuctionRepository {
 			return sqlSession.selectList("mapper.auction.getAuctionsWithPagination", params);
 		}
 	}
+	
+	//selectOne 경매 하나 조회 
+	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+	@Override
+	public Auction selectOneAuction(Integer auctionNum) throws Exception {
+		return sqlSession.selectOne("mapper.auction.selectOneAuction", auctionNum);
+	}
+	
+	
 }

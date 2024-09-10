@@ -24,6 +24,11 @@ public class PersonServiceImpl implements PersonService {
 		// 추가 비즈니스 로직을 여기에 구현할 수 있습니다.
 		personRepository.registerPerson(person);
 	}
+	
+	@Override
+	public Person selectPersonInfo(String id) throws Exception { //거래 상세보기에서 id로 person정보 조회
+		return personRepository.selectOneId(id);
+	}
 
 
 }

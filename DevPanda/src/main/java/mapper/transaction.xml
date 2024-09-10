@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
+
 <mapper namespace="mapper.transaction">
-	
+
 	<!-- personBuyTransactionList -->
-	<select id="selectPBTransactionList" parameterType="map" resultType="Map">
+	<select id="selectPBTransactionList" parameterType="map"
+		resultType="Map">
 		<![CDATA[
 			SELECT distinct t.*, 
 					a.*, 
@@ -20,27 +21,29 @@
 					on b.buyPersonId = t.buyerId
 			WHERE t.buyerId=#{buyerId}
 			and (b.bidState = 2 or b.bidState = 3)
-			]]>
-			
-			<if test="filterDate != null and filterDate != ''">
+			]]>  <!-- company, person 같이 사용가능!? -->
+
+		<if test="filterDate != null and filterDate != ''">
 				<![CDATA[
 					and STR_TO_DATE(t.date, '%Y-%m-%d') >= STR_TO_DATE(#{filterDate}, '%Y-%m-%d')
 				]]>
-			</if>
-			
-			<if test="startDate != null and startDate !='' and endDate != null and endDate !=''">
+		</if>
+
+		<if
+			test="startDate != null and startDate !='' and endDate != null and endDate !=''">
 				<![CDATA[
 					and STR_TO_DATE(t.date, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 				]]>
-			</if>
+		</if>
 			
 			<![CDATA[
 				order by t.date desc;
 			]]>
 	</select>
-	
+
 	<!-- personSellTransactionList -->
-	<select id="selectPSTransactionList" parameterType="map" resultType="Map">
+	<select id="selectPSTransactionList" parameterType="map"
+		resultType="Map">
 		<![CDATA[
 			SELECT distinct t.*,
 					t.state as t_state, 
@@ -58,25 +61,27 @@
 			WHERE t.sellerId=#{sellerId}
 			and (b.bidState = 2 or b.bidState = 3)
 			]]>
-			
-			<if test="filterDate != null and filterDate != ''">
+
+		<if test="filterDate != null and filterDate != ''">
 				<![CDATA[
 					and STR_TO_DATE(t.date, '%Y-%m-%d') >= STR_TO_DATE(#{filterDate}, '%Y-%m-%d')
 				]]>
-			</if>
-			
-			<if test="startDate != null and startDate !='' and endDate != null and endDate !=''">
+		</if>
+
+		<if
+			test="startDate != null and startDate !='' and endDate != null and endDate !=''">
 				<![CDATA[
 					and STR_TO_DATE(t.date, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 				]]>
-			</if>
+		</if>
 			
 			<![CDATA[
 				order by t.date desc;
 			]]>
 	</select>
-	
-	<select id="selectPSTransactionDetail" parameterType="map" resultType="Map">
+
+	<select id="selectPSTransactionDetail" parameterType="map"
+		resultType="Map">
 		<![CDATA[
 			SELECT DISTINCT p1.*, p2.*
 				FROM transaction t
@@ -87,16 +92,65 @@
 			WHERE t.sellerId = #{sellerId} AND t.auctionNum = #{auctionNum};
 		]]>
 	</select>
-	
-	<select id="selectPSTransactionDetailBid" parameterType="map" resultType="Map">
-		<![CDATA[
-			SELECT b.* 
-				FROM bid b 
-				JOIN transaction t 
-					ON t.auctionNum = b.auctionNum 
-			WHERE t.auctionNum = #{auctionNum};
-		]]>
-	
+
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+
+	<select id="selectTransactionsByCompanyId"
+		parameterType="String" resultType="Map">
+        <![CDATA[ 
+        SELECT t.transactionNum, t.sellerId, t.auctionNum, t.price, t.date, t.state, 
+               c.name as companyName, c.id as companyId
+        FROM Transaction t
+        JOIN Company c ON t.buyerId = c.id
+        WHERE c.id = #{companyId} 
+        ]]>
 	</select>
-	
+
+	<!-- 구매자 정보 가져오기 -->
+	<select id="getCompanyByBuyerId" parameterType="Integer"
+		resultType="Map">
+        <![CDATA[ 
+        SELECT * 
+		FROM Company 
+		WHERE id = (SELECT buyerId FROM transaction WHERE auctionNum = '2');]]>
+	</select>
+
+	<!-- 판매자 정보 가져오기 -->
+	<select id="getPersonBySellerId" parameterType="Integer"
+		resultType="Map">
+        <![CDATA[  SELECT * FROM PERSON WHERE id = (SELECT id FROM AUCTION WHERE auctionNum = #{auctionNum})]]>
+	</select>
+
+	<!-- 경매 정보 가져오기 -->
+	<select id="getAuctionByAuctionNum" parameterType="Integer"
+		resultType="Map">
+        <![CDATA[ SELECT * FROM AUCTION WHERE auctionNum = #{auctionNum}]]>
+	</select>
+
+	<!-- 입찰 정보 가져오기 -->
+	<select id="getBidsByAuctionNum" parameterType="Integer"
+		resultType="Map">
+        <![CDATA[ SELECT * FROM BID WHERE auctionNum = #{auctionNum}]]>
+	</select>
+
+	<!-- 거래 정보 가져오기 -->
+	<select id="getTransactionByAuctionNum" parameterType="Integer"
+		resultType="Map">
+        <![CDATA[ SELECT * FROM TRANSACTION WHERE auctionNum = #{auctionNum}]]>
+	</select>
+
+	<!-- 거래에서 경매에 대한 MaxSalary 값 가져오기 -->
+	<select id="getAuctionMaxByCompanyId" parameterType="String"
+		resultType="Map">
+        <![CDATA[ 
+        	SELECT a.maxSalary
+			FROM transaction t
+			JOIN auction a ON t.auctionNum = a.auctionNum
+			WHERE t.buyerId = #{companyId};
+		]]>
+	</select>
+
+
+
+
 </mapper>

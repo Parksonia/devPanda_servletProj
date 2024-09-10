@@ -26,5 +26,12 @@
 		ORDER BY a.auctionNum
 		LIMIT #{limit} OFFSET #{offset}
 	</select>
+	
+	<!--경매등록식별자로 경매등록내용 조회   -->
+	<select id="selectOneAuction" parameterType="Integer" resultType="auction">
+	<![CDATA[
+		SELECT * FROM auction WHERE auctionNum = #{auctionNum};
+	]]>
+	</select>
 
 </mapper>

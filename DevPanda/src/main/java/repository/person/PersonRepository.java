@@ -17,4 +17,6 @@ public interface PersonRepository {
 	List<Person> findPersonListByEmail(String email);
 	
 	Person findPersonByIdAndPassword(Map<String,String> parameterMap);
+	
+	Person selectOneId(String id) throws Exception;
 }

@@ -2,16 +2,17 @@ package service;
 import java.util.List;
 import java.util.Map;
 
-import repository.transaction.PersonBuyTransactionRepository;
-import repository.transaction.PersonBuyTransactionRepositoryImpl;
+import repository.transaction.PersonBuyTransactionListRepository;
+import repository.transaction.PersonBuyTransactionListRepositoryImpl;
 import util.PageInfo;
+
 
 public class PersonBuyTransactionListServiceImpl implements PersonBuyTransactionListService {
 
-	private PersonBuyTransactionRepository trRepo;
+	private PersonBuyTransactionListRepository trRepo;
 
 	public PersonBuyTransactionListServiceImpl() {
-		this.trRepo = new PersonBuyTransactionRepositoryImpl();
+		this.trRepo = new PersonBuyTransactionListRepositoryImpl();
 	}
 
 	@Override

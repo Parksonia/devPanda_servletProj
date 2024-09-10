@@ -82,8 +82,6 @@ public class PersonBuyTransactionList extends HttpServlet {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("err", "게시글 목록 오류");
-			request.getRequestDispatcher("err.jsp").forward(request, response);
 		}
 	}
 

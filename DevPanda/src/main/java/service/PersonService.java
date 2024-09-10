@@ -7,6 +7,6 @@ public interface PersonService {
 
 	boolean isIdExists(String id);
 	
-	
+	Person selectPersonInfo(String id) throws Exception;
 	
 }

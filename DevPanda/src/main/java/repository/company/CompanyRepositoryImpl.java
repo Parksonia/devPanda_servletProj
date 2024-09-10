@@ -1,15 +1,17 @@
 package repository.company;
 
-import dto.Company;
-
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+
+import dto.Company;
 import util.MybatisSqlSessionFactory;
 
 public class CompanyRepositoryImpl implements CompanyRepository {
+	
+	private SqlSession sqlSession;
 
 	private final SqlSessionFactory sqlSessionFactory;
 
@@ -39,28 +41,22 @@ public class CompanyRepositoryImpl implements CompanyRepository {
 			return false; // 예외 발생 시 false 반환
 		}
 	}
-	
-	
-	
 
 	@Override
 	public String findPasswordByIdAndEmail(Map<String, String> parameterMap) {
 		SqlSession sqlSession = getSqlSession();
 		String password = null;
-		
+
 		try {
 			String statement = "mapper.Company.findPasswordByIdAndEmail";
 			password = sqlSession.selectOne(statement, parameterMap);
-			
-			
-		}finally {
-			
+
+		} finally {
+
 		}
 		return password;
 	}
-	
-	
-	
+
 	@Override
 	public List<Company> findCompanyListByEmail(String email) {
 		// TODO Auto-generated method stub
@@ -69,15 +65,17 @@ public class CompanyRepositoryImpl implements CompanyRepository {
 		try {
 			String statement = "mapper.PersonMapper.findCompanyListByEmail";
 			list = sqlSession.selectList(statement, email);
-			
-			
-		}finally {
-			
+
+		} finally {
+
 		}
 		return list;
 	}
+
 	
-	
-	
-	
+
+	// companyId로 회사 정보를 가져오는 메서드
+	public Company findByCompanyId(String companyId) {
+		return sqlSession.selectOne("mapper.company.selectCompanyById", companyId);
+	}
 }

@@ -18,6 +18,10 @@ public class Auction {
 	private String certification;
 	private String location;
 	private String portfolio;
+	
+	private String title; //추가
+	private String state; //'processing' or 'success'
+	
 	public Integer getAuctionNum() {
 		return auctionNum;
 	}
@@ -114,10 +118,25 @@ public class Auction {
 	public void setPortfolio(String portfolio) {
 		this.portfolio = portfolio;
 	}
+	
+	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	
 	public Auction(Integer auctionNum, String id, String startDate, String endDate, Integer startPrice,
 			Integer minSalary, Integer maxSalary, Integer bidMaxPrice, String occupation, String period,
 			String education, String employmentType, String stack, String certification, String location,
-			String portfolio) {
+			String portfolio, String title, String state) {
 		super();
 		this.auctionNum = auctionNum;
 		this.id = id;
@@ -135,6 +154,8 @@ public class Auction {
 		this.certification = certification;
 		this.location = location;
 		this.portfolio = portfolio;
+		this.title = title;
+		this.state = state;
 	}
 	public Auction() {
 		super();

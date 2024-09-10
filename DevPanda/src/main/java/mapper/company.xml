@@ -31,5 +31,11 @@
 		select password from person
 		where id=#{id} and email=#{email}
 	</select>
+	
+	<select id="selectOneCompany" parameterType="String" resultType="company">
+		<![CDATA[
+			select * from company where id = #{id};
+		]]>
+	</select>
 
 </mapper>
