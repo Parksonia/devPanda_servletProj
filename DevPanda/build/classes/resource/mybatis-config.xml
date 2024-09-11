@@ -18,7 +18,7 @@
 	</typeAliases>
 
 
-	<environments default="development">
+	<!-- <environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
@@ -31,9 +31,9 @@
 				<property name="password" value="98019801" />
 			</dataSource>
 		</environment>
-	</environments> 
+	</environments> --> 
 
-	<!-- <environments default="development">
+	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
@@ -44,7 +44,7 @@
 				<property name="password" value="7564"></property>
 			</dataSource>
 		</environment>
-	</environments> -->
+	</environments>
 
 	<mappers>
 		<mapper resource="mapper/person.xml" />
@@ -55,9 +55,7 @@
 		<mapper resource ="mapper/emailCertification.xml"/> 
 		
 		<!-- 
-			
 			<mapper resource ="mapper/blacklist.xml"/>  
-			
 			<mapper resource ="mapper/searchcondition.xml"/>  -->
 			
 	</mappers>

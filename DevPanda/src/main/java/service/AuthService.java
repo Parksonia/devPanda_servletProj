@@ -32,6 +32,8 @@ public class AuthService {
 			if(person.getId().equals(id)  && person.getPassword().equals(password)) {
 				HttpSession session = request.getSession();
 				session.setAttribute("person", person);
+				
+				
 				return person;
 			}
 			return null;
