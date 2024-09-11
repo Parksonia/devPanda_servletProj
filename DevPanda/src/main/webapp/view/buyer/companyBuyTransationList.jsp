@@ -225,40 +225,101 @@ button {
 
 				<!-- 필터 -->
 				<div class="filters">
-					<form id="SearchMonth" action="/SearchMonth" method="GET">
+					<form id="SearchMonth"
+						action="${pageContext.request.contextPath}/CompanyBuyBidSucList"
+						method="GET">
+						<input type="hidden" name="companyId" value="comp003">
+						<!-- startDate와 endDate 필드를 숨김으로써 서버로 전송 -->
 						<input type="hidden" id="startDate" name="startDate"> <input
 							type="hidden" id="endDate" name="endDate">
+
+						<!-- 버튼을 클릭하면 각 기간에 맞는 날짜 범위를 서버로 전송 -->
 						<button type="button" id="oneMonthBtn">최근 1개월</button>
 						<button type="button" id="threeMonthBtn">최근 3개월</button>
 						<button type="button" id="sixMonthBtn">최근 6개월</button>
 					</form>
 
-					<input type="text" name="daterange" value="" />
+					<!-- 날짜 범위 선택기 -->
+					<input type="text" name="daterange" value="" placeholder="날짜 범위 선택" />
 					<script>
 						$(function() {
-							$('input[name="daterange"]').daterangepicker(
-									{
-										opens : 'left',
-										autoUpdateInput : false
-									},
-									function(start, end, label) {
-										console.log("search date: "
-												+ start.format('YYYY-MM-DD')
-												+ ' to '
-												+ end.format('YYYY-MM-DD'));
-									});
+							$('input[name="daterange"]')
+									.daterangepicker(
+											{
+												opens : 'left',
+												autoUpdateInput : false
+											},
+											function(start, end) {
+												// 선택된 날짜 범위를 hidden input에 설정
+												document
+														.getElementById('startDate').value = start
+														.format('YYYY-MM-DD');
+												document
+														.getElementById('endDate').value = end
+														.format('YYYY-MM-DD');
+
+												// 선택한 날짜 범위로 폼을 자동으로 제출
+												document.getElementById(
+														'SearchMonth').submit();
+											});
 						});
+
+						// 날짜 형식을 yyyy-mm-dd로 변환하는 함수
+						function formatDate(date) {
+							let year = date.getFullYear();
+							let month = ('0' + (date.getMonth() + 1)).slice(-2);
+							let day = ('0' + date.getDate()).slice(-2);
+							return year + '-' + month + '-' + day;
+						}
+
+						// 기간을 계산하는 함수
+						function calculateDateRange(months) {
+							const today = new Date();
+							const pastDate = new Date();
+							pastDate.setMonth(today.getMonth() - months);
+
+							return {
+								startDate : formatDate(pastDate),
+								endDate : formatDate(today)
+							};
+						}
+
+						// 버튼을 클릭했을 때 호출될 함수
+						function sendDateRange(months) {
+							const dateRange = calculateDateRange(months);
+							document.getElementById('startDate').value = dateRange.startDate;
+							document.getElementById('endDate').value = dateRange.endDate;
+
+							// 폼 제출
+							document.getElementById('SearchMonth').submit();
+						}
+
+						// 버튼 클릭 이벤트 리스너
+						document.getElementById('oneMonthBtn')
+								.addEventListener('click', function() {
+									sendDateRange(1); // 최근 1개월
+								});
+
+						document.getElementById('threeMonthBtn')
+								.addEventListener('click', function() {
+									sendDateRange(3); // 최근 3개월
+								});
+
+						document.getElementById('sixMonthBtn')
+								.addEventListener('click', function() {
+									sendDateRange(6); // 최근 6개월
+								});
 					</script>
 
-					 <form
+					<!-- 조회 눌렀을 때 서블릿 실행 -->
+					<form
 						action="${pageContext.request.contextPath}/CompanyBuyBidSucList"
 						method="GET">
 						<input type="hidden" name="companyId" value="comp003">
 						<button type="submit">조회</button>
 					</form>
-
-
 				</div>
+
 
 				<div class="item_container">
 					<div class="item">
@@ -282,20 +343,20 @@ button {
 					<a
 						href="${pageContext.request.contextPath}/CompanyAuctionBuyerSuc?auctionNum=${transaction.auctionNum}"
 						style="text-decoration: none; color: inherit;">
-						<div class="history-item" data-auction-num="${transaction.auctionNum}">
+						<div class="history-item"
+							data-auction-num="${transaction.auctionNum}">
 							<img src="https://via.placeholder.com/50" alt="User">
 							<div class="history-content">
 								<span>The More Important the Work, the More Important the
 									Rest</span>
 							</div>
 							<div class="prices">
-								<span>${MaxSal.maxSalary}원</span> <span>${transaction.price}원</span> <span>${transaction.date}</span>
+								<span>${MaxSal.maxSalary}원</span> <span>${transaction.price}원</span>
+								<span>${transaction.date}</span>
 							</div>
 						</div>
 					</a>
 				</c:forEach>
-
-
 
 
 				<!-- pagination end -->
@@ -317,7 +378,7 @@ button {
 		 */
 	</script>
 
-	<script>
+	<!-- <script>
 		// 날짜 형식을 yyyy-mm-dd로 변환하는 함수
 		function formatDate(date) {
 			let year = date.getFullYear();
@@ -365,7 +426,7 @@ button {
 				function() {
 					sendDateRange(6); // 6개월
 				});
-	</script>
+	</script> -->
 
 </body>
 </html>

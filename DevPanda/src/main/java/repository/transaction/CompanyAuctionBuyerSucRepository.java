@@ -44,4 +44,10 @@ public class CompanyAuctionBuyerSucRepository { // 회사 상세 페이지 데�
 			return session.selectOne("getTransactionByAuctionNum", auctionNum);
 		}
 	}
+	
+	public List<Map> getAllBuyerByAuctionNum(Integer auctionNum) {
+		try (SqlSession session = sqlSessionFactory.openSession()) {
+			return session.selectList("getAllBuyerByAuctionNum", auctionNum);
+		}
+	}
 }
