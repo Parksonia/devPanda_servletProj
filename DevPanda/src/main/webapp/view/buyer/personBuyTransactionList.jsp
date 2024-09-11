@@ -17,9 +17,7 @@
 	src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-<link
-	href="${pageContext.request.contextPath}/css/mypageList.css"
-	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/mypageList.css" rel="stylesheet">
 </head>
 <body>
 	<!-- Header Start -->
@@ -89,33 +87,32 @@
 				
 				<c:forEach items="${personBuyTransactionList }" var="transaction">
 					<form class="history-item-form"  method="post">
-					<input type="hidden" name="auctionNum" value="${transaction.auctionNum }" />
-					<input type="hidden" name="sellerImage" value="${transaction.personImage }" />
-					<input type="hidden" name="maxSalary" value="${transaction.maxSalary }" />
-					<input type="hidden" name="price" value="${transaction.price}" />
-					<input type="hidden" name="date" value="${transaction.date}" />
-					<input type="hidden" name="state" value="${transaction.state}" />
-					<input type="hidden" name="memType" value="${transaction.memType}" />
-					<input type="hidden" name="sellerId" value="${transaction.sellerId}" />
-					<input type="hidden" name="buyerId" value="${transaction.buyerId}" />
-					<div class="history-item">
-						<img src="${pageContext.request.contextPath}/img/${transaction.personImage}" alt="User">
-						<input type="text" value="${transaction.sellerId}" readonly/>
-						<div class="history-content">
-							<span>${transaction.title}</span> 
+						<input type="hidden" name="auctionNum" value="${transaction.auctionNum }" />
+						<input type="hidden" name="sellerImage" value="${transaction.personImage }" />
+						<input type="hidden" name="maxSalary" value="${transaction.maxSalary }" />
+						<input type="hidden" name="price" value="${transaction.price}" />
+						<input type="hidden" name="date" value="${transaction.date}" />
+						<input type="hidden" name="state" value="${transaction.state}" />
+						<input type="hidden" name="memType" value="${transaction.memType}" />
+						<input type="hidden" name="sellerId" value="${transaction.sellerId}" />
+						<input type="hidden" name="buyerId" value="${transaction.buyerId}" />
+						<div class="history-item">
+							<img src="${pageContext.request.contextPath}/img/${transaction.personImage}" alt="User">
+							<input type="text" value="${transaction.auctionNum}" readonly/>
+							<div class="history-content">
+								<span>${transaction.title}</span> 
+							</div>
+							<div class="prices">
+								<span>
+									<fmt:formatNumber value="${transaction.maxSalary }" type="number" />원
+								</span> 
+								<span style="color: red;">
+									<fmt:formatNumber value="${transaction.price }" type="number" />원
+								</span> 
+								<span>${transaction.date }</span>
+							</div>
 						</div>
-						<div class="prices">
-							<span>
-								<fmt:formatNumber value="${transaction.maxSalary }" type="number" />원
-							</span> 
-							<span style="color: red;">
-								<fmt:formatNumber value="${transaction.price }" type="number" />원
-							</span> 
-							<span>${transaction.date }</span>
-						</div>
-					</div>
-			
-				</form>
+					</form>
 				</c:forEach>
 				<!-- list end  -->
 

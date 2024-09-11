@@ -49,7 +49,7 @@ public class BidRepositoryImpl implements BidRepository {
 		bid.setMemType("type");
 
 		int result = bidRepository.insertBid(bid);
-		System.out.println(result);
+		//System.out.println(result);
 
 	}
 
@@ -69,7 +69,7 @@ public class BidRepositoryImpl implements BidRepository {
 		param.put("id", id);
 		param.put("row", row);
 		List<Map> result = sqlSession.selectList("mapper.bid.selectBuyBidList", param);
-		System.out.println(result);
+		//System.out.println(result);
 		return result;
 	}
 

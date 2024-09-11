@@ -1,16 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title></title>
 <!-- 개인|판매내역조회|낙찰내역조회|거래성공 |상세보기 -->
-<link href="${pageContext.request.contextPath }/css/details.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath }/css/personAuctionSellerSuc.css"
-	rel="stylesheet">
+<link href="${pageContext.request.contextPath }/css/details.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath }/css/personAuctionSellerSuc.css" rel="stylesheet">
 </head>
 <body>
 	<!-- Header Start -->
@@ -25,39 +24,35 @@
 
 		<!-- Content Area -->
 		<div class="container">
-		
-			<%-- <p>auctionNum : ${transactionDetail.auctionNum }</p> --%>
 
 			<!-- Title -->
 			<div class="title">거래 상세 보기</div>
-			<div class="transaction-id">AB123-CD5678-90</div>
+			<div class="transaction-id">AB123-CD5678-${auctionNum }</div>
 
 			<div class="user-info-container">
 				<div class="user-info">
 					<div class="user">
 						<img src="https://via.placeholder.com/80" alt="User Icon">
 						<p class="user_type">[개인회원]</p>
-						<p class="bold">김땡땡</p>
-						<p class="title">자바 백엔드 일자리 구합니다.</p>
+						<p class="bold">${auction.id }</p>
+						<p class="title">${auction.title }</p>
 						<div class="minmax">
 							<span class="bold">희망 최소 연봉</span>
 							<div>
-								<span> 30만원</span>
-								<!-- 수정된 금액 -->
+								<span><fmt:formatNumber value="${auction.minSalary}" type="number" />원</span>
 							</div>
 						</div>
 						<div class="minmax">
 							<span class="bold">희망 최대 연봉</span>
 							<div>
-								<span> 3000만원</span>
-								<!-- 수정된 금액 -->
+								<span><fmt:formatNumber value="${auction.maxSalary}" type="number" />원</span>
 							</div>
 						</div>
 						<div class="filter_bind">
 							<div class="column">
 								<dl>
 									<dt>직무</dt>
-									<dd>백엔드</dd>
+									<dd></dd>
 								</dl>
 								<dl>
 									<dt>경력</dt>

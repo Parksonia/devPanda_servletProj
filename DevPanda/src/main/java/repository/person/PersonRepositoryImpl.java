@@ -130,6 +130,6 @@ public class PersonRepositoryImpl implements PersonRepository {
 	@Override
 	public Person selectOneId(String id) { // 거래 상세보기에서 Id로 조회하는 person정보
 		SqlSession session = getSqlSession();
-		return session.selectOne("mapper.person.selectOnePerson", id);
+		return session.selectOne("mapper.PersonMapper.selectOnePerson", id);
 	}
 }

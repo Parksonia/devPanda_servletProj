@@ -7,7 +7,7 @@ public interface PersonBuyTransactionListRepository {
 	
 	List<Map> selectPBTransactionList(String buyerId) throws Exception;
 	List<Map> selectPBTransactionListByDate(String buyerId, String filterDate) throws Exception;
-	List<Map> selectPBTransactionListByDateRange(String buyerId, String startDate, String endDate);	
-	Integer selectPBTransactionCount() throws Exception;
+	List<Map> selectPBTransactionListByDateRange(String buyerId, String startDate, String endDate) throws Exception;	
+	
 	
 }

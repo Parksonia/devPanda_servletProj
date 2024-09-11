@@ -20,8 +20,8 @@ public class PersonBuyTransactionListServiceImpl implements PersonBuyTransaction
 		//Integer transactionCnt = trRepo.selectTransactionCount();
 		//calcuatePaging(page, transactionCnt);
 		//Integer row = (page.getCurPage() - 1) * 10;
+		//System.out.println(buyerId);
 		List<Map> transacionList = trRepo.selectPBTransactionList(buyerId);
-
 		return transacionList;
 	}
 	
@@ -43,8 +43,8 @@ public class PersonBuyTransactionListServiceImpl implements PersonBuyTransaction
 		return transacionList;
 	}
 
-	@Override
-	public void calcuatePaging(PageInfo page, Integer count) throws Exception {
+	//@Override
+	/*
 		Integer allPage = (int) Math.ceil((double) trRepo.selectPBTransactionCount() / 10);
 		Integer startPage = (page.getCurPage() - 1) / 10 * 10 + 1;
 		Integer endPage = startPage + 10 - 1;
@@ -56,6 +56,7 @@ public class PersonBuyTransactionListServiceImpl implements PersonBuyTransaction
 		page.setEndPage(endPage);
 
 	}
+	*/
 
 	
 

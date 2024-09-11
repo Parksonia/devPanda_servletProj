@@ -5,14 +5,9 @@
 <mapper namespace="mapper.auction">
 
 	<!-- 모든 경매 데이터 조회 -->
-	<!-- <select id="selectAllAuctions" resultType="dto.Auction">
-		SELECT a.auctionNum,
-		a.title, a.minSalary, a.maxSalary, p.personImage,
-		p.nickName
-		FROM
-		auction a
-		JOIN person p ON a.id = p.id
-	</select> -->
+	<!-- <select id="selectAllAuctions" resultType="dto.Auction"> SELECT a.auctionNum, 
+		a.title, a.minSalary, a.maxSalary, p.personImage, p.nickName FROM auction 
+		a JOIN person p ON a.id = p.id </select> -->
 
 	<!-- 페이징 처리된 경매 데이터 조회 -->
 	<select id="getAuctionsWithPagination" parameterType="map"
@@ -26,12 +21,64 @@
 		ORDER BY a.auctionNum
 		LIMIT #{limit} OFFSET #{offset}
 	</select>
-	
-	<!--경매등록식별자로 경매등록내용 조회   -->
+
+	<!--경매등록식별자로 경매등록내용 조회 -->
 	<select id="selectOneAuction" parameterType="Integer" resultType="auction">
 	<![CDATA[
 		SELECT * FROM auction WHERE auctionNum = #{auctionNum};
 	]]>
+	</select>
+
+	<select id="selectPSAuctionList" parameterType="map" resultType="Map">
+		<![CDATA[
+			select a.* , p.*
+			from auction a
+			JOIN person p ON a.id = p.id
+			WHERE a.id = #{sellerId} 
+			order by
+				case 
+					when a.state = 'processing' then 1
+					when a.state = 'unprocessing' then 2
+					else 3
+				end,
+			a.endDate desc;
+		]]>
+	</select>
+
+	<select id="selectPSAuctionListByDate" parameterType="map" resultType="Map">
+		<![CDATA[
+			select a.*, p.*
+			from auction a
+			join person p
+			on a.id = p.id
+			where a.id=#{sellerId}
+			and STR_TO_DATE(a.endDate, '%Y-%m-%d') between STR_TO_DATE(#{filterDate}, '%Y-%m-%d') and STR_TO_DATE(now(), '%Y-%m-%d')
+			order by
+				case 
+					when a.state = 'processing' then 1
+					when a.state = 'unprocessing' then 2
+					else 3
+				end,
+			a.endDate desc;
+		]]>
+	</select>
+
+	<select id="selectPSAuctionListByDateRange" parameterType="map" resultType="Map">
+		<![CDATA[
+			select a.*, p.*
+			from auction a
+			join person p
+			on a.id = p.id
+			where a.id=#{sellerId} 
+			and STR_TO_DATE(a.endDate, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+			order by
+				case 
+					when a.state = 'processing' then 1
+					when a.state = 'unprocessing' then 2
+					else 3
+				end,
+			a.endDate desc;
+		]]>
 	</select>
 
 </mapper>
