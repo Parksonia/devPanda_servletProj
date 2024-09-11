@@ -21,7 +21,6 @@ public class PersonBuyTransactionRepositoryImpl implements PersonBuyTransactionR
 		Map<String, Object> params = new HashMap<>();
 		params.put("buyerId", buyerId);
 		List<Map> result = sqlSession.selectList("mapper.transaction.selectPBTransactionList", params);
-		//System.out.println(result);
 		return result;
 	}
 	

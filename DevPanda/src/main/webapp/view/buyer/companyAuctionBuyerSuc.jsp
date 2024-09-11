@@ -5,8 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>판매 상세 페이지</title>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- 기업|구매내역조회|낙찰내역조회| 상세보기 -->
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/details.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/details.css">
 
 <style>
 .profile-container {
@@ -52,19 +54,19 @@
 .progress-container {
 	margin-top: 20px;
 	background-color: #f6f8fe;
-	padding: 24px 20px;/* 추가 */
+	padding: 24px 20px; /* 추가 */
 }
 
-.progress_title {  /* 추가 */
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 24px;
-    margin-bottom: 12px
+.progress_title { /* 추가 */
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 24px;
+	margin-bottom: 12px
 }
 
 .progress-bar-background {
 	width: 100%;
-	background-color: rgb(34, 34, 34,0.1); /*  #f3f3f3; */
+	background-color: rgb(34, 34, 34, 0.1); /*  #f3f3f3; */
 	padding: 5px 0;
 	border-radius: 5px;
 }
@@ -82,17 +84,17 @@
 	margin-top: 5px;
 }
 
-
 .progress-status span {
 	/* font-weight: normal; */
-    font-size: 14px;
-    line-height: 17px
+	font-size: 14px;
+	line-height: 17px
 }
+
 .progress_item_description {
-    font-size: 13px;
-    overflow: hidden;
-    word-break: keep-all;
-    color: rgba(34, 34, 34, 0.8);
+	font-size: 13px;
+	overflow: hidden;
+	word-break: keep-all;
+	color: rgba(34, 34, 34, 0.8);
 }
 
 .progress-status .completed {
@@ -110,153 +112,145 @@
 .prices {
 	padding: 20px;
 	margin: 20px 0;
-/* 	background-color: #f3f3f3;  피그마처럼 여기는 빼고*/
+	/* 	background-color: #f3f3f3;  피그마처럼 여기는 빼고*/
 }
 /* 모달 */
 .modal {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(34, 34, 34, 0.5);
-    z-index: 1010;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(34, 34, 34, 0.5);
+	z-index: 1010;
 }
 
 .modal-container {
-    position: relative;
-    width: 599px;
-    height: auto;
-    background: #FFFFFF;
-    border-radius: 20px;
-    padding: 40px 20px;
-    box-sizing: border-box;
+	position: relative;
+	width: 599px;
+	height: auto;
+	background: #FFFFFF;
+	border-radius: 20px;
+	padding: 40px 20px;
+	box-sizing: border-box;
 }
 
 .modal-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
 }
 
 .modal-header {
-  
-    font-weight: 700;
-    font-size: 32px;
-    color: #000000;
-    text-align: center;
-    margin-bottom: 40px;
+	font-weight: 700;
+	font-size: 32px;
+	color: #000000;
+	text-align: center;
+	margin-bottom: 40px;
 }
 
 .modal-profile {
-    display: flex;
-    align-items: center;
-    margin-bottom: 40px;
+	display: flex;
+	align-items: center;
+	margin-bottom: 40px;
 }
 
 .modal-profile-image {
-    width: 80px;
-    height: 80px;
-    border-radius: 10px;
-    background: url('https://via.placeholder.com/60') no-repeat center center;
-    background-size: cover;
-    margin-right: 20px;
+	width: 80px;
+	height: 80px;
+	border-radius: 10px;
+	background: url('https://via.placeholder.com/60') no-repeat center
+		center;
+	background-size: cover;
+	margin-right: 20px;
 }
 
-
 .modal-profile-info .user-type {
-    font-weight: 600;
-    font-size: 18px;
-    color: rgba(0, 0, 0, 0.27);
+	font-weight: 600;
+	font-size: 18px;
+	color: rgba(0, 0, 0, 0.27);
 }
 
 .modal-profile-info .user-id {
-    font-weight: 600;
-    font-size: 18px;
-    color: #000000;
+	font-weight: 600;
+	font-size: 18px;
+	color: #000000;
 }
 
 .modal-profile-info .user-email {
-    font-weight: 400;
-    font-size: 14px;
-    color: rgba(34, 34, 34, 0.5);
+	font-weight: 400;
+	font-size: 14px;
+	color: rgba(34, 34, 34, 0.5);
 }
 
 .modal-divider {
-    width: 100%;
-    height: 1px;
-    background: #D9D9D9;
-    margin: 20px 0;
+	width: 100%;
+	height: 1px;
+	background: #D9D9D9;
+	margin: 20px 0;
 }
 
 .modal-transaction-info {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
 }
 
 .modal-transaction-info div {
-   
-    font-weight: 600;
-    font-size: 18px;
-    color: #D3D3D3;
+	font-weight: 600;
+	font-size: 18px;
+	color: #D3D3D3;
 }
 
-.modal-transaction-info .modal-transaction-id,.modal-transaction-info  .modal-transaction-date {
-   
-    font-weight: 400;
-    font-size: 18px;
-    color: #000000;
+.modal-transaction-info .modal-transaction-id, .modal-transaction-info  .modal-transaction-date
+	{
+	font-weight: 400;
+	font-size: 18px;
+	color: #000000;
 }
 
 .modal-report-title {
-   
-    font-weight: 600;
-    font-size: 23px;
-    color: #000000;
-    margin-bottom: 20px;
+	font-weight: 600;
+	font-size: 23px;
+	color: #000000;
+	margin-bottom: 20px;
 }
 
-.modal-input-title,
-.modal-input-content {
-    width: 100%;
-    padding: 15px;
-    margin-bottom: 20px;
-    background: #FAFAFA;
-    border: 1px solid #EBEBEB;
-    border-radius: 20px;
-    
-    font-size: 18px;
-    color: #D3D3D3;
-    box-sizing: border-box;
-    resize: none; /* textarea 크기 조절 제거 */
+.modal-input-title, .modal-input-content {
+	width: 100%;
+	padding: 15px;
+	margin-bottom: 20px;
+	background: #FAFAFA;
+	border: 1px solid #EBEBEB;
+	border-radius: 20px;
+	font-size: 18px;
+	color: #D3D3D3;
+	box-sizing: border-box;
+	resize: none; /* textarea 크기 조절 제거 */
 }
 
 .modal-submit-button {
-    display: block;
-    width: 180px;
-    height: 35px;
-    margin: 0 auto;
-    background: #FFFFFF;
-    border: 1px solid #D3D3D3;
-    border-radius: 10px;
-    text-align: center;
-    line-height: 35px;
-    cursor: pointer;
-    
-    font-weight: 400;
-    font-size: 16px;
-    color: rgba(34, 34, 34, 0.8);
+	display: block;
+	width: 180px;
+	height: 35px;
+	margin: 0 auto;
+	background: #FFFFFF;
+	border: 1px solid #D3D3D3;
+	border-radius: 10px;
+	text-align: center;
+	line-height: 35px;
+	cursor: pointer;
+	font-weight: 400;
+	font-size: 16px;
+	color: rgba(34, 34, 34, 0.8);
 }
 /*모달end */
-
-
 </style>
 </head>
 <body>
@@ -372,26 +366,23 @@
 			<div class="prices">
 				<div class="price_type">
 					<p>판매자 판매 희망금액</p>
-					<span class="bold">1,000,000,000원</span>
+					<span class="bold">${auction.maxSalary}원</span>
 				</div>
 				<div class="price_type">
 					<p>최종 낙찰 금액</p>
-					<span class="final-bid">900,000원</span>
+					<span class="final-bid">${transaction.price}원</span>
 				</div>
 			</div>
 
-			<div class="detail_bind" style="background-color: rgb(250, 250, 250);">
+			<div class="detail_bind"
+				style="background-color: rgb(250, 250, 250);">
 				<div class="detail_addition">
 					<div class="detail_title">
 						<span style="font-weight: bold;">최종 거래일시</span>
 					</div>
-					<div class="detail_text">24/08/10</div>
+					<div class="detail_text">${transaction.date}</div>
 				</div>
 				<div class="detail_addition">
-					<div class="detail_title">
-						<span>입찰 시도 횟수</span>
-					</div>
-					<div class="detail_text">3번</div>
 				</div>
 				<div class="detail_addition">
 					<div class="detail_title">
@@ -413,105 +404,108 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td class="table_td"><span class="status">입찰</span></td>
-							<td class="table_td">[기업회원] company1</td>
-							<td class="table_td align_right">700,000원</td>
-							<td class="table_td align_right">24/04/04</td>
-						</tr>
-						<tr>
-							<td class="table_td"><span class="status">입찰</span></td>
-							<td class="table_td">[기업회원] company2</td>
-							<td class="table_td align_right">800,000원</td>
-							<td class="table_td align_right">24/04/04</td>
-						</tr>
-						<tr>
-							<td class="table_td"><span class="status">입찰</span></td>
-							<td class="table_td">[기업회원] mycompany</td>
-							<td class="table_td align_right">880,000원</td>
-							<td class="table_td align_right">24/04/04</td>
-						</tr>
-						<tr style="background-color: rgba(128, 128, 128, 0.2);">
-							<td class="table_td"><span class="status final-bid">낙찰</span></td>
-							<td class="table_td final-bid">[기업회원] company3</td>
-							<td class="table_td align_right final-bid">900,000원</td>
-							<td class="table_td align_right final-bid">24/04/05</td>
-						</tr>
+						<c:forEach var="buyer" items="${allBuyer}">
+							<tr <c:if test="${buyer.bidState == 2}">style="background-color: rgba(128, 128, 128, 0.2);" </c:if>>
+								<!-- 입찰 상태 -->
+								<td class="table_td"><span class="status"> <c:out
+											value="${buyer.bidState == 2 ? '낙찰' : '입찰'}" />
+								</span></td>
+								<!-- 구매자 ID (기업회원 또는 개인회원 구분) -->
+								<td class="table_td"><c:choose>
+										<c:when test="${not empty buyer.buyerId}">
+                            [기업회원] <c:out value="${buyer.buyerId}" />
+										</c:when>
+										<c:otherwise>
+                            [개인회원] <c:out value="${buyer.buyerPersonId}" />
+										</c:otherwise>
+									</c:choose></td>
+								<!-- 입찰 가격 -->
+								<td class="table_td align_right"><c:out
+										value="${buyer.bidPrice}" />원</td>
+								<!-- 입찰 날짜 -->
+								<td class="table_td align_right"><c:out
+										value="${buyer.bidDate}" /></td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
 
-			<div class="progress-container" >
-				<p  class="progress_title">진행 상황</p>
+			<div class="progress-container">
+				<p class="progress_title">진행 상황</p>
 				<div class="progress-bar-background">
 					<div class="progress-bar"></div>
 				</div>
-				
+
 				<div class="progress-status">
-					<span class="progress_item_title">낙찰 완료</span> 
-					<div style="display:flex; flex-direction: column;">
-					<span class="progress_item_title">계약서 검토중</span>
-				<!-- 	<a href="#" class="progress_item_description">계약서확인</a> -->
+					<span class="progress_item_title">낙찰 완료</span>
+					<div style="display: flex; flex-direction: column;">
+						<span class="progress_item_title">계약서 검토중</span>
+						<!-- 	<a href="#" class="progress_item_description">계약서확인</a> -->
 					</div>
 					<span class=" progress_item_title completed">계약서 수신 완료</span>
 				</div>
 			</div>
-   <!-- Modal  start-->
-    <div class="modal">
-        <div class="modal-container">
-            <a href="#" class="modal-close">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M20.5 3.1L12 11.6 3.5 3.1 2.1 4.5l8.6 8.5-8.6 8.5 1.4 1.4 8.5-8.6 8.5 8.6 1.4-1.4-8.6-8.5 8.6-8.5z"/>
+			<!-- Modal  start-->
+			<div class="modal">
+				<div class="modal-container">
+					<a href="#" class="modal-close"> <svg
+							xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+							viewBox="0 0 24 24">
+                    <path
+								d="M20.5 3.1L12 11.6 3.5 3.1 2.1 4.5l8.6 8.5-8.6 8.5 1.4 1.4 8.5-8.6 8.5 8.6 1.4-1.4-8.6-8.5 8.6-8.5z" />
                 </svg>
-            </a>
-            <div class="modal-header">신고하기</div>
-            
-            <div class="modal-profile">
-                <div class="modal-profile-image"></div>
-                <div class="modal-profile-info">
-                    <div class="user-type">[개인회원]</div>
-                    <div class="user-id">kgvrfah2</div>
-                    <div class="user-email">po****@naver.com</div>
-                </div>
-            </div>
-            
-            <div class="modal-divider"></div>
-            
-            <div class="modal-transaction-info">
-                <div>거래 내역</div>
-                <div>거래 일자</div>
-            </div>
-            <div class="modal-transaction-info">
-                <div class="modal-transaction-id">AB123-CD5678-90</div>
-                <div class="modal-transaction-date">24/04/05</div>
-            </div>
+					</a>
+					<div class="modal-header">신고하기</div>
 
-            <div class="modal-divider"></div>
-            
-            <div class="modal-report-title">신고 내용</div>
-            
-            <form>
-                <input type="text" class="modal-input-title" placeholder="제목을 입력하세요">
-                <textarea class="modal-input-content" style=" min-height:350px;" placeholder="신고 내용을 입력하세요"></textarea>
-                <button type="submit" class="modal-submit-button">제출하기</button>
-            </form>
-        </div>
-    </div>
+					<div class="modal-profile">
+						<div class="modal-profile-image"></div>
+						<div class="modal-profile-info">
+							<div class="user-type">[개인회원]</div>
+							<div class="user-id">kgvrfah2</div>
+							<div class="user-email">po****@naver.com</div>
+						</div>
+					</div>
 
-    <script>
-        const modal = document.querySelector('.modal');
-        const modalCloseButton = document.querySelector('.modal-close');
-        const reportButton = document.querySelector('.report-button');
+					<div class="modal-divider"></div>
 
-        reportButton.addEventListener('click', function() {
-            modal.style.display = 'flex';
-        });
+					<div class="modal-transaction-info">
+						<div>거래 내역</div>
+						<div>거래 일자</div>
+					</div>
+					<div class="modal-transaction-info">
+						<div class="modal-transaction-id">AB123-CD5678-90</div>
+						<div class="modal-transaction-date">24/04/05</div>
+					</div>
 
-        modalCloseButton.addEventListener('click', function() {
-            modal.style.display = 'none';
-        });
-    </script>
-<!-- Modal  end-->
+					<div class="modal-divider"></div>
+
+					<div class="modal-report-title">신고 내용</div>
+
+					<form>
+						<input type="text" class="modal-input-title"
+							placeholder="제목을 입력하세요">
+						<textarea class="modal-input-content" style="min-height: 350px;"
+							placeholder="신고 내용을 입력하세요"></textarea>
+						<button type="submit" class="modal-submit-button">제출하기</button>
+					</form>
+				</div>
+			</div>
+
+			<script>
+				const modal = document.querySelector('.modal');
+				const modalCloseButton = document.querySelector('.modal-close');
+				const reportButton = document.querySelector('.report-button');
+
+				reportButton.addEventListener('click', function() {
+					modal.style.display = 'flex';
+				});
+
+				modalCloseButton.addEventListener('click', function() {
+					modal.style.display = 'none';
+				});
+			</script>
+			<!-- Modal  end-->
 
 		</div>
 	</div>

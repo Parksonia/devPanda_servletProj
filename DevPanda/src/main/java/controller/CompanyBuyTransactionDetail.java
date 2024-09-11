@@ -20,7 +20,6 @@ public class CompanyBuyTransactionDetail extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	Integer auctionNum = Integer.parseInt(request.getParameter("auctionNum"));
         CompanyAuctionBuyerSucRepository repository = new CompanyAuctionBuyerSucRepository();
-        System.out.println(auctionNum);
 
         // DAO를 통해 데이터 가져오기
         Map<String, Object> getCompanyByBuyerId = repository.getCompanyByBuyerId(auctionNum);
@@ -28,6 +27,10 @@ public class CompanyBuyTransactionDetail extends HttpServlet {
         Map<String, Object> getAuctionByAuctionNum = repository.getAuctionByAuctionNum(auctionNum);
         List<Map> getBidsByAuctionNum = repository.getBidsByAuctionNum(auctionNum);
         Map<String, Object> getTransactionByAuctionNum = repository.getTransactionByAuctionNum(auctionNum);
+		
+		List<Map> getAllBuyerByAuctionNum = repository.getAllBuyerByAuctionNum(auctionNum);
+		
+		/* List<Map> get */
 
 
         // 데이터를 request에 추가
@@ -36,6 +39,7 @@ public class CompanyBuyTransactionDetail extends HttpServlet {
         request.setAttribute("auction", getAuctionByAuctionNum);
         request.setAttribute("bids", getBidsByAuctionNum);
         request.setAttribute("transaction", getTransactionByAuctionNum);
+        request.setAttribute("allBuyer", getAllBuyerByAuctionNum);
 
         // JSP로 포워딩
         RequestDispatcher dispatcher = request.getRequestDispatcher("/view/buyer/companyAuctionBuyerSuc.jsp");

@@ -106,5 +106,7 @@ public class BidRepositoryImpl implements BidRepository {
 
 		return sqlSession.selectList("mapper.bid.selectAllBuyer", auctionNum);
 	}
+	
+
 
 }

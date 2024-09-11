@@ -22,7 +22,7 @@
 	
 		<!-- 이메일로 기업 여러개 조회 -->
 	<select id="findCompanyListByEmail" parameterType="String" resultType="company">
-		select id,name,email from company
+		select id,companyName,email from company
 		where email=#{email}
 	</select>
 	

@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
+
 <mapper namespace="mapper.bid">
 
 
 	<!-- 입찰 -->
 	<insert id="insertBid" parameterType="bid">
-	
-	
-		insert into bid(buyerId,buyPersonId,auctionNum,sellerId,bidDate,bidPrice,bidState,memType)
+
+
+		insert into
+		bid(buyerId,buyPersonId,auctionNum,sellerId,bidDate,bidPrice,bidState,memType)
 		values(#{buyerId},#{buyPersonId},#{auctionNum},#{sellerId},#{bidDate},#{bidPrice},#{bidState},#{memType})
-	
-	
-	
+
+
+
 	</insert>
-	
-	
-	<!--paramType = Map, 동적쿼리 활용해야할듯... id only, id+date조건  -->
-	<select id="selectBuyBidCnt" parameterType="Map" resultType="Integer"> 
+
+
+	<!--paramType = Map, 동적쿼리 활용해야할듯... id only, id+date조건 -->
+	<select id="selectBuyBidCnt" parameterType="Map"
+		resultType="Integer"> 
 		<![CDATA[
     	SELECT 
         	count(*)
@@ -29,20 +31,21 @@
     	WHERE 
         	b.buyPersonId = #{id} AND b.bidState != 2 AND b.bidState != 3
     	]]>
-    
-    <!-- 날짜 필터가 있을 경우 -->
-    	<if test="pastDate != null and nowDate != null">
+
+		<!-- 날짜 필터가 있을 경우 -->
+		<if test="pastDate != null and nowDate != null">
         <![CDATA[
         	AND STR_TO_DATE(b.bidDate, '%Y-%m-%d') BETWEEN #{pastDate} AND #{nowDate}
         ]]>
-    	</if>
+		</if>
 	</select>
-	
- 
-	 <!-- Bid와 Auction,Person 조인 결과를 조회하는 쿼리-->
-	 <!-- 입찰 리스트이므로 bidState 낙찰인 경우(2,3)는제외 -->
-	 <!-- 진행중,입찰일을 최신으로 정렬함 -->
-	 <select id="selectBuyBidList" parameterType="Map" resultType="Map">
+
+
+	<!-- Bid와 Auction,Person 조인 결과를 조회하는 쿼리 -->
+	<!-- 입찰 리스트이므로 bidState 낙찰인 경우(2,3)는제외 -->
+	<!-- 진행중,입찰일을 최신으로 정렬함 -->
+	<select id="selectBuyBidList" parameterType="Map"
+		resultType="Map">
         <![CDATA[
         SELECT 
   			b.*,
@@ -61,26 +64,27 @@
         WHERE 
             b.buyPersonId = #{id} AND  b.bidState !=2 AND b.bidState !=3
         ]]>
-    
-    <!-- num 값이 있을 경우에만 BETWEEN 조건을 추가 -->
-    <if test="pastDate != null and nowDate != null">
+
+		<!-- num 값이 있을 경우에만 BETWEEN 조건을 추가 -->
+		<if test="pastDate != null and nowDate != null">
         <![CDATA[
         AND STR_TO_DATE(b.bidDate, '%Y-%m-%d') BETWEEN #{pastDate} AND #{nowDate}
         ]]>
-    </if>
+		</if>
     <![CDATA[
     ORDER BY 
         b.bidState DESC,b.bidDate DESC
     LIMIT #{row}, 6;
     ]]>
-    </select>
-    
-    
-	<!--경매 등록과 동시에 경매가 시작되는거니까 startDate는 조건에 추가하지 않음  -->
-	<!--  입찰 참여 디폴트는 1 실패,진행,낙찰 성공 외 모두 1 -->
-	<!--  1(진행중): 마깜일이 오늘이라면 자정 전까지는 진행 중 ,시간 설정까지 해줘야 나마지 조건들도 당일 마감일을 체크 할 수 있기때문에 조건을 추가함 추가안하면 예외 발생 빼면 안됨)-->
-	<!--  2(기간종료 낙찰)-->
-	<!--  3(즉시 낙찰)-->
+	</select>
+
+
+	<!--경매 등록과 동시에 경매가 시작되는거니까 startDate는 조건에 추가하지 않음 -->
+	<!-- 입찰 참여 디폴트는 1 실패,진행,낙찰 성공 외 모두 1 -->
+	<!-- 1(진행중): 마깜일이 오늘이라면 자정 전까지는 진행 중 ,시간 설정까지 해줘야 나마지 조건들도 당일 마감일을 체크 할 
+		수 있기때문에 조건을 추가함 추가안하면 예외 발생 빼면 안됨) -->
+	<!-- 2(기간종료 낙찰) -->
+	<!-- 3(즉시 낙찰) -->
 	<update id="updateBuyerBidState" parameterType="String">
 		<![CDATA[
 			UPDATE bid b
@@ -95,10 +99,13 @@
         	WHERE b.buyPersonId = #{id};
         ]]>
 	</update>
-	
+
 	<!-- 한 경매에 참여한 모든 입찰자 조회 -->
-	<select id="selectAllBuyer" parameterType="Integer" resultType="bid">
-	 	SELECT * FROM bid WHERE auctionNum = #{auctionNum} ORDER BY bidDate DESC;
+	<select id="selectAllBuyer" parameterType="Integer"
+		resultType="bid">
+		SELECT * FROM bid WHERE auctionNum = #{auctionNum} ORDER BY bidDate DESC;
 	</select>
 	
+	
+
 </mapper>
