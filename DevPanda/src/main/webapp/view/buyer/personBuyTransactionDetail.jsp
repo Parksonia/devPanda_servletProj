@@ -8,256 +8,7 @@
 <meta charset="UTF-8">
 <title></title>
 <!-- 개인|구매내역조회|낙찰내역조회|입찰 거래성공 |상세보기 -->
-<link href="${pageContext.request.contextPath}/css/details.css"
-	rel="stylesheet">
-<style>
-.profile img {
-    width: 80px;
-    height: 80px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-}
-
-.profile-container {
-	margin-bottom: 40px;
-}
-
-.profile-container h2 {
-	font-size: 20px;
-	font-weight: bold;
-	margin-bottom: 20px;
-}
-
-.profile-container .profile {
-	flex: 1;
-	text-align: center;
-	padding: 20px;
-}
-
-.profile-container .profile img {
-	border-radius: 50%;
-	margin-bottom: 10px;
-}
-
-.profile-container .profile p {
-	margin-bottom: 10px;
-}
-
-.profile-container .profile:nth-child(1) {
-	border-right: 1px solid #ddd;
-}
-
-.report-button {
-	background-color: #ff6b6b;
-	color: white;
-	border: none;
-	padding: 10px 20px;
-	border-radius: 5px;
-	margin-top: 10px;
-	cursor: pointer;
-}
-
-/* 진행상황 start */
-.progress-container {
-	margin-top: 20px;
-	background-color: rgb(254, 247, 246); /* 추가 */
-	padding: 24px 20px; /* 추가 */
-}
-
-.progress_title { /* 추가 */
-	font-size: 16px;
-	font-weight: 700;
-	line-height: 24px;
-	margin-bottom: 12px
-}
-
-.progress-bar-background {
-	width: 100%;
-	background-color: rgb(34, 34, 34, 0.1); /*  #f3f3f3; */
-	padding: 5px 0;
-	border-radius: 5px;
-}
-
-.progress-bar {
-	height: 10px;
-	background-color: #6D6D6D;
-	border-radius: 5px;
-}
-
-.progress-status {
-	display: flex;
-	justify-content: space-between;
-	margin-top: 5px;
-}
-
-.progress-status span {
-	/* font-weight: normal; */
-	font-size: 14px;
-	line-height: 17px
-}
-
-.progress_item_description {
-	font-size: 13px;
-	overflow: hidden;
-	word-break: keep-all;
-	color: rgba(34, 34, 34, 0.8);
-}
-
-.progress-status .completed {
-	color: red;
-	font-weight: bold;
-}
-/* 진행상황 end */
-.gray-line {
-	border: 0;
-	height: 1px;
-	background-color: #ddd;
-	margin-bottom: 20px;
-}
-
-.prices {
-	padding: 20px;
-	margin: 20px 0;
-}
-
-/* 모달 */
-.modal {
-	display: none;
-	justify-content: center;
-	align-items: center;
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: rgba(34, 34, 34, 0.5);
-	z-index: 1010;
-}
-
-.modal-container {
-	position: relative;
-	width: 599px;
-	height: auto;
-	background: #FFFFFF;
-	border-radius: 20px;
-	padding: 40px 20px;
-	box-sizing: border-box;
-}
-
-.modal-close {
-	position: absolute;
-	top: 20px;
-	right: 20px;
-	width: 24px;
-	height: 24px;
-	cursor: pointer;
-}
-
-.modal-header {
-	font-weight: 700;
-	font-size: 32px;
-	color: #000000;
-	text-align: center;
-	margin-bottom: 40px;
-}
-
-.modal-profile {
-	display: flex;
-	align-items: center;
-	margin-bottom: 40px;
-}
-
-.modal-profile-image {
-	width: 80px;
-	height: 80px;
-	border-radius: 10px;
-	background: url('https://via.placeholder.com/60') no-repeat center
-		center;
-	background-size: cover;
-	margin-right: 20px;
-}
-
-.modal-profile-info .user-type {
-	font-weight: 600;
-	font-size: 18px;
-	color: rgba(0, 0, 0, 0.27);
-}
-
-.modal-profile-info .user-id {
-	font-weight: 600;
-	font-size: 18px;
-	color: #000000;
-}
-
-.modal-profile-info .user-email {
-	font-weight: 400;
-	font-size: 14px;
-	color: rgba(34, 34, 34, 0.5);
-}
-
-.modal-divider {
-	width: 100%;
-	height: 1px;
-	background: #D9D9D9;
-	margin: 20px 0;
-}
-
-.modal-transaction-info {
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 20px;
-}
-
-.modal-transaction-info div {
-	font-weight: 600;
-	font-size: 18px;
-	color: #D3D3D3;
-}
-
-.modal-transaction-info .modal-transaction-id, .modal-transaction-info  .modal-transaction-date
-	{
-	font-weight: 400;
-	font-size: 18px;
-	color: #000000;
-}
-
-.modal-report-title {
-	font-weight: 600;
-	font-size: 23px;
-	color: #000000;
-	margin-bottom: 20px;
-}
-
-.modal-input-title, .modal-input-content {
-	width: 100%;
-	padding: 15px;
-	margin-bottom: 20px;
-	background: #FAFAFA;
-	border: 1px solid #EBEBEB;
-	border-radius: 20px;
-	font-size: 18px;
-	color: #D3D3D3;
-	box-sizing: border-box;
-	resize: none; /* textarea 크기 조절 제거 */
-}
-
-.modal-submit-button {
-	display: block;
-	width: 180px;
-	height: 35px;
-	margin: 0 auto;
-	background: #FFFFFF;
-	border: 1px solid #D3D3D3;
-	border-radius: 10px;
-	text-align: center;
-	line-height: 35px;
-	cursor: pointer;
-	font-weight: 400;
-	font-size: 16px;
-	color: rgba(34, 34, 34, 0.8);
-}
-</style>
+<link href="${pageContext.request.contextPath}/css/details.css"	rel="stylesheet">
 </head>
 <body>
 	<!-- Header Start -->
@@ -287,15 +38,13 @@
 						<div class="minmax">
 							<span class="bold">희망 최소 금액</span>
 							<div>
-								<span><fmt:formatNumber value="${auction.minSalary }"
-										type="Number" />원</span>
+								<span><fmt:formatNumber value="${auction.minSalary }" type="Number" />원</span>
 							</div>
 						</div>
 						<div class="minmax">
 							<span class="bold">희망 최대 금액</span>
 							<div>
-								<span><fmt:formatNumber value="${auction.maxSalary }"
-										type="Number" />원</span>
+								<span><fmt:formatNumber value="${auction.maxSalary }" type="Number" />원</span>
 							</div>
 						</div>
 						<div class="filter_bind">
@@ -374,8 +123,7 @@
 				</div>
 				<div class="price_type">
 					<p>최종 낙찰 금액</p>
-					<span class="final-bid"><fmt:formatNumber value="${price }"
-							type="Number" />원</span>
+					<span class="final-bid"><fmt:formatNumber value="${price }" type="Number" />원</span>
 				</div>
 			</div>
 
@@ -413,7 +161,8 @@
 								<c:when test="${buyer.bidState == 2 || buyer.bidState == 3 }">
 									<tr style="background-color: rgba(128, 128, 128, 0.2);">
 										<td class="table_td"><span class="status final-bid">낙찰</span></td>
-										<td class="table_td">[${buyer.memType == 'C' ? '기업' : '개인'}회원]${buyer.buyPersonId }</td>
+										<td class="table_td">[${buyer.memType == 'C' ? '기업' : '개인'}회원]
+										${buyer.memType == 'C' ? buyer.buyerId : buyer.buyPersonId}</td>
 										<td class="table_td align_right"><fmt:formatNumber value="${buyer.bidPrice }" type="number"/>원</td>
 										<td class="table_td align_right">${buyer.bidDate }</td>
 									</tr>
@@ -421,7 +170,8 @@
 								<c:otherwise>
 									<tr>
 										<td class="table_td"><span class="status">입찰</span></td>
-										<td class="table_td">[${buyer.memType == 'C' ? '기업' : '개인'}회원]${buyer.buyerId }</td>
+										<td class="table_td">[${buyer.memType == 'C' ? '기업' : '개인'}회원]
+										${buyer.memType == 'C' ? buyer.buyerId : buyer.buyPersonId }</td>
 										<td class="table_td align_right"><fmt:formatNumber value="${buyer.bidPrice }" type="number"/>원</td>
 										<td class="table_td align_right">${buyer.bidDate }</td>
 									</tr>
@@ -436,7 +186,7 @@
 				<p class="progress_title">진행 상황</p>
 				<div class="progress-bar-background">
 					<div class="progress-bar" style="width: ${state == 'f' ? '100%' : '50%'};"></div>
-					<div>Transaction state : ${state }</div>
+					<%-- <div>Transaction state : ${state }</div> --%>
 				</div>
 
 				<div class="progress-status">
@@ -460,11 +210,11 @@
 					<div class="modal-header">신고하기</div>
 
 					<div class="modal-profile">
-						<div class="modal-profile-image"></div>
+						<div class="modal-profile-image"><img src="${pageContext.request.contextPath}/img/${sellerImage}" alt="SellerImg"></div>
 						<div class="modal-profile-info">
 							<div class="user-type">[개인회원]</div>
-							<div class="user-id">kgvrfah2</div>
-							<div class="user-email">po****@naver.com</div>
+							<div class="user-id">${sperson.id }</div>
+							<div class="user-email">${sperson.email }</div>
 						</div>
 					</div>
 
@@ -475,19 +225,21 @@
 						<div>거래 일자</div>
 					</div>
 					<div class="modal-transaction-info">
-						<div class="modal-transaction-id">AB123-CD5678-90</div>
-						<div class="modal-transaction-date">24/04/05</div>
+						<div class="modal-transaction-id">AB123-CD5678-${auctionNum }</div>
+						<div class="modal-transaction-date">${date }</div>
 					</div>
 
 					<div class="modal-divider"></div>
 
 					<div class="modal-report-title">신고 내용</div>
 
-					<form>
-						<input type="text" class="modal-input-title"
-							placeholder="제목을 입력하세요">
-						<textarea class="modal-input-content" style="min-height: 350px;"
-							placeholder="신고 내용을 입력하세요"></textarea>
+					<form action="sellerPersonBlack.jsp" method="post">
+						<input type="text" class="modal-input-title" name="blackTitle" placeholder="제목을 입력하세요">
+						<textarea class="modal-input-content" name="blackContent" style="min-height: 350px;" placeholder="신고 내용을 입력하세요"></textarea>
+						<input type="hidden" name="buyerId" value="${bperson.id}" />
+						<input type="hidden" name="sellerId" value="${sperson.id}" />
+						<input type="hidden" name="bidNum" value="${bidNum}" />
+						<input type="hidden" name="transactionNum" value="${transactionNum}" />
 						<button type="submit" class="modal-submit-button">제출하기</button>
 					</form>
 				</div>

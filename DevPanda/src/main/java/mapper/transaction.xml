@@ -8,63 +8,47 @@
 	<select id="selectPBTransactionList" parameterType="map"
 		resultType="Map">
 		<![CDATA[
-			SELECT distinct t.*, 
-					a.*, 
-					p.personImage,
-					b.bidState
-				FROM transaction t 
-				JOIN auction a 
-					ON t.auctionNum = a.auctionNum
-				JOIN person p
-					ON t.sellerId = p.id
-				join bid b
-					on b.buyPersonId = t.buyerId
+			SELECT   
+				t.*, 
+				a.*, 
+				p.personImage
+			FROM transaction t JOIN auction a 
+				ON t.auctionNum = a.auctionNum
+			JOIN person p ON t.sellerId = p.id
 			WHERE t.buyerId=#{buyerId}
-			and (b.bidState = 2 or b.bidState = 3)
 			]]>  <!-- company, person 같이 사용가능!? -->
 
 		<if test="filterDate != null and filterDate != ''">
-				<![CDATA[
-					and STR_TO_DATE(t.date, '%Y-%m-%d') >= STR_TO_DATE(#{filterDate}, '%Y-%m-%d')
-				]]>
+			<![CDATA[
+				and STR_TO_DATE(t.date, '%Y-%m-%d') between STR_TO_DATE(#{filterDate}, '%Y-%m-%d') and STR_TO_DATE(now(), '%Y-%m-%d')
+			]]>
 		</if>
 
-		<if
-			test="startDate != null and startDate !='' and endDate != null and endDate !=''">
-				<![CDATA[
-					and STR_TO_DATE(t.date, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
-				]]>
+		<if test="startDate != null and startDate !='' and endDate != null and endDate !=''">
+			<![CDATA[
+				and STR_TO_DATE(t.date, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+			]]>
 		</if>
-			
 			<![CDATA[
 				order by t.date desc;
 			]]>
 	</select>
 
 	<!-- personSellTransactionList -->
-	<select id="selectPSTransactionList" parameterType="map"
-		resultType="Map">
+	<select id="selectPSTransactionList" parameterType="map" resultType="Map">
 		<![CDATA[
-			SELECT distinct t.*,
-					t.state as t_state, 
+			SELECT  t.*,
 					a.*,
-					a.state as a_state,
-					p.personImage,
-					b.bidState
-				FROM transaction t 
-				JOIN auction a 
+					p.personImage
+				FROM transaction t JOIN auction a 
 					ON t.auctionNum = a.auctionNum
-				JOIN person p
-					ON t.sellerId = p.id
-				join bid b
-					on b.buyPersonId = t.buyerId
+				JOIN person p ON t.sellerId = p.id
 			WHERE t.sellerId=#{sellerId}
-			and (b.bidState = 2 or b.bidState = 3)
 			]]>
 
 		<if test="filterDate != null and filterDate != ''">
 				<![CDATA[
-					and STR_TO_DATE(t.date, '%Y-%m-%d') >= STR_TO_DATE(#{filterDate}, '%Y-%m-%d')
+					and STR_TO_DATE(t.date, '%Y-%m-%d') between STR_TO_DATE(#{filterDate}, '%Y-%m-%d') and STR_TO_DATE(now(), '%Y-%m-%d')
 				]]>
 		</if>
 
@@ -99,7 +83,7 @@
 		parameterType="String" resultType="Map">
         <![CDATA[ 
         SELECT t.transactionNum, t.sellerId, t.auctionNum, t.price, t.date, t.state, 
-               c.name as companyName, c.id as companyId
+               c.companyName as companyName, c.id as companyId
         FROM Transaction t
         JOIN Company c ON t.buyerId = c.id
         WHERE c.id = #{companyId} 

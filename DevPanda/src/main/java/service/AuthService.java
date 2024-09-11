@@ -31,13 +31,7 @@ public class AuthService {
 			person = personRepository.findPersonByIdAndPassword(parameterMap);
 			if(person.getId().equals(id)  && person.getPassword().equals(password)) {
 				HttpSession session = request.getSession();
-
-				session.setAttribute("person", person);
-				
-				
-
 				session.setAttribute("user", person);
-
 				return person;
 			}
 			return null;

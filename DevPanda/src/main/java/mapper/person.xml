@@ -38,6 +38,7 @@
 		where id=#{id} and email=#{email}
 	</select>
 	
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 	<!-- 상세보기 조회화면에서 개인정보 조회 -->
 	<select id="selectOnePerson" parameterType="String" resultType="person">
 		<![CDATA[

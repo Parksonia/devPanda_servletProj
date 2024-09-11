@@ -15,35 +15,46 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/personSellTransactionDetail")
 public class PersonSellTransactionDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PersonSellTransactionDetail() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	public PersonSellTransactionDetail() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String auctionNum = request.getParameter("auctionNum");
-		System.out.println(auctionNum);
-		
-		String jspPath = "/view/seller/personSellTransactionDetail.jsp";
-		
-		request.setAttribute("auctionNum", auctionNum);
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher(jspPath);
-		dispatcher.forward(request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+
+		try {
+			Integer auctionNum = Integer.parseInt(request.getParameter("auctionNum").trim());
+
+			
+			
+			
+			request.setAttribute("auctionNum", auctionNum);
+			
+			
+			request.getRequestDispatcher("/view/seller/personSellTransactionDetail.jsp").forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

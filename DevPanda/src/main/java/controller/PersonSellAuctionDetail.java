@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -21,83 +23,83 @@ import service.PersonService;
 import service.PersonServiceImpl;
 
 /**
- * Servlet implementation class PersonBuyTransactionDetail
+ * Servlet implementation class PersonSellAuctionDetail
  */
-@WebServlet("/personBuyTransactionDetail")
-public class PersonBuyTransactionDetail extends HttpServlet {
+@WebServlet("/personSellAuctionDetail")
+public class PersonSellAuctionDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public PersonSellAuctionDetail() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public PersonBuyTransactionDetail() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-			request.setCharacterEncoding("utf-8");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		
 		try {
-			
 			Integer auctionNum = Integer.parseInt(request.getParameter("auctionNum"));
 			String sellerImage = request.getParameter("sellerImage");
-			Integer price = Integer.parseInt(request.getParameter("price"));
-			String date = request.getParameter("date");
-			String state = request.getParameter("state");
-			String memType = request.getParameter("memType");
 			String sellerId = request.getParameter("sellerId");
-			String buyerId = request.getParameter("buyerId");
-
+			
 			AuctionService service = new AuctionServiceImpl();
 			Auction auction = service.oneAuction(auctionNum);
-
+			
+			String endDate = auction.getEndDate(); //경매종료일
+			String nowDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()));
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = new Date(sdf.parse(endDate).getTime());
+			Date today = new Date(sdf.parse(nowDate).getTime());
+			
+			Long calDay = date.getTime() - today.getTime();
+			int dDays = (int)(calDay/(24*60*60*1000));
+			
+			//endDate가 오늘 이후인지 판단
+			boolean isAfterToday = date.after(today);
+			
 			BidService bidSerive = new BidServiceImpl();
 			List<Bid> allBuyers = new ArrayList<>();
 			allBuyers = bidSerive.bidAllBuyer(auctionNum);
-
+			
 			PersonService pservice = new PersonServiceImpl();
 			Person sperson = pservice.selectPersonInfo(sellerId);
-			Person bperson = pservice.selectPersonInfo(buyerId);
-
+			
+			
 			// 판매자(Seller) person 정보
 			request.setAttribute("sellerId", sellerId);
 			request.setAttribute("sellerImage", sellerImage);
 			request.setAttribute("sperson", sperson);
-
-			// 구매자(Buyer) person 정보
-			request.setAttribute("bperson", bperson);
-
+			
 			// auction 정보
 			request.setAttribute("auction", auction);
 			request.setAttribute("auctionNum", auctionNum);
 			// bid 정보
 			request.setAttribute("allBuyers", allBuyers);
-			// request 정보
-			request.setAttribute("price", price); // 낙찰액
-			request.setAttribute("date", date); // 낙찰일
-			request.setAttribute("state", state);
-
-			request.getRequestDispatcher("/view/buyer/personBuyTransactionDetail.jsp").forward(request, response);
-
+			// day정보
+			request.setAttribute("dDays", dDays);
+			request.setAttribute("isAfterToday", isAfterToday);
+			
+			request.getRequestDispatcher("/view/seller/personSellAuctionDetail.jsp").forward(request, response);
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 }

@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface PersonSellAuctionListRepository {
 	
-	List<Map> selectPSAuctionList() throws Exception;
-	List<Map> selectPSAuctionListByDate(String filterDate) throws Exception;
-	List<Map> selectPSAuctionListByDateRange(String startDate, String endDate);
+	List<Map> selectPSAuctionList(String sellerId) throws Exception;
+	List<Map> selectPSAuctionListByDate(String sellerId, String filterDate) throws Exception;
+	List<Map> selectPSAuctionListByDateRange(String sellerId, String startDate, String endDate) throws Exception;
 }

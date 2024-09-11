@@ -11,25 +11,26 @@ import repository.auction.PersonSellAuctionListRepositoryImpl;
 public class PersonSellAuctionListServiceImpl implements PersonSellAuctionListService {
 	
 	private PersonSellAuctionListRepository saRepo;
+	
 	public PersonSellAuctionListServiceImpl() {
 		this.saRepo = new PersonSellAuctionListRepositoryImpl();
 	}
 
 	@Override
-	public List<Map> personSellAuctionList() throws Exception {
-		List<Map> sellAuctionList = saRepo.selectPSAuctionList();
+	public List<Map> personSellAuctionList(String sellerId) throws Exception {
+		List<Map> sellAuctionList = saRepo.selectPSAuctionList(sellerId);
 		return sellAuctionList;
 	}
 
 	@Override
-	public List<Map> personSellAuctionListByDate(String filterDate) throws Exception {
-		List<Map> sellAuctionList = saRepo.selectPSAuctionListByDate(filterDate);
+	public List<Map> personSellAuctionListByDate(String sellerId, String filterDate) throws Exception {
+		List<Map> sellAuctionList = saRepo.selectPSAuctionListByDate(sellerId, filterDate);
 		return sellAuctionList;
 	}
 
 	@Override
-	public List<Map> personSellAuctionListByDateRange(String startDate, String endDate) throws Exception {
-		List<Map> sellAuctionList = saRepo.selectPSAuctionListByDateRange(startDate, endDate);
+	public List<Map> personSellAuctionListByDateRange(String sellerId, String startDate, String endDate) throws Exception {
+		List<Map> sellAuctionList = saRepo.selectPSAuctionListByDateRange(sellerId, startDate, endDate);
 		return sellAuctionList;
 	}
 

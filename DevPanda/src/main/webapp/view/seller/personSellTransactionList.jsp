@@ -16,7 +16,7 @@
 	src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-<link href="${pageContext.request.contextPath}/css/myPageList.css"
+<link href="${pageContext.request.contextPath}/css/mypageList.css"
 	rel="stylesheet">
 </head>
 <body>
@@ -39,9 +39,7 @@
 
 
 				<!-- 필터 -->
-				<form
-					action="${pageContext.request.contextPath }/personSellTransactionList"
-					method="get">
+				<form action="${pageContext.request.contextPath }/personSellTransactionList" method="get">
 					<div class="filters">
 						<button type="submit" name="num" value="1">최근 1개월</button>
 						<button type="submit" name="num" value="3">3개월</button>
@@ -76,7 +74,7 @@
 
 				<div class="item_container">
 					<div class="item">
-						<span>낙찰 최대희망가</span>
+						<span>희망금액</span>
 					</div>
 					<div class="item">
 						<span>낙찰액</span>
@@ -88,7 +86,7 @@
 
 
 				<c:forEach items="${personSellTransactionList }" var="transaction">
-					<form action="${pageContext.request.contextPath }/personSellTransactionDetail" method="post">
+					<form class="history-item-form" method="post">
 						<div class="history-item" data-auctionNum=${transaction.auctionNum }>
 							<img src="${pageContext.request.contextPath}/img/${transaction.personImage}" alt="User">
 							<div class="history-content">
@@ -124,17 +122,14 @@
 	<script>
     /* 하나의 div 클릭시 해당 링크로 연결 */
      $(document).ready(function() {
-         $(document).on('click', '.history-item', function() {  
-               var contextPath = '<%=request.getContextPath()%>';
-               let form = $(this).closest('form');
-               let auctionNum = $(this).data('auctionNum');
-          	   console.log("AuctionNum : ", auctionNum);
-          	   form.attr("action",contextPath+'/personSellTransactionDetail');
-               form.submit();	 
-     	});
-     });
-    
-</script>
+    	$(document).on('click', '.history-item', function() {
+    		var contextPath = '<%=request.getContextPath()%>';
+    		let form = $(this).closest('form');
+    		form.attr("action", contextPath+'/personSellTransactionDetail');
+    		form.submit();
+    	});
+    });
+	</script>
 
 </body>
 </html>

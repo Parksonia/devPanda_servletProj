@@ -49,11 +49,6 @@ public class PersonBuyTransactionListRepositoryImpl implements PersonBuyTransact
 		return result;
 	}
 
-	@Override
-	public Integer selectPBTransactionCount() throws Exception {
-		return sqlSession.selectOne("mapper.transaction.selectPBTransactionCount");
-	}
-
 	
 	
 
