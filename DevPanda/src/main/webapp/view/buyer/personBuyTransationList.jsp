@@ -23,7 +23,7 @@
 	<%@ include file="../inc/header.jsp"%>
 	<!-- Header End-->
 
-	<div class="container my">
+		<div class="container my">
 		<%@ include file="../inc/personSideNav.jsp"%>
 
 		<!-- list 정보 start -->

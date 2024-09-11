@@ -22,6 +22,13 @@ public class SignUpCompany extends HttpServlet {
 	private CompanyService companyService = new CompanyServiceImpl();
 
 	@Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // 회원가입 폼을 보여줌 (signUpCom.jsp)
+        request.getRequestDispatcher("/view/signUpCom.jsp").forward(request, response);
+    }
+	
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {

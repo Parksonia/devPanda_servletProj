@@ -12,9 +12,9 @@ import util.MybatisSqlSessionFactory;
 public class EmailCertificationRepositoryImpl implements EmailCertificationRepository{
 	
 	
-	private SqlSession getSqlSession() {
-		return MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
-	}
+	
+	
+	
 
 	
 	
@@ -22,13 +22,16 @@ public class EmailCertificationRepositoryImpl implements EmailCertificationRepos
 	public int insertEmailCertification(EmailCertification emailCertification) {
 		
 		
-		SqlSession sqlSession = getSqlSession();
+		SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
 		int result=0;
 		
 		try {
 			String statement = "mapper.emailCertification.insertEmailCertification";
 			result = sqlSession.insert(statement,emailCertification);
-			if(result>0) sqlSession.commit();
+			if(result>0) {
+				
+				sqlSession.commit();
+			}
 		
 		
 		}finally {
@@ -41,13 +44,33 @@ public class EmailCertificationRepositoryImpl implements EmailCertificationRepos
 
 
 	@Override
-	public String findCertificationByEmail(Map<String, String> parameterMap) {
-		SqlSession sqlSession = getSqlSession();
+	public String findCertificationByIdAndEmail(Map<String, String> parameterMap) {
+		SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+		String password = null;
+		
+		try {
+			String statement = "mapper.emailCertification.findCertificationByIdAndEmailRecent";
+			password = sqlSession.selectOne(statement, parameterMap);
+			
+			
+		}finally {
+			
+		}
+		
+		
+		return password;
+	}
+	
+	
+	@Override
+	public String findCertificationByEmail(String email) {
+		// TODO Auto-generated method stub
+		SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
 		String password = null;
 		
 		try {
 			String statement = "mapper.emailCertification.findCertificationByEmailRecent";
-			password = sqlSession.selectOne(statement, parameterMap);
+			password = sqlSession.selectOne(statement, email);
 			
 			
 		}finally {
@@ -65,27 +88,34 @@ public class EmailCertificationRepositoryImpl implements EmailCertificationRepos
 		
 		
 		//insertEmailCertification Test
-		EmailCertification emailCertification = new EmailCertification();
-		emailCertification.setId("ab11");
-		emailCertification.setEmail("abc11@gmail.com");
-		emailCertification.setCertification("1134");	
+//		EmailCertification emailCertification = new EmailCertification();
+//		emailCertification.setId("ab1111111122");
+//		emailCertification.setEmail("abc11@gmail.com");
+//		emailCertification.setCertification("1154");	
+//		EmailCertificationRepositoryImpl emailCertificationRepositoryImpl = new EmailCertificationRepositoryImpl();
+//		int result = emailCertificationRepositoryImpl.insertEmailCertification(emailCertification);
+//		System.out.println(result);
+		
 		EmailCertificationRepositoryImpl emailCertificationRepositoryImpl = new EmailCertificationRepositoryImpl();
-		int result = emailCertificationRepositoryImpl.insertEmailCertification(emailCertification);
-		System.out.println(result);
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("id", "ab1111111122");
+		param.put("email", "abc11@gmail.com");
+		String num = emailCertificationRepositoryImpl.findCertificationByEmail("abc11@gmail.com");
+		String num1 = emailCertificationRepositoryImpl.findCertificationByIdAndEmail(param);
+		
+		System.out.println(num);
+		System.out.println(num1);
 		
 		
-		
-		//findCertificationByEmail Test
-		Map<String,String> parameterMap = new HashMap<String, String>();
-		parameterMap.put("id", "a");
-		parameterMap.put("email", "aaa@gmail.com");
-		String certification = emailCertificationRepositoryImpl.findCertificationByEmail(parameterMap);
-		System.out.print(certification);
-		
+	
 		
 		
 		
 	}
+
+
+
+	
 
 
 

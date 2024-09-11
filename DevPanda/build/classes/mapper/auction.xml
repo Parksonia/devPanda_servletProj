@@ -4,31 +4,35 @@
 
 <mapper namespace="mapper.auction">
 
-	<!-- 모든 경매 데이터 조회 -->
-	<!-- <select id="selectAllAuctions" resultType="dto.Auction">
-		SELECT a.auctionNum,
-		a.title, a.minSalary, a.maxSalary, p.personImage,
-		p.nickName
-		FROM
-		auction a
-		JOIN person p ON a.id = p.id
-	</select> -->
-
-	<!-- 페이징 처리된 경매 데이터 조회 -->
-	<select id="getAuctionsWithPagination" parameterType="map"
-		resultType="dto.Auction">
-		SELECT a.auctionNum,
-		a.title, a.minSalary, a.maxSalary,
+	<select id="getAuctionsWithPersonInfo" parameterType="map"
+		resultType="map">
+		SELECT
+		a.auctionNum,
+		a.title,
+		a.minSalary,
+		a.maxSalary,
 		p.personImage,
 		p.nickName
 		FROM auction a
 		JOIN person p ON a.id = p.id
-		ORDER BY a.auctionNum
-		LIMIT #{limit} OFFSET #{offset}
+		LIMIT #{pageSize} OFFSET #{offset}
 	</select>
-	
-	<!--경매등록식별자로 경매등록내용 조회   -->
-	<select id="selectOneAuction" parameterType="Integer" resultType="auction">
+
+	<resultMap id="auctionPersonMap" type="map">
+		<result column="auctionNum" property="auctionNum" />
+		<result column="title" property="title" />
+		<result column="minSalary" property="minSalary" />
+		<result column="maxSalary" property="maxSalary" />
+		<result column="personImage" property="personImage" />
+		<result column="nickName" property="nickName" />
+		<!-- 필요한 추가 컬럼 매핑 -->
+	</resultMap>
+
+
+
+	<!--경매등록식별자로 경매등록내용 조회 -->
+	<select id="selectOneAuction" parameterType="Integer"
+		resultType="auction">
 	<![CDATA[
 		SELECT * FROM auction WHERE auctionNum = #{auctionNum};
 	]]>
