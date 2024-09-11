@@ -18,9 +18,21 @@ public class Auction {
 	private String certification;
 	private String location;
 	private String portfolio;
-	
-	private String title; //추가
+	private String title;
 	private String state; //'processing' or 'success'
+	
+	
+	
+	private Person person; // Person 객체와 연관
+	public Person getPerson() {
+		return person;
+	}
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+	
+	
+	
 	
 	public Integer getAuctionNum() {
 		return auctionNum;
@@ -168,6 +180,7 @@ public class Auction {
 				+ education + ", employmentType=" + employmentType + ", stack=" + stack + ", certification="
 				+ certification + ", location=" + location + ", portfolio=" + portfolio + "]";
 	}
+	
 	
 	
 	

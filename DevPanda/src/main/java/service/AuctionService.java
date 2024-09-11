@@ -1,13 +1,15 @@
 package service;
 
 import dto.Auction;
+import dto.Person;
 import java.util.List;
+import java.util.Map;
 
 public interface AuctionService {
-	// 페이징 처리된 경매 데이터 가져오기
-	List<Auction> getAllAuctions(int page, int pageSize);
-	
+	List<Map<String, Object>> getAllAuctionsWithPersonInfo(int page, int pageSize);
+
 	Auction oneAuction(Integer auctionNum) throws Exception;
-	
-	 String remakeWithComma(List<String>items) throws Exception;
+
+	String remakeWithComma(List<String> items) throws Exception;
+
 }

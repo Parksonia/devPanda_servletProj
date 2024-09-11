@@ -1,11 +1,14 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import dto.Auction;
+import dto.Person;
+
 import repository.auction.AuctionRepository;
 import repository.auction.AuctionRepositoryImpl;
 
@@ -17,13 +20,25 @@ public class AuctionServiceImpl implements AuctionService {
 	}
 
 	@Override
-	public List<Auction> getAllAuctions(int page, int pageSize) {
+	public List<Map<String, Object>> getAllAuctionsWithPersonInfo(int page, int pageSize) {
 		int offset = (page - 1) * pageSize;
-		Map<String, Object> params = new HashMap<>();
-		params.put("limit", pageSize);
-		params.put("offset", offset);
+		List<Map<String, Object>> resultList = new ArrayList<>();
 
-		return auctionRepository.getAuctionsWithPagination(params);
+		// 데이터 가져오기
+		List<Map<String, Object>> auctionData = auctionRepository.getAuctionsWithPersonInfo(pageSize, offset);
+
+		// 각 데이터 항목을 맵에 담아 리스트에 추가
+		for (Map<String, Object> data : auctionData) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("title", data.get("title"));
+			map.put("minSalary", data.get("minSalary"));
+			map.put("maxSalary", data.get("maxSalary"));
+			map.put("personImage", data.get("personImage"));
+			map.put("nickName", data.get("nickName"));
+			resultList.add(map);
+		}
+
+		return resultList;
 	}
 
 	// 1개 조회 bid 전체 리스트에서 조회 될 수 있도록 함
