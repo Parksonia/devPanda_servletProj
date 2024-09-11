@@ -45,7 +45,12 @@ public class AuctionServlet extends HttpServlet {
 			return;
 		}
 
+		System.out.println("Page: " + page + ", PageSize: " + pageSize);
+
 		List<Map<String, Object>> auctions = auctionService.getAllAuctionsWithPersonInfo(page, pageSize);
+
+		// 로그 추가: 반환된 데이터 확인
+		System.out.println("Number of auctions fetched: " + (auctions != null ? auctions.size() : 0));
 
 		// AJAX 요청인 경우 JSON 응답 반환
 		if ("application/json".equals(request.getHeader("Accept"))) {
