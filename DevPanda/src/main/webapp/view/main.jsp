@@ -134,70 +134,29 @@
 			</div>
 		</section>
 
-
-
-		<%-- <%
-		List<Auction> auctions = (List<Auction>) request.getAttribute("auctions");
-		if (auctions != null && !auctions.isEmpty()) {
-			for (Auction auction : auctions) {
-		%>
-		<div>
-			<h2><%=auction.getTitle()%></h2>
-			<p>
-				Min Salary:
-				<%=auction.getMinSalary()%></p>
-			<p>
-				Max Salary:
-				<%=auction.getMaxSalary()%></p>
-			<p>
-				Nick Name:
-				<%=auction.getNickName()%></p>
-			<img src="<%=auction.getPersonImage()%>" alt="Person Image" />
-		</div>
-		<%
-		}
-		} else {
-		%>
-		<p>No auction data found.</p>
-		<%
-}
-%> --%>
-
-
-
 		<!-- 나만의 개발자 Section -->
 		<section class="mb-8">
 			<h2 class="text-xl font-bold mb-4">나만의 개발자</h2>
 			<div id="auction-container"
 				class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 				<!-- 프로필 카드들 -->
-				<c:forEach var="auction" items="${auctions}">
+				<c:forEach var="auctionMap" items="${auctions}">
+					<c:set var="title" value="${auctionMap.title}" />
+					<c:set var="minSalary" value="${auctionMap.minSalary}" />
+					<c:set var="maxSalary" value="${auctionMap.maxSalary}" />
+					<c:set var="personImage" value="${auctionMap.personImage}" />
+					<c:set var="nickName" value="${auctionMap.nickName}" />
 					<div class="profile-card bg-white shadow-md rounded p-4">
-						<!-- 프로필 이미지 -->
-						<img src="${auction.personImage}" alt="${auction.nickName}의 이미지"
-							class="rounded-full w-16 h-16 mx-auto mb-2">
-
-						<!-- title -->
-						<h3 class="text-lg font-semibold text-center">${auction.title}</h3>
-
-						<!-- nickName -->
-						<p class="text-center text-gray-600">${auction.nickName}</p>
-
-						<!-- minSalary와 maxSalary -->
-						<p class="text-center text-gray-600">최소 금액:
-							${auction.minSalary}</p>
-						<p class="text-center text-gray-600">최대 금액:
-							${auction.maxSalary}</p>
-
-						<!-- 상세보기 버튼 -->
-						<div class="text-center mt-4">
-							<button onclick="openProfilePage(${auction.auctionNum})"
-								class="bg-blue-500 text-white p-2 rounded">상세보기</button>
-						</div>
+						<img src="${personImage}" alt="Profile Image"
+							class="profile-image">
+						<h2 class="text-xl font-semibold">${title}</h2>
+						<p class="text-gray-700">Min Salary: ${minSalary}</p>
+						<p class="text-gray-700">Max Salary: ${maxSalary}</p>
+						<p class="text-gray-600">${nickName}</p>
 					</div>
 				</c:forEach>
+
 			</div>
-			<!-- 로딩 스피너 -->
 			<div id="loading" class="text-center mt-4 hidden">
 				<p>로딩 중...</p>
 			</div>
@@ -251,82 +210,72 @@
 
 
 	<script>
+	let page = ${page};
+	const pageSize = ${pageSize};
+	const container = document.getElementById('auction-container');
+	const loading = document.getElementById('loading');
+
+	function loadMoreAuctions() {
+	    console.log('Fetching more auctions...'); // 로드가 시작될 때 로그 출력
+
+	    fetch(`/auction?page=${page}&pageSize=${pageSize}`)
+	    
+	        .then(response => {
+	            if (!response.ok) {
+	                throw new Error('Network response was not ok');
+	            }
+	            return response.json();
+	        })
+	        .then(data => {
+	            console.log('Data received:', data); // 데이터 수신 시 로그 출력
+
+	            if (data.length === 0) {
+	                console.log('No more data to load.'); // 데이터가 없을 때 로그 출력
+	                loading.classList.add('hidden');
+	                return;
+	            }
+
+	            data.forEach(auctionMap => {
+	                const auction = auctionMap['auction'];
+	                const person = auctionMap['person'];
+	                container.insertAdjacentHTML('beforeend', `
+	                    <div class="profile-card bg-white shadow-md rounded p-4">
+	                        <img src="${person.personImage}" alt="${person.nickName}의 이미지" class="rounded-full w-16 h-16 mx-auto mb-2">
+	                        <h3 class="text-lg font-semibold text-center">${auction.title}</h3>
+	                        <p class="text-center text-gray-600">${person.nickName}</p>
+	                        <p class="text-center text-gray-600">최소 금액: ${auction.minSalary}</p>
+	                        <p class="text-center text-gray-600">최대 금액: ${auction.maxSalary}</p>
+	                        <div class="text-center mt-4">
+	                            <button onclick="openProfilePage(${auction.auctionNum})" class="bg-blue-500 text-white p-2 rounded">상세보기</button>
+	                        </div>
+	                    </div>
+	                `);
+	            });
+	            page++;
+	            console.log('Next page:', page); // 페이지 증가 여부 확인
+	            loading.classList.add('hidden');
+	        })
+	        .catch(error => {
+	            console.error('Fetch error:', error); // 에러 발생 시 로그 출력
+	            loading.classList.add('hidden');
+	        });
+	}
+
+	// 스크롤 이벤트 리스너
+	window.addEventListener('scroll', () => {
+	    console.log('Scroll event detected'); // 스크롤 이벤트 감지 시 로그 출력
+
+	    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+	        if (!loading.classList.contains('hidden')) {
+	            return; // 로딩 중이면 추가 요청 방지
+	        }
+	        loading.classList.remove('hidden');
+	        loadMoreAuctions();
+	    }
+	});
 	
-	/* let currentPage = 1;
-    const pageSize = 9;
-
-    function loadMoreData() {
-        currentPage++;
-        fetch(`/auction?page=${currentPage}`)
-            .then(response => response.text())
-            .then(data => {
-                const newAuctions = document.createElement('div');
-                newAuctions.innerHTML = data;
-                document.querySelector('.grid').appendChild(newAuctions);
-            });
-    }
-
-    window.addEventListener('scroll', () => {
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-            loadMoreData();
-        }
-    });
-
-    document.querySelectorAll('.category-item').forEach(button => {
-        button.addEventListener('click', function () {
-            const content = document.getElementById(this.id.replace('-toggle', '-content'));
-            content.classList.toggle('hidden');
-        });
-    });
- */
- 
- 
- let page = 1;
- const pageSize = 9;
- const container = document.getElementById('auction-container');
- const loading = document.getElementById('loading');
-
- function loadMoreAuctions() {
-     fetch(`/auctions?page=${page}&pageSize=${pageSize}`)
-         .then(response => response.json())
-         .then(data => {
-             data.forEach(auction => {
-                 container.insertAdjacentHTML('beforeend', `
-                     <div class="profile-card bg-white shadow-md rounded p-4">
-                         <img src="${auction.personImage}" alt="${auction.nickName}의 이미지" class="rounded-full w-16 h-16 mx-auto mb-2">
-                         <h3 class="text-lg font-semibold text-center">${auction.title}</h3>
-                         <p class="text-center text-gray-600">${auction.nickName}</p>
-                         <p class="text-center text-gray-600">최소 금액: ${auction.minSalary}</p>
-                         <p class="text-center text-gray-600">최대 금액: ${auction.maxSalary}</p>
-                         <div class="text-center mt-4">
-                             <button onclick="openProfilePage(${auction.auctionNum})" class="bg-blue-500 text-white p-2 rounded">상세보기</button>
-                         </div>
-                     </div>
-                 `);
-             });
-             page++;
-             loading.classList.add('hidden');
-         })
-         .catch(() => {
-             loading.classList.add('hidden');
-             alert('데이터를 불러오는 중 오류가 발생했습니다.');
-         });
- }
-
- function handleScroll() {
-     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-         loading.classList.remove('hidden');
-         loadMoreAuctions();
-     }
- }
-
- window.addEventListener('scroll', handleScroll);
-
-    
-    
-    
-    
-    
+	
+	
 		function openAuctionModal() {
 			document.getElementById('auctionModal').style.display = 'block';
 		}
@@ -336,7 +285,7 @@
 		}
 
 		function openProfilePage(auctionNum) {
-			window.location.href = `/auctionDetail.jsp?auctionNum=${auctionNum}`;
+			window.location.href = `/view/auctionDetail.jsp?auctionNum=${auctionNum}`;
 		}
 
 		function resetSelections() {

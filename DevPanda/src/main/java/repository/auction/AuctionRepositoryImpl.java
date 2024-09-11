@@ -1,6 +1,7 @@
 package repository.auction;
 
 import dto.Auction;
+import dto.Person;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import util.MybatisSqlSessionFactory;
@@ -17,20 +18,18 @@ public class AuctionRepositoryImpl implements AuctionRepository {
 	}
 
 	@Override
-	public List<Auction> getAuctionsWithPagination(Map<String, Object> params) {
-		// try-with-resources를 사용하여 세션을 자동으로 닫음
-		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-			// MyBatis의 selectList 메서드를 사용하여 데이터베이스에서 데이터 조회
-			return sqlSession.selectList("mapper.auction.getAuctionsWithPagination", params);
+	public List<Map<String, Object>> getAuctionsWithPersonInfo(int pageSize, int offset) {
+		try (SqlSession session = sqlSessionFactory.openSession()) {
+			return session.selectList("getAuctionsWithPersonInfo", Map.of("pageSize", pageSize, "offset", offset));
 		}
 	}
-	
-	//selectOne 경매 하나 조회 
+
+	// selectOne 경매 하나 조회
 	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+
 	@Override
 	public Auction selectOneAuction(Integer auctionNum) throws Exception {
 		return sqlSession.selectOne("mapper.auction.selectOneAuction", auctionNum);
 	}
-	
-	
+
 }
