@@ -47,8 +47,8 @@ public class BidList extends HttpServlet {
 		 }
 		 
 		//임의의  test 로그인 id (P or C)
-		 String id ="abc007";
-		 
+		 String id ="abc001";
+		 String comid = "comp001";
 
 	   // num 파라미터 값 (month 값)
        String numStr = request.getParameter("num");

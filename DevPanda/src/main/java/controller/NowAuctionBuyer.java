@@ -49,7 +49,8 @@ public class NowAuctionBuyer extends HttpServlet {
 		
 		
 		// 임의의 login in(P or C)
-		String id = "abc007";
+		String id = "abc001";
+		String comid = "comp001";
 
 		try {
 			AuctionService aService = new AuctionServiceImpl();
