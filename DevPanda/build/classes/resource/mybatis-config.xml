@@ -18,7 +18,7 @@
 	</typeAliases>
 
 
-	<!-- <environments default="development">
+<!-- 	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
@@ -31,7 +31,7 @@
 				<property name="password" value="0000" />
 			</dataSource>
 		</environment>
-	</environments> --> 
+	</environments>  -->
 
 	<environments default="development">
 		<environment id="development">
@@ -41,7 +41,7 @@
 				<property name="url"
 					value="jdbc:mariadb://localhost:3306/devpanda"></property>
 				<property name="username" value="root"></property>
-				<property name="password" value="7564"></property>
+				<property name="password" value="1590"></property>
 			</dataSource>
 		</environment>
 	</environments>
@@ -52,10 +52,9 @@
 		<mapper resource ="mapper/transaction.xml"/>
 		<mapper resource ="mapper/company.xml"/>
 		<mapper resource ="mapper/bid.xml"/>
-		<mapper resource ="mapper/emailCertification.xml"/> 
-		
-		<!-- 
-			<mapper resource ="mapper/blacklist.xml"/>  
+		<mapper resource ="mapper/emailCertification.xml"/>  
+		<mapper resource ="mapper/blacklist.xml"/>  
+			<!-- 
 			<mapper resource ="mapper/searchcondition.xml"/>  -->
 			
 	</mappers>

@@ -24,7 +24,8 @@
 			]]>
 		</if>
 
-		<if test="startDate != null and startDate !='' and endDate != null and endDate !=''">
+		<if
+			test="startDate != null and startDate !='' and endDate != null and endDate !=''">
 			<![CDATA[
 				and STR_TO_DATE(t.date, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 			]]>
@@ -35,7 +36,8 @@
 	</select>
 
 	<!-- personSellTransactionList -->
-	<select id="selectPSTransactionList" parameterType="map" resultType="Map">
+	<select id="selectPSTransactionList" parameterType="map"
+		resultType="Map">
 		<![CDATA[
 			SELECT  t.*,
 					a.*,
@@ -79,21 +81,28 @@
 
 	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
-	<select id="selectTransactionsByCompanyId"
-		parameterType="map" resultType="Map">
+	<select id="selectTransactionsByCompanyId" parameterType="map"
+		resultType="Map">
     <![CDATA[ 
-    SELECT t.transactionNum as transactionNum, 
-           t.sellerId as sellerId, 
-           t.auctionNum as auctionNum, 
-           t.price as price, 
-           t.date as date, 
-           t.state as state, 
-           c.name as companyName, 
-           c.id as companyId
-    FROM Transaction t
-    JOIN Company c ON t.buyerId = c.id
-    WHERE c.id = #{companyId}
-	AND t.date BETWEEN #{startDate} AND #{endDate}
+    SELECT 
+    t.transactionNum as transactionNum, 
+    t.sellerId as sellerId, 
+    t.auctionNum as auctionNum, 
+    t.price as price, 
+    t.date as date, 
+    t.state as state, 
+    c.companyName as companyName, 
+    c.id as companyId,
+    a.maxSalary as maxSalary,  
+    a.title as auctionTitle   
+	FROM Transaction t
+	JOIN Company c ON t.buyerId = c.id
+	JOIN Auction a ON t.auctionNum = a.auctionNum 
+	WHERE 
+    c.id = #{companyId}
+    AND t.date BETWEEN #{startDate} AND #{endDate}
+    ORDER BY 
+    t.date DESC;
 	]]>
 	</select>
 
@@ -131,17 +140,17 @@
         <![CDATA[ SELECT * FROM TRANSACTION WHERE auctionNum = #{auctionNum}]]>
 	</select>
 
-	<!-- 거래에서 경매에 대한 MaxSalary 값 가져오기 -->
+	<!-- companyId로 경매정보 가져오기 -->
 	<select id="getAuctionMaxByCompanyId" parameterType="String"
 		resultType="Map">
         <![CDATA[ 
-        	SELECT a.maxSalary
-			FROM transaction t
-			JOIN auction a ON t.auctionNum = a.auctionNum
-			WHERE t.buyerId = #{companyId};
+        	SELECT a.* 
+        	FROM transaction t
+        	JOIN auction a ON t.auctionNum = a.auctionNum
+        	WHERE t.buyerId = #{companyId}
 		]]>
 	</select>
-	
+
 	<!-- 경매에 대한 모든 입찰자 조회 -->
 	<select id="getAllBuyerByAuctionNum" parameterType="Integer"
 		resultType="Map">
@@ -154,7 +163,7 @@
     		t.auctionNum = #{auctionNum}
     		ORDER BY b.bidDate ASC;
 		]]>
-	</select> 
+	</select>
 
 
 </mapper>

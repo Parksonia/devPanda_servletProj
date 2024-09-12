@@ -277,7 +277,7 @@
 					<div class="user">
 						<img src="https://via.placeholder.com/80" alt="User Icon">
 						<p class="user_type">[개인회원]</p>
-						<p class="bold">${company.name}</p>
+						<p class="bold">${person.nickName}</p>
 						<p class="title">${auction.title}</p>
 						<div class="minmax">
 							<span class="bold">희망 최소 연봉</span>
@@ -382,8 +382,7 @@
 					</div>
 					<div class="detail_text">${transaction.date}</div>
 				</div>
-				<div class="detail_addition">
-				</div>
+				<div class="detail_addition"></div>
 				<div class="detail_addition">
 					<div class="detail_title">
 						<span>낙찰유형</span>
@@ -405,7 +404,8 @@
 					</thead>
 					<tbody>
 						<c:forEach var="buyer" items="${allBuyer}">
-							<tr <c:if test="${buyer.bidState == 2}">style="background-color: rgba(128, 128, 128, 0.2);" </c:if>>
+							<tr
+								<c:if test="${buyer.bidState == 2}">style="background-color: rgba(128, 128, 128, 0.2);" </c:if>>
 								<!-- 입찰 상태 -->
 								<td class="table_td"><span class="status"> <c:out
 											value="${buyer.bidState == 2 ? '낙찰' : '입찰'}" />
@@ -416,7 +416,7 @@
                             [기업회원] <c:out value="${buyer.buyerId}" />
 										</c:when>
 										<c:otherwise>
-                            [개인회원] <c:out value="${buyer.buyerPersonId}" />
+                            [개인회원] <c:out value="${buyer.buyPersonId}" />
 										</c:otherwise>
 									</c:choose></td>
 								<!-- 입찰 가격 -->
@@ -446,6 +446,8 @@
 					<span class=" progress_item_title completed">계약서 수신 완료</span>
 				</div>
 			</div>
+
+
 			<!-- Modal  start-->
 			<div class="modal">
 				<div class="modal-container">
@@ -462,8 +464,8 @@
 						<div class="modal-profile-image"></div>
 						<div class="modal-profile-info">
 							<div class="user-type">[개인회원]</div>
-							<div class="user-id">kgvrfah2</div>
-							<div class="user-email">po****@naver.com</div>
+							<div class="user-id">${person.nickName}</div>
+							<div class="user-email">${person.email}</div>
 						</div>
 					</div>
 
@@ -474,21 +476,27 @@
 						<div>거래 일자</div>
 					</div>
 					<div class="modal-transaction-info">
-						<div class="modal-transaction-id">AB123-CD5678-90</div>
-						<div class="modal-transaction-date">24/04/05</div>
+						<div class="modal-transaction-id">${transaction.transactionNum}</div>
+						<div class="modal-transaction-date">${transaction.date}</div>
 					</div>
 
 					<div class="modal-divider"></div>
 
 					<div class="modal-report-title">신고 내용</div>
-
+					
+					<%-- <formaction="${pageContext.request.contextPath}/sellerCompanyBlack/sellerCompanyBlack" method="post">
+						<input type="hidden" name="auctionNum" value="${auctionNum}">
+						<input type="text" name="title" placeholder="제목을 입력하세요" required>
+						<textarea name="content" placeholder="신고 내용을 입력하세요" required></textarea>
+						<button type="submit">제출하기</button>
+					</form>
+					 --%>
 					<form>
-						<input type="text" class="modal-input-title"
-							placeholder="제목을 입력하세요">
-						<textarea class="modal-input-content" style="min-height: 350px;"
-							placeholder="신고 내용을 입력하세요"></textarea>
+						<input type="text" class="modal-input-title" placeholder="제목을 입력하세요">
+						<textarea class="modal-input-content" style="min-height: 350px;" placeholder="신고 내용을 입력하세요"></textarea>
 						<button type="submit" class="modal-submit-button">제출하기</button>
 					</form>
+
 				</div>
 			</div>
 

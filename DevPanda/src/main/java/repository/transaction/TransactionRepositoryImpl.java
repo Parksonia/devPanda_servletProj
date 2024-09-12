@@ -28,7 +28,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
 	@Override
 	public Map<String, Object> getAuctionMaxByCompanyId(String companyId) {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
-			return sqlSession.selectOne("mapper.transaction.getAuctionMaxByCompanyId", companyId);
+			return sqlSession.selectMap("mapper.transaction.getAuctionMaxByCompanyId", companyId);
 		}
 	}
 
