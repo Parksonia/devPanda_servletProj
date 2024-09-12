@@ -242,10 +242,9 @@
             
             <!-- 필터 -->
             <div class="filters">
-            	
-                <button type="button" onclick="location.href='<%=request.getContextPath()%>/bidList?num=1'">최근 1개월</button>
-                <button  type="button" onclick="location.href='<%=request.getContextPath()%>/bidList?num=3'">3개월</button>
-                <button  type="button" onclick="location.href='<%=request.getContextPath()%>/bidList?num=6'">6개월</button>
+                <button type="button" onclick="calcPeriod(1);">최근 1개월</button>
+                <button  type="button" onclick="calcPeriod(3);">3개월</button>
+                <button  type="button" onclick="calcPeriod(6);">6개월</button>
                 <input type="text" id="daterange" name="daterange" value='' placeholder=""/>
 				
 				<script>
@@ -272,18 +271,6 @@
 			        });
 
 			        // 날짜 값을 URL에 추가하는 함수
-			        function sendDateRange() {
-			            var dateRange = $('#daterange').val();
-			            if (dateRange) {
-			                var dates = dateRange.split(' ~ ');
-			                var startDate = dates[0];
-			                var endDate = dates[1];
-			                var url = '<%=request.getContextPath()%>/bidList?startDate=' + startDate + '&endDate=' + endDate;
-			                location.href = url;
-			            } else {
-			                location.href = '<%=request.getContextPath()%>/bidList';
-			            }
-			        }
 			    </script>
 				
                 <button type="button" onclick="sendDateRange()">조회</button>
@@ -307,140 +294,131 @@
                 </div>
             </div>
 
-			<div class="item_list">
-				<!-- 목록들 나열 -->
-				<c:forEach items="${buyBidList}" var="map">
-					<form class="histtory-item-form" method="post">
-					<!--hidden input 으로 상세보기로 데이터 넘김 -->
-					<input type="hidden" name="bidState" value="${map.bidState}"/>
-					<input type="hidden" name="sellerImage" value="${map.personImage}"/>
-					<input type="hidden" name="auctionNum" value="${map.auctionNum}"/>
-					<input type="hidden" name="bidNum" value="${map.bidNum}"/>
-					<input type="hidden" name="bidPrice" value="${map.bidPrice}"/>
-					<input type="hidden" name="bidDate" value="${map.bidDate}"/>
-					 
-					<c:choose>
-						<c:when test="${map.bidState==1}">
-							<div class="history-item" style="background-color: rgb(254, 247, 246)">
-								<img src="${pageContext.request.contextPath}/img/${map.personImage}" alt="User">
-								<div class="history-content">
-									<span> ${map.title}</span>
-								</div>
-								<div class="prices">
-									<span><fmt:formatNumber value="${map.bidPrice}" pattern="#,###" />원</span> 
-									<span><fmt:formatNumber value="${map.bidMaxPrice}" pattern="#,###"/>원</span> 
-									<span>${map.bidDate}</span> <span>${map.endDate}</span>
-								</div>
-							</div>
-						</c:when>
-
-						<c:otherwise>
-							<div class="history-item" data-bidstate="${map.bidState}">
-								<img src="${pageContext.request.contextPath}/img/${map.personImage}" alt="User">
-								<div class="history-content">
-									<span>${map.title}</span>
-								</div>
-									<div class="prices">
-									<span><fmt:formatNumber value="${map.bidPrice}"
-											pattern="#,###" />원</span> <span> <fmt:formatNumber
-											value="${map.bidMaxPrice}" pattern="#,###" />원
-									</span> <span>${map.bidDate}</span> <span>${map.endDate}</span>
-								</div>
-							</div>
-						</c:otherwise>
-					</c:choose>
-					</form>
-				</c:forEach>
+			<div class="item_list"></div>
 				
+			<div class="empty_area">
+				<button id="moreBtn" class="btn outlinegrey small">더보기</button>
 			</div>
 				
-				<div class="empty_area">
-				<button id="moreBtn" class="btn outlinegrey small">더보기</button>
-				</div>
-				
-				<!-- more list -->
-					<script>
-					 var page = ${page};
-					 var contextPath = '<%=request.getContextPath()%>';
-					 var maxPage = ${maxPage};
-					 
-					 
-					 $(document).ready(function() {
-					     if (page >= maxPage) {
-					         $('#moreBtn').hide();
-					     }else {
-					          $('#moreBtn').show();
-					        }
-					 });
-					 
-					 $('#moreBtn').on('click',function(){
+<script>
+
+//$(document).ready(function() {
+	
+	let contextPath = '<%=request.getContextPath()%>';
+	let page = 0;
+	let maxPage = 0;
+	let startDate = null;
+	let endDate = null;
+	
+	function reqeustData() {
+		let param = {page:page+1, startDate:startDate, endDate:endDate};
+		console.log(param)
+	 	$.ajax({
+			url:`\${contextPath}/bidList`,
+			type:'POST',
+			dataType: 'json', 
+			data:{param:JSON.stringify(param)},
+			success: function(result) {
+				console.log(result);
+				maxPage = result.maxPage;
+				page = result.page;
+				if(page>=maxPage) {
+					$('#moreBtn').hide();
+				} else {
+					$('#moreBtn').show();
+				}
+
+				let bizs = result.bidList;
+				if(bizs==null || bizs==undefined) return;
+				bizs.forEach(function(item) {
+					// bidState가 1일 때 빨간색 배경
+					let backgroundColor = item.bidState === 1 ? 'background-color: rgb(254, 247, 246);':'';
+					let itemHtml = '<form class="histtory-item-form"" method="post">' +
+									'<input type="hidden" name="bidState" value="' + item.bidState + '">' +
+			                        '<input type="hidden" name="sellerImage" value="' + item.personImage + '">' +
+			                        '<input type="hidden" name="auctionNum" value="' + item.auctionNum + '">' +
+			                        '<input type="hidden" name="bidNum" value="' + item.bidNum + '">' +
+			                           				'<input type="hidden" name="bidPrice" value="' + item.bidPrice + '">' +
+			                           				'<input type="hidden" name="bidDate" value="' + item.bidDate + '">' +
+			                           				'<div class="history-item"  style="' + backgroundColor + '">' +
+               										'<img src="' + item.personImage + '" alt="User">' +
+               										'<div class="history-content">' +
+               										'<span>' + item.title + '</span>' +
+               										'</div>' +
+               										'<div class="prices">' +
+              										 '<span>' + item.bidPrice.toLocaleString() + '원</span>' +
+               										'<span>' + item.bidMaxPrice.toLocaleString() + '원</span>' +
+               										'<span>' + item.bidDate + '</span>' +
+               										'<span>' + item.endDate + '</span>' +
+               										'</div></div>'+
+               									 	'</form>';
+               		let formItem = $(itemHtml);
+               		if(item.bidState==1) {
+               			formItem.attr('action', contextPath+'/nowAuctionBuyer');
+					} else {
+						formItem.attr('action', contextPath+'/failAuctionBuyer');
+					}
+               		formItem.click(function() {
+               			$(this).submit();
+               		})
+               		
+					$('.item_list').append(itemHtml);
+				});
 						
-					 	page +=1;
-						 
-					 	$.ajax({
-							 url:'<%=request.getContextPath()%>/bidList',
-							 type:'GET',
-							 data:{page: page},
-							 dataType: 'json', 
-							 success: function(result) {
-								 
-								 if (result.length === 0 || page >= maxPage) {
-						                $('#moreBtn').hide();  
-						            }
-								    
-								    result.forEach(function(item) {
-								    	// bidState가 1일 때 빨간색 배경
-								        let backgroundColor = item.bidState === 1 ? 'background-color: rgb(254, 247, 246);':'';
-								      
-								         let itemHtml = '<form class="histtory-item-form"" method="post">' +
-				                           				'<input type="hidden" name="bidState" value="' + item.bidState + '">' +
-				                           				'<input type="hidden" name="sellerImage" value="' + item.personImage + '">' +
-				                           				'<input type="hidden" name="auctionNum" value="' + item.auctionNum + '">' +
-				                           				'<input type="hidden" name="bidNum" value="' + item.bidNum + '">' +
-				                           				'<input type="hidden" name="bidPrice" value="' + item.bidPrice + '">' +
-				                           				'<input type="hidden" name="bidDate" value="' + item.bidDate + '">' +
-				                           				'<div class="history-item"  style="' + backgroundColor + '">' +
-                   										'<img src="' + item.personImage + '" alt="User">' +
-                   										'<div class="history-content">' +
-                   										'<span>' + item.title + '</span>' +
-                   										'</div>' +
-                   										'<div class="prices">' +
-                  										 '<span>' + item.bidPrice.toLocaleString() + '원</span>' +
-                   										'<span>' + item.bidMaxPrice.toLocaleString() + '원</span>' +
-                   										'<span>' + item.bidDate + '</span>' +
-                   										'<span>' + item.endDate + '</span>' +
-                   										'</div></div>'+
-                   									 	'</form>';
-								       
-								        $('.item_list').append(itemHtml);
-								    });
-								
-							 },
-						        error: function() {
-						            alert('데이터를 불러오는 중 오류가 발생했습니다.');
-						        }
-							 
-						 });
-					 });
-					 
-					 
-					 // 이벤트 핸들러 추가: AJAX로 동적으로 추가된 요소에도 적용되도록 변경
-					    $(document).on('click', '.history-item', function() {
-					    		//.history-item 클래스의 form 태그를 찾기   
-					    		let form = $(this).closest('form');
-					    		  
-					    		
-					    		//state에 따라 다른 값을 전달해야함 
-					    	 	let bidState = form.find('input[name="bidState"]').val();
-					    		
-					    	    if (bidState === '1') { //suc
-					    	       form.attr("action",contextPath+'/nowAuctionBuyer');
-					    	    } else { //fail
-					    	    	  form.attr("action",contextPath+'/failAuctionBuyer');
-					    	    }
-					    	    form.submit();
-					    });
-					</script>
+			},
+			error: function() {
+				alert('데이터를 불러오는 중 오류가 발생했습니다.');
+			}
+		});
+	}
+
+	function calcPeriod(param_month) {
+		var date = new Date();
+
+		var year = date.getFullYear();
+		var month = (date.getMonth() + 1);
+		var day = date.getDate();
+		
+		month = (month < 10) ? "0" + String(month) : month;
+		day = (day < 10) ? "0" + String(day) : day;
+		endDate = year + '-' + month + '-' + day;
+
+		var monthOfYear = date.getMonth();
+	  	date.setMonth(monthOfYear - param_month);
+		
+		year = date.getFullYear();
+		month = (date.getMonth() + 1);
+		day = date.getDate();
+		
+		month = (month < 10) ? "0" + String(month) : month;
+		day = (day < 10) ? "0" + String(day) : day;
+		
+		startDate = year + '-' + month + '-' + day;	
+		
+		$('.item_list').html('');
+		page=0;
+		reqeustData();
+	}	
+	
+    function sendDateRange() {
+        var dateRange = $('#daterange').val();
+        if(dateRange != null) {
+        	var dates = dateRange.split(' ~ ');
+        	startDate = dates[0];
+        	endDate = dates[1];
+        }
+		$('.item_list').html('');
+		page=0;
+        reqeustData();
+    }
+	
+	$('#moreBtn').on('click',function(){
+		reqeustData();
+	});
+	
+	reqeustData();
+//});	
+</script>
         	</div>
         </div>
     </div>    
