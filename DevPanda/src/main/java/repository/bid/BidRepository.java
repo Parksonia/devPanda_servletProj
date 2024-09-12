@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+
 import dto.Bid;
 
 public interface BidRepository {
 
-	int insertBid(Bid bid);
+	void insertBid(Bid bid,SqlSession sqlSession);
 
 	Integer selectBuyBidCnt(HashMap<String, Object> pageInfo) throws Exception;
 

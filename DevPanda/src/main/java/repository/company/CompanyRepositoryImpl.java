@@ -46,32 +46,52 @@ public class CompanyRepositoryImpl implements CompanyRepository {
 	public String findPasswordByIdAndEmail(Map<String, String> parameterMap) {
 		SqlSession sqlSession = getSqlSession();
 		String password = null;
-
+		
 		try {
-			String statement = "mapper.Company.findPasswordByIdAndEmail";
+			String statement = "mapper.CompanyMapper.findPasswordByIdAndEmail";
 			password = sqlSession.selectOne(statement, parameterMap);
-
-		} finally {
-
+			
+			
+		}finally {
+			
 		}
 		return password;
 	}
-
+	
+	
+	
 	@Override
 	public List<Company> findCompanyListByEmail(String email) {
 		// TODO Auto-generated method stub
 		SqlSession sqlSession = getSqlSession();
 		List<Company> list = null;
 		try {
-			String statement = "mapper.PersonMapper.findCompanyListByEmail";
+			String statement = "mapper.CompanyMapper.findCompanyListByEmail";
 			list = sqlSession.selectList(statement, email);
-
-		} finally {
-
+			
+			
+		}finally {
+			
 		}
 		return list;
 	}
 
+	@Override
+	public Company findCompanyByIdAndPassword(Map<String, String> parameterMap) {
+		// TODO Auto-generated method stub
+		SqlSession sqlSession = getSqlSession();
+		Company company = null;
+		try {
+			String statement = "mapper.CompanyMapper.findCompanyByIdAndPassword";
+			
+			company = sqlSession.selectOne(statement, parameterMap);
+			
+			
+		}finally {
+			
+		}
+		return company;
+	}
 	
 
 	// companyId로 회사 정보를 가져오는 메서드

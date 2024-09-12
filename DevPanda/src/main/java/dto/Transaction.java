@@ -122,7 +122,20 @@ public class Transaction {
 	}
 	
 	
-	
+	public static Transaction getAuctionFromBidAuctionTransactionDto(BidAuctionTransactionDto bidAuctionTransactionDto) {
+		Transaction transaction = new Transaction();
+		transaction.setTransactionNum(bidAuctionTransactionDto.getTransactionNum());
+		transaction.setSellerId(bidAuctionTransactionDto.getSellerId());
+		transaction.setAuctionNum(bidAuctionTransactionDto.getAuctionNum().intValue());
+		transaction.setBidNum(bidAuctionTransactionDto.getBidNum().intValue());
+		transaction.setBuyerId(bidAuctionTransactionDto.getBuyerId());
+		transaction.setDate(bidAuctionTransactionDto.getDate());
+		transaction.setPrice(bidAuctionTransactionDto.getPrice());
+		transaction.setState(bidAuctionTransactionDto.getState());
+		transaction.setMemType(bidAuctionTransactionDto.getMemType());
+		return transaction;
+		
+	}
 	
 	
 	

@@ -5,19 +5,35 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.ExecutorType;
+import org.apache.ibatis.session.SqlSession;
+import org.json.simple.JSONObject;
+
+import com.google.gson.Gson;
+
 import dto.Auction;
 import dto.Bid;
+import dto.BidAuctionTransactionDto;
+import dto.Transaction;
+import repository.auction.AuctionRepository;
+import repository.auction.AuctionRepositoryImpl;
 import repository.bid.BidRepository;
 import repository.bid.BidRepositoryImpl;
 import repository.company.CompanyRepository;
 import repository.company.CompanyRepositoryImpl;
 import repository.person.PersonRepository;
 import repository.person.PersonRepositoryImpl;
+import repository.transaction.TransactionRepository;
+import repository.transaction.TransactionRepositoryImpl;
+import util.MybatisSqlSessionFactory;
 import util.PageInfo;
 
 public class BidServiceImpl implements BidService {
 
 	private BidRepository bidRepository;
+	private static AuctionRepository auctionRepository = new AuctionRepositoryImpl();
+	private static TransactionRepository transactionRepository = new TransactionRepositoryImpl();
+	private static Gson gson = new Gson();
 	public BidServiceImpl() {
 		this.bidRepository = new BidRepositoryImpl();
 	}
@@ -115,6 +131,111 @@ public class BidServiceImpl implements BidService {
 		}		
 		
 		return null;
+	}
+	
+	//bid insert, auction update insert transaction
+	@Override
+	public String bidMaxSalary(String data) {
+		
+		
+		BidAuctionTransactionDto bidAuctionTransactionDto = getBidAuctionTransactionDto(data);
+		SqlSession sqlSession = null;
+		String result = "fail";
+		try{
+			sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession(ExecutorType.SIMPLE,false);
+			Bid bid = Bid.getBidFromBidAuctionTransactionDto(bidAuctionTransactionDto);
+			Auction auction = Auction.getAuctionFromBidAuctionTransactionDto(bidAuctionTransactionDto);
+			Transaction transaction = Transaction.getAuctionFromBidAuctionTransactionDto(bidAuctionTransactionDto);
+			bidRepository.insertBid(bid, sqlSession);
+			auctionRepository.updateAuction(auction, sqlSession);
+			transactionRepository.insertTransaction(transaction, sqlSession);
+			
+			result = "success";
+			sqlSession.commit();
+			
+		}catch (Exception e) {
+			sqlSession.rollback();
+		}
+		
+		
+		
+		return result;
+		
+	}
+		
+		
+	//bid insert, auction update
+	
+	public String bid(String data) {
+		
+		
+		BidAuctionTransactionDto bidAuctionTransactionDto = getBidAuctionTransactionDto(data);
+		SqlSession sqlSession = null;
+		String result = "fail";
+		
+		try{
+			sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession(ExecutorType.SIMPLE,false);
+			Bid bid = Bid.getBidFromBidAuctionTransactionDto(bidAuctionTransactionDto);
+			Auction auction = Auction.getAuctionFromBidAuctionTransactionDto(bidAuctionTransactionDto);
+			
+			bidRepository.insertBid(bid, sqlSession);
+			
+			auctionRepository.updateAuction(auction, sqlSession);
+			
+			
+			result = "success";
+			sqlSession.commit();
+			
+		}catch (Exception e) {
+			sqlSession.rollback();
+		}
+		
+		
+		
+		return result;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public static BidAuctionTransactionDto getBidAuctionTransactionDto(String data) {
+		
+		if(!data.startsWith("{")) {
+			String[] pairs = data.split("&");
+			JSONObject json = new JSONObject();
+			
+			for (String pair : pairs) {
+	            // 각 쌍을 =로 분리
+	            String[] keyValue = pair.split("=");
+	            if (keyValue.length == 2) {
+	                String key = keyValue[0];
+	                String value = keyValue[1];
+	                // JSON 객체에 키와 값 추가
+	                json.put(key, value);
+	            }
+	        }
+			
+			
+			
+			return gson.fromJson(json.toString(), BidAuctionTransactionDto.class);
+		}else {
+			return gson.fromJson(data, BidAuctionTransactionDto.class);
+		}
+		
 	}
 
 }

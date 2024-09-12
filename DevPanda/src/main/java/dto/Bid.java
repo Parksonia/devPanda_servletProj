@@ -65,7 +65,20 @@ public class Bid {
 		this.memType = memType;
 	}
 	
-	
+	public static Bid getBidFromBidAuctionTransactionDto(BidAuctionTransactionDto bidAuctionTransactionDto) {
+		Bid bid = new Bid();
+		bid.setBidNum(bidAuctionTransactionDto.getBidNum());
+		bid.setBuyerId(bidAuctionTransactionDto.getBuyerId());
+		bid.setBuyPersonId(bidAuctionTransactionDto.getBuyPersonId());
+		bid.setAuctionNum(bidAuctionTransactionDto.getAuctionNum());
+		bid.setSellerId(bidAuctionTransactionDto.getSellerId());
+		bid.setBidDate(bidAuctionTransactionDto.getBidDate());
+		bid.setBidPrice(bidAuctionTransactionDto.getBidPrice());
+		bid.setBidState(bidAuctionTransactionDto.getBidState());
+		bid.setMemType(bidAuctionTransactionDto.getMemType());
+		
+		return null;
+	}
 
 	
 

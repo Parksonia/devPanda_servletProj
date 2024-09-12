@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import dto.Transaction;
 import util.MybatisSqlSessionFactory;
 
 public class TransactionRepositoryImpl implements TransactionRepository {
@@ -30,6 +31,21 @@ public class TransactionRepositoryImpl implements TransactionRepository {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
 			return sqlSession.selectOne("mapper.transaction.getAuctionMaxByCompanyId", companyId);
 		}
+	}
+	
+	
+	@Override
+	public void insertTransaction(Transaction transaction,SqlSession sqlSession) {
+		// TODO Auto-generated method stub
+		
+	
+		String statement = "mapper.transaction.insertTransaction";
+		sqlSession.insert(statement,transaction);
+	
+		
+		
+		
+		
 	}
 
 }

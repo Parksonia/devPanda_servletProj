@@ -17,5 +17,7 @@ public interface CompanyRepository {
 	
 	List<Company> findCompanyListByEmail(String email);
 	
+	Company findCompanyByIdAndPassword(Map<String,String> parameterMap);
+	
 	Company findByCompanyId(String companyId) throws Exception;
 }

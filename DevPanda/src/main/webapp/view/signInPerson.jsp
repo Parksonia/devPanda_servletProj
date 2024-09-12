@@ -168,7 +168,7 @@ body{
 		<div class="container">
 			<div class="sub-title">개인 로그인</div>
 		</div>
-		<form class="form" action="/DevPanda/login" method="post">
+		<form class="form" action="/DevPanda/Person/login" method="post">
 			<div class="container">
 				<div class="id-container">
 					<div class="input-id-title">아이디</div>

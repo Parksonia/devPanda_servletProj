@@ -20,15 +20,24 @@
 	</select>
 	
 	
+	
+		<!-- 로그인 시 사용자 확인을 위한 SELECT 쿼리 -->
+	<select id="findCompanyByIdAndPassword" parameterType="map"
+		resultType="company">
+		SELECT * FROM company
+		WHERE id = #{id} AND password = #{password}
+	</select>
+	
+	
 		<!-- 이메일로 기업 여러개 조회 -->
 	<select id="findCompanyListByEmail" parameterType="String" resultType="company">
-		select id,companyName,email from company
+		select id,companyname,email from company
 		where email=#{email}
 	</select>
 	
 	<!-- 아이디와 이메일로 회원 비밀번호 조회 -->
 	<select id="findPasswordByIdAndEmail" parameterType="map" resultType="String">
-		select password from person
+		select password from company
 		where id=#{id} and email=#{email}
 	</select>
 	

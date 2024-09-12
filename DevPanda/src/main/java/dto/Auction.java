@@ -20,6 +20,7 @@ public class Auction {
 	private String portfolio;
 	private String title;
 	private String state; //'processing' or 'success'
+
 	
 	
 	
@@ -181,7 +182,13 @@ public class Auction {
 				+ certification + ", location=" + location + ", portfolio=" + portfolio + "]";
 	}
 	
-	
+	public static Auction getAuctionFromBidAuctionTransactionDto(BidAuctionTransactionDto bidAuctionTransactionDto) {
+		Auction auction = new Auction();
+		auction.setAuctionNum(bidAuctionTransactionDto.getAuctionNum().intValue());
+		auction.setBidMaxPrice(bidAuctionTransactionDto.getBidMaxPrice());
+		return auction;
+		
+	}
 	
 	
 

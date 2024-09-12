@@ -1,9 +1,12 @@
 package repository.auction;
 
 import dto.Auction;
+import dto.AuctionAndPerson;
 import dto.Person;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
 
 public interface AuctionRepository {
 	 List<Map<String, Object>> getAuctionsWithPersonInfo(int pageSize, int offset);
@@ -11,4 +14,11 @@ public interface AuctionRepository {
 	
 	// 개인 옥션정보 상세보기 조회
 	Auction selectOneAuction(Integer auctionNum) throws Exception;
+	
+	AuctionAndPerson findAuctionAndPersonById(Integer auctionNum);
+	
+	
+	List<AuctionAndPerson> findAllAuctionWithOffset(Integer offset);
+	
+	void updateAuction(Auction auction,SqlSession sqlSession);
 }

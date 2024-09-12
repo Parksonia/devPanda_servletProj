@@ -7,7 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dto.Company;
 import dto.Person;
+import repository.company.CompanyRepository;
+import repository.company.CompanyRepositoryImpl;
 import repository.person.PersonRepository;
 import repository.person.PersonRepositoryImpl;
 
@@ -15,8 +18,9 @@ import repository.person.PersonRepositoryImpl;
 public class AuthService {
 	
 	public PersonRepository personRepository = new PersonRepositoryImpl();
+	public CompanyRepository companyRepository = new CompanyRepositoryImpl();
 	
-	public  Person login(HttpServletRequest request, HttpServletResponse response) {
+	public  Person personLogin(HttpServletRequest request, HttpServletResponse response) {
 		String id= (String) request.getParameter("id");
 		String password= (String) request.getParameter("password");
 		Person person = null; 
@@ -31,7 +35,8 @@ public class AuthService {
 			person = personRepository.findPersonByIdAndPassword(parameterMap);
 			if(person.getId().equals(id)  && person.getPassword().equals(password)) {
 				HttpSession session = request.getSession();
-				session.setAttribute("user", person);
+				session.setAttribute("person", person);
+				session.setAttribute("userType", "p");
 				return person;
 			}
 			return null;
@@ -42,8 +47,40 @@ public class AuthService {
 	}
 	
 	
+	public  Company companyLogin(HttpServletRequest request, HttpServletResponse response) {
+		String id= (String) request.getParameter("id");
+		String password= (String) request.getParameter("password");
+		
+		Company company = null; 
+		
+		if(id ==null || password == null) {
+		
+			return null;
+		}else {
+			Map<String,String> parameterMap = new HashMap<String, String>();
+			parameterMap.put("id", id);
+			parameterMap.put("password", password);
+			
+			company = companyRepository.findCompanyByIdAndPassword(parameterMap);
+			
+			if(company.getId().equals(id)  && company.getPassword().equals(password)) {
+				HttpSession session = request.getSession();
+				session.setAttribute("company", company);
+				session.setAttribute("userType", "c");
+				return company;
+			}
+			return null;
+			
+			
+		}
+				
+	}
 	
-	public static void logout(HttpServletRequest request, HttpServletResponse response) {
+	
+	
+	public  void logout(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		session.invalidate();
 		
 	}
 }

@@ -15,4 +15,8 @@ public interface BidService {
 	List<Bid> bidAllBuyer(Integer auctionNum) throws Exception;
 	
 	String getUserType(String userId) throws Exception;
+	
+	String bidMaxSalary(String data);
+	
+	String bid(String data);
 }

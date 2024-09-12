@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import dto.Auction;
+import dto.AuctionAndPerson;
 import dto.Person;
 
 import repository.auction.AuctionRepository;
@@ -87,5 +88,18 @@ public class AuctionServiceImpl implements AuctionService {
 		}
 
 		return result.toString();
+	}
+	
+	
+	@Override
+	public AuctionAndPerson findAuctionAndPersonById(Integer auctionNum) {
+		// TODO Auto-generated method stub
+		return auctionRepository.findAuctionAndPersonById(auctionNum);
+	}
+
+	@Override
+	public List<AuctionAndPerson> findAllAuctionWithOffset(Integer offset) {
+		// TODO Auto-generated method stub
+		return auctionRepository.findAllAuctionWithOffset(offset);
 	}
 }
