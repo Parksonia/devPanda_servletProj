@@ -58,23 +58,22 @@
         INNER JOIN 
             auction a ON b.auctionNum = a.auctionNum 
         INNER JOIN person p ON p.id = b.sellerId 
-        WHERE 
-            b.buyPersonId = #{id} AND  b.bidState !=2 AND b.bidState !=3
-        ]]>
-    
-    <!-- num 값이 있을 경우에만 BETWEEN 조건을 추가 -->
-    <if test="pastDate != null and nowDate != null">
-        <![CDATA[
-        AND STR_TO_DATE(b.bidDate, '%Y-%m-%d') BETWEEN #{pastDate} AND #{nowDate}
-        ]]>
-    </if>
-    <![CDATA[
-    ORDER BY 
-        b.bidState DESC,b.bidDate DESC
-    LIMIT #{row}, 6;
-    ]]>
-    </select>
-    
+        WHERE
+        ]]> 
+    	<choose>
+    		<when test="memType=='person'">b.buyPersonId = #{id}</when>
+    		<otherwise>b.buyerId = #{id}</otherwise>
+    	</choose>
+        	AND b.bidState NOT IN (2, 3)
+    	<if test="pastDate != null and nowDate != null">
+             AND STR_TO_DATE(b.bidDate, '%Y-%m-%d') BETWEEN #{pastDate} AND #{nowDate}
+            </if>
+    	ORDER BY 
+        	b.bidDate DESC
+   		LIMIT #{row}, 6;
+ 
+    	</select>
+   	 
     
 	<!--경매 등록과 동시에 경매가 시작되는거니까 startDate는 조건에 추가하지 않음  -->
 	<!--  입찰 참여 디폴트는 1 실패,진행,낙찰 성공 외 모두 1 -->
