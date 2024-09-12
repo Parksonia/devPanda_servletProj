@@ -122,15 +122,21 @@ public class Transaction {
 	}
 	
 	
-	public static Transaction getAuctionFromBidAuctionTransactionDto(BidAuctionTransactionDto bidAuctionTransactionDto) {
+	public static Transaction getAuctionFromBidAuctionTransactionDto(BidAuctionTransactionDto bidAuctionTransactionDto,Bid bid) {
 		Transaction transaction = new Transaction();
-		transaction.setTransactionNum(bidAuctionTransactionDto.getTransactionNum());
+		
 		transaction.setSellerId(bidAuctionTransactionDto.getSellerId());
-		transaction.setAuctionNum(bidAuctionTransactionDto.getAuctionNum().intValue());
-		transaction.setBidNum(bidAuctionTransactionDto.getBidNum().intValue());
-		transaction.setBuyerId(bidAuctionTransactionDto.getBuyerId());
+		transaction.setAuctionNum(Integer.parseInt(bidAuctionTransactionDto.getAuctionNum()));
+		transaction.setBidNum(Long.valueOf(bid.getBidNum()).intValue());
+		if(bidAuctionTransactionDto.getBuyerId() != null) {
+			transaction.setBuyerId(bidAuctionTransactionDto.getBuyerId());
+		}
+		if(bidAuctionTransactionDto.getBuyPersonId() != null) {
+			transaction.setBuyerId(bidAuctionTransactionDto.getBuyPersonId());
+		}
+		
 		transaction.setDate(bidAuctionTransactionDto.getDate());
-		transaction.setPrice(bidAuctionTransactionDto.getPrice());
+		transaction.setPrice(Integer.parseInt(bidAuctionTransactionDto.getPrice()));
 		transaction.setState(bidAuctionTransactionDto.getState());
 		transaction.setMemType(bidAuctionTransactionDto.getMemType());
 		return transaction;

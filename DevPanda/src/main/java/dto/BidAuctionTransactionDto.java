@@ -3,24 +3,23 @@ package dto;
 public class BidAuctionTransactionDto {
 	
 	
-	private Long bidNum;
+	private String bidNum;
 	private String buyerId;
 	private String buyPersonId;
-	private Long auctionNum;
+	private String auctionNum;
 	private String sellerId;
 	private String bidDate;
-	private Integer bidPrice;
-	private Integer bidState;
+	private String bidPrice;
+	private String bidState;
 	private String memType;
-	private Integer bidMaxPrice;
-	private Integer transactionNum;   
+	private String bidMaxPrice;
 	private String date; 			  
-	private Integer price; 			  
+	private String price; 			  
 	private String state;
-	public Long getBidNum() {
+	public String getBidNum() {
 		return bidNum;
 	}
-	public void setBidNum(Long bidNum) {
+	public void setBidNum(String bidNum) {
 		this.bidNum = bidNum;
 	}
 	public String getBuyerId() {
@@ -35,10 +34,10 @@ public class BidAuctionTransactionDto {
 	public void setBuyPersonId(String buyPersonId) {
 		this.buyPersonId = buyPersonId;
 	}
-	public Long getAuctionNum() {
+	public String getAuctionNum() {
 		return auctionNum;
 	}
-	public void setAuctionNum(Long auctionNum) {
+	public void setAuctionNum(String auctionNum) {
 		this.auctionNum = auctionNum;
 	}
 	public String getSellerId() {
@@ -53,16 +52,16 @@ public class BidAuctionTransactionDto {
 	public void setBidDate(String bidDate) {
 		this.bidDate = bidDate;
 	}
-	public Integer getBidPrice() {
+	public String getBidPrice() {
 		return bidPrice;
 	}
-	public void setBidPrice(Integer bidPrice) {
+	public void setBidPrice(String bidPrice) {
 		this.bidPrice = bidPrice;
 	}
-	public Integer getBidState() {
+	public String getBidState() {
 		return bidState;
 	}
-	public void setBidState(Integer bidState) {
+	public void setBidState(String bidState) {
 		this.bidState = bidState;
 	}
 	public String getMemType() {
@@ -71,17 +70,11 @@ public class BidAuctionTransactionDto {
 	public void setMemType(String memType) {
 		this.memType = memType;
 	}
-	public Integer getBidMaxPrice() {
+	public String getBidMaxPrice() {
 		return bidMaxPrice;
 	}
-	public void setBidMaxPrice(Integer bidMaxPrice) {
+	public void setBidMaxPrice(String bidMaxPrice) {
 		this.bidMaxPrice = bidMaxPrice;
-	}
-	public Integer getTransactionNum() {
-		return transactionNum;
-	}
-	public void setTransactionNum(Integer transactionNum) {
-		this.transactionNum = transactionNum;
 	}
 	public String getDate() {
 		return date;
@@ -89,10 +82,10 @@ public class BidAuctionTransactionDto {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public Integer getPrice() {
+	public String getPrice() {
 		return price;
 	}
-	public void setPrice(Integer price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 	public String getState() {
@@ -103,13 +96,12 @@ public class BidAuctionTransactionDto {
 	}
 	@Override
 	public String toString() {
-		return "BIdAuctionTransactionDto [bidNum=" + bidNum + ", buyerId=" + buyerId + ", buyPersonId=" + buyPersonId
+		return "BidAuctionTransactionDto [bidNum=" + bidNum + ", buyerId=" + buyerId + ", buyPersonId=" + buyPersonId
 				+ ", auctionNum=" + auctionNum + ", sellerId=" + sellerId + ", bidDate=" + bidDate + ", bidPrice="
 				+ bidPrice + ", bidState=" + bidState + ", memType=" + memType + ", bidMaxPrice=" + bidMaxPrice
-				+ ", transactionNum=" + transactionNum + ", date=" + date + ", price=" + price + ", state=" + state
-				+ "]";
-	} 			
-	
+				+ ", date=" + date + ", price=" + price + ", state=" + state + "]";
+	}
+
 	
 	
 	

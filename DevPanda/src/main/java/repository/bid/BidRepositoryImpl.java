@@ -26,6 +26,8 @@ public class BidRepositoryImpl implements BidRepository {
 		String statement = "mapper.bid.insertBid";
 		sqlSession.insert(statement,bid);
 		
+		
+		
 	}
 
 
@@ -83,4 +85,6 @@ public class BidRepositoryImpl implements BidRepository {
 	public List<Bid> selectAllBuyer(Integer auctionNum) throws Exception {
 		return sqlSession.selectList("mapper.bid.selectAllBuyer", auctionNum);
 	}
+	
+
 }

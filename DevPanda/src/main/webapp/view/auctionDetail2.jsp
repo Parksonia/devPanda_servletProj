@@ -14,6 +14,7 @@
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/auctionDetail.css">
+<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 </head>
 
@@ -63,7 +64,78 @@
 
 	<script>
       
-        function bidOnProfile() {
+		function bid(){
+			
+			
+			$.ajax({
+		        url:'http://localhost:8080/DevPanda/bid',
+		        dataType:'text',
+		        type:'POST',
+		        data:{'bidNum':'',
+		        	'buyerId':'',
+		        	'buyPersonId':'',
+		        	'auctionNum':'',
+		        	'sellerId':'',
+		        	'bidDate':'',
+		        	'bidPrice':'',
+		        	'bidState':'',
+		        	'memType':'',
+		        	'bidMaxPrice':'',
+		        	'date':'',
+		        	'price':'',
+		        	'state':''},
+		        success:function(result){
+		        if(result==='success'){
+		        	alert(`입찰 금액 ${bidAmount}원이 입찰되었습니다.`);
+		        	
+		        }  else{
+		        	alert(`입찰 금액 ${bidAmount}원이 입찰실패하였습니다. 다시 시도해 주세요`);
+		        	
+		        }
+		        
+		        
+		        
+		        
+		        }
+		    });
+					
+	
+		}
+		
+		
+		
+		function transactionbid(){
+			
+			
+			$.ajax({
+		        url:'http://localhost:8080/DevPanda/transactionbid',
+		        dataType:'text',
+		        type:'POST',
+		        data:{'id':$('#id').val(),
+		        		'email':$('#email').val()},
+		        success:function(result){
+		        if(result==='success'){
+		        	alert(`입찰 금액 ${bidAmount}원이 최대 금액이므로 즉시 구매되었습니다.`);
+		        }  else{
+		        	alert(`입찰 금액 ${bidAmount}원이 입찰 실패하였습니다. 다시 시도해 주세요`);
+		        }
+		        
+		        
+		        
+		        
+		        }
+		    });
+					
+	
+		}
+			
+	
+	
+	
+	
+	
+	
+		function bidOnProfile() {
             openBidModal();
         }
 

@@ -1,6 +1,13 @@
 package dto;
 
 public class Bid {
+	@Override
+	public String toString() {
+		return "Bid [bidNum=" + bidNum + ", buyerId=" + buyerId + ", buyPersonId=" + buyPersonId + ", auctionNum="
+				+ auctionNum + ", sellerId=" + sellerId + ", bidDate=" + bidDate + ", bidPrice=" + bidPrice
+				+ ", bidState=" + bidState + ", memType=" + memType + "]";
+	}
+
 	private Long bidNum;
 	private String buyerId;
 	private String buyPersonId;
@@ -10,6 +17,7 @@ public class Bid {
 	private Integer bidPrice;
 	private Integer bidState;
 	private String memType;
+	
 	public Long getBidNum() {
 		return bidNum;
 	}
@@ -67,17 +75,17 @@ public class Bid {
 	
 	public static Bid getBidFromBidAuctionTransactionDto(BidAuctionTransactionDto bidAuctionTransactionDto) {
 		Bid bid = new Bid();
-		bid.setBidNum(bidAuctionTransactionDto.getBidNum());
+		
 		bid.setBuyerId(bidAuctionTransactionDto.getBuyerId());
 		bid.setBuyPersonId(bidAuctionTransactionDto.getBuyPersonId());
-		bid.setAuctionNum(bidAuctionTransactionDto.getAuctionNum());
+		bid.setAuctionNum(Long.parseLong(bidAuctionTransactionDto.getAuctionNum()));
 		bid.setSellerId(bidAuctionTransactionDto.getSellerId());
 		bid.setBidDate(bidAuctionTransactionDto.getBidDate());
-		bid.setBidPrice(bidAuctionTransactionDto.getBidPrice());
-		bid.setBidState(bidAuctionTransactionDto.getBidState());
+		bid.setBidPrice(Integer.parseInt(bidAuctionTransactionDto.getBidPrice()));
+		bid.setBidState(Integer.parseInt(bidAuctionTransactionDto.getBidState()));
 		bid.setMemType(bidAuctionTransactionDto.getMemType());
 		
-		return null;
+		return bid;
 	}
 
 	

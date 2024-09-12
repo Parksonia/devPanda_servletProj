@@ -6,13 +6,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import service.BidService;
 import service.BidServiceImpl;
-
+@WebServlet("/bid")
 public class BidServlet extends HttpServlet{
 
 	private static BidService bidservice = new BidServiceImpl();
@@ -23,6 +24,7 @@ public class BidServlet extends HttpServlet{
 		
 		InputStream inputStream = request.getInputStream();
 		String data = getBody(request);
+		System.out.println(data);
 		String result = bidservice.bid(data);
 		response.getWriter().write(result);
 		

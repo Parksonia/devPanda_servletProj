@@ -184,8 +184,8 @@ public class Auction {
 	
 	public static Auction getAuctionFromBidAuctionTransactionDto(BidAuctionTransactionDto bidAuctionTransactionDto) {
 		Auction auction = new Auction();
-		auction.setAuctionNum(bidAuctionTransactionDto.getAuctionNum().intValue());
-		auction.setBidMaxPrice(bidAuctionTransactionDto.getBidMaxPrice());
+		auction.setAuctionNum(Integer.parseInt(bidAuctionTransactionDto.getAuctionNum()));
+		auction.setBidMaxPrice(Integer.parseInt(bidAuctionTransactionDto.getBidMaxPrice()));
 		return auction;
 		
 	}

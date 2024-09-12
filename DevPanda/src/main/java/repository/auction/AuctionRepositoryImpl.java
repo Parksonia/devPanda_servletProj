@@ -75,5 +75,7 @@ public class AuctionRepositoryImpl implements AuctionRepository {
 		sqlSession.update(statement,auction);
 	
 	}
+	
+
 
 }

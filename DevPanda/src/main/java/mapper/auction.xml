@@ -12,7 +12,7 @@
     (#{title}, #{minSalary}, #{maxSalary}, #{occupation},
     #{period}, #{education}, #{employmentType}, #{stack},
     #{certification}, #{location}, #{portfolio}, #{startDate}, #{endDate}, #{state}, #{startPrice}, #{bidMaxPrice},#{id});
-</insert>
+	</insert>
 
 
 
@@ -58,5 +58,26 @@
 		SELECT * FROM auction WHERE auctionNum = #{auctionNum};
 	]]>
 	</select>
+	
+	
+	<!-- offset limit 이용 경매 리스트 조회 -->
+	<select id="findAllAuctionWithOffset" parameterType="int"
+		resultType="dto.AuctionAndPerson">
+		select a.*,
+		p.nickname,p.email,p.address,p.sex,p.age,p.personimage,p.status 
+		from auction as a inner join person as p on a.id = p.id
+		order by a.auctionNum
+		limit 9 offset #{offset}
+		
+	</select>
+	
+	
+		<update id="updateAuction" parameterType="auction">
+	
+		update auction set bidMaxPrice=#{bidMaxPrice}
+		where auctionNum=#{auctionNum}
+	
+	
+	</update>
 
 </mapper>

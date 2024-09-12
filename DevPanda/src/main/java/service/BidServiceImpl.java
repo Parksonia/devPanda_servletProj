@@ -139,21 +139,25 @@ public class BidServiceImpl implements BidService {
 		
 		
 		BidAuctionTransactionDto bidAuctionTransactionDto = getBidAuctionTransactionDto(data);
+		
 		SqlSession sqlSession = null;
 		String result = "fail";
 		try{
 			sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession(ExecutorType.SIMPLE,false);
 			Bid bid = Bid.getBidFromBidAuctionTransactionDto(bidAuctionTransactionDto);
 			Auction auction = Auction.getAuctionFromBidAuctionTransactionDto(bidAuctionTransactionDto);
-			Transaction transaction = Transaction.getAuctionFromBidAuctionTransactionDto(bidAuctionTransactionDto);
+
 			bidRepository.insertBid(bid, sqlSession);
 			auctionRepository.updateAuction(auction, sqlSession);
+			Transaction transaction = Transaction.getAuctionFromBidAuctionTransactionDto(bidAuctionTransactionDto,bid);
+
 			transactionRepository.insertTransaction(transaction, sqlSession);
 			
 			result = "success";
 			sqlSession.commit();
 			
 		}catch (Exception e) {
+			e.printStackTrace();
 			sqlSession.rollback();
 		}
 		
@@ -170,6 +174,7 @@ public class BidServiceImpl implements BidService {
 		
 		
 		BidAuctionTransactionDto bidAuctionTransactionDto = getBidAuctionTransactionDto(data);
+		System.out.println(bidAuctionTransactionDto);
 		SqlSession sqlSession = null;
 		String result = "fail";
 		
@@ -187,6 +192,7 @@ public class BidServiceImpl implements BidService {
 			sqlSession.commit();
 			
 		}catch (Exception e) {
+			e.printStackTrace();
 			sqlSession.rollback();
 		}
 		
