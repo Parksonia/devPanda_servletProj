@@ -19,4 +19,5 @@ public interface BidRepository {
 	void updateBidState(String id) throws Exception;
 
 	List<Bid> selectAllBuyer(Integer auctionNum) throws Exception;
+	
 }
