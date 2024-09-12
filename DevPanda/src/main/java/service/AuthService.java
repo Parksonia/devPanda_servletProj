@@ -36,7 +36,7 @@ public class AuthService {
 			if(person.getId().equals(id)  && person.getPassword().equals(password)) {
 				HttpSession session = request.getSession();
 				session.setAttribute("person", person);
-				session.setAttribute("userType", "p");
+				session.setAttribute("userType", "P");
 				return person;
 			}
 			return null;
@@ -66,7 +66,7 @@ public class AuthService {
 			if(company.getId().equals(id)  && company.getPassword().equals(password)) {
 				HttpSession session = request.getSession();
 				session.setAttribute("company", company);
-				session.setAttribute("userType", "c");
+				session.setAttribute("userType", "C");
 				return company;
 			}
 			return null;

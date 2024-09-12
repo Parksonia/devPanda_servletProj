@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.AuctionAndPerson;
+import dto.Company;
+import dto.Person;
 import service.AuctionService;
 import service.AuctionServiceImpl;
 
@@ -33,6 +35,12 @@ public class AuctionDetailServlet extends HttpServlet{
 				auctionAndPerson.getStack()+", "+
 				auctionAndPerson.getCertification()+", "+
 				auctionAndPerson.getLocation());
+		req.setAttribute("userType", (String)req.getSession().getAttribute("userType"));
+		if(((String) req.getSession().getAttribute("userType")).equals("P")) {
+			req.setAttribute("person", (Person)req.getSession().getAttribute("person"));
+		}else {
+			req.setAttribute("company", (Company)req.getSession().getAttribute("company"));
+		}
 		req.getRequestDispatcher("/view/auctionDetail2.jsp").forward(req, resp);
 	}
 

@@ -63,7 +63,7 @@
 	</div>
 
 	<script>
-      
+      	
 		function bid(){
 			
 			
@@ -71,18 +71,18 @@
 		        url:'http://localhost:8080/DevPanda/bid',
 		        dataType:'text',
 		        type:'POST',
-		        data:{'bidNum':'',
+		        data:{
 		        	'buyerId':'',
 		        	'buyPersonId':'',
 		        	'auctionNum':'',
-		        	'sellerId':'',
+		        	'sellerId':'${auctionAndPerson.id}',
 		        	'bidDate':'',
 		        	'bidPrice':'',
 		        	'bidState':'',
-		        	'memType':'',
-		        	'bidMaxPrice':'',
+		        	'memType':'${userType}',
+		        	'bidMaxPrice':'${auctionAndPerson.bidMaxPrice}',
 		        	'date':'',
-		        	'price':'',
+		        	'price':'${auctionAndPerson.bidMaxPrice}',
 		        	'state':''},
 		        success:function(result){
 		        if(result==='success'){
