@@ -4,6 +4,20 @@
 
 <mapper namespace="mapper.auction">
 
+	<insert id="insertAuction" parameterType="dto.Auction">
+    INSERT INTO auction
+    (title, minSalary, maxSalary, occupation, period,
+    education, employmentType, stack, certification, location, portfolio, startDate, endDate, state, startPrice, bidMaxPrice)
+    VALUES
+    (#{title}, #{minSalary}, #{maxSalary}, #{occupation},
+    #{period}, #{education}, #{employmentType}, #{stack},
+    #{certification}, #{location}, #{portfolio}, #{startDate}, #{endDate}, #{state}, #{startPrice}, #{bidMaxPrice});
+</insert>
+
+
+
+
+
 	<select id="getAuctionsWithPersonInfo" parameterType="map"
 		resultType="map">
 		SELECT
