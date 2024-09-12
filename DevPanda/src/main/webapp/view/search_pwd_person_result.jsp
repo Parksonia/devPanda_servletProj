@@ -37,7 +37,7 @@
 				</div>
 			</div>
 		</div>
-		<form class="form" id="form" method="get" action="/DevPanda/login" >
+		<form class="form" id="form" method="get" action="/DevPanda/Person/login" >
 			
 			<div class="form-container" >
 				<div class="input-container">

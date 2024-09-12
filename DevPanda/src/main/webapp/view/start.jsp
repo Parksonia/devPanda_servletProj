@@ -97,13 +97,13 @@ body{
 
 
         <div class="login-container">
-            <div class = "sub-login-container" onclick="location.href='/DevPanda/login'">
+            <div class = "sub-login-container" onclick="location.href='/DevPanda/Person/login'">
                 <img src="${pageContext.request.contextPath}/img/individual.png" class="sub-image">
                 <div class = "sub-text">개인 회원</div>
             </div>
 
 
-            <div class = "sub-login-container onclick="location.href='/DevPanda/Company/login'">
+            <div class = "sub-login-container" onclick="location.href='/DevPanda/Company/login'">
                 <img src="${pageContext.request.contextPath}/img/company.png" class="sub-image">
                 <div class = "sub-text">기업 회원</div>
             </div>

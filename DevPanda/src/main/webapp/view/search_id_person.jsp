@@ -195,7 +195,7 @@ function check(){
 				</div>
 			</div>
 		</div>
-		<form class="form" id="form" method="get" action="/DevPanda/Company/IdResult" >
+		<form class="form" id="form" method="get" action="/DevPanda/Person/IdResult" >
 			
 			<div class="form-container" >
 				<div class="input-container">

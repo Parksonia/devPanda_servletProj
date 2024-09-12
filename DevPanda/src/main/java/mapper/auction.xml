@@ -7,11 +7,11 @@
 	<insert id="insertAuction" parameterType="dto.Auction">
     INSERT INTO auction
     (title, minSalary, maxSalary, occupation, period,
-    education, employmentType, stack, certification, location, portfolio, startDate, endDate, state, startPrice, bidMaxPrice)
+    education, employmentType, stack, certification, location, portfolio, startDate, endDate, state, startPrice, bidMaxPrice,id)
     VALUES
     (#{title}, #{minSalary}, #{maxSalary}, #{occupation},
     #{period}, #{education}, #{employmentType}, #{stack},
-    #{certification}, #{location}, #{portfolio}, #{startDate}, #{endDate}, #{state}, #{startPrice}, #{bidMaxPrice});
+    #{certification}, #{location}, #{portfolio}, #{startDate}, #{endDate}, #{state}, #{startPrice}, #{bidMaxPrice},#{id});
 </insert>
 
 
@@ -30,6 +30,13 @@
 		FROM auction a
 		JOIN person p ON a.id = p.id
 		LIMIT #{pageSize} OFFSET #{offset}
+	</select>
+	
+	<select id="findAuctionById" parameterType="int" resultType="dto.AuctionAndPerson">
+		select a.*,
+		p.nickname,p.email,p.address,p.sex,p.age,p.personimage,p.status 
+		from auction as a inner join person as p on a.id = p.id
+		where auctionNum=#{auctionNum}
 	</select>
 
 	<resultMap id="auctionPersonMap" type="map">

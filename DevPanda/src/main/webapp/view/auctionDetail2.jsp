@@ -11,10 +11,12 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="auctionDetail.css">
-<link rel="stylesheet"
+
+<link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/auctionDetail.css">
+
 </head>
+
 <body class="bg-gray-100 text-gray-900">
 
 	<header>
@@ -75,8 +77,8 @@
 
         function submitBid() {
             const bidAmount = parseInt(document.getElementById('bid-amount').value);
-            const maxAmount = ${auctionAndPeron.maxSalary};
-            let currentBid = ${auctionAndPerson.maxPrice};
+            const maxAmount = ${auctionAndPerson.maxSalary};
+            let currentBid = ${auctionAndPerson.bidMaxPrice};
 
             if (bidAmount) {
                 if (bidAmount >= maxAmount) {
@@ -94,6 +96,10 @@
                 alert('금액을 입력해 주세요.');
             }
         }
+        
+        console.log(1)
     </script>
+    
+
 </body>
 </html>

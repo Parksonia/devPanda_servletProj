@@ -31,10 +31,10 @@ public class AuctionInsertServlet extends HttpServlet {
         
     	
     	//로그인 회원 정보 조회
-//    	HttpSession session = request.getSession(false);
-//    	
-//		Person person = (Person) session.getAttribute("person");
-//    	String id = person.getId();
+    	HttpSession session = request.getSession(false);
+    	
+		Person person = (Person) session.getAttribute("person");
+    	String id = person.getId();
     	
     	
     	// 파일 업로드 폴더 경로 설정
@@ -88,7 +88,7 @@ public class AuctionInsertServlet extends HttpServlet {
         auction.setMinSalary(minSalary);
         auction.setMaxSalary(maxSalary);
        
-        //auction.setId(id);
+        auction.setId(id);
         auction.setStartPrice(0);  // startPrice를 0으로 설정
         auction.setBidMaxPrice(0); // bidMaxPrice를 0으로 설정
         

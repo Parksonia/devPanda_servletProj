@@ -23,6 +23,7 @@ public class AuctionDetailServlet extends HttpServlet{
 		// TODO Auto-generated method stub
 		Integer auctionNum = Integer.valueOf( req.getParameter("auctionNum"));
 		AuctionAndPerson auctionAndPerson = auctionService.findAuctionAndPersonById(auctionNum);
+		System.out.println(auctionAndPerson);
 		req.setAttribute("auctionAndPerson", auctionAndPerson);
 		req.setAttribute("category", 
 				auctionAndPerson.getOccupation()+", "+
