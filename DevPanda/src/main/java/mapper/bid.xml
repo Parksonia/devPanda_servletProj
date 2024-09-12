@@ -16,32 +16,32 @@
 	
 	</insert>
 	
-	
-	<!--paramType = Map, 동적쿼리 활용해야할듯... id only, id+date조건  -->
+	<!--더보기 페이징 게산 위함 -->
+	<!-- 날짜 필터가 있을 경우 동적 쿼리 실행됨 -->
 	<select id="selectBuyBidCnt" parameterType="Map" resultType="Integer"> 
-		<![CDATA[
+	
     	SELECT 
         	count(*)
     	FROM 
         	bid b 
     	INNER JOIN 
         	auction a ON b.auctionNum = a.auctionNum 
-    	WHERE 
-        	b.buyPersonId = #{id} AND b.bidState != 2 AND b.bidState != 3
-    	]]>
-    
-    <!-- 날짜 필터가 있을 경우 -->
-    	<if test="pastDate != null and nowDate != null">
-        <![CDATA[
-        	AND STR_TO_DATE(b.bidDate, '%Y-%m-%d') BETWEEN #{pastDate} AND #{nowDate}
-        ]]>
-    	</if>
+    	WHERE
+    	<choose>
+    		<when test="memType=='person'">b.buyPersonId = #{id}</when>
+    		<otherwise>b.buyerId = #{id}</otherwise>
+    	</choose>
+    		AND b.bidState NOT IN (2, 3)
+            <if test="pastDate != null and nowDate != null">
+                  AND STR_TO_DATE(b.bidDate, '%Y-%m-%d') BETWEEN #{pastDate} AND #{nowDate}
+            </if>
 	</select>
 	
  
 	 <!-- Bid와 Auction,Person 조인 결과를 조회하는 쿼리-->
 	 <!-- 입찰 리스트이므로 bidState 낙찰인 경우(2,3)는제외 -->
-	 <!-- 진행중,입찰일을 최신으로 정렬함 -->
+	 <!-- 입찰일을 최신으로 정렬함 -->
+	 <!-- 기간조회 값이 있을 경우에만 BETWEEN 조건을 추가 -->
 	 <select id="selectBuyBidList" parameterType="Map" resultType="Map">
         <![CDATA[
         SELECT 
@@ -58,23 +58,22 @@
         INNER JOIN 
             auction a ON b.auctionNum = a.auctionNum 
         INNER JOIN person p ON p.id = b.sellerId 
-        WHERE 
-            b.buyPersonId = #{id} AND  b.bidState !=2 AND b.bidState !=3
-        ]]>
-    
-    <!-- num 값이 있을 경우에만 BETWEEN 조건을 추가 -->
-    <if test="pastDate != null and nowDate != null">
-        <![CDATA[
-        AND STR_TO_DATE(b.bidDate, '%Y-%m-%d') BETWEEN #{pastDate} AND #{nowDate}
-        ]]>
-    </if>
-    <![CDATA[
-    ORDER BY 
-        b.bidState DESC,b.bidDate DESC
-    LIMIT #{row}, 6;
-    ]]>
-    </select>
-    
+        WHERE
+        ]]> 
+    	<choose>
+    		<when test="memType=='person'">b.buyPersonId = #{id}</when>
+    		<otherwise>b.buyerId = #{id}</otherwise>
+    	</choose>
+        	AND b.bidState NOT IN (2, 3)
+    	<if test="pastDate != null and nowDate != null">
+             AND STR_TO_DATE(b.bidDate, '%Y-%m-%d') BETWEEN #{pastDate} AND #{nowDate}
+            </if>
+    	ORDER BY 
+        	b.bidDate DESC
+   		LIMIT #{row}, 6;
+ 
+    	</select>
+   	 
     
 	<!--경매 등록과 동시에 경매가 시작되는거니까 startDate는 조건에 추가하지 않음  -->
 	<!--  입찰 참여 디폴트는 1 실패,진행,낙찰 성공 외 모두 1 -->
