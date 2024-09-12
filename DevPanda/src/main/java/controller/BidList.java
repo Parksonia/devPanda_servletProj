@@ -27,13 +27,13 @@ import util.PageInfo;
  * Servlet implementation class BidList
  */
 @WebServlet("/bidList")
-public class BidList3 extends HttpServlet {
+public class BidList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public BidList3() {
+	public BidList() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
