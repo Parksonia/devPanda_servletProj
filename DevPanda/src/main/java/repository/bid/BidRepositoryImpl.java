@@ -10,14 +10,17 @@ import dto.Bid;
 import util.MybatisSqlSessionFactory;
 
 public class BidRepositoryImpl implements BidRepository {
-
+	
+	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+	
+	// 이미 session getSession 메서드가 util 패키지의 MybatisSqlSessionFactory에 존재, 객체 생성함
 	private SqlSession getSqlSession() {
 		return MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
 	}
 
 	@Override
 	public int insertBid(Bid bid) {
-		// TODO Auto-generated method stub
+		
 		SqlSession sqlSession = getSqlSession();
 		int result = 0;
 
@@ -52,9 +55,9 @@ public class BidRepositoryImpl implements BidRepository {
 		//System.out.println(result);
 
 	}
-
-	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
-
+	
+	
+	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	// 페이지 계산을 위한 Buyer의 BidList 전체 수 조회
 	@Override
 	public Integer selectBuyBidCnt(HashMap<String, Object> pageInfo) throws Exception {
@@ -62,25 +65,26 @@ public class BidRepositoryImpl implements BidRepository {
 		return sqlSession.selectOne("mapper.bid.selectBuyBidCnt", pageInfo);
 
 	}
-
 	@Override
-	public List<Map> selectBuyBidList(Integer row, String id) throws Exception {
+	public List<Map> selectBuyBidList(Integer row, String id,String userType) throws Exception {
 		HashMap<String, Object> param = new HashMap<>();
 		param.put("id", id);
 		param.put("row", row);
+		param.put("memType", userType);
 		List<Map> result = sqlSession.selectList("mapper.bid.selectBuyBidList", param);
-		//System.out.println(result);
 		return result;
 	}
 
+	// 날짜 범위에 따라 게산된 리스트 조회 
 	@Override
-	public List<Map> selectBuyBidWithCalDate(Integer row, String id, String nowStr, String pastDateStr)
+	public List<Map> selectBuyBidWithCalDate(Integer row, String id, String nowStr, String pastDateStr,String memType)
 			throws Exception {
 		HashMap<String, Object> param = new HashMap<>();
 		param.put("id", id);
 		param.put("row", row);
 		param.put("nowDate", nowStr);
 		param.put("pastDate", pastDateStr);
+		param.put("memType", memType);
 		List<Map> result = sqlSession.selectList("mapper.bid.selectBuyBidList", param);
 
 		return result;
@@ -100,13 +104,9 @@ public class BidRepositoryImpl implements BidRepository {
 		}
 	}
 
-	//
+	//상세 페이지의 모든 입찰 참여자 리스트 조회 
 	@Override
 	public List<Bid> selectAllBuyer(Integer auctionNum) throws Exception {
-
 		return sqlSession.selectList("mapper.bid.selectAllBuyer", auctionNum);
 	}
-	
-
-
 }

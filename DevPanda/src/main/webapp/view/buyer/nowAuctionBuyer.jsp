@@ -400,7 +400,7 @@
 			<div class="user-info-container">
 				<div class="user-info">
 					<div class="user">
-						<img src="${pageContext.request.contextPath}/img/${sellerImage}" alt="SellerImg">
+						<img src="image?file=${sellerImage}" alt="SellerImg">
 						<p class="user_type">[개인회원]</p>
 						<p class="bold">${auction.id}</p>
 						<p class="title">${auction.title}</p>
@@ -475,10 +475,10 @@
 			<!--modal로 데이터 각각 다른 데이터 전송하기   -->
 			<div class="button-container">
 				<div class="button-wrapper white-background">
-					<button class="custom-button black-text open-modal-btn" data-target="myModal" data-bidNum="${bidNum}" data-newBidPrice="" data-bidMaxPrice="${auction.bidMaxPrice}" data-myBidPrice="${bidPrice}">입찰 변경하기</button>
+					<button class="custom-button black-text open-modal-btn" data-target="myModal" data-bidNum="${bidNum}" data-auctionNum="${auctionNum}" data-bidMaxPrice="${auction.bidMaxPrice}" data-myBidPrice="${bidPrice}" data-maxSalary="${auction.maxSalary}">입찰 변경하기</button>
 				</div>
 				<div class="button-wrapper">
-					<button class="custom-button open-modal-btn" data-target="myModal" data-bidNum="${bidNum}" data-newBidPrice="${auction.maxSalary}" data-bidMaxPrice="${auction.bidMaxPrice}" data-myBidPrice="${bidPrice}">즉시 구매하기</button>
+					<button class="custom-button open-modal-btn" data-target="myModal" data-bidNum="${bidNum}" data-auctionNum="${auctionNum}" data-newBidPrice="${auction.maxSalary}" data-bidMaxPrice="${auction.bidMaxPrice}" data-myBidPrice="${bidPrice}" data-maxSalary="${auction.maxSalary}">즉시 구매하기</button>
 				</div>
 			</div>
 
@@ -545,90 +545,151 @@
 
 
 	<!-- 케이스로 즉시구매, 금액변경 나눌까 고민중...  -->
-			<!-- Modal structure -->
-			<div id="myModal" class="modal">
-				<div class="modal-content">
-					<span class="close">&times;</span>
-					<div class="modal-header">입찰 금액 변경</div>
-					<div class="price-info">
-						<span>나의 입찰가</span> <span class="myBidPrice" id="myBidPrice"></span>
-					</div>
-					<div class="price-info">
-						<span>현재 최고 입찰가</span> <span class="final-bid" id="bidMaxPrice"></span>
-					</div>
-					<div class="register-bid">
-						<input type="hidden" id="bidNum"> <input type="text"
-							placeholder="금액을 입력해주세요" id="newBidPrice">
-					</div>
-					<div class="info-text">새로운 금액으로 등록합니다</div>
-					<div class="register-bid">
-						<button id="updatePriceBtn">등록하기</button>
-					</div>
-				</div>
-			</div>
+		 <!-- Modal structure -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">입찰 금액 변경</div>
+            <div class="price-info">
+                <span>나의 입찰가</span>
+                <span class="myBidPrice" id="myBidPrice"></span>
+            </div>
+            <div class="price-info">
+                <span>현재 최고 입찰가</span>
+                <span class="final-bid" id="bidMaxPrice"></span>
+            </div>
+            <div class="register-bid">
+           
+                <input type="text" placeholder="금액을 입력해주세요" id="newBidPrice" name="newBidPrice" required />
+            </div>
+            <div class="info-text"><span class="text-detail"></span></div>
+            <div class="register-bid">
+                <button id="updatePriceBtn">등록하기</button>
+            </div>
+        </div>
+    </div>
 
-			<script>
-        var modal = document.getElementById("myModal");
-        var btns = document.querySelectorAll(".open-modal-btn");
-        var span = document.querySelector(".modal .close");
-        
-        
-        btns.forEach(function(btn) {
-            btn.onclick = function() {
-            	 
-            	 var bidNum = $(this).attr('data-bidNum');
-                 var newBidPrice = $(this).attr('data-newBidPrice');
-                 var bidMaxPrice = $(this).attr('data-bidMaxPrice').toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                 var myBidPrice = $(this).attr('data-myBidPrice').toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-             	 
-                 //모달에 데이터 표시
-                 document.getElementById('myBidPrice').innerText = myBidPrice + '원'; // 나의 입찰가
-                 document.getElementById('bidMaxPrice').innerText = bidMaxPrice + '원'; // 현재 최고 입찰가
+    <!-- JavaScript section -->
+    <script>
+        $(document).ready(function() {
+        	var updatePriceData = $(this).data();
+            var modal = document.getElementById("myModal");
+            var btns = document.querySelectorAll(".open-modal-btn");
+            var span = document.querySelector(".modal .close");
+            var maxSalary;
+            var minBidPrice;
 
-                 
-                 // 모달의 필드에 값 설정
-                 $('#myBidPrice').val(myBidPrice);
-                 $('#newBidPrice').val(newBidPrice);
-                 $('#bidMaxPrice').val(bidMaxPrice);
+            // 모달 열기
+            btns.forEach(function(btn) {
+            	//모달에 넘겨 받은 데이터 변수 저장
+                btn.onclick = function() {
+                   
+                    var bidMaxPrice = $(this).attr('data-bidMaxPrice');
+                    var myBidPrice = $(this).attr('data-myBidPrice');
+                    maxSalary = parseInt($(this).attr('data-maxSalary'),10); //10진수로 변환함 , 안하면 NaN으로 뜸 
+                    minBidPrice = parseInt(bidMaxPrice, 10);
+                   
+                 	
+                    $('#newBidPrice').attr('maxlength', maxSalary.toString().length); // 입력 길이 수 제한함
+                    
+                    // 모달에 값 표시
+                    document.getElementById('myBidPrice').innerText = myBidPrice + '원'; // 나의 입찰가
+                    document.getElementById('bidMaxPrice').innerText = bidMaxPrice + '원'; // 현재 최고 입찰가
+                    $('#bidNum').val(bidNum);
 
-            	//modal 띄우기
-                modal.style.display = "flex";
-            }
-        });
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-       
-        
-        }
-      
-        
-        $('#updatePriceBtn').click(function(){
-        	// 입찰 진행 중 모달에서 금액 업데이트 하기 
-            var newBidPrice = (this).data('#newBidPrice');
-            var bidNum = (this).data('bidNum');
-            var data= {auctionNum:auctionNum,newBidPrice:newBidPrice}
-            
+                    // 버튼에 따라 다르게 처리
+                    //즉시낙찰
+                    if ($(this).text().includes("즉시 구매")) {
+                        $('#newBidPrice').val(maxSalary); // 즉시 구매가인 maxSalary로 설정
+                        $('#newBidPrice').prop('readonly', true); // 입력 못하게 막음
+                        $('.text-detail').text('즉시 낙찰로 거래가 변경됩니다.'); 
+                    
+                     //입찰금액변경
+                    } else {
+                        $('#newBidPrice').val(''); 
+                        $('#newBidPrice').prop('readonly', false); // 입력 가능
+                        $('.text-detail').text('새로운 금액으로 입찰합니다.'); 
+                    }
 
-        	$.ajax({
-            	url:'<%=request.getContextPath()%>/updateBidPrice',
-            	type:'POST',
-            	data : data,
-            	success: function(result){
-            		alert("입찰 금액 변경에 성공했습니다.");
-            	},
-            	error:function(err){
-            		alert("금액 변경 중 오류가 발생했습니다.");
-            	}
-            	
+                    modal.style.display = "flex"; // 모달 표시
+                };
+           
             });
-            
-        }); 
+            // 숫자만 입력 가능하게 처리
+            $('#newBidPrice').on("input", function() {
+                var price = $(this).val().replace(/[^0-9]/g, ''); // 숫자만 입력
+                $(this).val(price); // 입력된 숫자만 필드에 표시
+            });
 
+            // 입력 검증 및 알림 blur 이벤트: 포커스를 잃을 때 발생 (keyup,down,input 모두 에러 발생함 디바운싱을 하지 않으면 안됨,setTimeout 설정 필수)
+            $('#newBidPrice').on('blur', function() { 
+                var price = $(this).val().replace(/\s+/g, ''); // 공백 방지 
+                var bidMaxPrice = parseInt($('#bidMaxPrice').text().replace(/[^0-9]/g, '')) || 0; // 현재 최고 입찰가
+                var numberValue = parseInt(price, 10); //text를 숫자로 변환
+                var errorMessage = '';
+
+                if (isNaN(numberValue)) {
+                    errorMessage = '숫자만 입력해 주세요';
+                } else if (numberValue <= bidMaxPrice || numberValue > maxSalary) {
+                    errorMessage = ' 현재 최고 입찰금 보다 큰 금액만 입력이 가능합니다.';
+                } else if (numberValue === maxSalary){
+                	 errorMessage = '즉시구매를 선택해 주세요';   	
+                }
+                	
+                $('#error').text(errorMessage); 
+         
+                if (errorMessage) {
+                	alert(errorMessage); 
+                	$(this).val('');
+                }
+            });
+      
+            // X 로만 모달 닫기
+            span.onclick = function() {
+                modal.style.display = "none";
+            };
+
+         /*    window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }; */
+        
+            
+            // 금액 업데이트 AJAX 전송
+            $('#updatePriceBtn').click(function() {
+            	var bidNum = $(this).attr('data-bidNum');
+                var newBidPrice = $('#newBidPrice').val();
+                var auctionNum = $(this).attr('data-auctionNum'); 
+                var maxSalary = $(this).attr('data-maxSalary'); 
+                
+                if (newBidPrice) {
+                    var data = { 
+                        auctionNum: auctionNum, 
+                        bidNum: bidNum, 
+                        newBidPrice: newBidPrice, 
+                        maxSalary: maxSalary 
+                    }; // auctionNum도 보내서 auction의 bidMax도 함께 바꾸기 
+                    
+                    
+                    $.ajax({
+                        url: '<%=request.getContextPath()%>/updateBidPrice',
+                        type: 'POST',
+                        data: data,
+                        success: function(result) {
+                            alert("입찰 금액 변경에 성공했습니다.");
+                            modal.style.display = "none"; // 성공 시 모달 닫기
+                        },
+                        error: function(err) {
+                            alert("금액 변경 중 오류가 발생했습니다.");
+                        }
+                    });
+                } else {
+                    alert("금액을 입력해주세요.");
+                }
+            });
+        });
     </script>
+	
 </body>
 </html>

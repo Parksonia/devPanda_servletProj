@@ -8,11 +8,11 @@ import util.PageInfo;
 
 public interface BidService {
 
-	List<Map>bidListAll(PageInfo pageInfo,String id) throws Exception;
+	List<Map>bidListAll(PageInfo pageInfo,String id,String memType) throws Exception;
 	
-	List<Map>bidListAllWithCalDate(PageInfo pageInfo,String id,String nowStr,String pastDateStr)throws Exception;
+	List<Map>bidListAllWithCalDate(PageInfo pageInfo,String id,String nowStr,String pastDateStr,String memType)throws Exception;
 	
 	List<Bid> bidAllBuyer(Integer auctionNum) throws Exception;
 	
-	
+	String getUserType(String userId) throws Exception;
 }

@@ -9,6 +9,10 @@ import dto.Auction;
 import dto.Bid;
 import repository.bid.BidRepository;
 import repository.bid.BidRepositoryImpl;
+import repository.company.CompanyRepository;
+import repository.company.CompanyRepositoryImpl;
+import repository.person.PersonRepository;
+import repository.person.PersonRepositoryImpl;
 import util.PageInfo;
 
 public class BidServiceImpl implements BidService {
@@ -20,7 +24,7 @@ public class BidServiceImpl implements BidService {
 	
 	//전체 리스트 출력 서비스
 	@Override
-	public List<Map> bidListAll(PageInfo pageInfo,String id) throws Exception {		
+	public List<Map> bidListAll(PageInfo pageInfo,String id,String memType) throws Exception {		
 		
 
 		//**bidState 업데이트를 먼저 진행하고 리스트를 호출해야함**(1:진행중/0: 종료/2: 기간종료낙찰/ 3:즉시 낙찰)
@@ -29,16 +33,19 @@ public class BidServiceImpl implements BidService {
 		//더보기 기능 위한maxPage 계산
 		HashMap<String,Object>pageinfo = new HashMap<>();
 		pageinfo.put("id", id);
-		//리스트 총 행의 수 리턴 
+		pageinfo.put("memType", memType);
+		
+		//리스트 총 행의 수 리턴
 		int maxCnt =bidRepository.selectBuyBidCnt(pageinfo); 
 		int allPage = (int)Math.ceil((double)maxCnt/6);
+		
 		//끝페이지 정보 저장 
 		pageInfo.setAllPage(allPage); 
 		
 		if(pageInfo.getCurPage() > allPage ) return null;
-		int row = (pageInfo.getCurPage()-1)*6;
+		int row = (pageInfo.getCurPage() - 1) * 6;
 		
-		 List<Map> buyBidList = bidRepository.selectBuyBidList(row,id);
+		 List<Map> buyBidList = bidRepository.selectBuyBidList(row,id,memType);
 		 // 프론트에서 처리하지만 buybidList.size() 가 <6 작은경우 allPage를 1로 고정해도 좋을 것 같다..
 		 if(buyBidList.size()<6) {
 			 pageInfo.setAllPage(1);
@@ -50,31 +57,31 @@ public class BidServiceImpl implements BidService {
 
 	//전체 리스트 날짜 계산된 리스트 출력 서비스
 	@Override
-	public List<Map> bidListAllWithCalDate(PageInfo pageInfo,String id, String nowStr, String pastDateStr) throws Exception {
+	public List<Map> bidListAllWithCalDate(PageInfo pageInfo,String id, String nowStr, String pastDateStr,String memType) throws Exception {
 
 		//**bidState 업데이트를 먼저 진행하고 리스트를 호출해야함**  (1:진행중/0: 종료/2: 기간종료낙찰/ 3:즉시 낙찰)
 		//bidRepository.updateBidState(id);
 		
 		//더보기 기능 위한maxPage 계산
-		HashMap<String,Object>pageinfo = new HashMap<>();
-		pageinfo.put("id", id);
-		pageinfo.put("nowDate", nowStr);
-		pageinfo.put("pastDate", pastDateStr);
+		 HashMap<String, Object> pageinfo = new HashMap<>();
+		    pageinfo.put("id", id);
+		    pageinfo.put("nowDate", nowStr);
+		    pageinfo.put("pastDate", pastDateStr);
+		    pageinfo.put("memType", memType);
 		//리스트 총 행의 수 리턴 
-		int maxCnt = bidRepository.selectBuyBidCnt(pageinfo); 
+		int maxCnt =  bidRepository.selectBuyBidCnt(pageinfo);
 		
-		int allPage = (int)Math.ceil((double)maxCnt/6);
+		int allPage = (int) Math.ceil((double) maxCnt / 6);
 		//끝페이지 정보 저장 
 
 		pageInfo.setAllPage(allPage);
 		
-		if(pageInfo.getCurPage() > allPage ) return null;
-		int row = (pageInfo.getCurPage()-1)*6;
+		if (pageInfo.getCurPage() > allPage) return null;
+		int row = (pageInfo.getCurPage() - 1) * 6;
 		
-		 List<Map> buyBidList = bidRepository.selectBuyBidWithCalDate(row,id,nowStr,pastDateStr);
+		 List<Map> buyBidList = bidRepository.selectBuyBidWithCalDate(row,id,nowStr,pastDateStr,memType);
 		 // 프론트에서 처리하지만 buybidList.size() 가 <6 작은경우 allPage를 1로 고정해도 좋을 것 같다..
-		 if(buyBidList.size()<=6) {
-			 
+		 if (buyBidList.size() < 6 && pageInfo.getCurPage() == allPage) {
 			 pageInfo.setAllPage(1);
 			//끝페이지 정보 저장 
 
@@ -91,6 +98,23 @@ public class BidServiceImpl implements BidService {
 		List<Bid> allbuyers = bidRepository.selectAllBuyer(auctionNum);
 		
 		return allbuyers;
+	}
+	
+	// company repository, person repository호출 하여 존재하는 아이디인지 확인하여 memType String 반환 
+	@Override
+	public String getUserType(String userId) throws Exception {
+
+		CompanyRepository cRepo = new CompanyRepositoryImpl();
+		PersonRepository pRepo = new PersonRepositoryImpl();
+		
+		
+		if(cRepo.isIdExists(userId)) {
+			return "company";
+		}else if(pRepo.isIdExists(userId)) {
+			return "person";
+		}		
+		
+		return null;
 	}
 
 }
