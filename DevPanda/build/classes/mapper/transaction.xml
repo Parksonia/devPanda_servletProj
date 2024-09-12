@@ -80,15 +80,23 @@
 	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
 	<select id="selectTransactionsByCompanyId"
-		parameterType="String" resultType="Map">
-        <![CDATA[ 
-        SELECT t.transactionNum, t.sellerId, t.auctionNum, t.price, t.date, t.state, 
-               c.companyName as companyName, c.id as companyId
-        FROM Transaction t
-        JOIN Company c ON t.buyerId = c.id
-        WHERE c.id = #{companyId} 
-        ]]>
+		parameterType="map" resultType="Map">
+    <![CDATA[ 
+    SELECT t.transactionNum as transactionNum, 
+           t.sellerId as sellerId, 
+           t.auctionNum as auctionNum, 
+           t.price as price, 
+           t.date as date, 
+           t.state as state, 
+           c.name as companyName, 
+           c.id as companyId
+    FROM Transaction t
+    JOIN Company c ON t.buyerId = c.id
+    WHERE c.id = #{companyId}
+	AND t.date BETWEEN #{startDate} AND #{endDate}
+	]]>
 	</select>
+
 
 	<!-- 구매자 정보 가져오기 -->
 	<select id="getCompanyByBuyerId" parameterType="Integer"
@@ -96,7 +104,7 @@
         <![CDATA[ 
         SELECT * 
 		FROM Company 
-		WHERE id = (SELECT buyerId FROM transaction WHERE auctionNum = '2');]]>
+		WHERE id = (SELECT buyerId FROM transaction WHERE auctionNum = #{auctionNum});]]>
 	</select>
 
 	<!-- 판매자 정보 가져오기 -->
@@ -133,8 +141,20 @@
 			WHERE t.buyerId = #{companyId};
 		]]>
 	</select>
-
-
+	
+	<!-- 경매에 대한 모든 입찰자 조회 -->
+	<select id="getAllBuyerByAuctionNum" parameterType="Integer"
+		resultType="Map">
+        <![CDATA[ 
+        	SELECT *
+			FROM 
+    		bid b JOIN `transaction` t 
+	 		ON b.auctionNum = t.auctionNum 
+			WHERE 
+    		t.auctionNum = #{auctionNum}
+    		ORDER BY b.bidDate ASC;
+		]]>
+	</select> 
 
 
 </mapper>
