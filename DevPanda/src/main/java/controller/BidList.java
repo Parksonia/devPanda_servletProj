@@ -93,6 +93,7 @@ public class BidList extends HttpServlet {
 			
 			response.getWriter().write(jsonResult);
 
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
