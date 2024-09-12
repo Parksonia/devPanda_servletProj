@@ -32,7 +32,7 @@ public class SignUpCompany extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			// Collect form data
+			// 폼 데이터 가져오기
 			String id = request.getParameter("id");
 			String companyName = request.getParameter("companyName");
 			String email = request.getParameter("email");
@@ -45,17 +45,23 @@ public class SignUpCompany extends HttpServlet {
 			Part companyImagePart = request.getPart("companyImage");
 			String fileName = companyImagePart.getSubmittedFileName(); // 파일 이름 추출
 
-			// 저장될 경로 지정
-			String uploadDir = System.getProperty("user.home") + "/Desktop/testImage";
-			String filePath = uploadDir + "/" + fileName;
+			// 저장될 경로 지정 (webapp 밑의 upload 폴더)
+			String uploadDir = getServletContext().getRealPath("/upload");
+			String filePath = uploadDir + File.separator + fileName;
 
 			// 경로가 존재하지 않으면 디렉토리를 생성
 			File uploadDirFile = new File(uploadDir);
 			if (!uploadDirFile.exists()) {
 				uploadDirFile.mkdirs();
 			}
+
+			// 파일을 지정한 경로에 저장
 			companyImagePart.write(filePath);
 
+			// 상대 경로를 저장 (웹에서 접근 가능한 경로)
+			String relativeFilePath = "/upload/" + fileName;
+
+			// Company 객체 생성
 			Company company = new Company();
 			company.setId(id);
 			company.setCompanyName(companyName);
@@ -64,11 +70,12 @@ public class SignUpCompany extends HttpServlet {
 			company.setAddress(address);
 			company.setCompanyNum(companyNum);
 			company.setStatus(status);
-			company.setCompanyImage(filePath);
+			company.setCompanyImage(relativeFilePath); // 상대 경로 저장
 
+			// 회사 등록 처리
 			companyService.registerCompany(company);
 
-			// Redirect or forward to another page
+			// 성공 시 로그인 페이지로 리다이렉트
 			response.sendRedirect(request.getContextPath() + "/view/signInCom.jsp");
 
 		} catch (IllegalArgumentException e) {
