@@ -13,20 +13,12 @@
 		bid(buyerId,buyPersonId,auctionNum,sellerId,bidDate,bidPrice,bidState,memType)
 		values(#{buyerId},#{buyPersonId},#{auctionNum},#{sellerId},#{bidDate},#{bidPrice},#{bidState},#{memType})
 
-
-
 	</insert> 
 	
 
-	
-
-	
-
-	
 	<!--더보기 페이징 게산 위함 -->
 	<!-- 날짜 필터가 있을 경우 동적 쿼리 실행됨 -->
 	<select id="selectBuyBidCnt" parameterType="Map" resultType="Integer"> 
-	
     	SELECT 
         	count(*)
     	FROM 

@@ -41,7 +41,7 @@
 				<property name="url"
 					value="jdbc:mariadb://localhost:3306/devpanda"></property>
 				<property name="username" value="root"></property>
-				<property name="password" value="1590"></property>
+				<property name="password" value="7564"></property> <!-- 석준쓰 1590  -->
 			</dataSource>
 		</environment>
 	</environments>
