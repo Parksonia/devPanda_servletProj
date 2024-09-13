@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.json.simple.JSONObject;
@@ -134,7 +133,6 @@ public class BidServiceImpl implements BidService {
 		
 		return null;
 	}
-
 	
 	//bid insert, auction update insert transaction
 	@Override
