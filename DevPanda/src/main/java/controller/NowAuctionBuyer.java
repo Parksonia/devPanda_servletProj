@@ -41,19 +41,27 @@ public class NowAuctionBuyer extends HttpServlet {
 
 		Integer auctionNum =Integer.parseInt(request.getParameter("auctionNum"));
 		String bidNum = request.getParameter("bidNum");
-		System.out.println(bidNum);
-		String bidDate = request.getParameter("bidDate"); // 바로 화면에 전달
-		Integer bidPrice = Integer.parseInt(request.getParameter("bidPrice")); // 바로 화면에 전달
-		String sellerImage = request.getParameter("sellerImage"); // 바로 화면에 전달
+		String bidDate = request.getParameter("bidDate"); 
+		Integer bidPrice = Integer.parseInt(request.getParameter("bidPrice")); 
+		String sellerImage = request.getParameter("sellerImage"); 
 		
 		
 		
 		
 		// 임의의 login in(P or C)
-		String id = "abc001";
-		String userType="person";
-		//String id = "comp001";
-		//String userType="person";
+		//String id = "abc001";
+		// userType="person";
+		
+		String id = "comp001";
+		String userType="company";
+		//String myId = "abc001";
+//		String userType = (String)session.getAttribute("userType");
+//		if(userType.equals("person")) {
+//			id = ((Person)session.getAttribute("person")).getId();
+//		} else {
+//			id = ((Company)session.getAttribute("company")).getId();
+//		}
+		
 		
 		try {
 			AuctionService aService = new AuctionServiceImpl();

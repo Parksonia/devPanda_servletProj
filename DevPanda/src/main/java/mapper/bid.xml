@@ -100,6 +100,30 @@
 		SELECT * FROM bid WHERE auctionNum = #{auctionNum} ORDER BY bidDate DESC;
 	</select>
 	
+	<!--myPage nowAuctiond 즉시구매 및 입찰금 변경 시작-->
+	<!-- 1.bid update -->
+	<update id="updateMyBid" parameterType="MAP">
+		<![CDATA[
+		UPDATE bid SET bidPrice = #{newBidPrice},bidState=3,bidDate=DATE_FORMAT(NOW(),'%Y-%m-%d')
+		WHERE bidNum = #{bidNum}; 
+		]]>
+	</update>
+	<!-- 2.Auction update -->
+	<update id="updateAuctionStatus" parameterType="MAP">
+		<![CDATA[
+		UPDATE auction SET bidMaxPrice = #{newBidPrice},state='unprocessing'
+		WHERE auctionNum = #{auctionNum}; 
+		]]>
+	</update>
+	<!-- 3.Transaction insert -->
+	<insert id="insertNewTransaction" parameterType="transaction">
+		INSERT INTO `transaction`
+		(sellerId, auctionNum, bidNum, buyerId, date, price, state, memType)
+		VALUES
+		(#{sellerId},#{auctionNum},#{bidNum},#{buyerId},DATE_FORMAT(NOW(),'%Y-%m-%d'),#{price},#{state},#{memType})
+	</insert>
+	<!--myPage nowAuctiond 즉시구매 종료-->
+	
 	
 
 </mapper>

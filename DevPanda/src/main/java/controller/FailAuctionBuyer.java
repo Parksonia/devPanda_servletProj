@@ -44,9 +44,18 @@ public class FailAuctionBuyer extends HttpServlet {
 		String sellerImage = request.getParameter("sellerImage"); // 바로 화면에 전달
 	
 		// 임의의 login in(P or C)
-		String id = "abc001";
-		String comid = "comp001";
-
+		//String id = "abc001";
+		String id = "comp001";
+		String userType="company";
+		//String myId = "abc001";
+//		String userType = (String)session.getAttribute("userType");
+//		if(userType.equals("person")) {
+//			id = ((Person)session.getAttribute("person")).getId();
+//		} else {
+//			id = ((Company)session.getAttribute("company")).getId();
+//		}
+		
+		
 		try {
 			AuctionService aService = new AuctionServiceImpl();
 			Auction auction  = aService.oneAuction(auctionNum);

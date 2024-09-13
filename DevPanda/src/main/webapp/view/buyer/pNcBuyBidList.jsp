@@ -333,11 +333,11 @@
 				bizs.forEach(function(item) {
 					// bidState가 1일 때 빨간색 배경
 					let backgroundColor = item.bidState === 1 ? 'background-color: rgb(254, 247, 246);':'';
-					let itemHtml = '<form class="histtory-item-form"" method="post">' +
+					let itemHtml = '<form class="history-item-form"" method="post">' +
 									'<input type="hidden" name="bidState" value="' + item.bidState + '">' +
 			                        '<input type="hidden" name="sellerImage" value="' + item.personImage + '">' +
 			                        '<input type="hidden" name="auctionNum" value="' + item.auctionNum + '">' +
-			                        '<input type="hidden" name="bidNum" value="' + item.bidNum + '">' +
+			                        '<input type="hidden" name="bidNum" value="' + item.bidNum + '">'+
 			                           				'<input type="hidden" name="bidPrice" value="' + item.bidPrice + '">' +
 			                           				'<input type="hidden" name="bidDate" value="' + item.bidDate + '">' +
 			                           				'<div class="history-item"  style="' + backgroundColor + '">' +
@@ -352,25 +352,35 @@
                										'<span>' + item.endDate + '</span>' +
                										'</div></div>'+
                									 	'</form>';
-               		let formItem = $(itemHtml);
-               		if(item.bidState==1) {
-               			formItem.attr('action', contextPath+'/nowAuctionBuyer');
-					} else {
-						formItem.attr('action', contextPath+'/failAuctionBuyer');
-					}
-               		formItem.click(function() {
-               			$(this).submit();
-               		})
                		
 					$('.item_list').append(itemHtml);
+				
 				});
 						
 			},
 			error: function() {
 				alert('데이터를 불러오는 중 오류가 발생했습니다.');
 			}
-		});
+		
+	 	
+	 	});
 	}
+	 // 이벤트 핸들러 추가: AJAX로 동적으로 추가된 요소에도 적용되도록 변경
+    $(document).on('click', '.history-item', function() {
+    		//.history-item 클래스의 form 태그를 찾기   
+    		let form = $(this).closest('form');
+    		  
+    		
+    		//state에 따라 다른 값을 전달해야함 
+    	 	let bidState = form.find('input[name="bidState"]').val();
+    		
+    	    if (bidState === '1') { //suc
+    	       form.attr("action",contextPath+'/nowAuctionBuyer');
+    	    } else { //fail
+    	    	  form.attr("action",contextPath+'/failAuctionBuyer');
+    	    }
+    	    form.submit();
+    });
 
 	function calcPeriod(param_month) {
 		var date = new Date();
@@ -415,8 +425,7 @@
 	$('#moreBtn').on('click',function(){
 		reqeustData();
 	});
-	
-	reqeustData();
+	reqeustData(); // 처음 호출 
 //});	
 </script>
         	</div>

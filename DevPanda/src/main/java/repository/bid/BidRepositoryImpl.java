@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import dto.Bid;
+import dto.Transaction;
 import util.MybatisSqlSessionFactory;
 
 public class BidRepositoryImpl implements BidRepository {
@@ -94,7 +95,7 @@ public class BidRepositoryImpl implements BidRepository {
 	@Override
 	public void updateBidState(String id) throws Exception {
 		try {
-			sqlSession.getConnection().setAutoCommit(false);
+			
 			sqlSession.update("mapper.bid.updateBuyerBidState", id);
 			sqlSession.commit();
 
@@ -108,5 +109,57 @@ public class BidRepositoryImpl implements BidRepository {
 	@Override
 	public List<Bid> selectAllBuyer(Integer auctionNum) throws Exception {
 		return sqlSession.selectList("mapper.bid.selectAllBuyer", auctionNum);
+	}
+
+	//즉시구매 transaction처리
+	@Override
+	public boolean updateBidToTransaction(Transaction transaction,Integer bidNum,Integer auctionNum,Integer newBidPrice) throws Exception {
+		HashMap<String,Object> param = new HashMap<>();
+		param.put("bidNum", bidNum);
+		param.put("auctionNum", auctionNum);
+		param.put("newBidPrice", newBidPrice);
+		
+		try {
+			
+			//1.mybid 수정
+			sqlSession.update("mapper.bid.updateMyBid",param);
+			//2.Auction수정
+			sqlSession.update("mapper.bid.updateAuctionStatus",param);
+			//3.Transaction 추가(nowAuction에서 즉시구매하는 경우) 
+			sqlSession.insert("mapper.bid.insertNewTransaction",transaction);
+		
+			//성공 시 commit 진행
+			sqlSession.commit();
+			
+		} catch (Exception e) {
+				e.printStackTrace();
+				sqlSession.rollback();
+				throw e;
+		}
+		return true;
+	}
+	//입찰변경 transaction
+	@Override
+	public boolean updateMyBid(Integer auctionNum,Integer bidNum,Integer newBidPrice) throws Exception {
+		
+		HashMap<String,Object> param = new HashMap<>();
+		param.put("bidNum", bidNum);
+		param.put("auctionNum", auctionNum);
+		param.put("newBidPrice", newBidPrice);
+		try {
+			sqlSession.getConnection().setAutoCommit(false);
+			//1.mybid 수정
+			sqlSession.update("mapper.bid.updateMyBid",param);
+			//Auction 수정 
+			sqlSession.update("mapper.bid.updateAuctionStatus",param);
+			
+			sqlSession.commit();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			sqlSession.rollback();
+			throw e;
+		}
+		return true;
 	}
 }

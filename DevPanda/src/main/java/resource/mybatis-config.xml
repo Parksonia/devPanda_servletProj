@@ -54,9 +54,9 @@
 		<mapper resource ="mapper/bid.xml"/>
 		<mapper resource ="mapper/emailCertification.xml"/> 
 		
-		<!-- 
-			<mapper resource ="mapper/blacklist.xml"/>  
-			<mapper resource ="mapper/searchcondition.xml"/>  -->
+		
+	    <mapper resource ="mapper/blacklist.xml"/>  
+		<!-- <mapper resource ="mapper/searchcondition.xml"/>  -->
 			
 	</mappers>
 

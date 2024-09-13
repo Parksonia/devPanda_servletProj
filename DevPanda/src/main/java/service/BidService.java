@@ -1,5 +1,6 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,4 +16,6 @@ public interface BidService {
 	List<Bid> bidAllBuyer(Integer auctionNum) throws Exception;
 	
 	String getUserType(String userId) throws Exception;
+	
+	boolean updateMyBidPrice(Integer auctionNum,Integer bidNum,Integer newBidPrice,Integer maxSalary,String sellerId,String myId,String userType) throws Exception;
 }
