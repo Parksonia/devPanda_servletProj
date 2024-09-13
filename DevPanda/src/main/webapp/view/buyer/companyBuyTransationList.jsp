@@ -228,7 +228,7 @@ button {
 					<form id="SearchMonth"
 						action="${pageContext.request.contextPath}/CompanyBuyBidSucList"
 						method="GET">
-						<input type="hidden" name="companyId" value="comp003">
+						<input type="hidden" name="companyId" value="comp001">
 						<!-- startDate와 endDate 필드를 숨김으로써 서버로 전송 -->
 						<input type="hidden" id="startDate" name="startDate"> <input
 							type="hidden" id="endDate" name="endDate">
@@ -315,7 +315,7 @@ button {
 					<form
 						action="${pageContext.request.contextPath}/CompanyBuyBidSucList"
 						method="GET">
-						<input type="hidden" name="companyId" value="comp003">
+						<input type="hidden" name="companyId" value="comp001">
 						<button type="submit">조회</button>
 					</form>
 				</div>
@@ -323,15 +323,15 @@ button {
 
 				<div class="item_container">
 					<div class="item">
-						<span>입찰 희망가 &nbsp;&nbsp;&nbsp;</span>
+						<span>판매 희망가 &nbsp;&nbsp;&nbsp;</span>
 					</div>
 
 					<div class="item">
-						<span>최종가 &nbsp;&nbsp;&nbsp;</span>
+						<span>최종낙찰가 &nbsp;&nbsp;&nbsp;</span>
 					</div>
 
 					<div class="item">
-						<span>만료일 &nbsp;&nbsp;&nbsp;</span>
+						<span>거래일 &nbsp;&nbsp;&nbsp;</span>
 					</div>
 				</div>
 
@@ -339,20 +339,16 @@ button {
 
 				<!-- 목록들 나열 -->
 				<c:forEach var="transaction" items="${transactionList}">
-					<!-- 전체 div를 a 태그로 감싸서 클릭 가능하게 만듦 -->
 					<a
 						href="${pageContext.request.contextPath}/CompanyAuctionBuyerSuc?auctionNum=${transaction.auctionNum}"
 						style="text-decoration: none; color: inherit;">
-						<div class="history-item"
-							data-auction-num="${transaction.auctionNum}">
+						<div class="history-item" data-auction-num="${transaction.auctionNum}">
 							<img src="https://via.placeholder.com/50" alt="User">
 							<div class="history-content">
-								<span>The More Important the Work, the More Important the
-									Rest</span>
+								<span>${transaction.auctionTitle}</span>
 							</div>
 							<div class="prices">
-								<span>${MaxSal.maxSalary}원</span> <span>${transaction.price}원</span>
-								<span>${transaction.date}</span>
+								<span>${transaction.maxSalary}원</span> <span>${transaction.price}원</span> <span>${transaction.date}</span>
 							</div>
 						</div>
 					</a>

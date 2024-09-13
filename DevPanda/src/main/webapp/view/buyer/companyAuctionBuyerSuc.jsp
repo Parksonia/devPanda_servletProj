@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>판매 상세 페이지</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- 기업|구매내역조회|낙찰내역조회| 상세보기 -->
 <link rel="stylesheet" type="text/css"
@@ -41,13 +42,18 @@
 }
 
 .report-button {
-	background-color: #ff6b6b;
-	color: white;
-	border: none;
-	padding: 10px 20px;
-	border-radius: 5px;
-	margin-top: 10px;
-	cursor: pointer;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* 부드러운 전환 효과 */
+}
+
+.report-button:hover {
+    background-color: #ff4c4c; /* 호버 시 더 진한 빨간색 */
 }
 
 /* 진행상황 start */
@@ -230,7 +236,7 @@
 	border: 1px solid #EBEBEB;
 	border-radius: 20px;
 	font-size: 18px;
-	color: #D3D3D3;
+	color: #000000; /* #D3D3D3 색깔 너무 연해서 수정*/
 	box-sizing: border-box;
 	resize: none; /* textarea 크기 조절 제거 */
 }
@@ -249,6 +255,19 @@
 	font-weight: 400;
 	font-size: 16px;
 	color: rgba(34, 34, 34, 0.8);
+	transition: all 0.3s ease; /* 부드러운 전환 효과 */
+}
+
+.modal-submit-button:hover { /* @@@@@@@추가 */
+	background: #ff6b6b;
+	color: #FFFFFF;
+	transform: scale(1.05);
+}
+
+.modal-submit-button:active { /* @@@@@@@추가 */
+	background-color: #D3D3D3;
+	transform: scale(0.95);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 /*모달end */
 </style>
@@ -277,7 +296,7 @@
 					<div class="user">
 						<img src="https://via.placeholder.com/80" alt="User Icon">
 						<p class="user_type">[개인회원]</p>
-						<p class="bold">${company.name}</p>
+						<p class="bold">${person.nickName}</p>
 						<p class="title">${auction.title}</p>
 						<div class="minmax">
 							<span class="bold">희망 최소 연봉</span>
@@ -382,8 +401,7 @@
 					</div>
 					<div class="detail_text">${transaction.date}</div>
 				</div>
-				<div class="detail_addition">
-				</div>
+				<div class="detail_addition"></div>
 				<div class="detail_addition">
 					<div class="detail_title">
 						<span>낙찰유형</span>
@@ -405,7 +423,8 @@
 					</thead>
 					<tbody>
 						<c:forEach var="buyer" items="${allBuyer}">
-							<tr <c:if test="${buyer.bidState == 2}">style="background-color: rgba(128, 128, 128, 0.2);" </c:if>>
+							<tr
+								<c:if test="${buyer.bidState == 2}">style="background-color: rgba(128, 128, 128, 0.2);" </c:if>>
 								<!-- 입찰 상태 -->
 								<td class="table_td"><span class="status"> <c:out
 											value="${buyer.bidState == 2 ? '낙찰' : '입찰'}" />
@@ -416,7 +435,7 @@
                             [기업회원] <c:out value="${buyer.buyerId}" />
 										</c:when>
 										<c:otherwise>
-                            [개인회원] <c:out value="${buyer.buyerPersonId}" />
+                            [개인회원] <c:out value="${buyer.buyPersonId}" />
 										</c:otherwise>
 									</c:choose></td>
 								<!-- 입찰 가격 -->
@@ -446,6 +465,8 @@
 					<span class=" progress_item_title completed">계약서 수신 완료</span>
 				</div>
 			</div>
+
+
 			<!-- Modal  start-->
 			<div class="modal">
 				<div class="modal-container">
@@ -462,8 +483,8 @@
 						<div class="modal-profile-image"></div>
 						<div class="modal-profile-info">
 							<div class="user-type">[개인회원]</div>
-							<div class="user-id">kgvrfah2</div>
-							<div class="user-email">po****@naver.com</div>
+							<div class="user-id">${person.nickName}</div>
+							<div class="user-email">${person.email}</div>
 						</div>
 					</div>
 
@@ -474,39 +495,123 @@
 						<div>거래 일자</div>
 					</div>
 					<div class="modal-transaction-info">
-						<div class="modal-transaction-id">AB123-CD5678-90</div>
-						<div class="modal-transaction-date">24/04/05</div>
+						<div class="modal-transaction-id">${transaction.transactionNum}</div>
+						<div class="modal-transaction-date">${transaction.date}</div>
 					</div>
 
 					<div class="modal-divider"></div>
 
 					<div class="modal-report-title">신고 내용</div>
 
-					<form>
-						<input type="text" class="modal-input-title"
-							placeholder="제목을 입력하세요">
-						<textarea class="modal-input-content" style="min-height: 350px;"
-							placeholder="신고 내용을 입력하세요"></textarea>
+					<form
+						action="${pageContext.request.contextPath}/sellerCompanyBlack"
+						method="post">
+						<input type="hidden" name="auctionNum"
+							value="${transaction.auctionNum}"> <input type="text"
+							class="modal-input-title" name="title" placeholder="제목을 입력하세요"
+							required>
+						<textarea name="content" class="modal-input-content"
+							style="min-height: 350px;" placeholder="신고 내용을 입력하세요" required></textarea>
 						<button type="submit" class="modal-submit-button">제출하기</button>
 					</form>
+
+
 				</div>
 			</div>
 
 			<script>
-				const modal = document.querySelector('.modal');
-				const modalCloseButton = document.querySelector('.modal-close');
-				const reportButton = document.querySelector('.report-button');
 
-				reportButton.addEventListener('click', function() {
-					modal.style.display = 'flex';
-				});
+				$(document).ready(function() { //ajax 요청 보내기
+        			$('form').on('submit', function(event) {
+            		event.preventDefault(); 
+            		$.ajax({
+                	url: "${pageContext.request.contextPath}/sellerCompanyBlack", 
+                	type: "POST", 
+                	data: {
+                        auctionNum: $('input[name="auctionNum"]').val(),
+                        title: $('input[name="title"]').val(),
+                        content: $('textarea[name="content"]').val()
+                    },
+                	success: function(response) {
+                	    $('.modal').hide();
+                	    $('.report-button')
+                        .text('신고 됨')           // 텍스트 변경
+                        .css({
+                            'border': '2px solid red',  
+                            'color': 'red',             
+                            'background-color': '#fff'  
+                        })
+                        .prop('disabled', true);
+                	},
+                	error: function(xhr, status, error) {
+                	    console.log("오류 :", status, error); // 에러 발생 시 메시지 출력
+                			}
+            			});
+        			});
+    			});
+				
+				document.addEventListener("DOMContentLoaded", function() { //모달 여는 스크립트 수정!
+				    const modal = document.querySelector('.modal');
+				    const modalCloseButton = document.querySelector('.modal-close');
+				    const reportButton = document.querySelector('.report-button');
+				    const titleInput = document.querySelector('input[name="title"]');
+				    const contentTextarea = document.querySelector('textarea[name="content"]');
 
-				modalCloseButton.addEventListener('click', function() {
-					modal.style.display = 'none';
+				    reportButton.addEventListener('click', function() { // 모달 열기
+				        modal.style.display = 'flex';
+				    });
+
+				    modalCloseButton.addEventListener('click', function(event) { // 모달 닫을 때 경고 메시지
+				        if (titleInput.value !== "" || contentTextarea.value !== "") {
+				            const confirmation = confirm("작성 중인 내용이 있습니다. 창을 닫으시겠습니까?");
+				            if (!confirmation) {
+				                event.preventDefault();
+				                return;
+				            }
+				        }
+				        modal.style.display = 'none';
+				    });
+
+				    window.addEventListener('click', function(event) { // 클릭이 발생할 때 모달 밖을 누를 경우 경고 메시지
+				        if (event.target == modal) {
+				            if (titleInput.value !== "" || contentTextarea.value !== "") {
+				                const confirmation = confirm("작성 중인 내용이 있습니다. 창을 닫으시겠습니까?");
+				                if (!confirmation) {
+				                    event.preventDefault();
+				                    return;
+				                }
+				            }
+				            modal.style.display = 'none';
+				        }
+				    });
+
+
+				    titleInput.addEventListener("invalid", function() { // 신고 title, content 값 비어 있을 때 작동할 메시지
+				        if (titleInput.value === "") {
+				            titleInput.setCustomValidity("제목을 입력해주세요.");
+				        } else {
+				            titleInput.setCustomValidity(""); // 기본 메시지 초기화
+				        }
+				    });
+
+				    contentTextarea.addEventListener("invalid", function() {
+				        if (contentTextarea.value === "") {
+				            contentTextarea.setCustomValidity("신고내용을 입력해주세요.");
+				        } else {
+				            contentTextarea.setCustomValidity("");
+				        }
+				    });
+
+				    titleInput.addEventListener("input", function() { // 입력이 발생할 때마다 유효성 검사 메시지 초기화
+				        titleInput.setCustomValidity("");
+				    });
+
+				    contentTextarea.addEventListener("input", function() {
+				        contentTextarea.setCustomValidity("");
+				    });
 				});
+	
 			</script>
-			<!-- Modal  end-->
-
 		</div>
 	</div>
 

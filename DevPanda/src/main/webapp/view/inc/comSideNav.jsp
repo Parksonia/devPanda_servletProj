@@ -19,7 +19,12 @@
 				<ul class="snb_menu">
 					<li class="menu_item"><a href="../buyer/pNcBuyBidList.jsp" class="menu_link">입찰내역조회</a></li>
 					<li class="menu_item"><a href="../buyer/personBuyTransationList.jsp" class="menu_link">낙찰내역조회</a></li>
-					<li class="menu_item"><a href="/sellerBlack.jsp" class="menu_link">판매자 차단 내역</a></li>
+					<!-- <li class="menu_item"><a href="/sellerBlack.jsp" class="menu_link">판매자 차단 내역</a></li> -->
+					
+					<li class="menu_item">
+    					<a href="${pageContext.request.contextPath}/companySellerBlack?companyId=comp001" class="menu_link">판매자 차단 내역</a>
+					</li>
+					
 				</ul>
 			</div>
 			<div class="snb_list">

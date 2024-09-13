@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import repository.transaction.CompanyAuctionBuyerSucRepository;
 
-@WebServlet("/CompanyAuctionBuyerSuc")
+@WebServlet("/CompanyAuctionBuyerSuc") 
 public class CompanyBuyTransactionDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

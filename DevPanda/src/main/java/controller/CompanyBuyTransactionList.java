@@ -34,13 +34,12 @@ public class CompanyBuyTransactionList extends HttpServlet {
 
 		try {
 			TransactionRepository transactionRepository = new TransactionRepositoryImpl();
-			List<Map> transactionList = transactionRepository.findTransactionsByCompanyId(companyId, startDate,
-					endDate);
+			List<Map> transactionList = transactionRepository.findTransactionsByCompanyId(companyId, startDate, endDate);
 			Map<String, Object> getAuctionMaxByCompanyId = transactionRepository.getAuctionMaxByCompanyId(companyId);
 
 			request.setAttribute("companyId", companyId);
 			request.setAttribute("transactionList", transactionList);
-			request.setAttribute("MaxSal", getAuctionMaxByCompanyId);
+			request.setAttribute("auction", getAuctionMaxByCompanyId);
 
 			request.getRequestDispatcher("/view/buyer/companyBuyTransationList.jsp").forward(request, response);
 		} catch (Exception e) {

@@ -3,7 +3,37 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.blacklist">
-	
+	<!-- auctionNum으로 transaction 테이블에서 buyerId, sellerId, transactionNum, bidNum을 
+		가져오는 쿼리 -->
+	<select id="getComAuctionDetailsByAuctionNum"
+		parameterType="int" resultType="Map">
+		SELECT buyerId, sellerId,
+		transactionNum, bidNum
+		FROM transaction
+		WHERE auctionNum = #{auctionNum}
+	</select>
+
+	<!-- Blacklist 테이블에 신고 정보를 추가하는 쿼리 -->
+	<insert id="addToComBlacklist" parameterType="Map">
+		INSERT INTO
+		blacklist (declCom, blackPerson, transactionNum, bidNum, title,
+		content, reportDate, roleType)
+		VALUES (#{declCom}, #{blackPerson},
+		#{transactionNum}, #{bidNum}, #{title},
+		#{content}, NOW(), 'B')
+	</insert>
+
+	<!-- Blacklist 리스트 띄우기 위해 필요한 정보 가져오기 -->
+	<select id="getComBlackListByBlackNum" parameterType="Map"
+		resultType="Map">
+		select bl.blackPerson as blackPerson, a.title as title, t.date as tdate, bl.reportDate as rdate, t.transactionNum as tnum
+		from blacklist as bl
+		join transaction t ON t.transactionNum = bl.transactionNum
+		join auction a ON t.auctionNum = a.auctionNum
+		where bl.declCom = #{blackNum}
+	</select>
+
+
 	<insert id="insertBuyerPersonBlack" parameterType="map">
 		<![CDATA[
 			INSERT INTO blacklist 
@@ -21,5 +51,36 @@
 			(#{declPerson}, #{transactionNum}, #{bidNum}, #{blackCom}, #{title}, #{content}, DATE_FORMAT(NOW(), '%Y-%m-%d'), 'S');
 		]]>
 	</insert>
-	
+	<!-- auctionNum으로 transaction 테이블에서 buyerId, sellerId, transactionNum, bidNum을 
+		가져오는 쿼리 -->
+	<select id="getComAuctionDetailsByAuctionNum"
+		parameterType="int" resultType="Map">
+		SELECT buyerId, sellerId,
+		transactionNum, bidNum
+		FROM transaction
+		WHERE auctionNum = #{auctionNum}
+	</select>
+
+	<!-- Blacklist 테이블에 신고 정보를 추가하는 쿼리 -->
+	<insert id="addToComBlacklist" parameterType="Map">
+		INSERT INTO
+		blacklist (declCom, blackPerson, transactionNum, bidNum, title,
+		content, reportDate, roleType)
+		VALUES (#{declCom}, #{blackPerson},
+		#{transactionNum}, #{bidNum}, #{title},
+		#{content}, NOW(), 'B')
+	</insert>
+
+	<!-- Blacklist 리스트 띄우기 위해 필요한 정보 가져오기 -->
+	<select id="getComBlackListByBlackNum" parameterType="Map"
+		resultType="Map">
+		select bl.blackPerson as blackPerson, a.title as title, t.date as tdate, bl.reportDate as rdate, t.transactionNum as tnum
+		from blacklist as bl
+		join transaction t ON t.transactionNum = bl.transactionNum
+		join auction a ON t.auctionNum = a.auctionNum
+		where bl.declCom = #{blackNum}
+	</select>
+
+
 </mapper>
+
