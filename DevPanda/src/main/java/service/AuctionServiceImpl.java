@@ -38,9 +38,43 @@ public class AuctionServiceImpl implements AuctionService {
 			map.put("nickName", data.get("nickName"));
 			resultList.add(map);
 		}
+		System.out.println("Fetched auction data: " + auctionData);
 
 		return resultList;
 	}
+//	@Override
+//    public List<Map<String, Object>> getAllAuctionsWithPersonInfo(int page, int pageSize) {
+//        int offset = (page - 1) * pageSize;
+//        List<Map<String, Object>> resultList = new ArrayList<>();
+//
+//        // 데이터 가져오기
+//        List<Map<String, Object>> auctionData = auctionRepository.getAuctionsWithPersonInfo(pageSize, offset);
+//
+//        // 각 데이터 항목을 DTO에 담아 리스트에 추가
+//        for (Map<String, Object> data : auctionData) {
+//            Auction auction = new Auction();
+//            Person person = new Person();
+//
+//            auction.setTitle((String) data.get("title"));
+//            auction.setMinSalary((Integer) data.get("minSalary"));
+//            auction.setMaxSalary((Integer) data.get("maxSalary"));
+//
+//            person.setPersonImage((String) data.get("personImage"));
+//            person.setNickName((String) data.get("nickName"));
+//
+//            Map<String, Object> map = Map.of(
+//                "auction", auction,
+//                "person", person
+//            );
+//            
+//            resultList.add(map);
+//        }
+//
+//        System.out.println("Fetched auction data: " + resultList);
+//
+//        return resultList;
+//    }
+
 
 	// 1개 조회 bid 전체 리스트에서 조회 될 수 있도록 함
 	@Override

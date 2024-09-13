@@ -398,75 +398,76 @@
 
 	</script>
 	
-	<script>
+<script>
+    let page = ${page};
+    const pageSize = ${pageSize};
+    const container = document.getElementById('auction-container');
+    const loading = document.getElementById('loading');
 
+    function loadMoreAuctions() {
+    	
+        console.log('Fetching more auctions...'); // 로드가 시작될 때 로그 출력
 
-	let page = ${page};
-	const pageSize = ${pageSize};
-	const container = document.getElementById('auction-container');
-	const loading = document.getElementById('loading');
+        if (loading.classList.contains('hidden')) {
+            loading.classList.remove('hidden');
+        }
+        
+        fetch(`/auction?page=${page}&pageSize=${pageSize}`, { cache: "no-cache" })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data received:', data); // 데이터 수신 시 로그 출력
 
-	function loadMoreAuctions() {
-	    console.log('Fetching more auctions...'); // 로드가 시작될 때 로그 출력
+                if (data.length === 0) {
+                    console.log('No more data to load.'); // 데이터가 없을 때 로그 출력
+                    loading.classList.add('hidden');
+                    return;
+                }
 
-	    fetch(`/auction?page=${page}&pageSize=${pageSize}`)
-	    
-	        .then(response => {
-	            if (!response.ok) {
-	                throw new Error('Network response was not ok');
-	            }
-	            return response.json();
-	        })
-	        .then(data => {
-	            console.log('Data received:', data); // 데이터 수신 시 로그 출력
+                data.forEach(auctionMap => {
+                    const auction = auctionMap['auction'];
+                    const person = auctionMap['person'];
+                    container.insertAdjacentHTML('beforeend', `
+                        <div class="profile-card bg-white shadow-md rounded p-4">
+                            <img src="${person.personImage}" alt="${person.nickName}의 이미지" class="rounded-full w-16 h-16 mx-auto mb-2">
+                            <h3 class="text-lg font-semibold text-center">${auction.title}</h3>
+                            <p class="text-center text-gray-600">${person.nickName}</p>
+                            <p class="text-center text-gray-600">최소 금액: ${auction.minSalary}</p>
+                            <p class="text-center text-gray-600">최대 금액: ${auction.maxSalary}</p>
+                            <div class="text-center mt-4">
+                                <button onclick="openProfilePage(${auction.auctionNum})" class="bg-blue-500 text-white p-2 rounded">상세보기</button>
+                            </div>
+                        </div>
+                    `);
+                });
+                page++;
+                console.log('Next page:', page); // 페이지 증가 여부 확인
+                loading.classList.add('hidden');
+            })
+            .catch(error => {
+                console.error('Fetch error:', error); // 에러 발생 시 로그 출력
+                loading.classList.add('hidden');
+            });
+    }
 
-	            if (data.length === 0) {
-	                console.log('No more data to load.'); // 데이터가 없을 때 로그 출력
-	                loading.classList.add('hidden');
-	                return;
-	            }
+    // 스크롤 이벤트 리스너
+    window.addEventListener('scroll', () => {
+        console.log('Scroll event detected'); // 스크롤 이벤트 감지 시 로그 출력
 
-	            data.forEach(auctionMap => {
-	                const auction = auctionMap['auction'];
-	                const person = auctionMap['person'];
-	                container.insertAdjacentHTML('beforeend', `
-	                    <div class="profile-card bg-white shadow-md rounded p-4">
-	                        <img src="${person.personImage}" alt="${person.nickName}의 이미지" class="rounded-full w-16 h-16 mx-auto mb-2">
-	                        <h3 class="text-lg font-semibold text-center">${auction.title}</h3>
-	                        <p class="text-center text-gray-600">${person.nickName}</p>
-	                        <p class="text-center text-gray-600">최소 금액: ${auction.minSalary}</p>
-	                        <p class="text-center text-gray-600">최대 금액: ${auction.maxSalary}</p>
-	                        <div class="text-center mt-4">
-	                            <button onclick="openProfilePage(${auction.auctionNum})" class="bg-blue-500 text-white p-2 rounded">상세보기</button>
-	                        </div>
-	                    </div>
-	                `);
-	            });
-	            page++;
-	            console.log('Next page:', page); // 페이지 증가 여부 확인
-	            loading.classList.add('hidden');
-	        })
-	        .catch(error => {
-	            console.error('Fetch error:', error); // 에러 발생 시 로그 출력
-	            loading.classList.add('hidden');
-	        });
-	}
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) { // -10은 스크롤이 끝나기 전에 약간의 여유를 둡니다
+            if (!loading.classList.contains('hidden')) {
+                return; // 로딩 중이면 추가 요청 방지
+            }
+            loading.classList.remove('hidden');
+            loadMoreAuctions();
+        }
+    });
+</script>
 
-	// 스크롤 이벤트 리스너
-	window.addEventListener('scroll', () => {
-	    console.log('Scroll event detected'); // 스크롤 이벤트 감지 시 로그 출력
-
-	    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-	        if (!loading.classList.contains('hidden')) {
-	            return; // 로딩 중이면 추가 요청 방지
-	        }
-	        loading.classList.remove('hidden');
-	        loadMoreAuctions();
-	    }
-	});
-	
-	
-	</script>
 	<script>
 	
 		function openAuctionModal() {
