@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +10,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import dto.Auction;
+import dto.Bid;
+import dto.Company;
+import dto.Person;
+import service.AuctionService;
+import service.AuctionServiceImpl;
+import service.BidService;
+import service.BidServiceImpl;
+import service.CompanyService;
+import service.CompanyServiceImpl;
+import service.PersonSellTransactionListService;
+import service.PersonSellTransactionListServiceImpl;
+import service.PersonService;
+import service.PersonServiceImpl;
 
 /**
  * Servlet implementation class PersonSellTransactionDetail
@@ -45,9 +62,66 @@ public class PersonSellTransactionDetail extends HttpServlet {
 			Integer auctionNum = Integer.parseInt(request.getParameter("auctionNum").trim());
 
 			
+			Integer auctionNum = Integer.parseInt(request.getParameter("auctionNum"));
+			Integer transactionNum = Integer.parseInt(request.getParameter("transactionNum"));
+			Integer bidNum = Integer.parseInt(request.getParameter("bidNum"));
+			String sellerImage = request.getParameter("sellerImage");
+			String title = request.getParameter("title");
+			Integer price = Integer.parseInt(request.getParameter("price"));
+			String date = request.getParameter("date");
+			String sellerId = request.getParameter("sellerId"); 
+			String buyerId = request.getParameter("buyerId");  
+			String memType = request.getParameter("memType");  
+			String state = request.getParameter("state");
 			
 			
+			
+			// auction 처리
+			AuctionService service = new AuctionServiceImpl();
+			Auction auction = service.oneAuction(auctionNum);
+			
+			// bid 처리
+			BidService bidService = new BidServiceImpl();
+			List<Bid> allBuyers = new ArrayList<>();
+			allBuyers = bidService.bidAllBuyer(auctionNum);
+			
+			// person 처리
+			PersonService pservice = new PersonServiceImpl();
+			Person sperson = pservice.selectPersonInfo(sellerId);
+				
+			
+			// 판매자(Seller) person 정보 
+			request.setAttribute("sellerId", sellerId);
+			request.setAttribute("sellerImage", sellerImage);
+			request.setAttribute("sperson", sperson);
+			
+			// 구매자(Buyer) 정보 : person or company 
+			if (memType != null && memType.equals("C")) {
+				PersonSellTransactionListService pstService = new PersonSellTransactionListServiceImpl();
+				Company bcompany = pstService.selectCompanyInfo(buyerId);
+				request.setAttribute("bcompany", bcompany);
+			} else if (memType != null && memType.equals("P")){
+				PersonService bservice = new PersonServiceImpl();
+				Person bperson = bservice.selectPersonInfo(buyerId);
+				request.setAttribute("bperson", bperson);
+			}
+			
+			// auction 정보 
+			request.setAttribute("auction", auction);
 			request.setAttribute("auctionNum", auctionNum);
+			
+			
+			// bid 정보
+			request.setAttribute("allBuyers", allBuyers);
+			
+			
+			// request.set			
+			request.setAttribute("price", price); //낙찰액
+			request.setAttribute("date", date);  //낙찰일
+			request.setAttribute("memType", memType);
+			request.setAttribute("state", state); //계약진행상황
+			request.setAttribute("transactionNum", transactionNum);
+			request.setAttribute("bidNum", bidNum);
 			
 			
 			request.getRequestDispatcher("/view/seller/personSellTransactionDetail.jsp").forward(request, response);
