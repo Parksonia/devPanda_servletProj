@@ -1,7 +1,7 @@
-/*
 package controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -10,42 +10,56 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dto.Transaction;
+import dto.BlackList;
 import repository.blacklist.CompanyBlacklistRepository;
+
 
 @WebServlet("/sellerCompanyBlack")
 public class SellerCompanyBlack extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    private CompanyBlacklistRepository repository = new CompanyBlacklistRepository();
 
+    private CompanyBlacklistRepository companyBlacklistRepository = new CompanyBlacklistRepository();
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String auctionNum = request.getParameter("auctionNum");
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
 
-        try {
-            // 트랜잭션 테이블에서 auctionNum으로 값 조회
-        	Map<String, Object> transaction = repository.getTransactionByAuctionNum(auctionNum);
+        if (auctionNum == null || auctionNum.isEmpty()) {
+            response.getWriter().write("Auction number is missing.");
+            return;
+        }
 
-            if (transaction != null) {
-                String declCom = transaction.getBuyerId();  // buyerId는 신고자 (기업)
-                String blackPerson = transaction.getSellerId(); // sellerId는 피신고자 (개인)
-                String title = request.getParameter("title"); // 제목
-                String content = request.getParameter("content"); // 신고 내용
-                String roleType = "B"; // Buyer 신고자
+        // Auction number로 buyerId와 sellerId 조회 (Map으로 받아옴)
+        Map<String, Object> auctionDetails = companyBlacklistRepository.getComAuctionDetailsByAuctionNum(Integer.parseInt(auctionNum));
 
-                // 블랙리스트에 추가
-                boolean isSuccess = repository.addToBlacklist(transaction.getTransactionNum(), transaction.getBidNum(), declCom, blackPerson, title, content, roleType);
-                
-                if (isSuccess) {
-                    response.getWriter().write("Blacklist entry added successfully.");
-                } else {
-                    response.getWriter().write("Failed to add blacklist entry.");
-                }
-            } else {
-                response.getWriter().write("No transaction found for the provided auctionNum.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.getWriter().write("An error occurred.");
+        if (auctionDetails == null) {
+            response.getWriter().write("상세 페이지가 없습니다.");
+            return;
+        }
+
+        String buyerId = (String) auctionDetails.get("buyerId");   // declCom에 들어갈 값
+        String sellerId = (String) auctionDetails.get("sellerId"); // blackPerson에 들어갈 값
+        int transactionNum = (Integer) auctionDetails.get("transactionNum");
+        int bidNum = (Integer) auctionDetails.get("bidNum");
+
+        // Blacklist 객체 생성 및 값 설정
+        BlackList blacklist = new BlackList();
+        blacklist.setDeclCom(buyerId);           // declCom
+        blacklist.setBlackPerson(sellerId);      // blackPerson
+        blacklist.setTransactionNum(transactionNum); // transactionNum
+        blacklist.setBidNum(bidNum);             // bidNum
+        blacklist.setTitle(title);               // 제목
+        blacklist.setContent(content);           // 신고 내용
+        blacklist.setRoleType("B");              // 역할 유형
+
+        // Blacklist 테이블에 데이터 삽입
+        boolean isSuccess = companyBlacklistRepository.addToComBlacklist(blacklist);
+
+        if (!isSuccess) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 서버 오류
+        } else {
+            response.setStatus(HttpServletResponse.SC_OK); // 성공 응답
         }
     }
-}*/
+}

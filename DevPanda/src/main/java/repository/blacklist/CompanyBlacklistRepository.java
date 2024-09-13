@@ -1,42 +1,32 @@
 package repository.blacklist;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 
+import dto.BlackList;
 import util.MybatisSqlSessionFactory;
 
 public class CompanyBlacklistRepository {
 
-    private SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
-
-    // auctionNum으로 트랜잭션 조회
-    public Map<String, Object> getTransactionByAuctionNum(String auctionNum) {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            return session.selectOne("CompanyBlacklistMapper.getTransactionByAuctionNum", auctionNum);
+    public Map<String, Object> getComAuctionDetailsByAuctionNum(int auctionNum) {
+        try (SqlSession session = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+            return session.selectOne("mapper.blacklist.getComAuctionDetailsByAuctionNum", auctionNum);
         }
     }
 
-    // 블랙리스트에 추가
-    public boolean addToBlacklist(int transactionNum, int bidNum, String declCom, String blackPerson, String title, String content, String roleType) {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            Map<String, Object> params = new HashMap<>();
-            params.put("transactionNum", transactionNum);
-            params.put("bidNum", bidNum);
-            params.put("declCom", declCom);
-            params.put("blackPerson", blackPerson);
-            params.put("title", title);
-            params.put("content", content);
-            params.put("roleType", roleType);
-
-            int result = session.insert("CompanyBlacklistMapper.addToBlacklist", params);
+    public boolean addToComBlacklist(BlackList blacklist) {
+        try (SqlSession session = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+            int result = session.insert("mapper.blacklist.addToComBlacklist", blacklist);
             session.commit();
             return result > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
         }
     }
+    public List<Map<String, Object>> getComBlackListByBlackNum(String blackNum) {
+        try (SqlSession session = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+            return session.selectList("mapper.blacklist.getComBlackListByBlackNum", blackNum); // selectList로 변경
+        }
+    }
+    
 }

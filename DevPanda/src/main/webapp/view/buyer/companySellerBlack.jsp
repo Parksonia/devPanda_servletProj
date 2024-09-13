@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +39,7 @@
 	letter-spacing: -.36px
 }
 
-.title>h3,h2 {
+.title>h3, h2 {
 	font-size: inherit;
 	line-height: 29px
 }
@@ -309,138 +311,131 @@ li, ol, ul {
 
 /* modal start */
 .modal {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(34, 34, 34, 0.5);
-    z-index: 1010;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(34, 34, 34, 0.5);
+	z-index: 1010;
 }
 
 .modal-container {
-    position: relative;
-    width: 599px;
-    height: auto;
-    background: #FFFFFF;
-    border-radius: 20px;
-    padding: 40px 20px;
-    box-sizing: border-box;
+	position: relative;
+	width: 599px;
+	height: auto;
+	background: #FFFFFF;
+	border-radius: 20px;
+	padding: 40px 20px;
+	box-sizing: border-box;
 }
 
 .modal-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
 }
 
 .modal-header {
-
-    font-weight: 700;
-    font-size: 32px;
-    color: #000000;
-    text-align: center;
-    margin-bottom: 40px;
+	font-weight: 700;
+	font-size: 32px;
+	color: #000000;
+	text-align: center;
+	margin-bottom: 40px;
 }
 
 .profile-section {
-    display: flex;
-    align-items: center;
-    margin-bottom: 40px;
+	display: flex;
+	align-items: center;
+	margin-bottom: 40px;
 }
 
 .profile-image {
-    width: 80px;
-    height: 80px;
-    border-radius: 10px;
-    background: url('./img/woman.jpg') no-repeat center center;
-    background-size: cover;
-    margin-right: 20px;
+	width: 80px;
+	height: 80px;
+	border-radius: 10px;
+	background: url('./img/woman.jpg') no-repeat center center;
+	background-size: cover;
+	margin-right: 20px;
 }
 
-
 .profile-info .user-type {
-    font-weight: 600;
-    font-size: 18px;
-    color: rgba(0, 0, 0, 0.27);
+	font-weight: 600;
+	font-size: 18px;
+	color: rgba(0, 0, 0, 0.27);
 }
 
 .profile-info .user-name {
-    font-weight: 600;
-    font-size: 18px;
-    color: #000000;
+	font-weight: 600;
+	font-size: 18px;
+	color: #000000;
 }
 
 .profile-info .user-email {
-    font-weight: 400;
-    font-size: 14px;
-    color: rgba(34, 34, 34, 0.5);
+	font-weight: 400;
+	font-size: 14px;
+	color: rgba(34, 34, 34, 0.5);
 }
 
 .modal-divider {
-    width: 100%;
-    height: 1px;
-    background: #D9D9D9;
-    margin: 20px 0;
+	width: 100%;
+	height: 1px;
+	background: #D9D9D9;
+	margin: 20px 0;
 }
+
 .modal-transaction-info {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
 }
 
 .modal-transaction-info div {
-   
-    font-weight: 600;
-    font-size: 18px;
-    color: #D3D3D3;
+	font-weight: 600;
+	font-size: 18px;
+	color: #D3D3D3;
 }
 
-.modal-transaction-info .modal-transaction-id,.modal-transaction-info  .modal-transaction-date {
-   
-    font-weight: 400;
-    font-size: 18px;
-    color: #000000;
+.modal-transaction-info .modal-transaction-id, .modal-transaction-info  .modal-transaction-date
+	{
+	font-weight: 400;
+	font-size: 18px;
+	color: #000000;
 }
 
 .modal-report-title {
-   
-    font-weight: 600;
-    font-size: 23px;
-    color: #000000;
-    margin-bottom: 20px;
+	font-weight: 600;
+	font-size: 23px;
+	color: #000000;
+	margin-bottom: 20px;
 }
-
 
 .section-title {
-
-    font-weight: 600;
-    font-size: 18px;
-    color: #000000;
-    margin-bottom: 10px;
+	font-weight: 600;
+	font-size: 18px;
+	color: #000000;
+	margin-bottom: 10px;
 }
 
-
 .dropdown-content {
-    background: #FAFAFA;
-    border: 1px solid #EBEBEB;
-    border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 20px;
+	background: #FAFAFA;
+	border: 1px solid #EBEBEB;
+	border-radius: 20px;
+	padding: 20px;
+	margin-bottom: 20px;
 }
 
 .dropdown-content p {
-    margin: 0;
-
-    font-weight: 400;
-    font-size: 16px;
-    color: #000000;
+	margin: 0;
+	font-weight: 400;
+	font-size: 16px;
+	color: #000000;
 }
 /* modal end */
 </style>
@@ -455,7 +450,7 @@ li, ol, ul {
 	<!-- Header End-->
 
 	<div class="container my">
-		<%@ include file="../inc/personSideNav.jsp"%>
+		<%@ include file="../inc/comSideNav.jsp"%>
 
 		<!-- personBlack Start  -->
 		<div class="content_area my-page-content">
@@ -492,31 +487,76 @@ li, ol, ul {
 					</div>
 					<!--sort head end-->
 
-					<div class="modal_btn">
-						<div>
-							<div class="black_list_display_mem" style="background-color: rgb(255, 255, 255);">
 
-								<div class="black_list_mem">
+					<!-- 리스트@@@@@@@@@ -->
+					<%-- <c:forEach var = "black" items="${comblack}">                           기존 foreach문
+						<div class="modal_btn">
+							<div>
+								<div class="black_list_display_mem"
+									style="background-color: rgb(255, 255, 255);">
+									<!-- for(comblackList: comblack)으로 foreach -->
+									<div class="black_list_mem">
+										<div class="list_item_img_wrap">
+											<img alt="mem_image" src="../img/woman.jpg" class="mem_image">
+										</div>
+										<div class="list_item_title_wrap">
+											<!---->
+											<p class="list_itme_div_user">[개인회원]</p>
+											<p class="list_item_title">${black.blackPerson}</p>
+											<p class="list_item_description">
+												<span>${black.title}</span>
+											</p>
+										</div>
+									</div>
+
+									<div class="list_item_status">
+										<div class="list_item_column column_secondary">
+											<p class="text-lookup secondary_title display_paragraph"
+												style="color: rgb(34, 34, 34);">${black.tdate}</p>
+										</div>
+										<div class="list_item_column column_secondary">
+											<p class="text-lookup secondary_title display_paragraph"
+												style="color: rgb(34, 34, 34);">${black.rdate}</p>
+										</div>
+										<div class="list_item_column column_last">
+											<button class="btn btn_add" type="button">해제하기</button>
+											<!-- 버튼에 해제 처리해야함  -->
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</c:forEach> --%>
+					
+					<c:forEach var="black" items="${comblack}">
+						<div class="modal_btn">
+							<!-- modal_btn 클래스를 그대로 사용 -->
+							<div class="black_list_display_mem"
+								style="background-color: rgb(255, 255, 255);">
+								<div class="black_list_mem" data-title="${black.title}"
+									data-blackperson="${black.blackPerson}"
+									data-tdate="${black.tdate}" data-tnum="${black.tnum}">
 									<div class="list_item_img_wrap">
 										<img alt="mem_image" src="../img/woman.jpg" class="mem_image">
-
 									</div>
 									<div class="list_item_title_wrap">
-										<!---->
 										<p class="list_itme_div_user">[개인회원]</p>
-										<p class="list_item_title">kimjava</p>
+										<p class="list_item_title">${black.blackPerson}</p>
 										<p class="list_item_description">
-											<span>제일좋아하는것은김자바</span>
+											<span>${black.title}</span>
 										</p>
 									</div>
 								</div>
 
 								<div class="list_item_status">
 									<div class="list_item_column column_secondary">
-										<p class="text-lookup secondary_title display_paragraph" style="color: rgb(34, 34, 34);">24/08/15</p>
+										<p class="text-lookup secondary_title display_paragraph"
+											style="color: rgb(34, 34, 34);">${black.tdate}</p>
 									</div>
 									<div class="list_item_column column_secondary">
-										<p class="text-lookup secondary_title display_paragraph" style="color: rgb(34, 34, 34);">24/08/15</p>
+										<p class="text-lookup secondary_title display_paragraph"
+											style="color: rgb(34, 34, 34);">${black.rdate}</p>
 									</div>
 									<div class="list_item_column column_last">
 										<button class="btn btn_add" type="button">해제하기</button>
@@ -524,78 +564,10 @@ li, ol, ul {
 									</div>
 								</div>
 							</div>
-
 						</div>
-					</div>
+					</c:forEach>
 
-					<div class="modal_btn">
-						<div>
-							<div class="black_list_display_mem" style="background-color: rgb(255, 255, 255);">
 
-								<div class="black_list_mem">
-									<div class="list_item_img_wrap">
-										<img alt="mem_image" src="../img/woman.jpg" class="mem_image">
-
-									</div>
-									<div class="list_item_title_wrap">
-										<!---->
-										<p class="list_itme_div_user">[개인회원]</p>
-										<p class="list_item_title">kimjava</p>
-										<p class="list_item_description">
-											<span>제일좋아하는것은김자바</span>
-										</p>
-									</div>
-								</div>
-
-								<div class="list_item_status">
-									<div class="list_item_column column_secondary">
-										<p class="text-lookup secondary_title display_paragraph" style="color: rgb(34, 34, 34);">24/08/15</p>
-									</div>
-									<div class="list_item_column column_secondary">
-										<p class="text-lookup secondary_title display_paragraph" style="color: rgb(34, 34, 34);">24/08/15</p>
-									</div>
-									<div class="list_item_column column_last">
-										<button class="btn btn_add" type="button">해제하기</button>
-									</div>
-								</div>
-							</div>
-
-						</div>
-					</div>
-					<div class="modal_btn">
-						<div>
-							<div class="black_list_display_mem" style="background-color: rgb(255, 255, 255);">
-
-								<div class="black_list_mem">
-									<div class="list_item_img_wrap">
-										<img alt="mem_image" src="../img/man.jpg" class="mem_image">
-
-									</div>
-									<div class="list_item_title_wrap">
-										<!---->
-										<p class="list_itme_div_user">[개인회원]</p>
-										<p class="list_item_title">developer</p>
-										<p class="list_item_description">
-											<span>제일좋아하는것은김자바</span>
-										</p>
-									</div>
-								</div>
-
-								<div class="list_item_status">
-									<div class="list_item_column column_secondary">
-										<p class="text-lookup secondary_title display_paragraph" style="color: rgb(34, 34, 34);">24/08/15</p>
-									</div>
-									<div class="list_item_column column_secondary">
-										<p class="text-lookup secondary_title display_paragraph" style="color: rgb(34, 34, 34);">24/08/15</p>
-									</div>
-									<div class="list_item_column column_last">
-										<button class="btn btn_add" type="button">해제하기</button>
-									</div>
-								</div>
-							</div>
-
-						</div>
-					</div>
 
 				</div>
 				<!---->
@@ -604,11 +576,19 @@ li, ol, ul {
 				<div class="pagination">
 					<div class="pagination_box first last">
 						<div class="prev_btn_box">
-							<a href="#" class="btn_arr"> <svg xmlns="http://www.w3.org/2000/svg" class="arr-page-first icon sprite-icons">
-									<use href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-first" xlink:href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-first"></use>
+							<a href="#" class="btn_arr"> <svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="arr-page-first icon sprite-icons">
+									<use
+										href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-first"
+										xlink:href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-first"></use>
 									</svg>
-							</a> <a href="#" class="btn_arr"> <svg xmlns="http://www.w3.org/2000/svg" class="arr-page-prev icon sprite-icons">
-								<use href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-prev" xlink:href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-prev"></use>
+							</a> <a href="#" class="btn_arr"> <svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="arr-page-prev icon sprite-icons">
+								<use
+										href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-prev"
+										xlink:href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-prev"></use>
 								</svg>
 							</a>
 						</div>
@@ -616,11 +596,19 @@ li, ol, ul {
 							<a href="#" class="btn_page active"> 1 </a>
 						</div>
 						<div class="next_btn_box">
-							<a href="#" class="btn_arr"> <svg xmlns="http://www.w3.org/2000/svg" class="arr-page-next icon sprite-icons">
-									<use href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-next" xlink:href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-next"></use>
+							<a href="#" class="btn_arr"> <svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="arr-page-next icon sprite-icons">
+									<use
+										href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-next"
+										xlink:href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-next"></use>
 								</svg>
-							</a> <a href="#" class="btn_arr"> <svg xmlns="http://www.w3.org/2000/svg" class="arr-page-last icon sprite-icons">
-									<use href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-last" xlink:href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-last"></use>
+							</a> <a href="#" class="btn_arr"> <svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="arr-page-last icon sprite-icons">
+									<use
+										href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-last"
+										xlink:href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-last"></use>
 								</svg>
 							</a>
 						</div>
@@ -632,20 +620,22 @@ li, ol, ul {
 
 
 				<!-- Modal -->
-				<div class="modal">
+				<!-- <div class="modal">                              //기존 모달
 					<div class="modal-container">
-						<a href="#" class="modal-close"> <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M 20.496094 2.9921875 A 0.50005 0.50005 0 0 0 20.146484 3.1464844 L 12 11.292969 L 3.8535156 3.1464844 A 0.50005 0.50005 0 0 0 3.4941406 2.9941406 A 0.50005 0.50005 0 0 0 3.1464844 3.8535156 L 11.292969 12 L 3.1464844 20.146484 A 0.50005 0.50005 0 1 0 3.8535156 20.853516 L 12 12.707031 L 20.146484 20.853516 A 0.50005 0.50005 0 1 0 20.853516 20.146484 L 12.707031 12 L 20.853516 3.8535156 A 0.50005 0.50005 0 0 0 20.496094 2.9921875 z"></path>
+						<a href="#" class="modal-close"> <svg
+								xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24"
+								height="24" viewBox="0 0 24 24">
+                    <path
+									d="M 20.496094 2.9921875 A 0.50005 0.50005 0 0 0 20.146484 3.1464844 L 12 11.292969 L 3.8535156 3.1464844 A 0.50005 0.50005 0 0 0 3.4941406 2.9941406 A 0.50005 0.50005 0 0 0 3.1464844 3.8535156 L 11.292969 12 L 3.1464844 20.146484 A 0.50005 0.50005 0 1 0 3.8535156 20.853516 L 12 12.707031 L 20.146484 20.853516 A 0.50005 0.50005 0 1 0 20.853516 20.146484 L 12.707031 12 L 20.853516 3.8535156 A 0.50005 0.50005 0 0 0 20.496094 2.9921875 z"></path>
                 </svg>
 						</a>
 						<div class="modal-header">차단 상세 내역</div>
-
 						<div class="profile-section">
 							<div class="profile-image"></div>
 							<div class="profile-info">
 								<div class="user-type">[개인회원]</div>
-								<div class="user-name">김자바</div>
-								<div class="user-email">kimjava@gmail.com</div>
+								<div class="user-name">2이름</div>
+								<div class="user-email">2이메일</div>
 							</div>
 						</div>
 
@@ -656,26 +646,69 @@ li, ol, ul {
 							<div>거래 일자</div>
 						</div>
 						<div class="modal-transaction-info">
-							<div class="modal-transaction-id">AB123-CD5678-90</div>
-							<div class="modal-transaction-date">24/04/05</div>
+							<div class="modal-transaction-id">2거래번호</div>
+							<div class="modal-transaction-date">2거래날짜</div>
 						</div>
 
 
 						<div class="modal-divider"></div>
 
 						<div class="section-title">신고 제목</div>
-						<div class="dropdown-content">갑질이 너무 심합니다.</div>
+						<div class="dropdown-content">2타이틀</div>
 
 						<div class="section-title">신고 내용</div>
-						<div class="dropdown-content">
-							<p>처음 거래하는데</p>
-							<p>다시는 거래하고 싶지 않네요</p>
+						<div class="dropdown-content">2콘텐츠</div>
+					</div>
+				</div> -->
+				
+				<div class="modal" style="display: none;">                                    <!-- 바꿀 모달 창 -->
+						<div class="modal-container">
+							<a href="#" class="modal-close"> <svg
+									xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24"
+									height="24" viewBox="0 0 24 24">
+                <path
+										d="M 20.496094 2.9921875 A 0.50005 0.50005 0 0 0 20.146484 3.1464844 L 12 11.292969 L 3.8535156 3.1464844 A 0.50005 0.50005 0 0 0 3.4941406 2.9941406 A 0.50005 0.50005 0 0 0 3.1464844 3.8535156 L 11.292969 12 L 3.1464844 20.146484 A 0.50005 0.50005 0 1 0 3.8535156 20.853516 L 12 12.707031 L 20.146484 20.853516 A 0.50005 0.50005 0 1 0 20.853516 20.146484 L 12.707031 12 L 20.853516 3.8535156 A 0.50005 0.50005 0 0 0 20.496094 2.9921875 z"></path>
+            </svg>
+							</a>
+							<div class="modal-header">차단 상세 내역</div>
+
+							<div class="profile-section">
+								<div class="profile-info">
+									<div class="user-type">[개인회원]</div>
+									<div class="user-name" id="blackPersonName">이름</div>
+									<!-- 수정: id 값 수정 -->
+									<div class="user-email" id="blackPersonEmail">이메일</div>
+									<!-- 수정: id 값 수정 -->
+								</div>
+							</div>
+
+							<div class="modal-divider"></div>
+
+							<div class="modal-transaction-info">
+								<div>거래 내역</div>
+								<div>거래 일자</div>
+							</div>
+							<div class="modal-transaction-info">
+								<div class="modal-transaction-id" id="transactionNum">거래번호</div>
+								<!-- 수정: id 값 수정 -->
+								<div class="modal-transaction-date" id="transactionDate">거래날짜</div>
+								<!-- 수정: id 값 수정 -->
+							</div>
+
+							<div class="modal-divider"></div>
+
+							<div class="section-title">신고 제목</div>
+							<div class="dropdown-content" id="reportTitle">타이틀</div>
+							<!-- 수정: id 값 수정 -->
+
+							<div class="section-title">신고 내용</div>
+							<div class="dropdown-content" id="reportContent">콘텐츠</div>
+							<!-- 수정: id 값 수정 -->
 						</div>
 					</div>
-				</div>
 
 				<script>
-        const modal = document.querySelector('.modal');
+        const modal = document.querySelector('.modal'); // 기존 스크립트
         const modalCloseButton = document.querySelector('.modal-close');
         const modalOpenButtons = document.querySelectorAll('.modal_btn');
 
@@ -689,7 +722,44 @@ li, ol, ul {
             modal.style.display = 'none';
         });
     </script>
-	<!-- Modal End-->
+    <script>
+					document.addEventListener("DOMContentLoaded", function() { // 바꿀 스크립트
+					    const modal = document.querySelector('.modal');
+					    const modalCloseButton = document.querySelector('.modal-close');
+					    const modalOpenElements = document.querySelectorAll('.modal_btn'); 
+
+					    modalOpenElements.forEach(element => {
+					        element.addEventListener('click', function() {
+					            // 클릭된 요소의 data-* 속성을 가져와서 모달 내용에 넣기
+					            const title = this.querySelector('.black_list_mem').dataset.title;
+					            const blackPerson = this.querySelector('.black_list_mem').dataset.blackperson;
+					            const tdate = this.querySelector('.black_list_mem').dataset.tdate;
+					            const tnum = this.querySelector('.black_list_mem').dataset.tnum;
+
+					            // 모달에 내용 채우기
+					            document.getElementById('modal-title').textContent = title;
+					            document.getElementById('blackPerson').textContent = blackPerson;
+					            document.getElementById('transactionDate').textContent = tdate;
+					            document.getElementById('transactionNum').textContent = tnum;
+
+					            // 모달 열기
+					            modal.style.display = 'flex';
+					        });
+					    });
+
+					    modalCloseButton.addEventListener('click', function() {
+					        modal.style.display = 'none';
+					    });
+
+					    // 모달 바깥 클릭 시 닫기
+					    window.addEventListener('click', function(event) {
+					        if (event.target == modal) {
+					            modal.style.display = 'none';
+					        }
+					    });
+					});
+					</script>
+				<!-- Modal End-->
 			</div>
 		</div>
 	</div>
