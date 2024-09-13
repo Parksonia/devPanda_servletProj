@@ -98,20 +98,18 @@
 								<span>${transaction.date }</span>
 							</div>
 							<!-- Detail로 넘겨줄 값 - auction 테이블 -->
-							<input type="hidden" name="auctionNum" value="${transaction.auctionNum } "/>
-							<input type="hidden" name="title" value="${transaction.title } "/>
-							<input type="hidden" name="minSalary" value="${transaction.minSalary} "/>
-							<input type="hidden" name="maxSalary" value="${transaction.maxSalary} "/>
-							<input type="hidden" name="occupation" value="${transaction.occupation} "/>
-							<input type="hidden" name="period" value="${transaction.period} "/>
-							<input type="hidden" name="education" value="${transaction.education} "/>
-							<input type="hidden" name="employmentType" value="${transaction.employmentType } "/>
-							<input type="hidden" name="stack" value="${transaction.stack } "/>
-							<input type="hidden" name="certification" value="${transaction.certification } "/>
-							<input type="hidden" name="location" value="${transaction.location } "/>
+							<input type="hidden" name="auctionNum" value="${transaction.auctionNum }"/>
+							<input type="hidden" name="sellerImage" value="${transaction.personImage }"/>
+							<input type="hidden" name="title" value="${transaction.title}"/>
 							<!-- Detail로 넘겨줄 값 - transaction 테이블 -->
-							<input type="hidden" name="price" value="${transaction.price } "/>
-							<input type="hidden" name="t_state" value="${transaction.t_state } "/>
+							<input type="hidden" name="transactionNum" value="${transaction.transactionNum }"/>
+							<input type="hidden" name="bidNum" value="${transaction.bidNum }"/>
+							<input type="hidden" name="price" value="${transaction.price }"/>
+							<input type="hidden" name="date" value="${transaction.date }"/>
+							<input type="hidden" name="state" value="${transaction.state }"/>
+							<input type="hidden" name="sellerId" value="${transaction.sellerId }"/>
+							<input type="hidden" name="buyerId" value="${transaction.buyerId }" />
+							<input type="hidden" name="memType" value="${transaction.memType }"/>
 						</div>
 					</form>
 				</c:forEach>

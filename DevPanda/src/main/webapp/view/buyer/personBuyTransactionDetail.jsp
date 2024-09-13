@@ -85,7 +85,7 @@
 				</div>
 			</div>
 
-			<!-- Profile Section -->
+<!-- Profile Section -->
 			<div class="profile-container">
 				<h2>프로필</h2>
 				<hr class="gray-line">
@@ -113,7 +113,7 @@
 			</div>
 
 
-			<!-- Transaction Details -->
+<!-- Transaction Details -->
 			<hr class="gray-line">
 			<div class="prices">
 				<div class="price_type">
@@ -144,7 +144,7 @@
 				</div>
 			</div>
 
-			<!-- Bid History -->
+<!-- Bid History -->
 			<div class="bid-history">
 				<table>
 					<thead>
@@ -182,11 +182,11 @@
 				</table>
 			</div>
 
+<!-- progress state -->
 			<div class="progress-container">
 				<p class="progress_title">진행 상황</p>
 				<div class="progress-bar-background">
 					<div class="progress-bar" style="width: ${state == 'f' ? '100%' : '50%'};"></div>
-					<%-- <div>Transaction state : ${state }</div> --%>
 				</div>
 
 				<div class="progress-status">
@@ -194,19 +194,15 @@
 					<div style="display: flex; flex-direction: column;">
 						<span class="progress_item_title">계약서 검토중</span>
 					</div>
-					<span class=" progress_item_title completed">계약서 수신 완료</span>
+					<span class=" progress_item_title completed">계약 완료</span>
 				</div>
 			</div>
 
 
-			<!-- Modal  start-->
+<!-- Modal  start-->
 			<div class="modal">
 				<div class="modal-container">
-					<a href="#" class="modal-close"> 
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M20.5 3.1L12 11.6 3.5 3.1 2.1 4.5l8.6 8.5-8.6 8.5 1.4 1.4 8.5-8.6 8.5 8.6 1.4-1.4-8.6-8.5 8.6-8.5z" />
-                </svg>
-					</a>
+					<a href="#" class="modal-close">&times;</a>
 					<div class="modal-header">신고하기</div>
 
 					<div class="modal-profile">
@@ -258,8 +254,6 @@
 					modal.style.display = 'none';
 				});
 			</script>
-			<!-- Modal  end-->
-
 		</div>
 	</div>
 </body>

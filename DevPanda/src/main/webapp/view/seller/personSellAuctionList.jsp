@@ -96,7 +96,7 @@
 						<input type="hidden" name="title" value="${auction.title }"/>
 						<input type="hidden" name="minSalary" value="${auction.minSalary }"/>
 						<input type="hidden" name="maxSalary" value="${auction.maxSalary }"/>
-						<div class="history-item" style="<c:if test='${auction.state eq "processing"}'> background-color:rgb(254, 247, 246);</c:if>">
+						<div class="history-item" style="<c:if test='${auction.state eq "진행중"}'> background-color:rgb(254, 247, 246);</c:if>">
 							<input type="hidden" readonly value="${auction.state}">
 							<img src="${pageContext.request.contextPath}/img/${auction.personImage}" alt="User">
 							<div class="history-content">

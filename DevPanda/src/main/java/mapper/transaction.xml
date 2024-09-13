@@ -16,7 +16,7 @@
 				ON t.auctionNum = a.auctionNum
 			JOIN person p ON t.sellerId = p.id
 			WHERE t.buyerId=#{buyerId}
-			]]>  <!-- company, person 같이 사용가능!? -->
+			]]> 
 
 		<if test="filterDate != null and filterDate != ''">
 			<![CDATA[
@@ -47,25 +47,23 @@
 			]]>
 
 		<if test="filterDate != null and filterDate != ''">
-				<![CDATA[
-					and STR_TO_DATE(t.date, '%Y-%m-%d') between STR_TO_DATE(#{filterDate}, '%Y-%m-%d') and STR_TO_DATE(now(), '%Y-%m-%d')
-				]]>
-		</if>
-
-		<if
-			test="startDate != null and startDate !='' and endDate != null and endDate !=''">
-				<![CDATA[
-					and STR_TO_DATE(t.date, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
-				]]>
-		</if>
-			
 			<![CDATA[
-				order by t.date desc;
+				and STR_TO_DATE(t.date, '%Y-%m-%d') between STR_TO_DATE(#{filterDate}, '%Y-%m-%d') and STR_TO_DATE(now(), '%Y-%m-%d')
 			]]>
-	</select>
+		</if>
 
-	<select id="selectPSTransactionDetail" parameterType="map"
-		resultType="Map">
+		<if test="startDate != null and startDate !='' and endDate != null and endDate !=''">
+			<![CDATA[
+				and STR_TO_DATE(t.date, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+			]]>
+		</if>
+		<![CDATA[
+			order by t.date desc;
+		]]>
+	</select>
+	
+	<!-- personSellTransactionDetail -->
+	<select id="selectPSTransactionDetail" parameterType="map" resultType="Map">
 		<![CDATA[
 			SELECT DISTINCT p1.*, p2.*
 				FROM transaction t
@@ -76,7 +74,19 @@
 			WHERE t.sellerId = #{sellerId} AND t.auctionNum = #{auctionNum};
 		]]>
 	</select>
-
+	
+	<select id="selectOneCompany" parameterType="String" resultType="company">
+		<![CDATA[
+			select * from company where id = #{id};
+		]]>
+	</select>
+	
+	<select id="updateStateTransactionState" parameterType="Integer">
+		<![CDATA[
+			UPDATE transaction SET state='f' WHERE auctionNum = #{auctionNum};
+		]]>
+	</select>
+ 
 	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
 	<select id="selectTransactionsByCompanyId"

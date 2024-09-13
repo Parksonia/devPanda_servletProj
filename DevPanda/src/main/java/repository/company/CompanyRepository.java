@@ -20,4 +20,5 @@ public interface CompanyRepository {
 	Company findCompanyByIdAndPassword(Map<String,String> parameterMap);
 	
 	Company findByCompanyId(String companyId) throws Exception;
+	
 }

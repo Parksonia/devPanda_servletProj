@@ -41,7 +41,7 @@ public class PersonSellAuctionList extends HttpServlet {
 		
 		try {
 			// 아이디
-			String sellerId = "abc022";
+			String sellerId = "abc001";
 
 			String filterOption = request.getParameter("num");
 			String startDate = request.getParameter("startDate");

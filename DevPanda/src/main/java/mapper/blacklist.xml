@@ -4,4 +4,22 @@
 
 <mapper namespace="mapper.blacklist">
 	
+	<insert id="insertBuyerPersonBlack" parameterType="map">
+		<![CDATA[
+			INSERT INTO blacklist 
+			(declPerson, transactionNum, bidNum, blackPerson, title, content, reportDate, roleType)
+			VALUES 
+			(#{declPerson}, #{transactionNum}, #{bidNum}, #{blackPerson}, #{title}, #{content}, DATE_FORMAT(NOW(), '%Y-%m-%d'), 'S');
+		]]>
+	</insert>
+	
+	<insert id="insertBuyerComBlack" parameterType="map">
+		<![CDATA[
+			INSERT INTO blacklist 
+			(declPerson, transactionNum, bidNum, blackCom, title, content, reportDate, roleType)
+			VALUES 
+			(#{declPerson}, #{transactionNum}, #{bidNum}, #{blackCom}, #{title}, #{content}, DATE_FORMAT(NOW(), '%Y-%m-%d'), 'S');
+		]]>
+	</insert>
+	
 </mapper>

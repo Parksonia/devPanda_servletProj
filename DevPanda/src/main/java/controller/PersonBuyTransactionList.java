@@ -41,7 +41,7 @@ public class PersonBuyTransactionList extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 
 		// 아이디
-		String buyerId = "abc022";
+		String buyerId = "abc006";
 
 		try {
 			String filterOption = request.getParameter("num");
