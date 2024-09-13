@@ -20,7 +20,7 @@
 
 	
 
-	<environments default="development">
+	<!-- <environments default="development">
 
 		<environment id="development">
 			<transactionManager type="JDBC" />
@@ -34,11 +34,11 @@
 				<property name="password" value="0000" />
 			</dataSource>
 		</environment>
-	</environments>  
+	</environments>   -->
 	
 
 
-	<!-- <environments default="development">
+	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
@@ -49,7 +49,7 @@
 				<property name="password" value="1590"></property>
 			</dataSource>
 		</environment>
-	</environments> -->
+	</environments>
 
 	<mappers>
 		<mapper resource="mapper/person.xml" />
