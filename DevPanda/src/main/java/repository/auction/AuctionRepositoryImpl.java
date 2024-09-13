@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import util.MybatisSqlSessionFactory;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,12 +19,26 @@ public class AuctionRepositoryImpl implements AuctionRepository {
 		this.sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
 	}
 
+//	@Override
+//	public List<Map<String, Object>> getAuctionsWithPersonInfo(int pageSize, int offset) {
+//		try (SqlSession session = sqlSessionFactory.openSession()) {
+//			return session.selectList("getAuctionsWithPersonInfo", Map.of("pageSize", pageSize, "offset", offset));
+//		}
+//	}
 	@Override
 	public List<Map<String, Object>> getAuctionsWithPersonInfo(int pageSize, int offset) {
-		try (SqlSession session = sqlSessionFactory.openSession()) {
-			return session.selectList("getAuctionsWithPersonInfo", Map.of("pageSize", pageSize, "offset", offset));
-		}
+	    SqlSession session = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+	    try {
+	        Map<String, Object> params = new HashMap<>();
+	        params.put("pageSize", pageSize);
+	        params.put("offset", offset);
+	        return session.selectList("getAuctionsWithPersonInfo", params);
+	    } finally {
+	        session.close();
+	    }
 	}
+
+	
 
 	// selectOne 경매 하나 조회
 	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
