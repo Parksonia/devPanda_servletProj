@@ -51,7 +51,7 @@
 			(#{declPerson}, #{transactionNum}, #{bidNum}, #{blackCom}, #{title}, #{content}, DATE_FORMAT(NOW(), '%Y-%m-%d'), 'S');
 		]]>
 	</insert>
-	
+	 
 
 
 </mapper>
