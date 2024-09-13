@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.json.simple.JSONObject;
@@ -17,6 +18,7 @@ import dto.BidAuctionTransactionDto;
 import dto.Transaction;
 import repository.auction.AuctionRepository;
 import repository.auction.AuctionRepositoryImpl;
+import dto.Transaction;
 import repository.bid.BidRepository;
 import repository.bid.BidRepositoryImpl;
 import repository.company.CompanyRepository;
@@ -132,6 +134,7 @@ public class BidServiceImpl implements BidService {
 		
 		return null;
 	}
+
 	
 	//bid insert, auction update insert transaction
 	@Override
@@ -244,4 +247,46 @@ public class BidServiceImpl implements BidService {
 		
 	}
 
+	//nowAuction에서 BidPrice를 변경함 
+	@Override
+	public boolean updateMyBidPrice(Integer auctionNum,Integer bidNum,Integer newBidPrice,Integer maxSalary,String sellerId,String myId,String userType) throws Exception {
+		boolean result = false;
+		try {
+			// 조건을 디버깅 로그로 확인
+	        System.out.println("newBidPrice: " + newBidPrice + ", maxSalary: " + maxSalary +"auctionNum" +auctionNum +"bidNum :" +bidNum);
+	        
+			
+			//즉시낙찰
+			if(newBidPrice.equals(maxSalary)) {  // Integer객체 비교는 같은 주소값 참조하니 equals로 비교했어야 함
+				Transaction transaction = new Transaction();
+				transaction.setSellerId(sellerId);
+				transaction.setAuctionNum(auctionNum);
+				transaction.setBidNum(bidNum);
+				transaction.setBuyerId(myId);
+				transaction.setPrice(newBidPrice);
+				transaction.setState("i");
+				if(userType.equals("company")) {
+					transaction.setMemType("C");
+				}else {
+					transaction.setMemType("P");
+				}
+	
+				result = bidRepository.updateBidToTransaction(transaction,bidNum,auctionNum,newBidPrice);
+				   System.out.println("즉시 낙찰 처리 결과: " + result);
+				return result;
+				
+			//입찰금액변경
+			}else {
+				result = bidRepository.updateMyBid(auctionNum,bidNum,newBidPrice);
+				System.out.println("입찰 변경 처리 결과: " + result);
+				return result;
+			}
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+		
+	}
 }

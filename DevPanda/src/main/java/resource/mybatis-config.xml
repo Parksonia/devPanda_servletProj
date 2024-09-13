@@ -41,7 +41,7 @@
 				<property name="url"
 					value="jdbc:mariadb://localhost:3306/devpanda"></property>
 				<property name="username" value="root"></property>
-				<property name="password" value="1590"></property>
+				<property name="password" value="7564"></property> <!-- 석준쓰 1590  -->
 			</dataSource>
 		</environment>
 	</environments>
@@ -52,10 +52,18 @@
 		<mapper resource ="mapper/transaction.xml"/>
 		<mapper resource ="mapper/company.xml"/>
 		<mapper resource ="mapper/bid.xml"/>
+
 		<mapper resource ="mapper/emailCertification.xml"/>  
 		<mapper resource ="mapper/blacklist.xml"/>  
 			<!-- 
 			<mapper resource ="mapper/searchcondition.xml"/>  -->
+
+		<mapper resource ="mapper/emailCertification.xml"/> 
+		
+		
+	    <mapper resource ="mapper/blacklist.xml"/>  
+		<!-- <mapper resource ="mapper/searchcondition.xml"/>  -->
+
 			
 	</mappers>
 
