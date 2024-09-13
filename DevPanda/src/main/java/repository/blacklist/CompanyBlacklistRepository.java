@@ -12,7 +12,7 @@ public class CompanyBlacklistRepository {
 
     public Map<String, Object> getComAuctionDetailsByAuctionNum(int auctionNum) {
         try (SqlSession session = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
-            return session.selectOne("mapper.blacklist.getComAuctionDetailsByAuctionNum", auctionNum);
+            return session.selectOne("mapper.blacklist.getComAuctionDetailsByAuctionNum", auctionNum); 
         }
     }
 
