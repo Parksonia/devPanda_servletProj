@@ -18,4 +18,5 @@ public interface CompanyRepository {
 	List<Company> findCompanyListByEmail(String email);
 	
 	Company findByCompanyId(String companyId) throws Exception;
+	
 }

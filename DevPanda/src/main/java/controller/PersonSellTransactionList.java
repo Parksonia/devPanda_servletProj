@@ -38,7 +38,7 @@ public class PersonSellTransactionList extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		//아이디
-		String sellerId = "abc022";
+		String sellerId = "abc001";
 		
 		//날짜
 		String filterOpion = request.getParameter("num");

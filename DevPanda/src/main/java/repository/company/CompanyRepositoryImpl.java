@@ -10,7 +10,7 @@ import dto.Company;
 import util.MybatisSqlSessionFactory;
 
 public class CompanyRepositoryImpl implements CompanyRepository {
-	
+
 	private SqlSession sqlSession;
 
 	private final SqlSessionFactory sqlSessionFactory;
@@ -72,10 +72,9 @@ public class CompanyRepositoryImpl implements CompanyRepository {
 		return list;
 	}
 
-	
-
 	// companyId로 회사 정보를 가져오는 메서드
 	public Company findByCompanyId(String companyId) {
 		return sqlSession.selectOne("mapper.company.selectCompanyById", companyId);
 	}
+
 }

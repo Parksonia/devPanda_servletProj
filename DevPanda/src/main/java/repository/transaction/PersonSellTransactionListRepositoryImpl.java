@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import dto.Company;
 import util.MybatisSqlSessionFactory;
 
 public class PersonSellTransactionListRepositoryImpl implements PersonSellTransactionListRepository {
@@ -13,7 +14,7 @@ public class PersonSellTransactionListRepositoryImpl implements PersonSellTransa
 	public PersonSellTransactionListRepositoryImpl() {
 		this.sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
 	}
-
+ 
 	@Override
 	public List<Map> selectPSTransactionList(String sellerId) throws Exception {
 		Map<String, Object> params = new HashMap<>();
@@ -40,6 +41,18 @@ public class PersonSellTransactionListRepositoryImpl implements PersonSellTransa
 		params.put("endDate", endDate);
 		List<Map> result = sqlSession.selectList("mapper.transaction.selectPSTransactionList", params);
 		return result;
+	}
+	
+	@Override
+	public Company selectOneId(String id) throws Exception {
+		return sqlSession.selectOne("mapper.CompanyMapper.selectOneCompany", id);
+	}
+
+	@Override
+	public void updateStateTransactionState(Integer auctionNum) throws Exception {
+		sqlSession.update("mapper.transaction.updateStateTransactionState", auctionNum);
+		sqlSession.commit();
+		
 	}
 
 }
