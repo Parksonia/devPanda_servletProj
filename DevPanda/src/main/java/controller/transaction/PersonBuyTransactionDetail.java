@@ -1,4 +1,4 @@
-package controller;
+package controller.transaction;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,8 +41,7 @@ public class PersonBuyTransactionDetail extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//doPost(request,response);
 	}
 
 	/**
@@ -55,8 +54,13 @@ public class PersonBuyTransactionDetail extends HttpServlet {
 		try {
 			
 			Integer auctionNum = Integer.parseInt(request.getParameter("auctionNum"));
-			String sellerImage = request.getParameter("sellerImage");
+			Integer bidNum = Integer.parseInt(request.getParameter("bidNum"));
+			Integer transactionNum = Integer.parseInt(request.getParameter("transactionNum"));
 			Integer price = Integer.parseInt(request.getParameter("price"));
+			//System.out.println(auctionNum);
+			//System.out.println(price);
+			
+			String sellerImage = request.getParameter("sellerImage");
 			String date = request.getParameter("date");
 			String state = request.getParameter("state");
 			String memType = request.getParameter("memType");
@@ -86,13 +90,16 @@ public class PersonBuyTransactionDetail extends HttpServlet {
 			request.setAttribute("auction", auction);
 			request.setAttribute("auctionNum", auctionNum);
 			// bid 정보
+			request.setAttribute("bidNum", bidNum);
 			request.setAttribute("allBuyers", allBuyers);
 			// request 정보
 			request.setAttribute("price", price); // 낙찰액
 			request.setAttribute("date", date); // 낙찰일
 			request.setAttribute("state", state);
+			request.setAttribute("transactionNum", transactionNum);
+			request.setAttribute("memType", memType);
 
-			request.getRequestDispatcher("/view/buyer/personBuyTransactionDetail.jsp").forward(request, response);
+			request.getRequestDispatcher("/view/buyer/personBuyTransactionDetail.jsp?currentPage=personBuyTransactionList").forward(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();

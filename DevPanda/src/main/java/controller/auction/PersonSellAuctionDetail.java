@@ -1,4 +1,4 @@
-package controller;
+package controller.auction;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -42,7 +42,7 @@ public class PersonSellAuctionDetail extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class PersonSellAuctionDetail extends HttpServlet {
 			request.setAttribute("dDays", dDays);
 			request.setAttribute("isAfterToday", isAfterToday);
 			
-			request.getRequestDispatcher("/view/seller/personSellAuctionDetail.jsp").forward(request, response);
+			request.getRequestDispatcher("/view/seller/personSellAuctionDetail.jsp?currentPage=personSellAuctionList").forward(request, response);
 			
 			
 		} catch (Exception e) {

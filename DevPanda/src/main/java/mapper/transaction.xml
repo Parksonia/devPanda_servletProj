@@ -5,8 +5,7 @@
 <mapper namespace="mapper.transaction">
 
 	<!-- personBuyTransactionList -->
-	<select id="selectPBTransactionList" parameterType="map"
-		resultType="Map">
+	<select id="selectPBTransactionList" parameterType="map" resultType="Map">
 		<![CDATA[
 			SELECT   
 				t.*, 
@@ -31,13 +30,13 @@
 			]]>
 		</if>
 			<![CDATA[
-				order by t.date desc;
+				order by t.date desc
+				limit #{limit} offset #{offset};
 			]]>
 	</select>
 
 	<!-- personSellTransactionList -->
-	<select id="selectPSTransactionList" parameterType="map"
-		resultType="Map">
+	<select id="selectPSTransactionList" parameterType="map" resultType="Map">
 		<![CDATA[
 			SELECT  t.*,
 					a.*,
@@ -45,7 +44,7 @@
 				FROM transaction t JOIN auction a 
 					ON t.auctionNum = a.auctionNum
 				JOIN person p ON t.sellerId = p.id
-			WHERE t.sellerId=#{sellerId}
+				WHERE t.sellerId=#{sellerId}
 			]]>
 
 		<if test="filterDate != null and filterDate != ''">
@@ -60,7 +59,20 @@
 			]]>
 		</if>
 		<![CDATA[
-			order by t.date desc;
+			order by t.date desc
+			limit #{limit} offset #{offset};
+		]]>
+	</select>
+	
+	<select id="countTransactionListBySellerId" parameterType="String" resultType="int">
+		<![CDATA[
+			select count(*) from transaction where sellerId=#{id};
+		]]>
+	</select>
+	
+	<select id="countTransactionListByBuyerId" parameterType="String" resultType="int">
+		<![CDATA[
+			select count(*) from transaction where buyerId=#{id};
 		]]>
 	</select>
 	

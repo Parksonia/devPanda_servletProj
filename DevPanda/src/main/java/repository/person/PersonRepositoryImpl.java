@@ -41,10 +41,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 		}
 	}
 	
-	
-	
-	
-	
+
 	@Override
 	public String findPasswordByIdAndEmail(Map<String, String> parameterMap) {
 		SqlSession sqlSession = getSqlSession();
@@ -131,5 +128,27 @@ public class PersonRepositoryImpl implements PersonRepository {
 	public Person selectOneId(String id) { // 거래 상세보기에서 Id로 조회하는 person정보
 		SqlSession session = getSqlSession();
 		return session.selectOne("mapper.PersonMapper.selectOnePerson", id);
+	}
+
+	
+	@Override
+	public void updatePersonInfo(Person person,String id) throws Exception {
+		SqlSession session = getSqlSession();
+		HashMap<String,Object> param = new HashMap<>();
+		try{
+			param.put("person", person);
+			param.put("id", id);
+			int result = session.update("mapper.PersonMapper.updatePersonInfo", param);
+	        if (result == 0) {
+	            throw new Exception("업데이트된 행이 없습니다.");
+	        }
+	        session.commit();
+		}catch(Exception e) {
+			e.printStackTrace();
+			session.rollback();
+		}finally {
+			session.close();
+		}
+		
 	}
 }

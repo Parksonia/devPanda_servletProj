@@ -9,6 +9,55 @@
 <title></title>
 <!-- 개인,기업|구매내역조회|입찰내역조회|입찰 거래실패 |상세보기 -->
 <link href="${pageContext.request.contextPath}/css/details.css" rel="stylesheet">
+<style>
+/*  price start */
+.prices {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
+	align-items: center;
+}
+
+.prices .price_type {
+	flex: 1;
+	text-align: center;
+	line-height: 30px;
+	position: relative;
+}
+
+/* 첫 번째 price_type에는 :before를 추가하지 않음 */
+.prices .price_type:not(:first-child):before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 1px;
+	height: 100%;
+	background-color: #ddd;
+}
+
+/* 세 번째 price_type에는 :after를 추가하지 않음 */
+.prices .price_type:not(:last-child):after {
+	content: "";
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 1px;
+	height: 100%;
+	background-color: #ddd;
+}
+
+.price_type>p {
+	font-size: 18px;
+	color: #22222280;
+}
+
+.price_type>span {
+	font-size: 26px;
+}
+
+/*  price end */
+</style>
 </head>
 <body>
 	<!-- Header Start -->
@@ -94,6 +143,11 @@
 					<p>최종 낙찰 금액</p>
 					<span class="final-bid"><fmt:formatNumber value="${auction.bidMaxPrice}" pattern="#,###" />원</span>
 				</div>
+					<div class="price_type">
+					<p>내 입찰 금액</p>
+					<span class="extra-info final-bid"><fmt:formatNumber
+							value="${bidPrice}" pattern="#,###" />원</span>
+				</div>
 			</div>
 
 
@@ -147,7 +201,7 @@
 						<tr>
 							<td class="table_td"><span class="status final-bid">낙찰</span></td>
 							<td class="table_td final-bid">${buyer.buyPersonId == null?buyer.buyerId:buyer.buyPersonId}</td>
-							<td class="table_td align_right final-bid">${buyer.bidPrice}</td>
+							<td class="table_td align_right final-bid"><fmt:formatNumber value="${buyer.bidPrice}" pattern="#,###" />원</td>
 							<td class="table_td align_right final-bid">${buyer.bidDate}</td>
 						</tr>
 						</c:when>
@@ -155,7 +209,7 @@
 							<tr>
 							<td class="table_td"><span class="status">입찰</span></td>
 							<td class="table_td">${buyer.buyPersonId == null?buyer.buyerId:buyer.buyPersonId}</td>
-							<td class="table_td align_right">${buyer.bidPrice}</td>
+							<td class="table_td align_right"><fmt:formatNumber value="${buyer.bidPrice}" pattern="#,###" />원</td>
 							<td class="table_td align_right">${buyer.bidDate}</td>
 						</tr>
 						</c:otherwise>

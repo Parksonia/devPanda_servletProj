@@ -1,4 +1,4 @@
-package controller;
+package controller.transaction;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -121,7 +121,7 @@ public class PersonSellTransactionDetail extends HttpServlet {
 			request.setAttribute("bidNum", bidNum);
 			
 			
-			request.getRequestDispatcher("/view/seller/personSellTransactionDetail.jsp").forward(request, response);
+			request.getRequestDispatcher("/view/seller/personSellTransactionDetail.jsp?currentPage=personSellTransactionList").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

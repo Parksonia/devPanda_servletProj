@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title></title>
 <!-- 개인|구매내역조회|낙찰내역조회|입찰 거래성공 |상세보기 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <link href="${pageContext.request.contextPath}/css/details.css"	rel="stylesheet">
 </head>
 <body>
@@ -31,7 +32,7 @@
 			<div class="user-info-container">
 				<div class="user-info">
 					<div class="user">
-						<img src="${pageContext.request.contextPath}/img/${sellerImage}" alt="SellerImg">
+						<img src="image?file=${sellerImage}" alt="SellerImg">
 						<p class="user_type">[개인회원]</p>
 						<p class="bold">${sellerId}</p>
 						<p class="title">${auction.title }</p>
@@ -92,7 +93,7 @@
 				<div style="display: flex; justify-content: space-between;">
 					<!-- 구매자 프로필 -->
 					<div class="profile">
-						<img src="${pageContext.request.contextPath}/img/${bperson.personImage}" alt="BuyerImg">
+						<img src="image?file=${bperson.personImage}" alt="BuyerImg">
 						<p style="color: #888; font-weight: bold;">[개인회원]</p>
 						<p style="font-weight: bold;">구매자: ${bperson.nickName }</p>
 						<p>아이디: ${bperson.id }</p>
@@ -101,7 +102,7 @@
 					</div>
 					<!-- 판매자 프로필 -->
 					<div class="profile">
-						<img src="${pageContext.request.contextPath}/img/${sperson.personImage}" alt="SellerImg">
+						<img src="image?file=${sperson.personImage}" alt="SellerImg">
 						<p style="color: #888; font-weight: bold;">[개인회원]</p>
 						<p style="font-weight: bold;">판매자: ${sperson.nickName }</p>
 						<p>아이디: ${sperson.id }</p>
@@ -182,7 +183,7 @@
 				</table>
 			</div>
 
-<!-- progress state -->
+<!-- progress container -->
 			<div class="progress-container">
 				<p class="progress_title">진행 상황</p>
 				<div class="progress-bar-background">
@@ -199,23 +200,20 @@
 			</div>
 
 
-<!-- Modal  start-->
+<!-- BlackList Modal  start-->
 			<div class="modal">
 				<div class="modal-container">
 					<a href="#" class="modal-close">&times;</a>
 					<div class="modal-header">신고하기</div>
-
 					<div class="modal-profile">
-						<div class="modal-profile-image"><img src="${pageContext.request.contextPath}/img/${sellerImage}" alt="SellerImg"></div>
+						<div class="modal-profile-image"><img src="image?file=${sellerImage}" alt="SellerImg"></div>
 						<div class="modal-profile-info">
 							<div class="user-type">[개인회원]</div>
 							<div class="user-id">${sperson.id }</div>
 							<div class="user-email">${sperson.email }</div>
 						</div>
 					</div>
-
 					<div class="modal-divider"></div>
-
 					<div class="modal-transaction-info">
 						<div>거래 내역</div>
 						<div>거래 일자</div>
@@ -224,37 +222,92 @@
 						<div class="modal-transaction-id">AB123-CD5678-${auctionNum }</div>
 						<div class="modal-transaction-date">${date }</div>
 					</div>
-
 					<div class="modal-divider"></div>
-
 					<div class="modal-report-title">신고 내용</div>
-
-					<form action="sellerPersonBlack.jsp" method="post">
-						<input type="text" class="modal-input-title" name="blackTitle" placeholder="제목을 입력하세요">
-						<textarea class="modal-input-content" name="blackContent" style="min-height: 350px;" placeholder="신고 내용을 입력하세요"></textarea>
-						<input type="hidden" name="buyerId" value="${bperson.id}" />
-						<input type="hidden" name="sellerId" value="${sperson.id}" />
-						<input type="hidden" name="bidNum" value="${bidNum}" />
+					<form id="sellerPeronsBlack">
+						<input type="text" class="modal-input-title" name="title" placeholder="제목을 입력하세요">
+						<textarea class="modal-input-content" name="content" placeholder="신고 내용을 입력하세요"></textarea>
 						<input type="hidden" name="transactionNum" value="${transactionNum}" />
+						<input type="hidden" name="auctionNum" value="${auctionNum}" />
+						<input type="hidden" name="bidNum" value="${bidNum}" />
+						<input type="hidden" name="buyerId" value="${bperson.id}" />
+						<input type="hidden" name="sellerId" value="${sperson.id}" />                                                   						
 						<button type="submit" class="modal-submit-button">제출하기</button>
 					</form>
 				</div>
 			</div>
-
-			<script>
-				const modal = document.querySelector('.modal');
-				const modalCloseButton = document.querySelector('.modal-close');
-				const reportButton = document.querySelector('.report-button');
-
-				reportButton.addEventListener('click', function() {
-					modal.style.display = 'flex';
-				});
-
-				modalCloseButton.addEventListener('click', function() {
-					modal.style.display = 'none';
-				});
-			</script>
 		</div>
 	</div>
+<script>
+
+/*블랙리스트 신고 버튼 모달*/
+const modal = document.querySelector('.modal');
+const modalCloseButton = document.querySelector('.modal-close');
+const reportButton = document.querySelector('.report-button');
+const titleInput = document.querySelector('input[name="title"]');
+const contentTextarea = document.querySelector('textarea[name="content"]');
+
+reportButton.addEventListener('click', function() {
+	modal.style.display = 'flex';
+});
+
+modalCloseButton.addEventListener('click', function(event) {
+	if (titleInput.value !== "" || contentTextarea.value !== "") {
+		const confirmation = confirm("작성 중인 내용이 있습니다. 창을 닫으시겠습니까?");
+		if (!confirmation) {
+			event.preventDefault();
+			return;
+		}
+	}
+	modal.style.display = 'none';
+});
+
+window.addEventListener('click', function(event) {
+    if (event.target == modal) {
+        if (titleInput.value !== "" || contentTextarea.value !== "") {
+            const confirmation = confirm("작성 중인 내용이 있습니다. 창을 닫으시겠습니까?");
+            if (!confirmation) {
+                event.preventDefault();
+                return;
+            }
+        }
+        modal.style.display = 'none';
+    }
+});
+
+/* Ajax - 블랙리스트 */
+$(document).ready(function() {
+	
+	$('#sellerPeronsBlack').on('submit', function(event) {
+		event.preventDefault();
+		
+		$.ajax({
+			url: '${pageContext.request.contextPath}/sellerPersonBlack',
+			type: 'post',
+			data : $(this).serialize(), //URL인코딩
+			success: function(response) {
+				alert('신고가 성공했습니다.');
+				$('.modal').css('display', 'none');
+				$('.report-button')
+					.text('신고 됨')
+					.css({
+						'border': '2px solid red',
+						'color': 'red',
+						'background-color': '#fff'
+					})
+					.prop('disabled',true);
+			},
+			error: function(xhr, status, error) {
+				alert('신고 오류가 발생했습니다.');
+				console.error(xhr.responseText); //오류 응답 확인
+			}
+		});
+	});
+	$('.modal-close').on('click',function() {
+		$('.modal').css('display', 'none');
+	});
+});	
+
+</script>
 </body>
 </html>

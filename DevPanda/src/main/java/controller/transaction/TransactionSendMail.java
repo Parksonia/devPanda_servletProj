@@ -1,4 +1,4 @@
-package controller;
+package controller.transaction;
 
 import java.io.IOException;
 

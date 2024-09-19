@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import dto.Bid;
+import dto.Transaction;
 import util.MybatisSqlSessionFactory;
 
 public class BidRepositoryImpl implements BidRepository {
@@ -31,8 +32,6 @@ public class BidRepositoryImpl implements BidRepository {
 	}
 
 
-	
-	
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	// 페이지 계산을 위한 Buyer의 BidList 전체 수 조회
 	@Override
@@ -85,6 +84,62 @@ public class BidRepositoryImpl implements BidRepository {
 	public List<Bid> selectAllBuyer(Integer auctionNum) throws Exception {
 		return sqlSession.selectList("mapper.bid.selectAllBuyer", auctionNum);
 	}
+
 	
 
+
+	//즉시구매 transaction처리
+	@Override
+	public boolean updateBidToTransaction(Transaction transaction,Integer bidNum,Integer auctionNum,Integer newBidPrice) throws Exception {
+		HashMap<String,Object> param = new HashMap<>();
+		param.put("bidNum", bidNum);
+		param.put("auctionNum", auctionNum);
+		param.put("newBidPrice", newBidPrice);
+		
+		try {
+			
+			//1.mybid 수정
+			sqlSession.update("mapper.bid.updateMyBid",param);
+			//2.Auction수정
+			sqlSession.update("mapper.bid.updateAuctionStatus",param);
+			//3.Transaction 추가(nowAuction에서 즉시구매하는 경우) 
+			sqlSession.insert("mapper.bid.insertNewTransaction",transaction);
+		
+			//성공 시 commit 진행
+			sqlSession.commit();
+			
+			
+		} catch (Exception e) {
+				e.printStackTrace();
+				sqlSession.rollback();
+				throw e;
+		}
+		return true;
+	}
+	//입찰변경 transaction
+	@Override
+	public boolean updateMyBid(Integer auctionNum,Integer bidNum,Integer newBidPrice) throws Exception {
+		
+		HashMap<String,Object> param = new HashMap<>();
+		param.put("bidNum", bidNum);
+		param.put("auctionNum", auctionNum);
+		param.put("newBidPrice", newBidPrice);
+
+		
+		try {
+			
+			//1.mybid 수정
+			sqlSession.update("mapper.bid.updateMyBidprice",param);
+			//2.Auction 수정 
+			sqlSession.update("mapper.bid.updateAuctionMaxPrice",param);
+			//성공 시 commit 진행
+			sqlSession.commit();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			sqlSession.rollback();
+			throw e;
+		}
+		return true;
+	}
 }

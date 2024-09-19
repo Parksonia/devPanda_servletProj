@@ -16,49 +16,27 @@ public class PersonBuyTransactionListServiceImpl implements PersonBuyTransaction
 	}
 
 	@Override
-	public List<Map> personBuyTransactionList(String buyerId) throws Exception {
-		//Integer transactionCnt = trRepo.selectTransactionCount();
-		//calcuatePaging(page, transactionCnt);
-		//Integer row = (page.getCurPage() - 1) * 10;
-		//System.out.println(buyerId);
-		List<Map> transacionList = trRepo.selectPBTransactionList(buyerId);
+	public List<Map> personBuyTransactionList(String buyerId, int limit, int offset) throws Exception {
+		List<Map> transacionList = trRepo.selectPBTransactionList(buyerId, limit, offset);
 		return transacionList;
 	}
 	
 	@Override
-	public List<Map> personBuyTransactionListByDate(String buyerId, String filterDate) throws Exception {
-		//Integer transactionCnt = trRepo.selectTransactionCount();
-		//calcuatePaging(page, transactionCnt);
-		//Integer row = (page.getCurPage() - 1) * 10;
-		List<Map> transacionList = trRepo.selectPBTransactionListByDate(buyerId, filterDate);
+	public List<Map> personBuyTransactionListByDate(String buyerId, String filterDate, int limit, int offset) throws Exception {
+		List<Map> transacionList = trRepo.selectPBTransactionListByDate(buyerId, filterDate, limit, offset);
 		return transacionList;
 	}
 	
 	@Override
-	public List<Map> personBuyTransactionListByDateRange(String buyerId, String startDate, String endDate) throws Exception {
-		//Integer transactionCnt = trRepo.selectTransactionCount();
-		//calcuatePaging(page, transactionCnt);
-		//Integer row = (page.getCurPage() - 1) * 10;
-		List<Map> transacionList = trRepo.selectPBTransactionListByDateRange(buyerId, startDate, endDate);
+	public List<Map> personBuyTransactionListByDateRange(String buyerId, String startDate, String endDate, int limit, int offset) throws Exception {
+		List<Map> transacionList = trRepo.selectPBTransactionListByDateRange(buyerId, startDate, endDate, limit, offset);
 		return transacionList;
 	}
 
-	//@Override
-	/*
-		Integer allPage = (int) Math.ceil((double) trRepo.selectPBTransactionCount() / 10);
-		Integer startPage = (page.getCurPage() - 1) / 10 * 10 + 1;
-		Integer endPage = startPage + 10 - 1;
-		if (endPage > allPage)
-			endPage = allPage;
-
-		page.setAllPage(allPage);
-		page.setStartPage(startPage);
-		page.setEndPage(endPage);
-
+	@Override
+	public int countTransactionListByBuyerId(String id) throws Exception {
+		return trRepo.countTransactionListByBuyerId(id);
 	}
-	*/
 
 	
-
-
 }

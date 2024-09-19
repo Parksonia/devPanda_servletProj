@@ -1,4 +1,4 @@
-package controller;
+package controller.transaction;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -44,7 +44,6 @@ public class ProgressItemDescription extends HttpServlet {
 			//response.sendRedirect("/view/seller/personSellTransactionDetail.jsp");
 			request.getRequestDispatcher("/view/seller/personSellTransactionDetail.jsp").forward(request, response);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

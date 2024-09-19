@@ -24,9 +24,10 @@ public class CompanySellerBlack extends HttpServlet {
 
         CompanyBlacklistRepository repository = new CompanyBlacklistRepository();
         List<Map<String, Object>> blacklist = repository.getComBlackListByBlackNum(companyId); // selectList 호출
-
+        System.out.println(blacklist);
         request.setAttribute("comblack", blacklist);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/view/buyer/companySellerBlack.jsp");
         dispatcher.forward(request, response);
+
     }
 }

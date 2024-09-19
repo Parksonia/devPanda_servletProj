@@ -1,5 +1,6 @@
 package repository.company;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -100,5 +101,21 @@ public class CompanyRepositoryImpl implements CompanyRepository {
 	public Company findByCompanyId(String companyId) {
 		return sqlSession.selectOne("mapper.company.selectCompanyById", companyId);
 	}
-
+	
+	//Map 형태로 회사 정보를 가져오는 메서드
+	 @Override
+	    public Map<String, Object> selectCompanyByCompanyId(String companyId) {
+	        try (SqlSession sqlSession = getSqlSession()) {
+	            return sqlSession.selectOne("mapper.CompanyMapper.selectCompanyByCompanyId", companyId);
+	        }
+	    }
+	 
+	 @Override
+	 public int updateCompanyInfo(Map<String, Object> companyInfo) {
+		    try (SqlSession sqlSession = getSqlSession()) {
+		        int result = sqlSession.update("mapper.CompanyMapper.updateCompanyInfo", companyInfo);
+		        sqlSession.commit(); 
+		        return result;
+		    }
+		}
 }

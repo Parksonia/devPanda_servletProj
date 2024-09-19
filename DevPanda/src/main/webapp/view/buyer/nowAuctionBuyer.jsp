@@ -284,11 +284,25 @@
 	padding-top: 9px;
 }
 
-.bid-history .final-bid {
-	color: red;
-	font-weight: bold;
+.bid-history .highest-bid {
+    color: #FF4500;
 }
 
+.bid-history .my-bid {
+    background-color: #f0f0f0;
+}
+
+.bid-history .status {
+    font-weight: bold;
+}
+
+.bid-history .highest-bid .status {
+    color: #FF4500;
+}
+
+.bid-history .my-bid .status {
+    color: #4169E1;
+}
 /* Modal Styles */
 .modal {
 	display: none;
@@ -339,6 +353,7 @@
 	border: 1px solid #e0e0e0;
 	border-radius: 5px;
 	text-align: right;
+	margin-bottom: 30px;
 }
 
 .modal .register-bid input[type="text"]:focus {
@@ -363,7 +378,7 @@
 }
 
 .modal .info-text {
-	font-size: 12px;
+	font-size: 16px;
 	color: #777;
 }
 
@@ -379,6 +394,10 @@
 	text-decoration: none;
 	cursor: pointer;
 }
+#congImgae{
+width:30px;
+height:30px;
+}
 </style>
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -392,11 +411,11 @@
 	<div class="container my">
 
 		<%@ include file="../inc/comSideNav.jsp"%>
-	
+
 		<div class="container">
 			<div class="title">거래 상세 보기</div>
 			<div class="transaction-id">AB123-CD5678-${auctionNum}</div>
-		
+
 			<div class="user-info-container">
 				<div class="user-info">
 					<div class="user">
@@ -407,14 +426,16 @@
 						<div class="minmax">
 							<span class="bold">희망 최소 연봉</span>
 							<div>
-							<span><fmt:formatNumber value="${auction.minSalary}" pattern="#,###" />원</span>
+								<span><fmt:formatNumber value="${auction.minSalary}"
+										pattern="#,###" />원</span>
 							</div>
 						</div>
 						<div class="minmax">
 							<span class="bold">희망 최대 연봉</span>
 							<div>
-								<span><fmt:formatNumber value="${auction.maxSalary}" pattern="#,###" />원</span>
-								
+								<span><fmt:formatNumber value="${auction.maxSalary}"
+										pattern="#,###" />원</span>
+
 							</div>
 						</div>
 						<div class="filter_bind">
@@ -432,7 +453,7 @@
 									<dd>${auction.education}</dd>
 								</dl>
 							</div>
-							
+
 							<div class="column">
 								<dl>
 									<dt>근무형태</dt>
@@ -460,30 +481,44 @@
 			<div class="prices">
 				<div class="price_type">
 					<p>즉시 구매가</p>
-					<span class="bold"><fmt:formatNumber value="${auction.maxSalary}" pattern="#,###" />원</span>
+					<span class="bold"><fmt:formatNumber
+							value="${auction.maxSalary}" pattern="#,###" />원</span>
 				</div>
 				<div class="price_type">
 					<p>현재 최고 입찰가</p>
-					<span class="final-bid"><fmt:formatNumber value="${auction.bidMaxPrice}" pattern="#,###" />원</span>
+					<span class="final-bid"><fmt:formatNumber
+							value="${auction.bidMaxPrice}" pattern="#,###" />원</span>
 				</div>
 				<div class="price_type">
 					<p>내 입찰 금액</p>
-					<span class="extra-info final-bid"><fmt:formatNumber value="${bidPrice}" pattern="#,###"/>원</span>
+					<span class="extra-info final-bid"><fmt:formatNumber
+							value="${bidPrice}" pattern="#,###" />원</span>
 				</div>
 			</div>
-			
+
 			<!--modal로 데이터 각각 다른 데이터 전송하기   -->
 			<div class="button-container">
 				<div class="button-wrapper white-background">
-					<button class="custom-button black-text open-modal-btn" data-target="myModal" data-bidNum="${bidNum}" data-auctionNum="${auctionNum}" data-bidMaxPrice="${auction.bidMaxPrice}" data-myBidPrice="${bidPrice}" data-maxSalary="${auction.maxSalary}">입찰 변경하기</button>
+					<button class="custom-button black-text open-modal-btn"
+						data-target="myModal" data-bidNum="${bidNum}"
+						data-auctionNum="${auctionNum}"
+						data-bidMaxPrice="${auction.bidMaxPrice}"
+						data-myBidPrice="${bidPrice}"
+						data-maxSalary="${auction.maxSalary}">입찰 변경하기</button>
 				</div>
 				<div class="button-wrapper">
-					<button class="custom-button open-modal-btn" data-target="myModal" data-bidNum="${bidNum}" data-auctionNum="${auctionNum}" data-newBidPrice="${auction.maxSalary}" data-bidMaxPrice="${auction.bidMaxPrice}" data-myBidPrice="${bidPrice}" data-maxSalary="${auction.maxSalary}">즉시 구매하기</button>
+					<button class="custom-button open-modal-btn" data-target="myModal"
+						data-bidNum="${bidNum}" data-auctionNum="${auctionNum}"
+						data-newBidPrice="${auction.maxSalary}"
+						data-bidMaxPrice="${auction.bidMaxPrice}"
+						data-myBidPrice="${bidPrice}"
+						data-maxSalary="${auction.maxSalary}">즉시 구매하기</button>
 				</div>
 			</div>
 
 
-			<div class="detail_bind" style="background-color: rgb(250, 250, 250);">
+			<div class="detail_bind"
+				style="background-color: rgb(250, 250, 250);">
 				<div class="detail_addition">
 					<div class="detail_title">
 						<span>경매 종료일</span>
@@ -495,17 +530,17 @@
 						<span>남은 기간</span>
 					</div>
 					<c:if test="${dDays>0}">
-					<div class="detail_text">D - ${dDays}</div>
+						<div class="detail_text">D - ${dDays}</div>
 					</c:if>
-				 	<c:if test="${dDays<0}">
-					<div class="detail_text">종료</div>
+					<c:if test="${dDays<0}">
+						<div class="detail_text">종료</div>
 					</c:if>
 				</div>
 			</div>
 
 
 			<div class="bid-history">
-					<table>
+				<table>
 					<thead>
 						<tr>
 							<th class="table_th">상태</th>
@@ -516,26 +551,33 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${allBuyers}" var="buyer">
-						<c:choose>
-							<c:when test="${auction.bidMaxPrice==buyer.bidPrice}" >
-							<tr>
-								<td class="table_td"><span class="status final-bid">입찰</span></td>
-								<td class="table_td final-bid">${buyer.buyPersonId==null?buyer.buyerId:buyer.buyPersonId}</td>
-								<td class="table_td align_right final-bid">${buyer.bidPrice}</td>
-								<td class="table_td align_right final-bid">${buyer.bidDate}</td>
-							</tr>
-							</c:when>
-							<c:otherwise>
-								<tr>
-								<td class="table_td"><span class="status">입찰</span></td>
-								<td class="table_td">${buyer.buyPersonId==null?buyer.buyerId:buyer.buyPersonId}</td>
-								<td class="table_td align_right">${buyer.bidPrice}</td>
-								<td class="table_td align_right">${buyer.bidDate}</td>
-							</tr>
-							</c:otherwise>
-						</c:choose>
+							<c:choose>
+								<c:when test="${auction.bidMaxPrice == buyer.bidPrice}">
+									<tr class="highest-bid">
+										<td class="table_td"><span class="status">최고 입찰</span></td>
+										<td class="table_td">${buyer.buyPersonId == null ? buyer.buyerId : buyer.buyPersonId}</td>
+										<td class="table_td align_right"><fmt:formatNumber value="${buyer.bidPrice}" pattern="#,###" />원</td>
+										<td class="table_td align_right">${buyer.bidDate}</td>
+									</tr>
+								</c:when>
+								<c:when test="${buyer.buyerId eq myId}">
+									<tr class="my-bid">
+										<td class="table_td"><span class="status">내 입찰</span></td>
+										<td class="table_td">${buyer.buyPersonId == null ? buyer.buyerId : buyer.buyPersonId}</td>
+										<td class="table_td align_right"><fmt:formatNumber value="${buyer.bidPrice}" pattern="#,###" />원</td>
+										<td class="table_td align_right">${buyer.bidDate}</td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<tr>
+										<td class="table_td"><span class="status">입찰</span></td>
+										<td class="table_td">${buyer.buyPersonId == null ? buyer.buyerId : buyer.buyPersonId}</td>
+										<td class="table_td align_right"><fmt:formatNumber value="${buyer.bidPrice}" pattern="#,###" />원</td>
+										<td class="table_td align_right">${buyer.bidDate}</td>
+									</tr>
+								</c:otherwise>
+							</c:choose>
 						</c:forEach>
-	
 					</tbody>
 				</table>
 			</div>
@@ -558,63 +600,60 @@
                 <span>현재 최고 입찰가</span>
                 <span class="final-bid" id="bidMaxPrice"></span>
             </div>
-            <div class="register-bid">
-           
-                <input type="text" placeholder="금액을 입력해주세요" id="newBidPrice" name="newBidPrice" required />
+            <div class="register-tra" id="register-tra"><h2><img src="image?file=cong.png" id="congImgae" /><span style="color:blue;">${auction.maxSalary}</span> 로 낙찰됩니다.<img src="image?file=cong.png" id="congImgae"/></h2></div>
+            <div class="register-bid" id="register-bid">
+            	<input type="text" placeholder="금액을 입력해주세요" id="newBidPrice" name="newBidPrice"  />
+	            <div class="info-text"><span class="text-detail">현재 최고 입찰가보다 큰 금액을 입력하세요.</span></div>
             </div>
-            <div class="info-text"><span class="text-detail"></span></div>
-            <div class="register-bid">
-                <button id="updatePriceBtn">등록하기</button>
-            </div>
+            <div class="register-bid"><button id="updatePriceBtn">등록하기</button></div>
         </div>
     </div>
 
-    <!-- JavaScript section -->
-    <script>
-        $(document).ready(function() {
-        	var updatePriceData = $(this).data();
-            var modal = document.getElementById("myModal");
-            var btns = document.querySelectorAll(".open-modal-btn");
-            var span = document.querySelector(".modal .close");
-            var maxSalary;
-            var minBidPrice;
+<!-- JavaScript section -->
+<script>
+$(document).ready(function() {
+        	
+	var updatePriceData = $(this).data();
+	var modal = document.getElementById("myModal");
+	var span = document.querySelector(".modal .close");
+	var maxSalary = "${auction.maxSalary}";
+	var sellerId="${auction.id}";
+	
+	var minBidPrice;
 
-            // 모달 열기
-            btns.forEach(function(btn) {
-            	//모달에 넘겨 받은 데이터 변수 저장
-                btn.onclick = function() {
-                   
-                    var bidMaxPrice = $(this).attr('data-bidMaxPrice');
-                    var myBidPrice = $(this).attr('data-myBidPrice');
-                    maxSalary = parseInt($(this).attr('data-maxSalary'),10); //10진수로 변환함 , 안하면 NaN으로 뜸 
-                    minBidPrice = parseInt(bidMaxPrice, 10);
-                   
-                 	
-                    $('#newBidPrice').attr('maxlength', maxSalary.toString().length); // 입력 길이 수 제한함
-                    
-                    // 모달에 값 표시
-                    document.getElementById('myBidPrice').innerText = myBidPrice + '원'; // 나의 입찰가
-                    document.getElementById('bidMaxPrice').innerText = bidMaxPrice + '원'; // 현재 최고 입찰가
-                    $('#bidNum').val(bidNum);
+	$(".open-modal-btn").click(function(e) {
+	
+		var bidMaxPrice = $(this).attr('data-bidMaxPrice');
+    	var myBidPrice = $(this).attr('data-myBidPrice');
+   	 	maxSalary = parseInt($(this).attr('data-maxSalary'),10); //10진수로 변환함 , 안하면 NaN으로 뜸 
+    	minBidPrice = parseInt(bidMaxPrice, 10);
+   
+ 	
+    $('#newBidPrice').attr('maxlength', maxSalary.toString().length); // 입력 길이 수 제한함
+    
+    // 모달에 값 표시 , 콤마 구분 넣기
+    document.getElementById('myBidPrice').innerText = myBidPrice + '원'; // 나의 입찰가
+    document.getElementById('bidMaxPrice').innerText = bidMaxPrice + '원'; // 현재 최고 입찰가
+    
+   
+    // 버튼에 따라 다르게 처리
+    //즉시낙찰
+    if ($(this).text().includes("즉시 구매")) {
+        $("#register-bid").hide();
+        $("#register-tra").show();
+        $('#newBidPrice').val(maxSalary);
+        
+    //입찰금액변경
+    } else {
+        $("#register-bid").show();
+        $("#register-tra").hide();
+        $('#newBidPrice').val(''); //이전 값 초기화
+    } 
 
-                    // 버튼에 따라 다르게 처리
-                    //즉시낙찰
-                    if ($(this).text().includes("즉시 구매")) {
-                        $('#newBidPrice').val(maxSalary); // 즉시 구매가인 maxSalary로 설정
-                        $('#newBidPrice').prop('readonly', true); // 입력 못하게 막음
-                        $('.text-detail').text('즉시 낙찰로 거래가 변경됩니다.'); 
-                    
-                     //입찰금액변경
-                    } else {
-                        $('#newBidPrice').val(''); 
-                        $('#newBidPrice').prop('readonly', false); // 입력 가능
-                        $('.text-detail').text('새로운 금액으로 입찰합니다.'); 
-                    }
-
-                    modal.style.display = "flex"; // 모달 표시
-                };
-           
-            });
+    modal.style.display = "flex"; // 모달 표시	
+	
+});
+            
             // 숫자만 입력 가능하게 처리
             $('#newBidPrice').on("input", function() {
                 var price = $(this).val().replace(/[^0-9]/g, ''); // 숫자만 입력
@@ -622,24 +661,16 @@
             });
 
             // 입력 검증 및 알림 blur 이벤트: 포커스를 잃을 때 발생 (keyup,down,input 모두 에러 발생함 디바운싱을 하지 않으면 안됨,setTimeout 설정 필수)
-            $('#newBidPrice').on('blur', function() { 
-                var price = $(this).val().replace(/\s+/g, ''); // 공백 방지 
-                var bidMaxPrice = parseInt($('#bidMaxPrice').text().replace(/[^0-9]/g, '')) || 0; // 현재 최고 입찰가
-                var numberValue = parseInt(price, 10); //text를 숫자로 변환
-                var errorMessage = '';
-
-                if (isNaN(numberValue)) {
-                    errorMessage = '숫자만 입력해 주세요';
-                } else if (numberValue <= bidMaxPrice || numberValue > maxSalary) {
-                    errorMessage = ' 현재 최고 입찰금 보다 큰 금액만 입력이 가능합니다.';
-                } else if (numberValue === maxSalary){
-                	 errorMessage = '즉시구매를 선택해 주세요';   	
-                }
-                	
-                $('#error').text(errorMessage); 
-         
-                if (errorMessage) {
-                	alert(errorMessage); 
+            $('#newBidPrice').on('keydown', function(e) {
+            	if(!(e.keyCode >= '0' && e.keyCode<='9')) return;           	
+            }).on('blur', function(e) {
+                var price = $(this).val(); // 공백 방지
+                var bidMaxPrice = parseInt($('#bidMaxPrice').text().replace(/[^0-9]/g, '')) || 0; 
+                if (+price <= bidMaxPrice) { // 입력값+ 붙이면 형변환 
+                	alert("현재 최고 입찰금 보다 커야 합니다.");
+                	$(this).val('');
+                }else if(+price > maxSalary) {
+                	alert("최고 낙찰 금액보다 큽니다.");
                 	$(this).val('');
                 }
             });
@@ -649,47 +680,91 @@
                 modal.style.display = "none";
             };
 
-         /*    window.onclick = function(event) {
+        	window.onclick = function(event) {
                 if (event.target == modal) {
                     modal.style.display = "none";
                 }
-            }; */
+            }; 
         
             
-            // 금액 업데이트 AJAX 전송
+
+            
             $('#updatePriceBtn').click(function() {
-            	var bidNum = $(this).attr('data-bidNum');
-                var newBidPrice = $('#newBidPrice').val();
-                var auctionNum = $(this).attr('data-auctionNum'); 
-                var maxSalary = $(this).attr('data-maxSalary'); 
-                
-                if (newBidPrice) {
-                    var data = { 
-                        auctionNum: auctionNum, 
-                        bidNum: bidNum, 
-                        newBidPrice: newBidPrice, 
-                        maxSalary: maxSalary 
-                    }; // auctionNum도 보내서 auction의 bidMax도 함께 바꾸기 
-                    
-                    
-                    $.ajax({
-                        url: '<%=request.getContextPath()%>/updateBidPrice',
-                        type: 'POST',
-                        data: data,
-                        success: function(result) {
-                            alert("입찰 금액 변경에 성공했습니다.");
-                            modal.style.display = "none"; // 성공 시 모달 닫기
-                        },
-                        error: function(err) {
-                            alert("금액 변경 중 오류가 발생했습니다.");
-                        }
-                    });
+            	  var bidNum = $('.open-modal-btn').data('bidnum'); 
+            	    var auctionNum = $('.open-modal-btn').data('auctionnum');
+            	    var bidMaxPrice = $('.open-modal-btn').data('bidmaxprice');
+            	    var maxSalary = $('.open-modal-btn').data('maxsalary');
+            	    var newBidPrice = parseInt($('#newBidPrice').val(),10); 
+            	    var sellerImage = '${sellerImage}'; 
+
+            	    if (newBidPrice) {
+            	        var data = {
+            	        	sellerId:sellerId, 
+            	            auctionNum: auctionNum,
+            	            bidNum: bidNum,
+            	            bidMaxPrice:bidMaxPrice,
+            	            newBidPrice: newBidPrice,
+            	            maxSalary: maxSalary,
+            	            sellerImage :sellerImage
+            	        };
+            	      
+            	        //즉시 구매 업데이트 AJAX 전송
+            	        //jsonObject를 받아와서 낙찰리스트로 리다이렉트함
+            	        if(newBidPrice == maxSalary){
+            	            // auctionNum도 보내서 auction의 bidMax도 함께 바꾸기
+                            $.ajax({
+                                url: '<%=request.getContextPath()%>/updateBuyerBidToTransaction',
+                                type: 'POST',
+                                data: {param:JSON.stringify(data)},
+                                dataType:'json',
+                                success: function(result) {
+                                	if(result.success) {
+                                        alert("즉시 낙찰에 성공했습니다.");
+    									window.location.href=result.redirectUrl;     
+                                	}else{
+                                		alert(result.message || "즉시 낙찰 처리 중 오류가 발생했습니다.");
+                                	}
+                                                   
+                                },
+                                error: function(err) {
+                                    alert("금액 변경 중 오류가 발생했습니다.");
+                                    modal.style.display = "none";
+                                }
+                            });  	        	
+            	        	
+            	          //입력 금액 변경 AJAX 전송
+            	          // auctionNum도 보내서 auction의 bidMax도 함께 바꿈
+            	            // 내 입찰가가 최고가라면 현재 최고 입찰가도변경
+            	        } else {
+            	        	 $.ajax({
+            	                 url: '<%=request.getContextPath()%>/updateBuyerBidPrice',
+            	                 type: 'POST',
+            	                 data: {param:JSON.stringify(data)},
+            	                 dataType:'json',
+            	        	 	 success: function(result) {
+            	        			 if (result.success) {
+            	                        alert("입찰 금액 변경에 성공했습니다.");
+            	                        modal.style.display = "none";
+            	                        window.location.href = result.redirectUrl;
+            	                    } else {
+            	                        alert("금액 변경 중 오류가 발생했습니다.");
+            	                    }
+            	        			 modal.style.display = "none";
+            	                },
+                                error: function(err) {
+                                    alert("금액 변경 중 오류가 발생했습니다.");
+                                    modal.style.display = "none";
+                                }
+                            });  	        	
+            	        }
+            	        
                 } else {
+                 
                     alert("금액을 입력해주세요.");
                 }
             });
+            
         });
     </script>
-	
 </body>
 </html>

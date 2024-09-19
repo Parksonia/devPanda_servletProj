@@ -13,20 +13,11 @@
 		values(#{buyerId},#{buyPersonId},#{auctionNum},#{sellerId},#{bidDate},#{bidPrice},#{bidState},#{memType})
 	
 	
-	
 	</insert>
-	
-	
 
-	
-
-	
-
-	
 	<!--더보기 페이징 게산 위함 -->
 	<!-- 날짜 필터가 있을 경우 동적 쿼리 실행됨 -->
 	<select id="selectBuyBidCnt" parameterType="Map" resultType="Integer"> 
-	
     	SELECT 
         	count(*)
     	FROM 
@@ -108,6 +99,44 @@
 		SELECT * FROM bid WHERE auctionNum = #{auctionNum} ORDER BY bidDate DESC;
 	</select>
 	
+	<!--myPage nowAuctiond 즉시구매 및 입찰금 변경 시작-->
+	<!-- 1.bid update -->
+	<update id="updateMyBid" parameterType="MAP">
+		<![CDATA[
+		UPDATE bid SET bidPrice = #{newBidPrice},bidState=3,bidDate=DATE_FORMAT(NOW(),'%Y-%m-%d')
+		WHERE bidNum = #{bidNum}; 
+		]]>
+	</update>
+	<!-- 2.Auction update -->
+	<update id="updateAuctionStatus" parameterType="MAP">
+		<![CDATA[
+		UPDATE auction SET bidMaxPrice = #{newBidPrice},state='unprocessing'
+		WHERE auctionNum = #{auctionNum}; 
+		]]>
+	</update>
+	<!-- 3.Transaction insert -->
+	<insert id="insertNewTransaction" parameterType="transaction">
+		INSERT INTO `transaction`
+		(sellerId, auctionNum, bidNum, buyerId, date, price, state, memType)
+		VALUES
+		(#{sellerId},#{auctionNum},#{bidNum},#{buyerId},DATE_FORMAT(NOW(),'%Y-%m-%d'),#{price},#{state},#{memType})
+	</insert>
+	<!--myPage nowAuctiond 즉시구매 종료-->
+	
+	<update id="updateMyBidprice" parameterType="MAP">
+		<![CDATA[
+		UPDATE bid SET bidPrice = #{newBidPrice},bidDate=DATE_FORMAT(NOW(),'%Y-%m-%d')
+		WHERE bidNum = #{bidNum}; 
+		]]>
+	</update>
+	
+	<!-- 2.Auction update -->
+	<update id="updateAuctionMaxPrice" parameterType="MAP">
+		<![CDATA[
+		UPDATE auction SET bidMaxPrice = #{newBidPrice} 
+		WHERE auctionNum = #{auctionNum}; 
+		]]>
+	</update>
 	
 
 </mapper>

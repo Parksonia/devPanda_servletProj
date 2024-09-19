@@ -45,8 +45,26 @@
 			select * from person where id = #{id};
 		]]>
 	</select>
-	
-	
-	
 
+	<!--마이페이지 개인 정보 수정-->
+	<update id="updatePersonInfo" parameterType="Map">
+	UPDATE person
+	<set>
+		<if test="person.personImage != null and person.personImage != ''">
+			personImage = #{person.personImage},
+		</if>
+		<if test="person.password != null and person.password != ''">
+			password = #{person.password},
+		</if>
+		<if test="person.nickName != null and person.nickName != ''">
+			nickName = #{person.nickName},
+		</if>
+		<if test="person.address != null and person.address != ''">
+			address = #{person.address},
+		</if>
+	</set>
+	WHERE id = #{id}
+	</update>	
+
+	
 </mapper>

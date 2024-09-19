@@ -15,7 +15,6 @@
 <style>
 .container.my .content_area {
 	min-height: 380px;
-
 }
 
 .container {
@@ -24,9 +23,11 @@
 	border-radius: 10px;
 	box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
 }
-.my_bidlist{
+
+.my_bidlist {
 	padding: 0 24px 80px;
 }
+
 .content_title {
 	display: flex;
 }
@@ -41,18 +42,16 @@
 	letter-spacing: -.36px
 }
 
-.title>h3,h2 {
+.title>h3, h2 {
 	font-size: inherit;
 	line-height: 29px
 }
-
 
 .list_header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 20px;
-	
 }
 
 .list_header input {
@@ -81,7 +80,7 @@
 	display: flex;
 	gap: 10px;
 	margin-bottom: 20px;
-	margin-top :20px;
+	margin-top: 20px;
 }
 
 .filters button {
@@ -96,99 +95,99 @@
 .filters button:hover {
 	background-color: #e0e0e0;
 }
-#daterange{
-    text-align: center;
-    width: 200px;
+
+#daterange {
+	text-align: center;
+	width: 200px;
 }
 
 .item_container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 10px;
-    padding: 0 15px;
-    margin-bottom: 10px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 10px;
+	padding: 0 15px;
+	margin-bottom: 10px;
 }
 
 .item {
-   
-    width: 120px; /* prices와 동일한 너비 설정 */
-    text-align: right; /* 텍스트 가운데 정렬 */
+	width: 120px; /* prices와 동일한 너비 설정 */
+	text-align: right; /* 텍스트 가운데 정렬 */
 }
 
-
 .item span {
-   font-size: 14px;
-   font-weight: bold;
-   margin-right: 5px;
-   margin-bottom: 10px;
+	font-size: 14px;
+	font-weight: bold;
+	margin-right: 5px;
+	margin-bottom: 10px;
 }
 
 .history-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    background-color: #fafafa;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transform-origin: center; /* 확대될 때 중심을 기준으로 확대되도록 설정 */
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 15px;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	background-color: #fafafa;
+	transition: transform 0.3s ease, background-color 0.3s ease;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	transform-origin: center; /* 확대될 때 중심을 기준으로 확대되도록 설정 */
 }
 
 .history-item:hover {
-    background-color: #f5f5f5;
-    transform: scale(1.02);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* 확대 효과에 따른 그림자 */
+	background-color: #f5f5f5;
+	transform: scale(1.02);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* 확대 효과에 따른 그림자 */
 }
 
 .history-item img {
-   border-radius: 10px;
-   width: 80px;
-   height: 80px;
-   margin-right: 10px;
+	border-radius: 10px;
+	width: 80px;
+	height: 80px;
+	margin-right: 10px;
 }
 
 .history-content {
-   margin-left:20px;
-   display: flex;
-   flex-direction: column;
-   flex: 1;
+	margin-left: 20px;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
 }
 
 .history-content .tags {
-   display: flex;
-   gap: 10px;
-   margin-top: 10px;
+	display: flex;
+	gap: 10px;
+	margin-top: 10px;
 }
 
 .history-content .tags span {
-   padding: 5px 10px;
-   background-color: #e0e0e0;
-   border-radius: 20px;
-   font-size: 12px;
+	padding: 5px 10px;
+	background-color: #e0e0e0;
+	border-radius: 20px;
+	font-size: 12px;
 }
 
 .prices {
-   display: flex;
-   flex-direction: row;
-   align-items: center;
-   gap: 10px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
 }
 
 .prices span {
-   font-size: 14px;
-   font-weight: bold;
-   width: 120px; /* 일정한 너비 설정 */
-   text-align: right; /* 금액을 오른쪽 정렬 */
+	font-size: 14px;
+	font-weight: bold;
+	width: 120px; /* 일정한 너비 설정 */
+	text-align: right; /* 금액을 오른쪽 정렬 */
 }
 
 .empty_area {
 	padding: 81px 0 45px;
 	text-align: center
 }
+
 .btn {
 	align-items: center;
 	background-color: #fff;
@@ -219,6 +218,17 @@
 	padding: 0 14px
 }
 
+.no-items-message {
+	text-align: center;
+	font-size: 18px;
+	color: #888;
+	margin-top: 50px;
+}
+
+.period-button.active {
+	background-color: #ed6a60;
+	color: white;
+}
 </style>
 </head>
 <body>
@@ -242,9 +252,9 @@
             
             <!-- 필터 -->
             <div class="filters">
-                <button type="button" onclick="calcPeriod(1);">최근 1개월</button>
-                <button  type="button" onclick="calcPeriod(3);">3개월</button>
-                <button  type="button" onclick="calcPeriod(6);">6개월</button>
+                <button type="button" class="period-button" onclick="calcPeriod(1);">최근 1개월</button>
+                <button  type="button" class="period-button" onclick="calcPeriod(3);">3개월</button>
+                <button  type="button"  class="period-button" onclick="calcPeriod(6);">6개월</button>
                 <input type="text" id="daterange" name="daterange" value='' placeholder=""/>
 				
 				<script>
@@ -295,6 +305,9 @@
             </div>
 
 			<div class="item_list"></div>
+			<div class="no-items-message" style="display: none;">
+                <h2>입찰 내역이 없습니다.</h2>
+            </div>
 				
 			<div class="empty_area">
 				<button id="moreBtn" class="btn outlinegrey small">더보기</button>
@@ -329,15 +342,26 @@
 				}
 
 				let bizs = result.bidList;
-				if(bizs==null || bizs==undefined) return;
+				 if(bizs==null || bizs==undefined || bizs.length === 0) {
+		                $('.item_list').hide();
+		                $('.item_container').hide();
+		                $('.no-items-message').show();
+		                
+		                resetDateRange();
+		                return;
+		          }
+				  $('.item_list').show();
+				  $('.item_container').show();
+		          $('.no-items-message').hide();
+		       
 				bizs.forEach(function(item) {
 					// bidState가 1일 때 빨간색 배경
 					let backgroundColor = item.bidState === 1 ? 'background-color: rgb(254, 247, 246);':'';
-					let itemHtml = '<form class="histtory-item-form"" method="post">' +
+					let itemHtml = '<form class="history-item-form"" method="post">' +
 									'<input type="hidden" name="bidState" value="' + item.bidState + '">' +
 			                        '<input type="hidden" name="sellerImage" value="' + item.personImage + '">' +
 			                        '<input type="hidden" name="auctionNum" value="' + item.auctionNum + '">' +
-			                        '<input type="hidden" name="bidNum" value="' + item.bidNum + '">' +
+			                        '<input type="hidden" name="bidNum" value="' + item.bidNum + '">'+
 			                           				'<input type="hidden" name="bidPrice" value="' + item.bidPrice + '">' +
 			                           				'<input type="hidden" name="bidDate" value="' + item.bidDate + '">' +
 			                           				'<div class="history-item"  style="' + backgroundColor + '">' +
@@ -352,25 +376,35 @@
                										'<span>' + item.endDate + '</span>' +
                										'</div></div>'+
                									 	'</form>';
-               		let formItem = $(itemHtml);
-               		if(item.bidState==1) {
-               			formItem.attr('action', contextPath+'/nowAuctionBuyer');
-					} else {
-						formItem.attr('action', contextPath+'/failAuctionBuyer');
-					}
-               		formItem.click(function() {
-               			$(this).submit();
-               		})
                		
 					$('.item_list').append(itemHtml);
+				
 				});
 						
 			},
 			error: function() {
 				alert('데이터를 불러오는 중 오류가 발생했습니다.');
 			}
-		});
+		
+	 	
+	 	});
 	}
+	 // 이벤트 핸들러 추가: AJAX로 동적으로 추가된 요소에도 적용되도록 변경
+    $(document).on('click', '.history-item', function() {
+    		//.history-item 클래스의 form 태그를 찾기   
+    		let form = $(this).closest('form');
+    		  
+    		
+    		//state에 따라 다른 값을 전달해야함 
+    	 	let bidState = form.find('input[name="bidState"]').val();
+    		
+    	    if (bidState === '1') { //suc
+    	       form.attr("action",contextPath+'/nowAuctionBuyer');
+    	    } else { //fail
+    	    	  form.attr("action",contextPath+'/failAuctionBuyer');
+    	    }
+    	    form.submit();
+    });
 
 	function calcPeriod(param_month) {
 		var date = new Date();
@@ -395,6 +429,10 @@
 		
 		startDate = year + '-' + month + '-' + day;	
 		
+		$('.period-button').removeClass('active');
+		$(event.target).addClass('active');
+		$('#daterange').val(''); 
+		
 		$('.item_list').html('');
 		page=0;
 		reqeustData();
@@ -406,17 +444,27 @@
         	var dates = dateRange.split(' ~ ');
         	startDate = dates[0];
         	endDate = dates[1];
+            $('.period-button').removeClass('active');
+        } else {
+        	resetDateRange();
+           
         }
 		$('.item_list').html('');
 		page=0;
         reqeustData();
     }
+    function resetDateRange() {
+        startDate = null;
+        endDate = null;
+        $('#daterange').val('');
+        $('.period-button').removeClass('active');
+    }
+    
 	
 	$('#moreBtn').on('click',function(){
 		reqeustData();
 	});
-	
-	reqeustData();
+	reqeustData(); // 처음 호출 
 //});	
 </script>
         	</div>

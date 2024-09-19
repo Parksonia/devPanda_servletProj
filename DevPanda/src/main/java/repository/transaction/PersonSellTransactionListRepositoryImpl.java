@@ -16,29 +16,35 @@ public class PersonSellTransactionListRepositoryImpl implements PersonSellTransa
 	}
  
 	@Override
-	public List<Map> selectPSTransactionList(String sellerId) throws Exception {
+	public List<Map> selectPSTransactionList(String sellerId, int limit, int offset) throws Exception {
 		Map<String, Object> params = new HashMap<>();
 		params.put("sellerId", sellerId);
+		params.put("limit", limit);
+		params.put("offset", offset);
 		List<Map> result = sqlSession.selectList("mapper.transaction.selectPSTransactionList", params);
 		return result;
 	}
 
 	@Override
-	public List<Map> selectPSTransactionListByDate(String sellerId, String filterDate) throws Exception {
+	public List<Map> selectPSTransactionListByDate(String sellerId, String filterDate, int limit, int offset) throws Exception {
 		Map<String, Object> params = new HashMap<>();
 		params.put("sellerId", sellerId);
 		params.put("filterDate", filterDate);
+		params.put("limit", limit);
+		params.put("offset", offset);
 		List<Map> result = sqlSession.selectList("mapper.transaction.selectPSTransactionList", params);
 		return result;
 	}
 
 	@Override
-	public List<Map> selectPSTransactionListByDateRange(String sellerId, String startDate, String endDate)
+	public List<Map> selectPSTransactionListByDateRange(String sellerId, String startDate, String endDate, int limit, int offset)
 			throws Exception {
 		Map<String, Object> params = new HashMap<>();
 		params.put("sellerId", sellerId);
 		params.put("startDate", startDate);
 		params.put("endDate", endDate);
+		params.put("limit", limit);
+		params.put("offset", offset);
 		List<Map> result = sqlSession.selectList("mapper.transaction.selectPSTransactionList", params);
 		return result;
 	}
@@ -53,6 +59,11 @@ public class PersonSellTransactionListRepositoryImpl implements PersonSellTransa
 		sqlSession.update("mapper.transaction.updateStateTransactionState", auctionNum);
 		sqlSession.commit();
 		
+	}
+
+	@Override
+	public int countTransactionListBySellerId(String id) throws Exception {
+		return sqlSession.selectOne("mapper.transaction.countTransactionListBySellerId", id);
 	}
 
 }

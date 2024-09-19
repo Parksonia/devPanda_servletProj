@@ -1,4 +1,4 @@
-package controller;
+package controller.blacklist;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -14,16 +14,16 @@ import service.BuyerBlackListService;
 import service.BuyerBlackListServiceImpl;
 
 /**
- * Servlet implementation class BuyerComBlack
+ * Servlet implementation class BuyerPersonBlack
  */
-@WebServlet("/buyerComBlack")
-public class BuyerComBlack extends HttpServlet {
+@WebServlet("/buyerPersonBlack")
+public class BuyerPersonBlack extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BuyerComBlack() {
+    public BuyerPersonBlack() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,19 +41,24 @@ public class BuyerComBlack extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		
 		try {			
 			Map<String, Object> blistMap = new HashMap<>();
 			blistMap.put("declPerson", request.getParameter("sellerId"));
 			blistMap.put("transactionNum", Integer.parseInt(request.getParameter("transactionNum")));
 			blistMap.put("bidNum", Integer.parseInt(request.getParameter("bidNum")));
-			blistMap.put("blackCom", request.getParameter("buyerComId"));
+			blistMap.put("blackPerson", request.getParameter("buyerId"));
 			blistMap.put("title", request.getParameter("title"));
 			blistMap.put("content", request.getParameter("content"));
 			blistMap.put("roleType", "S");
 			
+			//System.out.println(blistMap);
+			
 			BuyerBlackListService blackService = new BuyerBlackListServiceImpl();
-			blackService.insertBuyerComBlack(blistMap);
-			request.setAttribute("blistMap", blistMap);
+			blackService.insertBuyerPersonBlack(blistMap);
+			
+			request.setAttribute("blistMap", blistMap); 
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

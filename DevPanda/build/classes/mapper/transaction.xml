@@ -5,8 +5,7 @@
 <mapper namespace="mapper.transaction">
 
 	<!-- personBuyTransactionList -->
-	<select id="selectPBTransactionList" parameterType="map"
-		resultType="Map">
+	<select id="selectPBTransactionList" parameterType="map" resultType="Map">
 		<![CDATA[
 			SELECT   
 				t.*, 
@@ -16,7 +15,7 @@
 				ON t.auctionNum = a.auctionNum
 			JOIN person p ON t.sellerId = p.id
 			WHERE t.buyerId=#{buyerId}
-			]]>  <!-- company, person 같이 사용가능!? -->
+			]]> 
 
 		<if test="filterDate != null and filterDate != ''">
 			<![CDATA[
@@ -24,13 +23,15 @@
 			]]>
 		</if>
 
-		<if test="startDate != null and startDate !='' and endDate != null and endDate !=''">
+		<if
+			test="startDate != null and startDate !='' and endDate != null and endDate !=''">
 			<![CDATA[
 				and STR_TO_DATE(t.date, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 			]]>
 		</if>
 			<![CDATA[
-				order by t.date desc;
+				order by t.date desc
+				limit #{limit} offset #{offset};
 			]]>
 	</select>
 
@@ -43,29 +44,40 @@
 				FROM transaction t JOIN auction a 
 					ON t.auctionNum = a.auctionNum
 				JOIN person p ON t.sellerId = p.id
-			WHERE t.sellerId=#{sellerId}
+				WHERE t.sellerId=#{sellerId}
 			]]>
 
 		<if test="filterDate != null and filterDate != ''">
-				<![CDATA[
-					and STR_TO_DATE(t.date, '%Y-%m-%d') between STR_TO_DATE(#{filterDate}, '%Y-%m-%d') and STR_TO_DATE(now(), '%Y-%m-%d')
-				]]>
-		</if>
-
-		<if
-			test="startDate != null and startDate !='' and endDate != null and endDate !=''">
-				<![CDATA[
-					and STR_TO_DATE(t.date, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
-				]]>
-		</if>
-			
 			<![CDATA[
-				order by t.date desc;
+				and STR_TO_DATE(t.date, '%Y-%m-%d') between STR_TO_DATE(#{filterDate}, '%Y-%m-%d') and STR_TO_DATE(now(), '%Y-%m-%d')
 			]]>
-	</select>
+		</if>
 
-	<select id="selectPSTransactionDetail" parameterType="map"
-		resultType="Map">
+		<if test="startDate != null and startDate !='' and endDate != null and endDate !=''">
+			<![CDATA[
+				and STR_TO_DATE(t.date, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+			]]>
+		</if>
+		<![CDATA[
+			order by t.date desc
+			limit #{limit} offset #{offset};
+		]]>
+	</select>
+	
+	<select id="countTransactionListBySellerId" parameterType="String" resultType="int">
+		<![CDATA[
+			select count(*) from transaction where sellerId=#{id};
+		]]>
+	</select>
+	
+	<select id="countTransactionListByBuyerId" parameterType="String" resultType="int">
+		<![CDATA[
+			select count(*) from transaction where buyerId=#{id};
+		]]>
+	</select>
+	
+	<!-- personSellTransactionDetail -->
+	<select id="selectPSTransactionDetail" parameterType="map" resultType="Map">
 		<![CDATA[
 			SELECT DISTINCT p1.*, p2.*
 				FROM transaction t
@@ -76,24 +88,43 @@
 			WHERE t.sellerId = #{sellerId} AND t.auctionNum = #{auctionNum};
 		]]>
 	</select>
-
+	
+	<select id="selectOneCompany" parameterType="String" resultType="company">
+		<![CDATA[
+			select * from company where id = #{id};
+		]]>
+	</select>
+	
+	<select id="updateStateTransactionState" parameterType="Integer">
+		<![CDATA[
+			UPDATE transaction SET state='f' WHERE auctionNum = #{auctionNum};
+		]]>
+	</select>
+ 
 	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
-	<select id="selectTransactionsByCompanyId"
-		parameterType="map" resultType="Map">
+	<select id="selectTransactionsByCompanyId" parameterType="map"
+		resultType="Map">
     <![CDATA[ 
-    SELECT t.transactionNum as transactionNum, 
-           t.sellerId as sellerId, 
-           t.auctionNum as auctionNum, 
-           t.price as price, 
-           t.date as date, 
-           t.state as state, 
-           c.name as companyName, 
-           c.id as companyId
-    FROM Transaction t
-    JOIN Company c ON t.buyerId = c.id
-    WHERE c.id = #{companyId}
-	AND t.date BETWEEN #{startDate} AND #{endDate}
+    SELECT 
+    t.transactionNum as transactionNum, 
+    t.sellerId as sellerId, 
+    t.auctionNum as auctionNum, 
+    t.price as price, 
+    t.date as date, 
+    t.state as state, 
+    c.companyName as companyName, 
+    c.id as companyId,
+    a.maxSalary as maxSalary,  
+    a.title as auctionTitle   
+	FROM Transaction t
+	JOIN Company c ON t.buyerId = c.id
+	JOIN Auction a ON t.auctionNum = a.auctionNum 
+	WHERE 
+    c.id = #{companyId}
+    AND t.date BETWEEN #{startDate} AND #{endDate}
+    ORDER BY 
+    t.date DESC;
 	]]>
 	</select>
 
@@ -131,17 +162,17 @@
         <![CDATA[ SELECT * FROM TRANSACTION WHERE auctionNum = #{auctionNum}]]>
 	</select>
 
-	<!-- 거래에서 경매에 대한 MaxSalary 값 가져오기 -->
+	<!-- companyId로 경매정보 가져오기 -->
 	<select id="getAuctionMaxByCompanyId" parameterType="String"
 		resultType="Map">
         <![CDATA[ 
-        	SELECT a.maxSalary
-			FROM transaction t
-			JOIN auction a ON t.auctionNum = a.auctionNum
-			WHERE t.buyerId = #{companyId};
+        	SELECT a.* 
+        	FROM transaction t
+        	JOIN auction a ON t.auctionNum = a.auctionNum
+        	WHERE t.buyerId = #{companyId}
 		]]>
 	</select>
-	
+
 	<!-- 경매에 대한 모든 입찰자 조회 -->
 	<select id="getAllBuyerByAuctionNum" parameterType="Integer"
 		resultType="Map">
@@ -154,6 +185,7 @@
     		t.auctionNum = #{auctionNum}
     		ORDER BY b.bidDate ASC;
 		]]>
+
 	</select> 
 	
 	
@@ -164,6 +196,7 @@
 	
 	
 	</insert>
+
 
 
 </mapper>
