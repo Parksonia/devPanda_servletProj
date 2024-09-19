@@ -57,9 +57,10 @@ public class SignUpCompany extends HttpServlet {
 
 			// 파일을 지정한 경로에 저장
 			companyImagePart.write(filePath);
+            System.out.println("파일 저장 경로: " + filePath);
 
 			// 상대 경로를 저장 (웹에서 접근 가능한 경로)
-			String relativeFilePath = "/upload/" + fileName;
+			//String relativeFilePath = "/upload/" + fileName;
 
 			// Company 객체 생성
 			Company company = new Company();
@@ -70,7 +71,7 @@ public class SignUpCompany extends HttpServlet {
 			company.setAddress(address);
 			company.setCompanyNum(companyNum);
 			company.setStatus(status);
-			company.setCompanyImage(relativeFilePath); // 상대 경로 저장
+			company.setCompanyImage(fileName); // 상대 경로 저장
 
 			// 회사 등록 처리
 			companyService.registerCompany(company);

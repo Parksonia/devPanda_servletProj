@@ -1,6 +1,7 @@
 package util;
 
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
@@ -26,4 +27,9 @@ public class MybatisSqlSessionFactory {
 	public static SqlSessionFactory getSqlSessionFactory() {
 		return sqlSessionFactory;
 	}
+	
+	// SqlSession을 직접 열 수 있는 메서드 추가
+		public static SqlSession getSession() {
+			return sqlSessionFactory.openSession();
+		}
 }

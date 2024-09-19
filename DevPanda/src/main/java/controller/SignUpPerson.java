@@ -55,13 +55,16 @@ public class SignUpPerson extends HttpServlet {
             if (!uploadDirFile.exists()) {
                 uploadDirFile.mkdirs();
             }
-
+ 
             // 파일을 지정한 경로에 저장
             personImagePart.write(filePath);
-
+            // 저장된 파일 경로를 출력
+            System.out.println("파일 저장 경로: " + filePath);
+            
             // 상대 경로를 저장 (웹에서 접근 가능한 경로)
-            String relativeFilePath = "/upload/" + fileName;
+            //String relativeFilePath = "/upload/" + fileName;
 
+            
             // Person 객체 생성
             Person person = new Person();
             person.setId(id);
@@ -71,7 +74,7 @@ public class SignUpPerson extends HttpServlet {
             person.setAddress(address);
             person.setSex(sex);
             person.setAge(age);
-            person.setPersonImage(relativeFilePath); // 파일 경로를 저장
+            person.setPersonImage(fileName); // 파일 경로를 저장
             person.setStatus(status);
 
             // 서비스 레이어를 호출하여 회원가입을 처리합니다.

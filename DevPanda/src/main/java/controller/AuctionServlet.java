@@ -1,8 +1,9 @@
 package controller;
 
+import dto.AuctionAndPerson;
 import service.AuctionService;
 import service.AuctionServiceImpl;
-
+import com.google.gson.Gson;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,66 +12,70 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.Map;
-import com.google.gson.Gson;
 
 @WebServlet("/auction")
 public class AuctionServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 1L;
 	private AuctionService auctionService;
 
-	@Override
-	public void init() throws ServletException {
-		auctionService = new AuctionServiceImpl();
-	}
+    @Override
+    public void init() throws ServletException {
+        auctionService = new AuctionServiceImpl();
+    }
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String pageParam = request.getParameter("page");
-		String pageSizeParam = request.getParameter("pageSize");
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            String offsetParam = request.getParameter("offset");
+            String pageSizeParam = request.getParameter("pageSize");
 
-		int page = 1;
-		int pageSize = 9;
+            int offset = (offsetParam != null && !offsetParam.isEmpty()) ? Integer.parseInt(offsetParam) : 0;
+            int pageSize = (pageSizeParam != null && !pageSizeParam.isEmpty()) ? Integer.parseInt(pageSizeParam) : 9;
 
-		try {
-			if (pageParam != null) {
-				page = Integer.parseInt(pageParam);
-			}
-			if (pageSizeParam != null) {
-				pageSize = Integer.parseInt(pageSizeParam);
-			}
-		} catch (NumberFormatException e) {
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid pagination parameters.");
-			return;
-		}
+            if (offset < 0) offset = 0;
+            if (pageSize <= 0) pageSize = 9;
 
-		System.out.println("Page: " + page + ", PageSize: " + pageSize);
+            // 필터링 파라미터 가져오기
+            String[] location = request.getParameterValues("location[]");
+            String[] stack = request.getParameterValues("stack[]");
+            String[] Occupation = request.getParameterValues("Occupation[]");
+            String[] period = request.getParameterValues("period[]");
+            String[] education = request.getParameterValues("education[]");
+            String[] Certification = request.getParameterValues("Certification[]");
+            String[] employmentType = request.getParameterValues("employmentType[]");
+            
+            List<AuctionAndPerson> auctions = auctionService.getFilteredAuctionsWithPersonInfo(offset, pageSize,
+            		location, stack, Occupation, period, education, Certification, employmentType);
 
-		try {
-	        List<Map<String, Object>> auctions = auctionService.getAllAuctionsWithPersonInfo(page, pageSize);
+            Gson gson = new Gson();
+            String jsonResponse = gson.toJson(auctions);
+            System.out.println("Fetching auctions with offset: " + offset + ", pageSize: " + pageSize);
+            System.out.println("JSON Response: " + jsonResponse);
+            System.out.println("Fetched auctions: " + auctions.size());
 
-	        // 로그 추가: 반환된 데이터 확인
-	        System.out.println("Number of auctions fetched: " + (auctions != null ? auctions.size() : 0));
+            if ("application/json".equals(request.getHeader("Accept"))) {
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                PrintWriter out = response.getWriter();
+                out.print(jsonResponse);
+                out.flush();
+            } else {
+                request.setAttribute("auctions", auctions);
+                request.setAttribute("offset", offset);
+                request.setAttribute("pageSize", pageSize);
+                request.getRequestDispatcher("/view/main.jsp").forward(request, response);
+            }
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid offset or pageSize parameter.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An internal server error occurred.");
+        }
+    }
 
-	        // AJAX 요청인 경우 JSON 응답 반환
-	        if ("application/json".equals(request.getHeader("Accept"))) {
-	            response.setContentType("application/json");
-	            PrintWriter out = response.getWriter();
-	            Gson gson = new Gson();
-	            String jsonResponse = gson.toJson(auctions);
-	            out.print(jsonResponse);
-	            out.flush();
-	        } else {
-	            // 일반 요청인 경우 JSP 페이지로 포워딩
-	            request.setAttribute("auctions", auctions);
-	            request.setAttribute("page", page);
-	            request.setAttribute("pageSize", pageSize);
-	            request.getRequestDispatcher("/view/main.jsp").forward(request, response);
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error fetching auction data.");
-	    }
-	}
 }
+
+
+

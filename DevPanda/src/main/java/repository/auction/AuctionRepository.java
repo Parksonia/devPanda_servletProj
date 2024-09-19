@@ -9,8 +9,8 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 public interface AuctionRepository {
-	 List<Map<String, Object>> getAuctionsWithPersonInfo(int pageSize, int offset);
-
+	 List<AuctionAndPerson> getFilteredAuctionsWithPersonInfo(int offset, int pageSize,
+			 String[] location, String[] stack, String[] Occupation, String[] period, String[] education, String[] Certification, String[] employmentType);
 	
 	// 개인 옥션정보 상세보기 조회
 	Auction selectOneAuction(Integer auctionNum) throws Exception;
