@@ -19,26 +19,36 @@ public class AuctionRepositoryImpl implements AuctionRepository {
 		this.sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
 	}
 
-//	@Override
-//	public List<Map<String, Object>> getAuctionsWithPersonInfo(int pageSize, int offset) {
-//		try (SqlSession session = sqlSessionFactory.openSession()) {
-//			return session.selectList("getAuctionsWithPersonInfo", Map.of("pageSize", pageSize, "offset", offset));
-//		}
-//	}
 	@Override
-	public List<Map<String, Object>> getAuctionsWithPersonInfo(int pageSize, int offset) {
-	    SqlSession session = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
-	    try {
+	public List<AuctionAndPerson> getFilteredAuctionsWithPersonInfo(int offset, int pageSize,
+			 String[] location, String[] stack, String[] Occupation, String[] period, String[] education, String[] Certification, String[] employmentType) {
+	    try (SqlSession session = sqlSessionFactory.openSession()) {
 	        Map<String, Object> params = new HashMap<>();
-	        params.put("pageSize", pageSize);
 	        params.put("offset", offset);
-	        return session.selectList("getAuctionsWithPersonInfo", params);
-	    } finally {
-	        session.close();
+	        params.put("pageSize", pageSize);
+	        params.put("location", (location != null && location.length > 0) ? location : null);
+	        params.put("stack", (stack != null && stack.length > 0) ? stack : null);
+	        params.put("Occupation", (Occupation != null && Occupation.length > 0) ? Occupation : null);
+	        params.put("period", (period != null && period.length > 0) ? period : null);
+	        params.put("education", (education != null && education.length > 0) ? education : null);
+	        params.put("Certification", (Certification != null && Certification.length > 0) ? Certification : null);
+	        params.put("employmentType", (employmentType != null && employmentType.length > 0) ? employmentType : null);
+
+	        // 로그 출력 - 실제 환경에서는 SLF4J 또는 다른 로깅 라이브러리를 사용하는 것이 좋습니다.
+	        System.out.println("Fetching auctions with offset: " + offset + ", pageSize: " + pageSize);
+
+	        List<AuctionAndPerson> auctions = session.selectList("mapper.auction.getFilteredAuctionsWithPersonInfo", params);
+	        
+	        // 결과 로그
+	        System.out.println("Query result: " + auctions);
+
+	        return auctions;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        throw new RuntimeException("Error fetching auctions", e);
 	    }
 	}
 
-	
 
 	// selectOne 경매 하나 조회
 	SqlSession sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
@@ -47,8 +57,7 @@ public class AuctionRepositoryImpl implements AuctionRepository {
 	public Auction selectOneAuction(Integer auctionNum) throws Exception {
 		return sqlSession.selectOne("mapper.auction.selectOneAuction", auctionNum);
 	}
-	
-	
+
 	@Override
 	public AuctionAndPerson findAuctionAndPersonById(Integer auctionNum) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -56,10 +65,9 @@ public class AuctionRepositoryImpl implements AuctionRepository {
 		try {
 			String statement = "mapper.auction.findAuctionById";
 			auctionAndPerson = sqlSession.selectOne(statement, auctionNum);
-			
-			
-		}finally {
-			
+
+		} finally {
+
 		}
 		return auctionAndPerson;
 	}
@@ -72,25 +80,20 @@ public class AuctionRepositoryImpl implements AuctionRepository {
 		try {
 			String statement = "mapper.auction.findAllAuctionWithOffset";
 			list = sqlSession.selectList(statement, offset);
-			
-			
-		}finally {
-			
+
+		} finally {
+
 		}
 		return list;
 	}
-	
-	
-	@Override
-	public void updateAuction(Auction auction,SqlSession sqlSession) {
-		// TODO Auto-generated method stub
-		
-		
-		String statement = "mapper.auction.updateAuction";
-		sqlSession.update(statement,auction);
-	
-	}
-	
 
+	@Override
+	public void updateAuction(Auction auction, SqlSession sqlSession) {
+		// TODO Auto-generated method stub
+
+		String statement = "mapper.auction.updateAuction";
+		sqlSession.update(statement, auction);
+
+	}
 
 }

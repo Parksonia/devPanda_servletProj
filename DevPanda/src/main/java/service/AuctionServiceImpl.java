@@ -21,60 +21,16 @@ public class AuctionServiceImpl implements AuctionService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getAllAuctionsWithPersonInfo(int page, int pageSize) {
-		int offset = (page - 1) * pageSize;
-		List<Map<String, Object>> resultList = new ArrayList<>();
-
-		// 데이터 가져오기
-		List<Map<String, Object>> auctionData = auctionRepository.getAuctionsWithPersonInfo(pageSize, offset);
-
-		// 각 데이터 항목을 맵에 담아 리스트에 추가
-		for (Map<String, Object> data : auctionData) {
-			Map<String, Object> map = new HashMap<>();
-			map.put("title", data.get("title"));
-			map.put("minSalary", data.get("minSalary"));
-			map.put("maxSalary", data.get("maxSalary"));
-			map.put("personImage", data.get("personImage"));
-			map.put("nickName", data.get("nickName"));
-			resultList.add(map);
-		}
-		System.out.println("Fetched auction data: " + auctionData);
-
-		return resultList;
+	public List<AuctionAndPerson> getFilteredAuctionsWithPersonInfo(int offset, int pageSize,
+			String[] location, String[] stack, String[] Occupation, String[] period, String[] education, String[] Certification, String[] employmentType) {
+	    System.out.println("Fetching auctions with offset: " + offset + ", pageSize: " + pageSize);
+	    System.out.println("Test:"+auctionRepository.getFilteredAuctionsWithPersonInfo(offset, pageSize,
+				location, stack, Occupation, period, education, Certification, employmentType));
+	   
+	    return auctionRepository.getFilteredAuctionsWithPersonInfo(offset, pageSize,
+				location, stack, Occupation, period, education, Certification, employmentType);
+		
 	}
-//	@Override
-//    public List<Map<String, Object>> getAllAuctionsWithPersonInfo(int page, int pageSize) {
-//        int offset = (page - 1) * pageSize;
-//        List<Map<String, Object>> resultList = new ArrayList<>();
-//
-//        // 데이터 가져오기
-//        List<Map<String, Object>> auctionData = auctionRepository.getAuctionsWithPersonInfo(pageSize, offset);
-//
-//        // 각 데이터 항목을 DTO에 담아 리스트에 추가
-//        for (Map<String, Object> data : auctionData) {
-//            Auction auction = new Auction();
-//            Person person = new Person();
-//
-//            auction.setTitle((String) data.get("title"));
-//            auction.setMinSalary((Integer) data.get("minSalary"));
-//            auction.setMaxSalary((Integer) data.get("maxSalary"));
-//
-//            person.setPersonImage((String) data.get("personImage"));
-//            person.setNickName((String) data.get("nickName"));
-//
-//            Map<String, Object> map = Map.of(
-//                "auction", auction,
-//                "person", person
-//            );
-//            
-//            resultList.add(map);
-//        }
-//
-//        System.out.println("Fetched auction data: " + resultList);
-//
-//        return resultList;
-//    }
-
 
 	// 1개 조회 bid 전체 리스트에서 조회 될 수 있도록 함
 	@Override
@@ -123,8 +79,7 @@ public class AuctionServiceImpl implements AuctionService {
 
 		return result.toString();
 	}
-	
-	
+
 	@Override
 	public AuctionAndPerson findAuctionAndPersonById(Integer auctionNum) {
 		// TODO Auto-generated method stub

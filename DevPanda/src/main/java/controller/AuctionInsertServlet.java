@@ -101,7 +101,7 @@ public class AuctionInsertServlet extends HttpServlet {
         auction.setEmploymentType(String.join(",", employmentTypeArray));
         
         // 업로드된 포트폴리오 파일명 설정
-        auction.setPortfolio("/" + UPLOAD_DIRECTORY + "/" + portfolioFileName);
+        auction.setPortfolio(portfolioFileName);
         
         auction.setStartDate(startDate);
         auction.setEndDate(endDate);

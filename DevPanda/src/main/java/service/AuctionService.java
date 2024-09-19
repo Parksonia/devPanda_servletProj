@@ -7,14 +7,15 @@ import java.util.List;
 import java.util.Map;
 
 public interface AuctionService {
-	List<Map<String, Object>> getAllAuctionsWithPersonInfo(int page, int pageSize);
-
+	List<AuctionAndPerson> getFilteredAuctionsWithPersonInfo(int offset, int pageSize, 
+			String[] location, String[] stack, String[] Occupation, String[] period, String[] education, String[] Certification, String[] employmentType);
+    
+	
 	Auction oneAuction(Integer auctionNum) throws Exception;
 
 	String remakeWithComma(List<String> items) throws Exception;
-	
+
 	AuctionAndPerson findAuctionAndPersonById(Integer auctionNum);
-	
-	
+
 	List<AuctionAndPerson> findAllAuctionWithOffset(Integer offset);
 }
