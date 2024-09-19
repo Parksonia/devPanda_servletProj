@@ -1,8 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +37,7 @@ public class BidList extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("view/buyer/pNcBuyBidList.jsp").forward(request, response);
+		request.getRequestDispatcher("view/buyer/pNcBuyBidList.jsp?currentPage=bidList").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -49,13 +47,13 @@ public class BidList extends HttpServlet {
 		// 조건에 따른 서비스 호출 : 기본/날짜계산
 		try {
 			String param = request.getParameter("param");
-			System.out.println(param);
+			//System.out.println(param);
 
 			JSONParser parser = new JSONParser();
 			JSONObject jsonObj = (JSONObject)parser.parse(param);
 			Integer page = ((Long)jsonObj.get("page")).intValue();
 			
-			System.out.println(page);
+			//System.out.println(page);
 			String startDate = (String)jsonObj.get("startDate");
 			String endDate = (String)jsonObj.get("endDate");
 			
@@ -80,8 +78,8 @@ public class BidList extends HttpServlet {
 				bidBuyList = service.bidListAllWithCalDate(pageInfo, id, endDate, startDate, userType);				
 			}
 			
-			System.out.println(pageInfo.getAllPage());
-			System.out.println(bidBuyList);
+			//System.out.println(pageInfo.getAllPage());
+			//System.out.println(bidBuyList);
 
 			Map result = new HashMap();
 			result.put("page", pageInfo.getCurPage());
@@ -92,7 +90,7 @@ public class BidList extends HttpServlet {
 			String jsonResult = gson.toJson(result);
 			
 			response.getWriter().write(jsonResult);
-
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

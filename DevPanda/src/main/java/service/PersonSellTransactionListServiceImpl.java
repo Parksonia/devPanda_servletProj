@@ -25,21 +25,21 @@ public class PersonSellTransactionListServiceImpl implements PersonSellTransacti
 	}
  
 	@Override
-	public List<Map> personSellTransactionList(String sellerId) throws Exception {
-		List<Map> transactionList = psRepo.selectPSTransactionList(sellerId);
+	public List<Map> personSellTransactionList(String sellerId, int limit, int offset) throws Exception {
+		List<Map> transactionList = psRepo.selectPSTransactionList(sellerId, limit, offset);
 		return transactionList;
 	}
 
 	@Override
-	public List<Map> personSellTransactionListByDate(String sellerId, String filterDate) throws Exception {
-		List<Map> transactionList = psRepo.selectPSTransactionListByDate(sellerId, filterDate);
+	public List<Map> personSellTransactionListByDate(String sellerId, String filterDate, int limit, int offset) throws Exception {
+		List<Map> transactionList = psRepo.selectPSTransactionListByDate(sellerId, filterDate, limit, offset);
 		return transactionList;
 	}
 
 	@Override
-	public List<Map> personSellTransactionListByDateRange(String sellerId, String startDate, String endDate)
+	public List<Map> personSellTransactionListByDateRange(String sellerId, String startDate, String endDate, int limit, int offset)
 			throws Exception {
-		List<Map> transactionList = psRepo.selectPSTransactionListByDateRange(sellerId, startDate, endDate);
+		List<Map> transactionList = psRepo.selectPSTransactionListByDateRange(sellerId, startDate, endDate, limit, offset);
 		return transactionList;
 	}
 	
@@ -96,6 +96,11 @@ public class PersonSellTransactionListServiceImpl implements PersonSellTransacti
         // 메일 전송
         Transport.send(message);
 		
+	}
+
+	@Override
+	public int countTransactionListBySellerId(String id) throws Exception {
+		return psRepo.countTransactionListBySellerId(id);
 	}
 
 }

@@ -357,7 +357,7 @@
 				<div style="display: flex; justify-content: space-between;">
 					<!-- 구매자 프로필(Company) -->
 					<div class="profile">
-						<img src="https://via.placeholder.com/80" alt="User Icon">
+						<img src="image?file=${company.companyImage }" alt="User Icon">
 						<p style="color: #888; font-weight: bold;">[기업회원]</p>
 						<p style="font-weight: bold;">${company.name}</p>
 						<p>아이디: ${company.id}</p>

@@ -9,8 +9,7 @@
 <meta charset="UTF-8">
 <title></title>
 <!-- 개인, 기업|판매내역조회|경매등록내역조회|상세보기 -->
-<link href="${pageContext.request.contextPath}/css/details.css"
-	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/details.css"	rel="stylesheet">
 <style>
 .bid-history>h3 {
 	margin: 20%;
@@ -38,8 +37,7 @@
 			<div class="user-info-container">
 				<div class="user-info">
 					<div class="user">
-						<img src="${pageContext.request.contextPath}/img/${sellerImage}"
-							alt="SellerImg">
+						<img src="image?file=${sellerImage}" alt="SellerImg">
 						<p class="user_type">[개인회원]</p>
 						<p class="bold">${sellerId }</p>
 						<p class="title">${auction.title }</p>

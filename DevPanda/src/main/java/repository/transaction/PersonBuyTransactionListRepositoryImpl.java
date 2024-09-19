@@ -1,6 +1,5 @@
 package repository.transaction;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,35 +17,41 @@ public class PersonBuyTransactionListRepositoryImpl implements PersonBuyTransact
 	}
 
 	@Override
-	public List<Map> selectPBTransactionList(String buyerId) throws Exception {
+	public List<Map> selectPBTransactionList(String buyerId, int limit, int offset) throws Exception {
 		Map<String, Object> params = new HashMap<>();
 		params.put("buyerId", buyerId);
+		params.put("limit", limit);
+		params.put("offset", offset);
 		List<Map> result = sqlSession.selectList("mapper.transaction.selectPBTransactionList", params);
-		//System.out.println(result);
 		return result;
 	}
 	
 	@Override
-	public List<Map> selectPBTransactionListByDate(String buyerId, String filterDateStr) throws Exception {
+	public List<Map> selectPBTransactionListByDate(String buyerId, String filterDateStr, int limit, int offset) throws Exception {
 		Map<String, Object> params = new HashMap<>();
 		params.put("buyerId", buyerId);
 		params.put("filterDate", filterDateStr);
-		//params.put("row", row);
-		
+		params.put("limit", limit);
+		params.put("offset", offset);
 		List<Map> result = sqlSession.selectList("mapper.transaction.selectPBTransactionList", params);
 		return result;
 	}	
 	
 	@Override
-	public List<Map> selectPBTransactionListByDateRange(String buyerId, String startDate, String endDate) {
+	public List<Map> selectPBTransactionListByDateRange(String buyerId, String startDate, String endDate, int limit, int offset) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("buyerId", buyerId);
 		params.put("startDate", startDate);
 		params.put("endDate", endDate);
-		//params.put("row", row);
-		
+		params.put("limit", limit);
+		params.put("offset", offset);
 		List<Map> result = sqlSession.selectList("mapper.transaction.selectPBTransactionList", params);
 		return result;
+	}
+
+	@Override
+	public int countTransactionListByBuyerId(String id) throws Exception {
+		return sqlSession.selectOne("mapper.transaction.countTransactionListByBuyerId", id);
 	}
 
 	

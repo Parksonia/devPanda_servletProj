@@ -39,95 +39,202 @@
 
 
 				<!-- 필터 -->
-				<form action="${pageContext.request.contextPath }/personSellTransactionList" method="get">
+				<form id="dateForm" action="${pageContext.request.contextPath }/personSellTransactionList" method="get">
 					<div class="filters">
-						<button type="submit" name="num" value="1">최근 1개월</button>
-						<button type="submit" name="num" value="3">3개월</button>
-						<button type="submit" name="num" value="6">6개월</button>
+						<button type="button" id="one">최근 1개월</button>
+						<button type="button" id="three">최근 3개월</button>
+						<button type="button" id="six">최근 6개월</button>
 						<input type="text" id="daterange" name="daterange" value="" style="width: 200px;" /> 
 						<input type="hidden" id="startDate" name="startDate" value="" /> 
 						<input type="hidden" id="endDate" name="endDate" value="" />
-						<script>
-								$(function() {
-								  $('input[name="daterange"]').daterangepicker({
-								    opens: 'left',
-								    autoUpdateInput: false,
-								    locale : {
-								    	"separator": " ~ ",                     // 시작일시와 종료일시 구분자
-				                        "format": 'YYYY-MM-DD',     // 일시 노출 포맷
-				                        "applyLabel": "확인",                    // 확인 버튼 텍스트
-				                        "cancelLabel": "취소",                   // 취소 버튼 텍스트
-				                        "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
-				                        "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
-								    }
-								  }, function(start, end, label) {
-									  $('#startDate').val(start.format('YYYY-MM-DD'));
-									  $('#endDate').val(end.format('YYYY-MM-DD'));
-									  $('input[name="daterange"]').val(start.format('YYYY-MM-DD') + '~' + end.format('YYYY-MM-DD'));
-								    console.log("search date: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-								  });
-								});
-								</script>
 						<button type="submit">조회</button>
 					</div>
 				</form>
-
-				<div class="item_container">
-					<div class="item">
-						<span>희망금액</span>
-					</div>
-					<div class="item">
-						<span>낙찰액</span>
-					</div>
-					<div class="item">
-						<span>낙찰일</span>
-					</div>
-				</div>
-
-
-				<c:forEach items="${personSellTransactionList }" var="transaction">
-					<form class="history-item-form" method="post">
-						<div class="history-item" data-auctionNum=${transaction.auctionNum }>
-							<img src="${pageContext.request.contextPath}/img/${transaction.personImage}" alt="User">
-							<div class="history-content">
-								<span>${transaction.title }</span>
+				
+				<!-- list start -->
+				<c:choose>
+					<c:when test="${personSellTransactionList.size() == 0 }">
+						<h3 style="text-align:center;">낙찰 정보가 존재하지 않습니다.</h3>
+					</c:when>
+					<c:otherwise>
+						<div class="item_container">
+							<div class="item">
+								<span>판매희망최대가</span>
 							</div>
-							<div class="prices">
-								<span> <fmt:formatNumber value="${transaction.maxSalary }" type="number" />원 </span> 
-								<span style="color: red;"> <fmt:formatNumber value="${transaction.price }" type="number" />원 </span> 
-								<span>${transaction.date }</span>
+							<div class="item">
+								<span>판매 낙찰액</span>
 							</div>
-							<!-- Detail로 넘겨줄 값 - auction 테이블 -->
-							<input type="hidden" name="auctionNum" value="${transaction.auctionNum }"/>
-							<input type="hidden" name="sellerImage" value="${transaction.personImage }"/>
-							<input type="hidden" name="title" value="${transaction.title}"/>
-							<!-- Detail로 넘겨줄 값 - transaction 테이블 -->
-							<input type="hidden" name="transactionNum" value="${transaction.transactionNum }"/>
-							<input type="hidden" name="bidNum" value="${transaction.bidNum }"/>
-							<input type="hidden" name="price" value="${transaction.price }"/>
-							<input type="hidden" name="date" value="${transaction.date }"/>
-							<input type="hidden" name="state" value="${transaction.state }"/>
-							<input type="hidden" name="sellerId" value="${transaction.sellerId }"/>
-							<input type="hidden" name="buyerId" value="${transaction.buyerId }" />
-							<input type="hidden" name="memType" value="${transaction.memType }"/>
+							<div class="item">
+								<span>경매종료일</span>
+							</div>
 						</div>
-					</form>
-				</c:forEach>
-
+						<div class="item_list_container">
+							<c:forEach items="${personSellTransactionList }" var="transaction">
+								<form class="history-item-form" method="post">
+									<div class="history-item" data-auctionNum=${transaction.auctionNum }>
+										<img src="image?file=${transaction.personImage}" alt="User">
+										<div class="history-content">
+											<span>${transaction.title }</span>
+										</div>
+										<div class="prices">
+											<span> <fmt:formatNumber value="${transaction.maxSalary }" type="number" />원 </span> 
+											<span style="color: red;"> <fmt:formatNumber value="${transaction.price }" type="number" />원 </span> 
+											<span>${transaction.date }</span>
+										</div>
+										<!-- Detail로 넘겨줄 값 - auction 테이블 -->
+										<input type="hidden" name="auctionNum" value="${transaction.auctionNum }"/>
+										<input type="hidden" name="sellerImage" value="${transaction.personImage }"/>
+										<input type="hidden" name="title" value="${transaction.title}"/>
+										<!-- Detail로 넘겨줄 값 - transaction 테이블 -->
+										<input type="hidden" name="transactionNum" value="${transaction.transactionNum }"/>
+										<input type="hidden" name="bidNum" value="${transaction.bidNum }"/>
+										<input type="hidden" name="price" value="${transaction.price }"/>
+										<input type="hidden" name="date" value="${transaction.date }"/>
+										<input type="hidden" name="state" value="${transaction.state }"/>
+										<input type="hidden" name="sellerId" value="${transaction.sellerId }"/>
+										<input type="hidden" name="buyerId" value="${transaction.buyerId }" />
+										<input type="hidden" name="memType" value="${transaction.memType }"/>
+									</div>
+								</form>
+							</c:forEach>
+						</div>
+					</c:otherwise>
+				</c:choose>
+				<%-- <p>total count : ${totalCount }</p> --%>
+				<c:choose>
+					<c:when test="${totalCount > 6 }">
+						<div class="empty_area">
+							<button id="moreBtn" class="btn outlinegrey small">더보기</button>
+						</div>
+					</c:when>
+					<c:otherwise></c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 	</div>
-	<script>
-    /* 하나의 div 클릭시 해당 링크로 연결 */
-     $(document).ready(function() {
-    	$(document).on('click', '.history-item', function() {
-    		var contextPath = '<%=request.getContextPath()%>';
-    		let form = $(this).closest('form');
-    		form.attr("action", contextPath+'/personSellTransactionDetail');
-    		form.submit();
-    	});
-    });
-	</script>
+<script>
+/*더보기 버튼*/
+$(document).ready(function() {
+	let currentOffset = 6;
+	let limit = 6;
+	let totalCount = ${totalCount};
+	
+	$('#moreBtn').click(function() {
+		let startDate = $('#startDate').val();
+		let endDate = $('#endDate').val();
+		
+		$.ajax({
+			url:'${pageContext.request.contextPath}/personSellTransactionList',
+			type:'POST',
+			data: {
+				offset:currentOffset,
+				limit:limit,
+				startDate:startDate,
+				endDate:endDate
+			},
+			dataType:'json',
+			success:function(response) {
+				let transactionList = response.transactionList;
+				let totalCount = response.totalCount;
+				
+				if(transactionList.length > 0) {
+					transactionList.forEach(function(transaction){
+						if ($('input[name="transactionNum"][value="' + transaction.transactionNum + '"]').length === 0){
+							let newItem = 
+								'<form class="history-item-form" method="post">' +
+						        '<div class="history-item" data-auctionNum="' + transaction.auctionNum + '">' +
+						            '<img src="image?file=' + transaction.personImage + '" alt="User">' +
+						            '<div class="history-content">' +
+						                '<span>' + transaction.title + '</span>' +
+						            '</div>' +
+						            '<div class="prices">' +
+						                '<span>' + transaction.maxSalary.toLocaleString() + '원 </span>' +
+						                '<span style="color: red;">' + transaction.price.toLocaleString() + '원 </span>' +
+						                '<span>' + transaction.date + '</span>' +
+						            '</div>' +
+						            // Detail로 넘겨줄 값들
+						            '<input type="hidden" name="auctionNum" value="' + transaction.auctionNum + '"/>' +
+						            '<input type="hidden" name="sellerImage" value="' + transaction.personImage + '"/>' +
+						            '<input type="hidden" name="title" value="' + transaction.title + '"/>' +
+						            '<input type="hidden" name="transactionNum" value="' + transaction.transactionNum + '"/>' +
+						            '<input type="hidden" name="bidNum" value="' + transaction.bidNum + '"/>' +
+						            '<input type="hidden" name="price" value="' + transaction.price + '"/>' +
+						            '<input type="hidden" name="date" value="' + transaction.date + '"/>' +
+						            '<input type="hidden" name="state" value="' + transaction.state + '"/>' +
+						            '<input type="hidden" name="sellerId" value="' + transaction.sellerId + '"/>' +
+						            '<input type="hidden" name="buyerId" value="' + transaction.buyerId + '"/>' +
+						            '<input type="hidden" name="memType" value="' + transaction.memType + '"/>' +
+						        '</div>' +
+						    '</form>';
+						    
+						    $('.item_list_container').append(newItem);
+						}
+					});
+					currentOffset += limit; // 오프셋 업데이트
+					if(currentOffset >= totalCount){
+                    	$('#moreBtn').hide();
+                    }
+				} else {
+					$('#moreBtn').hide(); // 더 이상 데이터가 없으면 버튼 숨기기
+				}
+			},
+			error: function() {
+                alert('데이터를 불러오는 데 실패했습니다.');
+            }
+		});
+	});
+});
 
+/* 하나의 div 클릭시 해당 링크로 연결 */
+ $(document).ready(function() {
+	$(document).on('click', '.history-item', function() {
+		var contextPath = '<%=request.getContextPath()%>';
+		let form = $(this).closest('form');
+		form.attr("action", contextPath+'/personSellTransactionDetail');
+		form.submit();
+	});
+});
+
+/*날짜 조회*/
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left',
+    autoUpdateInput: false,
+    locale : {
+    	"separator": " ~ ",                     // 시작일시와 종료일시 구분자
+                    "format": 'YYYY-MM-DD',     // 일시 노출 포맷
+                    "applyLabel": "확인",                    // 확인 버튼 텍스트
+                    "cancelLabel": "취소",                   // 취소 버튼 텍스트
+                    "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
+                    "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
+    }
+  }, function(start, end, label) {
+	  $('#startDate').val(start.format('YYYY-MM-DD'));
+	  $('#endDate').val(end.format('YYYY-MM-DD'));
+	  $('input[name="daterange"]').val(start.format('YYYY-MM-DD') + '~' + end.format('YYYY-MM-DD'));
+  });
+  
+	//최근 1개월 , 최근 3개월, 최근 6개월
+	 $('#one').click(function() {
+		 setDateRange(1);
+	 });
+	 $('#three').click(function() {
+		 setDateRange(3);
+	 });
+	 $('#six').click(function() {
+		 setDateRange(6);
+	 });
+	 
+	 function setDateRange(months) {
+		 let endDate = moment(); //현재날짜 
+		 let startDate = moment().subtract(months, 'months');
+		 
+		 $('#startDate').val(startDate.format('YYYY-MM-DD'));
+		 $('#endDate').val(endDate.format('YYYY-MM-DD'));
+		 $('#dateForm').submit();
+	 }
+});
+
+</script>
 </body>
 </html>

@@ -444,8 +444,6 @@ li, ol, ul {
 }
 /* modal end */
 </style>
-
-
 </head>
 
 <body>
@@ -673,25 +671,25 @@ li, ol, ul {
 						</div>
 					</div>
 				</div>
-
-				<script>
-        const modal = document.querySelector('.modal');
-        const modalCloseButton = document.querySelector('.modal-close');
-        const modalOpenButtons = document.querySelectorAll('.modal_btn');
-
-        modalOpenButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                modal.style.display = 'flex';
-            });
-        });
-
-        modalCloseButton.addEventListener('click', function() {
-            modal.style.display = 'none';
-        });
-    </script>
-	<!-- Modal End-->
 			</div>
 		</div>
 	</div>
+	
+<script>
+const modal = document.querySelector('.modal');
+const modalCloseButton = document.querySelector('.modal-close');
+const modalOpenButtons = document.querySelectorAll('.modal_btn');
+
+modalOpenButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        modal.style.display = 'flex';
+    });
+});
+
+modalCloseButton.addEventListener('click', function() {
+    modal.style.display = 'none';
+});
+</script>
+
 </body>
 </html>
