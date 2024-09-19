@@ -7,6 +7,7 @@
 <configuration>
 	<typeAliases>
 		<!-- dto 넣기 -->
+		<typeAlias type="dto.AuctionAndPerson" alias="auctionandperson" />
 		<typeAlias type="dto.Auction" alias="auction" />
 		<typeAlias type="dto.Bid" alias="bid" />
 		<typeAlias type="dto.BlackList" alias="blacklist" />
@@ -21,20 +22,18 @@
 	
 
 	<environments default="development">
+    <environment id="development">
+        <transactionManager type="JDBC" />
+        <dataSource type="POOLED">
+            <property name="driver" value="com.mysql.cj.jdbc.Driver" />
+            <property name="url"
+                value="jdbc:mysql://localhost:3306/devPandaT?useSSL=false&amp;serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=UTF-8" />
+            <property name="username" value="root" />
+            <property name="password" value="98019801" />
+        </dataSource>
+    </environment>
+</environments>
 
-		<environment id="development">
-			<transactionManager type="JDBC" />
-			<dataSource type="POOLED">
-				
-				<property name="driver" value="com.mysql.cj.jdbc.Driver" />
-				
-				<property name="url"
-					value="jdbc:mysql://localhost:3306/devPandaT?useSSL=false&amp;serverTimezone=UTC" />
-				<property name="username" value="root" />
-				<property name="password" value="98019801" />
-			</dataSource>
-		</environment>
-	</environments> 
 	
 
 
@@ -49,7 +48,7 @@
 				<property name="password" value="1590"></property>
 			</dataSource>
 		</environment>
-	</environments> -->
+	</environments> --> 
 
 	<mappers>
 		<mapper resource="mapper/person.xml" />
@@ -58,7 +57,7 @@
 		<mapper resource ="mapper/company.xml"/>
 		<mapper resource ="mapper/bid.xml"/>
 		<mapper resource ="mapper/emailCertification.xml"/>  
-		<mapper resource ="mapper/blacklist.xml"/>  
+		<!-- <mapper resource ="mapper/blacklist.xml"/>  --> 
 			<!-- 
 			<mapper resource ="mapper/searchcondition.xml"/>  -->
 			
