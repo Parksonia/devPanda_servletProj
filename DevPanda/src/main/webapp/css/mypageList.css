@@ -1,7 +1,4 @@
 @charset "UTF-8";
-@charset "UTF-8";
-@charset "UTF-8";
-
 .container.my .content_area {
 	min-height: 380px;
 
@@ -172,4 +169,51 @@
 
 #daterange {
 	text-align : center;
+	width: 200px;
+}
+
+.empty_area {
+	padding: 81px 0 45px;
+	text-align: center
+}
+.btn {
+	align-items: center;
+	background-color: #fff;
+	color: rgba(34, 34, 34, .8);
+	cursor: pointer;
+	display: inline-flex;
+	justify-content: center;
+	text-align: center;
+	vertical-align: middle
+}
+
+.outlinegrey {
+	border: 1px solid #d3d3d3;
+	color: rgba(34, 34, 34, .8)
+}
+
+.outlinegrey:active {
+	background-color: #f4f4f4;
+	border-color: #ebebeb;
+	color: rgba(34, 34, 34, .5)
+}
+
+.small {
+	border-radius: 10px;
+	font-size: 12px;
+	height: 34px;
+	letter-spacing: -.06px;
+	padding: 0 14px;
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-top: 20px;
+}
+
+.pagination a {
+	text-decoration: none;
+	color: blue;
 }
