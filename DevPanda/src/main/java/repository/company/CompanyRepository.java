@@ -21,4 +21,7 @@ public interface CompanyRepository {
 	
 	Company findByCompanyId(String companyId) throws Exception;
 	
+	Map<String, Object> selectCompanyByCompanyId(String companyId) throws Exception;
+	
+	int updateCompanyInfo(Map<String, Object> companyInfo) throws Exception;
 }

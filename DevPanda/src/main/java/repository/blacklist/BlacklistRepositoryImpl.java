@@ -48,7 +48,8 @@ public class BlacklistRepositoryImpl implements BlacklistRepository {
 	public Integer deleteSellerBlackForBuyerPerson(Integer blackNum) {
 		int result = sqlSession.delete("mapper.blacklist.deleteSellerBlackForBuyerPerson",blackNum);
 		sqlSession.commit();
-		return result; 
+		return result;
+	}
 		
 	public void insertSellerBlack(Map<String, Object> blistMap) throws Exception {
 		sqlSession.insert("mapper.blacklist.insertSellerBlack", blistMap);
