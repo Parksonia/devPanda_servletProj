@@ -20,17 +20,38 @@
 		content, reportDate, roleType)
 		VALUES (#{declCom}, #{blackPerson},
 		#{transactionNum}, #{bidNum}, #{title},
-		#{content}, NOW(), 'B')
+		#{content}, DATE_FORMAT(NOW(),
+		'%Y-%m-%d'), 'B')
 	</insert>
 
 	<!-- Blacklist 리스트 띄우기 위해 필요한 정보 가져오기 -->
 	<select id="getComBlackListByBlackNum" parameterType="Map"
 		resultType="Map">
-		select bl.blackPerson as blackPerson, a.title as title, t.date as tdate, bl.reportDate as rdate, t.transactionNum as tnum
-		from blacklist as bl
-		join transaction t ON t.transactionNum = bl.transactionNum
-		join auction a ON t.auctionNum = a.auctionNum
-		where bl.declCom = #{blackNum}
+		SELECT
+		bl.blackNum AS blackNum,
+		bl.blackPerson AS blackPerson,
+		t.date AS
+		tdate, 
+		bl.reportDate AS rdate,
+		t.transactionNum AS
+		tnum, 
+		bl.title AS title,
+		bl.content AS
+		content,
+		p.email AS email 
+		FROM
+		blacklist AS bl
+		JOIN
+		transaction t ON
+		t.transactionNum = bl.transactionNum
+		JOIN
+		auction a ON
+		t.auctionNum =
+		a.auctionNum
+		JOIN
+		person p ON p.id = bl.blackPerson
+		WHERE
+		bl.declCom = #{companyId};
 	</select>
 
 
@@ -42,7 +63,7 @@
 			(#{declPerson}, #{transactionNum}, #{bidNum}, #{blackPerson}, #{title}, #{content}, DATE_FORMAT(NOW(), '%Y-%m-%d'), 'S');
 		]]>
 	</insert>
-	
+
 	<insert id="insertBuyerComBlack" parameterType="map">
 		<![CDATA[
 			INSERT INTO blacklist 
@@ -51,7 +72,11 @@
 			(#{declPerson}, #{transactionNum}, #{bidNum}, #{blackCom}, #{title}, #{content}, DATE_FORMAT(NOW(), '%Y-%m-%d'), 'S');
 		]]>
 	</insert>
-	 
+
+	<delete id="removeBlacklistById" parameterType="int">
+		DELETE FROM
+		blacklist WHERE blackNum = #{blackId}
+	</delete>
 
 
 </mapper>
