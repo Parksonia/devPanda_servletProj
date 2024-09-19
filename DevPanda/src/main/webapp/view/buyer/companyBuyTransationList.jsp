@@ -4,6 +4,7 @@
 <!-- List, dto 임포트 -->
 <%@ page import="dto.Transaction"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -342,13 +343,21 @@ button {
 					<a
 						href="${pageContext.request.contextPath}/CompanyAuctionBuyerSuc?auctionNum=${transaction.auctionNum}"
 						style="text-decoration: none; color: inherit;">
-						<div class="history-item" data-auction-num="${transaction.auctionNum}">
+						<div class="history-item"
+							data-auction-num="${transaction.auctionNum}">
 							<img src="https://via.placeholder.com/50" alt="User">
 							<div class="history-content">
 								<span>${transaction.auctionTitle}</span>
 							</div>
 							<div class="prices">
-								<span>${transaction.maxSalary}원</span> <span>${transaction.price}원</span> <span>${transaction.date}</span>
+								<span> <fmt:formatNumber value="${transaction.maxSalary}"
+										type="number" pattern="#,###" />원
+								</span>
+
+								<!-- price에 3자리 콤마 추가 -->
+								<span> <fmt:formatNumber value="${transaction.price}"
+										type="number" pattern="#,###" />원
+								</span> <span>${transaction.date}</span>
 							</div>
 						</div>
 					</a>

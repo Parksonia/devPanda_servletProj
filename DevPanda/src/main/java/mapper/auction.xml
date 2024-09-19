@@ -79,21 +79,43 @@
 	
 	</update>
 	
-	<select id="selectPSAuctionList" parameterType="String" resultType="Map">
+	<select id="selectPSAuctionList" parameterType="Map" resultType="Map">
 		<![CDATA[
 			select a.* , p.*
 				from auction a
 				JOIN person p ON a.id = p.id
 				WHERE a.id = #{sellerId}
-				ORDER BY 
-					case
-						when a.state = '진행중' then 1
-						when a.state = '종료' then 2
-						ELSE 3
-					END,
-				a.endDate DESC;
+		]]>
+		
+		<if test="filterDate != null and filterDate != ''">
+			<![CDATA[
+				and STR_TO_DATE(a.endDate, '%Y-%m-%d') between STR_TO_DATE(#{filterDate}, '%Y-%m-%d') and STR_TO_DATE(now(), '%Y-%m-%d')
+			]]>
+		</if>
+		
+		<if test="startDate != null and startDate !='' and endDate != null and endDate !=''">
+			<![CDATA[
+				and STR_TO_DATE(a.endDate, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+			]]>
+		</if>
+		<![CDATA[
+			ORDER BY 
+				case
+					when a.state = 'processing' then 1
+					when a.state = 'unprocessing' then 2
+					ELSE 3
+				END,
+			a.endDate DESC
+			limit #{limit} offset #{offset};
 		]]>
 	</select>
+	
+	<select id="countPSAuctionListBySellerId" parameterType="String" resultType="int">
+		<![CDATA[
+			select count(*) from auction where id=#{id};
+		]]>
+	</select>
+	
 	
 	<select id="selectPSAuctionListByDate" parameterType="map" resultType="Map">
 		<![CDATA[
@@ -101,26 +123,34 @@
 				from auction a
 				JOIN person p ON a.id = p.id
 				WHERE a.id = #{sellerId}
-				STR_TO_DATE(a.endDate, '%Y-%m-%d') >= STR_TO_DATE(#{filterDate}, '%Y-%m-%d')
+				and STR_TO_DATE(a.endDate, '%Y-%m-%d') between STR_TO_DATE(#{filterDate}, '%Y-%m-%d') and STR_TO_DATE(now(), '%Y-%m-%d')
 				ORDER BY 
 					case
-						when a.state = '진행중' then 1
-						when a.state = '종료' then 2
+						when a.state = 'processing' then 1
+						when a.state = 'unprocessing' then 2
 						ELSE 3
 					END,
-				a.endDate DESC;
+				a.endDate DESC
+				limit #{limit} offset #{offset};
 		]]>
 	</select>
 	
 	<select id="selectPSAuctionListByDateRange" parameterType="map" resultType="Map">
 		<![CDATA[
 			select a.*, p.*
-			from auction a
-			join person p
-			on a.id = p.id
-			where id=#{sellerId} 
-			and STR_TO_DATE(a.endDate, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
-			order by a.state and a.endDate;
+				from auction a
+				join person p
+				on a.id = p.id
+				where a.id=#{sellerId}
+				and STR_TO_DATE(a.endDate, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+				ORDER BY 
+					case
+						when a.state = 'processing' then 1
+						when a.state = 'unprocessing' then 2
+						ELSE 3
+					END,
+			a.endDate DESC
+			limit #{limit} offset #{offset};
 		]]>
 	</select>
 

@@ -23,10 +23,19 @@ public class CompanyBlacklistRepository {
             return result > 0;
         }
     }
-    public List<Map<String, Object>> getComBlackListByBlackNum(String blackNum) {
+    public List<Map<String, Object>> getComBlackListByBlackNum(String companyId) {
         try (SqlSession session = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
-            return session.selectList("mapper.blacklist.getComBlackListByBlackNum", blackNum); // selectList로 변경
+            return session.selectList("mapper.blacklist.getComBlackListByBlackNum", companyId); // selectList로 변경
         }
     }
+    
+    public boolean removeBlacklistById(int blackId) {
+        try (SqlSession session = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+            int result = session.delete("mapper.blacklist.removeBlacklistById", blackId);
+            session.commit();
+            return result > 0;
+        } 
+    }
+    
     
 }

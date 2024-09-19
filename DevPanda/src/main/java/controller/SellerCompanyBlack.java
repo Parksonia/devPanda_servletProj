@@ -26,7 +26,7 @@ public class SellerCompanyBlack extends HttpServlet {
         String content = request.getParameter("content");
 
         if (auctionNum == null || auctionNum.isEmpty()) {
-            response.getWriter().write("Auction number is missing.");
+            response.getWriter().write("거래번호가 없습니다.");
             return;
         }
 

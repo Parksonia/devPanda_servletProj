@@ -30,35 +30,20 @@ public class BlacklistRepositoryImpl implements BlacklistRepository {
 	}
 
 	@Override
-	public List<Map> allBuyerPersonSellerBlackList(String id, int row) throws Exception {
-		HashMap<String,Object> param = new HashMap<>();
-		param.put("id", id);
-		param.put("row",row);
-		
-		return sqlSession.selectList("mapper.blacklist.selectAllSellerBlackOfPersonBuyer",param);
-	}
-
-	@Override
-	public Integer buyerPersontSellerBlackListCnt(String id) throws Exception {
-		
-		return sqlSession.selectOne("mapper.blacklist.selectBuyerPersontSellerBlackListCnt",id);
-	}
-
-	@Override
-	public Integer deleteSellerBlackForBuyerPerson(Integer blackNum) {
-		int result = sqlSession.delete("mapper.blacklist.deleteSellerBlackForBuyerPerson",blackNum);
-		sqlSession.commit();
-		return result; 
-	}
-		
 	public void insertSellerBlack(Map<String, Object> blistMap) throws Exception {
 		sqlSession.insert("mapper.blacklist.insertSellerBlack", blistMap);
-		sqlSession.commit();		
+		sqlSession.commit();
+		
 	}
 
 	@Override
 	public List<Map> selectBlacklistById(Map<String, Object> blistMap) throws Exception {
 		return sqlSession.selectList("mapper.blacklist.selectBlacklistById",blistMap);
+	}
+
+	@Override
+	public int countBlacklistById(String id) throws Exception {
+		return sqlSession.selectOne("mapper.blacklist.countBlacklistById", id);
 	}
 
 	@Override
@@ -69,8 +54,26 @@ public class BlacklistRepositoryImpl implements BlacklistRepository {
 	}
 
 	@Override
-	public int countBlacklistById(String id) throws Exception {
-		return sqlSession.selectOne("mapper.blacklist.countBlacklistById", id);
+	public List<Map> allBuyerPersonSellerBlackList(String id, int row) throws Exception {
+		HashMap<String,Object> param = new HashMap<>();
+		param.put("id", id);
+		param.put("row",row);
+		
+		return sqlSession.selectList("mapper.blacklist.selectAllSellerBlackOfPersonBuyer",param);
 	}
+
+	@Override
+	public Integer buyerPersontSellerBlackListCnt(String id) throws Exception {
+		return sqlSession.selectOne("mapper.blacklist.selectBuyerPersontSellerBlackListCnt",id);
+	}
+
+	@Override
+	public Integer deleteSellerBlackForBuyerPerson(Integer blackNum) {
+		int result = sqlSession.delete("mapper.blacklist.deleteSellerBlackForBuyerPerson",blackNum);
+		sqlSession.commit();
+		return result;
+	}
+
+	
 
 }

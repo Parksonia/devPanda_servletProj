@@ -46,5 +46,20 @@
 			select * from company where id = #{id};
 		]]>
 	</select>
-
+	
+	<select id="selectCompanyByCompanyId" parameterType="String" resultType="Map">
+		<![CDATA[
+			select * from company where id = #{companyId};
+		]]>
+	</select>
+	
+	<update id="updateCompanyInfo" parameterType="map">  <!-- 회사정보 업데이트 -->
+        UPDATE company
+        SET email = #{email},
+            password = #{password},
+            companyName = #{companyName},
+            Address = #{address}
+        WHERE Id = #{companyId}
+    </update>
+	
 </mapper>

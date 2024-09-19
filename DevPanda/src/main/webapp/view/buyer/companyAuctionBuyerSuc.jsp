@@ -7,6 +7,7 @@
 <title>판매 상세 페이지</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!-- 기업|구매내역조회|낙찰내역조회| 상세보기 -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/details.css">
@@ -42,18 +43,18 @@
 }
 
 .report-button {
-    background-color: #ff6b6b;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin-top: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease; /* 부드러운 전환 효과 */
+	background-color: #ff6b6b;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	margin-top: 10px;
+	cursor: pointer;
+	transition: all 0.3s ease; /* 부드러운 전환 효과 */
 }
 
 .report-button:hover {
-    background-color: #ff4c4c; /* 호버 시 더 진한 빨간색 */
+	background-color: #ff4c4c; /* 호버 시 더 진한 빨간색 */
 }
 
 /* 진행상황 start */
@@ -301,15 +302,20 @@
 						<div class="minmax">
 							<span class="bold">희망 최소 연봉</span>
 							<div>
-								<span> ${auction.minSalary}</span>
+								<span> <fmt:formatNumber value="${auction.minSalary}"
+										type="number" pattern="#,###" />원
+								</span>
 								<!-- 수정된 금액 -->
 							</div>
 						</div>
 						<div class="minmax">
 							<span class="bold">희망 최대 연봉</span>
 							<div>
-								<span> ${auction.maxSalary}</span>
-								<!-- 수정된 금액 -->
+
+								<span> <fmt:formatNumber value="${auction.maxSalary}"
+										type="number" pattern="#,###" />원
+								</span>
+
 							</div>
 						</div>
 						<div class="filter_bind">
@@ -362,7 +368,6 @@
 						<p style="font-weight: bold;">${company.name}</p>
 						<p>아이디: ${company.id}</p>
 						<p>이메일: ${company.email}</p>
-						<p>대표 번호: 010-1111-1111</p>
 						<p>주소: ${company.address}</p>
 					</div>
 					<!-- 판매자 프로필(Person) -->
@@ -372,7 +377,6 @@
 						<p style="font-weight: bold;">${person.nickName}</p>
 						<p>아이디: ${person.id}</p>
 						<p>이메일: ${person.email}</p>
-						<p>휴대폰 번호: 010-1111-1111</p>
 						<p>주소: ${person.address}</p>
 						<button class="report-button">블랙리스트 등록</button>
 					</div>
@@ -385,11 +389,14 @@
 			<div class="prices">
 				<div class="price_type">
 					<p>판매자 판매 희망금액</p>
-					<span class="bold">${auction.maxSalary}원</span>
+					<span class="bold"> <fmt:formatNumber
+							value="${auction.maxSalary}" type="number" pattern="#,###" />원
+					</span>
 				</div>
 				<div class="price_type">
 					<p>최종 낙찰 금액</p>
-					<span class="final-bid">${transaction.price}원</span>
+					<span class="final-bid"><fmt:formatNumber
+							value="${transaction.price}" type="number" pattern="#,###" />원</span>
 				</div>
 			</div>
 
@@ -424,10 +431,10 @@
 					<tbody>
 						<c:forEach var="buyer" items="${allBuyer}">
 							<tr
-								<c:if test="${buyer.bidState == 2}">style="background-color: rgba(128, 128, 128, 0.2);" </c:if>>
+								<c:if test="${buyer.bidState == 2 or buyer.bidState == 3}">style="background-color: rgba(128, 128, 128, 0.2);" </c:if>>
 								<!-- 입찰 상태 -->
 								<td class="table_td"><span class="status"> <c:out
-											value="${buyer.bidState == 2 ? '낙찰' : '입찰'}" />
+											value="${(buyer.bidState == 2 or buyer.bidState == 3) ? '낙찰' : '입찰'}" />
 								</span></td>
 								<!-- 구매자 ID (기업회원 또는 개인회원 구분) -->
 								<td class="table_td"><c:choose>
@@ -439,8 +446,8 @@
 										</c:otherwise>
 									</c:choose></td>
 								<!-- 입찰 가격 -->
-								<td class="table_td align_right"><c:out
-										value="${buyer.bidPrice}" />원</td>
+								<td class="table_td align_right"><fmt:formatNumber
+										value="${buyer.bidPrice}" type="number" pattern="#,###" />원</td>
 								<!-- 입찰 날짜 -->
 								<td class="table_td align_right"><c:out
 										value="${buyer.bidDate}" /></td>
@@ -520,97 +527,155 @@
 			</div>
 
 			<script>
+				$(document)
+						.ready(
+								function() { //ajax 요청 보내기
+									$('form')
+											.on(
+													'submit',
+													function(event) {
+														event.preventDefault();
+														$
+																.ajax({
+																	url : "${pageContext.request.contextPath}/sellerCompanyBlack",
+																	type : "POST",
+																	data : {
+																		auctionNum : $(
+																				'input[name="auctionNum"]')
+																				.val(),
+																		title : $(
+																				'input[name="title"]')
+																				.val(),
+																		content : $(
+																				'textarea[name="content"]')
+																				.val()
+																	},
+																	success : function(
+																			response) {
+																		$(
+																				'.modal')
+																				.hide();
+																		$(
+																				'.report-button')
+																				.text(
+																						'신고 됨')
+																				// 텍스트 변경
+																				.css(
+																						{
+																							'border' : '2px solid red',
+																							'color' : 'red',
+																							'background-color' : '#fff'
+																						})
+																				.prop(
+																						'disabled',
+																						true);
+																	},
+																	error : function(
+																			xhr,
+																			status,
+																			error) {
+																		console
+																				.log(
+																						"오류 :",
+																						status,
+																						error); // 에러 발생 시 메시지 출력
+																	}
+																});
+													});
+								});
 
-				$(document).ready(function() { //ajax 요청 보내기
-        			$('form').on('submit', function(event) {
-            		event.preventDefault(); 
-            		$.ajax({
-                	url: "${pageContext.request.contextPath}/sellerCompanyBlack", 
-                	type: "POST", 
-                	data: {
-                        auctionNum: $('input[name="auctionNum"]').val(),
-                        title: $('input[name="title"]').val(),
-                        content: $('textarea[name="content"]').val()
-                    },
-                	success: function(response) {
-                	    $('.modal').hide();
-                	    $('.report-button')
-                        .text('신고 됨')           // 텍스트 변경
-                        .css({
-                            'border': '2px solid red',  
-                            'color': 'red',             
-                            'background-color': '#fff'  
-                        })
-                        .prop('disabled', true);
-                	},
-                	error: function(xhr, status, error) {
-                	    console.log("오류 :", status, error); // 에러 발생 시 메시지 출력
-                			}
-            			});
-        			});
-    			});
-				
-				document.addEventListener("DOMContentLoaded", function() { //모달 여는 스크립트 수정!
-				    const modal = document.querySelector('.modal');
-				    const modalCloseButton = document.querySelector('.modal-close');
-				    const reportButton = document.querySelector('.report-button');
-				    const titleInput = document.querySelector('input[name="title"]');
-				    const contentTextarea = document.querySelector('textarea[name="content"]');
+				document
+						.addEventListener(
+								"DOMContentLoaded",
+								function() { //모달 여는 스크립트 수정!
+									const modal = document
+											.querySelector('.modal');
+									const modalCloseButton = document
+											.querySelector('.modal-close');
+									const reportButton = document
+											.querySelector('.report-button');
+									const titleInput = document
+											.querySelector('input[name="title"]');
+									const contentTextarea = document
+											.querySelector('textarea[name="content"]');
 
-				    reportButton.addEventListener('click', function() { // 모달 열기
-				        modal.style.display = 'flex';
-				    });
+									reportButton.addEventListener('click',
+											function() { // 모달 열기
+												modal.style.display = 'flex';
+											});
 
-				    modalCloseButton.addEventListener('click', function(event) { // 모달 닫을 때 경고 메시지
-				        if (titleInput.value !== "" || contentTextarea.value !== "") {
-				            const confirmation = confirm("작성 중인 내용이 있습니다. 창을 닫으시겠습니까?");
-				            if (!confirmation) {
-				                event.preventDefault();
-				                return;
-				            }
-				        }
-				        modal.style.display = 'none';
-				    });
+									modalCloseButton
+											.addEventListener(
+													'click',
+													function(event) { // 모달 닫을 때 경고 메시지
+														if (titleInput.value !== ""
+																|| contentTextarea.value !== "") {
+															const confirmation = confirm("작성 중인 내용이 있습니다. 창을 닫으시겠습니까?");
+															if (!confirmation) {
+																event
+																		.preventDefault();
+																return;
+															}
+														}
+														modal.style.display = 'none';
+													});
 
-				    window.addEventListener('click', function(event) { // 클릭이 발생할 때 모달 밖을 누를 경우 경고 메시지
-				        if (event.target == modal) {
-				            if (titleInput.value !== "" || contentTextarea.value !== "") {
-				                const confirmation = confirm("작성 중인 내용이 있습니다. 창을 닫으시겠습니까?");
-				                if (!confirmation) {
-				                    event.preventDefault();
-				                    return;
-				                }
-				            }
-				            modal.style.display = 'none';
-				        }
-				    });
+									window
+											.addEventListener(
+													'click',
+													function(event) { // 클릭이 발생할 때 모달 밖을 누를 경우 경고 메시지
+														if (event.target == modal) {
+															if (titleInput.value !== ""
+																	|| contentTextarea.value !== "") {
+																const confirmation = confirm("작성 중인 내용이 있습니다. 창을 닫으시겠습니까?");
+																if (!confirmation) {
+																	event
+																			.preventDefault();
+																	return;
+																}
+															}
+															modal.style.display = 'none';
+														}
+													});
 
+									titleInput
+											.addEventListener(
+													"invalid",
+													function() { // 신고 title, content 값 비어 있을 때 작동할 메시지
+														if (titleInput.value === "") {
+															titleInput
+																	.setCustomValidity("제목을 입력해주세요.");
+														} else {
+															titleInput
+																	.setCustomValidity(""); // 기본 메시지 초기화
+														}
+													});
 
-				    titleInput.addEventListener("invalid", function() { // 신고 title, content 값 비어 있을 때 작동할 메시지
-				        if (titleInput.value === "") {
-				            titleInput.setCustomValidity("제목을 입력해주세요.");
-				        } else {
-				            titleInput.setCustomValidity(""); // 기본 메시지 초기화
-				        }
-				    });
+									contentTextarea
+											.addEventListener(
+													"invalid",
+													function() {
+														if (contentTextarea.value === "") {
+															contentTextarea
+																	.setCustomValidity("신고내용을 입력해주세요.");
+														} else {
+															contentTextarea
+																	.setCustomValidity("");
+														}
+													});
 
-				    contentTextarea.addEventListener("invalid", function() {
-				        if (contentTextarea.value === "") {
-				            contentTextarea.setCustomValidity("신고내용을 입력해주세요.");
-				        } else {
-				            contentTextarea.setCustomValidity("");
-				        }
-				    });
+									titleInput.addEventListener("input",
+											function() { // 입력이 발생할 때마다 유효성 검사 메시지 초기화
+												titleInput
+														.setCustomValidity("");
+											});
 
-				    titleInput.addEventListener("input", function() { // 입력이 발생할 때마다 유효성 검사 메시지 초기화
-				        titleInput.setCustomValidity("");
-				    });
-
-				    contentTextarea.addEventListener("input", function() {
-				        contentTextarea.setCustomValidity("");
-				    });
-				});
-	
+									contentTextarea.addEventListener("input",
+											function() {
+												contentTextarea
+														.setCustomValidity("");
+											});
+								});
 			</script>
 		</div>
 	</div>
