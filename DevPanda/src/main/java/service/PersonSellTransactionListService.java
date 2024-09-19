@@ -9,11 +9,11 @@ import dto.Company;
 
 public interface PersonSellTransactionListService {
 	
-	List<Map> personSellTransactionList(String sellerId) throws Exception;
-	List<Map> personSellTransactionListByDate(String sellerId, String filterDate) throws Exception;
-	List<Map> personSellTransactionListByDateRange(String sellerId, String startDate, String endDate) throws Exception;
+	List<Map> personSellTransactionList(String sellerId, int limit, int offset) throws Exception;
+	List<Map> personSellTransactionListByDate(String sellerId, String filterDate, int limit, int offset) throws Exception;
+	List<Map> personSellTransactionListByDateRange(String sellerId, String startDate, String endDate, int limit, int offset) throws Exception;
 	Company selectCompanyInfo(String id) throws Exception; 
 	void sendTransactionMail(String recipient, String subject, String content, String replyTo) throws MessagingException;
-	
 	void updateStateTransactionState(Integer auctionNum) throws Exception;
+	int countTransactionListBySellerId(String id) throws Exception;
 }

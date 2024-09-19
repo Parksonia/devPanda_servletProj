@@ -35,8 +35,8 @@
 
 			<!-- 경매 정보 표시 -->
 			<p id="auction-title" class="text-lg font-bold mt-4">경매 제목: ${auctionAndPerson.title}</p>
-			<p id="auction-min-bid" class="text-lg">최소 입찰가: ${auctionAndPerson.maxSalary}원</p>
-			<p id="auction-max-bid" class="text-lg">최대 입찰가: ${auctionAndPerson.minSalary}원</p>
+			<p id="auction-min-bid" class="text-lg">최소 입찰가: ${auctionAndPerson.minSalary}원</p>
+			<p id="auction-max-bid" class="text-lg">최대 입찰가: ${auctionAndPerson.maxSalary}원</p>
 
 			<!-- 카테고리 체크박스 정보 표시 -->
 			<p id="auction-categories" class="text-lg">카테고리:${category}</p>
@@ -65,39 +65,88 @@
 	<script>
       	
 		function bid(){
+			const today = new Date();
 			
+			const year = today.getFullYear();
 			
-			$.ajax({
-		        url:'http://localhost:8080/DevPanda/bid',
-		        dataType:'text',
-		        type:'POST',
-		        data:{
-		        	'buyerId':'',
-		        	'buyPersonId':'',
-		        	'auctionNum':'',
-		        	'sellerId':'${auctionAndPerson.id}',
-		        	'bidDate':'',
-		        	'bidPrice':'',
-		        	'bidState':'',
-		        	'memType':'${userType}',
-		        	'bidMaxPrice':'${auctionAndPerson.bidMaxPrice}',
-		        	'date':'',
-		        	'price':'${auctionAndPerson.bidMaxPrice}',
-		        	'state':''},
-		        success:function(result){
-		        if(result==='success'){
-		        	alert(`입찰 금액 ${bidAmount}원이 입찰되었습니다.`);
-		        	
-		        }  else{
-		        	alert(`입찰 금액 ${bidAmount}원이 입찰실패하였습니다. 다시 시도해 주세요`);
-		        	
-		        }
-		        
-		        
-		        
-		        
-		        }
-		    });
+			const month = (today.getMonth() + 1).toString().padStart(2, '0'); 
+			
+			const day = today.getDate().toString().padStart(2, '0');
+			
+			const inputdate = year+"-"+month+"-"+day;
+			
+			const bidAmount = $('#bid-amount').val();
+			
+			if('${userType}' === 'P'){
+				
+				
+				$.ajax({
+			        url:'http://localhost:8080/DevPanda/bid',
+			        dataType:'text',
+			        type:'POST',
+			        data:{
+			        	
+			        	'buyPersonId':'${person.id}',
+			        	'auctionNum':'${auctionAndPerson.auctionNum}',
+			        	'sellerId':'${auctionAndPerson.id}',
+			        	'bidDate':inputdate,
+			        	'bidPrice':$('#bid-amount').val(),
+			        	'bidState':'1',
+			        	'memType':'${userType}',
+			        	'bidMaxPrice':$('#bid-amount').val(),
+			        	},
+			        success:function(result){
+			        if(result==='success'){
+			        	console.log(bidAmount)
+			        	const a = 1;
+			        	alert(`입찰 금액 \${bidAmount}원이 입찰되었습니다.`);
+			        	
+			        }  else{
+			        	alert(`입찰 금액 \${bidAmount}원이 입찰실패하였습니다. 다시 시도해 주세요`);
+			        	
+			        }
+			        
+			        
+			        
+			        
+			        }
+			    });
+				
+			}else{
+				
+				
+				$.ajax({
+			        url:'http://localhost:8080/DevPanda/bid',
+			        dataType:'text',
+			        type:'POST',
+			        data:{
+			        	
+			        	'buyerId':'${company.id}',
+			        	'auctionNum':'${auctionAndPerson.auctionNum}',
+			        	'sellerId':'${auctionAndPerson.id}',
+			        	'bidDate':inputdate,
+			        	'bidPrice':$('#bid-amount').val(),
+			        	'bidState':'1',
+			        	'memType':'${userType}',
+			        	'bidMaxPrice':$('#bid-amount').val(),
+			        	},
+			        success:function(result){
+			        if(result==='success'){
+			        	alert(`입찰 금액 \${bidAmount}원이 입찰되었습니다.`);
+			        	
+			        }  else{
+			        	alert(`입찰 금액 \${bidAmount}원이 입찰실패하였습니다. 다시 시도해 주세요`);
+			        	
+			        }
+			        
+			        
+			        
+			        
+			        }
+			    });
+				
+			}
+			
 					
 	
 		}
@@ -107,24 +156,89 @@
 		function transactionbid(){
 			
 			
-			$.ajax({
-		        url:'http://localhost:8080/DevPanda/transactionbid',
-		        dataType:'text',
-		        type:'POST',
-		        data:{'id':$('#id').val(),
-		        		'email':$('#email').val()},
-		        success:function(result){
-		        if(result==='success'){
-		        	alert(`입찰 금액 ${bidAmount}원이 최대 금액이므로 즉시 구매되었습니다.`);
-		        }  else{
-		        	alert(`입찰 금액 ${bidAmount}원이 입찰 실패하였습니다. 다시 시도해 주세요`);
-		        }
-		        
-		        
-		        
-		        
-		        }
-		    });
+			
+			const today = new Date();
+			
+			const year = today.getFullYear();
+			
+			const month = (today.getMonth() + 1).toString().padStart(2, '0'); 
+			
+			const day = today.getDate().toString().padStart(2, '0');
+			
+			const inputdate = year+"-"+month+"-"+day;
+			
+			const bidAmount = $('#bid-amount').val();
+			
+			
+			if('${userType}' === 'P'){
+				
+				$.ajax({
+			        url:'http://localhost:8080/DevPanda/transactionbid',
+			        dataType:'text',
+			        type:'POST',
+			        data:{
+			        	
+			        	'buyPersonId':'${person.id}',
+			        	'auctionNum':'${auctionAndPerson.auctionNum}',
+			        	'sellerId':'${auctionAndPerson.id}',
+			        	'bidDate':inputdate,
+			        	'bidPrice':'${auctionAndPerson.maxSalary}',
+			        	'bidState':'1',
+			        	'memType':'${userType}',
+			        	'bidMaxPrice':'${auctionAndPerson.bidMaxPrice}',
+			        	'date':inputdate,
+			        	'price':'${auctionAndPerson.maxSalary}',
+			        	'state':'i'
+			        	},
+			        success:function(result){
+			        if(result==='success'){
+			        	alert(`입찰 금액 \${bidAmount}원이 최대 금액이므로 즉시 구매되었습니다.`);
+			        }  else{
+			        	alert(`입찰 금액 \${bidAmount}원이 입찰 실패하였습니다. 다시 시도해 주세요`);
+			        }
+			        
+			        
+			        
+			        
+			        }
+			    });
+				
+			}else{
+				
+				
+				$.ajax({
+			        url:'http://localhost:8080/DevPanda/transactionbid',
+			        dataType:'text',
+			        type:'POST',
+			        data:{
+			        	
+			        	'buyerId':'${company.id}',
+			        	'auctionNum':'${auctionAndPerson.auctionNum}',
+			        	'sellerId':'${auctionAndPerson.id}',
+			        	'bidDate':inputdate,
+			        	'bidPrice':'${auctionAndPerson.maxSalary}',
+			        	'bidState':'1',
+			        	'memType':'${userType}',
+			        	'bidMaxPrice':'${auctionAndPerson.bidMaxPrice}',
+			        	'date':inputdate,
+			        	'price':'${auctionAndPerson.maxSalary}',
+			        	'state':'i'
+			        	},
+			        success:function(result){
+			        if(result==='success'){
+			        	alert(`입찰 금액 \${bidAmount}원이 최대 금액이므로 즉시 구매되었습니다.`);
+			        }  else{
+			        	alert(`입찰 금액 \${bidAmount}원이 입찰 실패하였습니다. 다시 시도해 주세요`);
+			        }
+			        
+			        
+			        
+			        
+			        }
+			    });
+				
+			}
+			
 					
 	
 		}
@@ -149,17 +263,19 @@
 
         function submitBid() {
             const bidAmount = parseInt(document.getElementById('bid-amount').value);
+            console.log(bidAmount);
             const maxAmount = ${auctionAndPerson.maxSalary};
             let currentBid = ${auctionAndPerson.bidMaxPrice};
 
             if (bidAmount) {
                 if (bidAmount >= maxAmount) {
                 	//bid insert, auction update insert transaction
-                	alert(`입찰 금액 ${bidAmount}원이 최대 금액이므로 즉시 구매되었습니다.`);
+                	
+                	transactionbid();
                     closeBidModal();
                 } else if (bidAmount > currentBid) {
                    	//bid insert, auction update
-                    alert(`입찰 금액 ${bidAmount}원이 입찰되었습니다.`);
+                    bid();
                     closeBidModal();
                 } else {
                     alert('입찰 금액이 현재 최고 금액보다 낮습니다.');
@@ -169,7 +285,7 @@
             }
         }
         
-        console.log(1)
+        
     </script>
     
 

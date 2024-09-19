@@ -26,7 +26,7 @@ public class CompanyInfo extends HttpServlet {
 		System.out.println(company);
 		// 회사 정보가 존재하면, 이를 뷰로 전달
 		request.setAttribute("company", company);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/view/companyInfo.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/view/companyInfo.jsp"); 
 		dispatcher.forward(request, response);
 	}
 

@@ -1,10 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>PersonBlack</title>
-<!-- 개인,기업|판매내역조회|구매자차단내역| -->
+<!-- 개인,기업|구매내역조회|판매자차단내역| -->
+<link href="${pageContext.request.contextPath}/css/sellerBlack.css"	rel="stylesheet">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <style>
 .container.my .content_area {
 	min-height: 380px;
@@ -37,7 +41,7 @@
 	letter-spacing: -.36px
 }
 
-.title>h3,h2 {
+.title>h3, h2 {
 	font-size: inherit;
 	line-height: 29px
 }
@@ -45,7 +49,7 @@
 /*블랙리스트 목록 시작 */
 a {
 	-webkit-tap-highlight-color: rgba(0, 0, 0, .1);
-	color: inherit
+	color: inherit;
 }
 
 /*sort head start*/
@@ -53,41 +57,42 @@ a {
 	align-items: center;
 	border-bottom: 1px solid #ebebeb;
 	display: flex;
-	padding: 12px
+	padding: 12px;
 }
 
 .head_totalcnt {
-	display: flex
+	display: flex;
 }
 
 .total-rows {
 	color: rgba(34, 34, 34, .8);
 	font-size: 13px;
-	letter-spacing: -.07px
+	letter-spacing: -.07px;
 }
 
 .head_sort {
+	justify-content: space-between;
 	align-items: center;
 	display: flex;
 	margin-left: auto;
-	text-align: right
+	text-align: right;
 }
 
 .head_sort .sorting_box {
-	margin-left: 20px;
-	width: 184px;
+	margin-left: 0px;
+	width: 150px; /* 너비를 줄여 균형 있게 만듦 */
 }
 
 .head_sort .sorting_box.active_first {
-	font-weight: 700
+	font-weight: 700;
 }
 
 .bid.finished .head_sort .sorting_box.field_date_transaiont {
-	display: block
+	display: block;
 }
 
 .bid.finished .head_sort .sorting_box.field_reported_at {
-	display: block
+	display: block;
 }
 
 .head_sort .sort_link {
@@ -95,30 +100,28 @@ a {
 	font-size: 13px;
 	letter-spacing: -.07px;
 	line-height: 24px;
-	padding-right: 16 px;
+	padding-right: 16px;
 	position: relative;
 }
 
 .head_sort .sort_link:after {
-	/*:after속성은 링크나 다른요소 뒤에 바로 붙을 수 있게함?  */
 	background-image: url("./img/expand-up-down-fill.png");
 	content: "";
 	height: 24px;
 	position: absolute;
-	/* right: -4px; */
 	top: 0;
 	width: 24px;
 }
 
 .head_sort .sort_txt {
 	display: inline-block;
-	vertical-align: top
+	vertical-align: top;
 }
 /*sort head end*/
 
 /*list start */
 li, ol, ul {
-	list-style: none
+	list-style: none;
 }
 
 .black_list_display_mem {
@@ -130,11 +133,13 @@ li, ol, ul {
 }
 
 .black_list_mem {
-	display: flex
+	display: flex;
+	align-items: center;
+	width: 100%; /* 전체 너비로 정렬 */
 }
 
 .black_list_mem .list_item_img_wrap {
-	position: relative
+	position: relative;
 }
 
 .black_list_mem .list_item_img_wrap .mem_image {
@@ -150,14 +155,15 @@ li, ol, ul {
 	display: flex;
 	flex-direction: column;
 	margin-left: 16px;
-	width: 100%;
+	width: 60%; /* 아이템 제목 칸 너비 조정 */
 }
 
 .black_list_mem .list_item_title_wrap .list_itme_div_user {
 	color: #ebebeb;
 	font-size: 16px;
 	letter-spacing: -.27px;
-	line-height: 1.2222222222
+	line-height: 1.2222222222;
+	white-space: nowrap; /* 한 줄로 표시 */
 }
 
 .black_list_mem .list_item_title_wrap .list_item_title {
@@ -178,7 +184,6 @@ li, ol, ul {
 	display: -webkit-box;
 	font-size: 13px;
 	letter-spacing: -.21px;
-	letter-spacing: -.5px;
 	line-height: 19px;
 	margin-top: 4px;
 	overflow: hidden;
@@ -186,265 +191,240 @@ li, ol, ul {
 }
 
 .list_item_status {
-	align-items: center;
 	display: flex;
-	margin-left: auto;
-	text-align: right
+	justify-content: space-between; /* 각 항목을 양 끝으로 배치 */
+	width: 70%; /* 나머지 공간 차지 */
+	align-items: center;
+	text-align: right;
 }
 
 .list_item_status .list_item_column {
-	margin-left: 10px;
-	width: 184px;
+	width: 150px; /* 날짜 너비 조정 */
+	text-align: center;
 }
 
 .list_item_status .column_secondary {
 	font-size: 13px;
-	letter-spacing: -.07px
+	letter-spacing: -.07px;
 }
 
 .list_item_status .column_last {
-	align-self: center;
+	width: 100px; /* 버튼 위치 고정 */
 	display: flex;
-	flex-direction: column;
-	align-items: flex-end;
-	flex-shrink: 0;
-	margin-left: auto;
+	justify-content: flex-end;
 }
 
 .list_item_status .column_last .btn {
-	align-items: center;
-	display: flex;
-	font-size: 14px;
-	letter-spacing: -.21px;
-	margin-right: -6px;
-	padding: 0 6px
-}
-
-.list_item_status .column_last .btn.btn_add {
-	/* border: 1px solid #222; */
-	border-radius: 10px;
 	font-size: 12px;
+	border-radius: 10px;
 	height: 34px;
-	letter-spacing: -.06px;
 	line-height: 32px;
-	margin-right: 0;
 	padding: 0 14px;
 	background-color: #222;
 	color: #fff;
 	font-weight: 700;
 }
-
 /*list end  */
 
 /*pagination  */
 .pagination {
-	padding: 28px 0
+	padding: 28px 0;
 }
 
 .pagination_box {
 	font-size: 0;
 	position: relative;
-	text-align: center
+	text-align: center;
 }
 
-.pagination_box.first .prev_btn_box, .pagination_box.last .next_btn_box
-	{
-	display: none
+.pagination_box.first .prev_btn_box, .pagination_box.last .next_btn_box {
+	display: none;
 }
 
 .page_bind {
 	display: inline-block;
-	vertical-align: top
+	vertical-align: top;
 }
 
 .btn_page {
 	color: rgba(34, 34, 34, .5);
 	display: inline-block;
 	font-size: 16px;
-	padding: 0 8px
+	padding: 0 8px;
 }
 
 .btn_page+.btn_page {
-	margin-left: 12px
+	margin-left: 12px;
 }
 
 .btn_page:hover {
 	-webkit-text-decoration: underline;
-	text-decoration: underline
+	text-decoration: underline;
 }
 
 .btn_page.active {
 	color: #222;
-	font-weight: 700
+	font-weight: 700;
 }
 
 .next_btn_box, .prev_btn_box {
 	display: inline-block;
-	vertical-align: top
+	vertical-align: top;
 }
 
 .next_btn_box .btn_arr, .prev_btn_box .btn_arr {
 	height: 24px;
 	padding: 3px;
-	width: 24px
+	width: 24px;
 }
 
 .next_btn_box .btn_arr+.btn_arr, .prev_btn_box .btn_arr+.btn_arr {
-	margin-left: 5px
+	margin-left: 5px;
 }
 
 .prev_btn_box {
-	margin-right: 25px
+	margin-right: 25px;
 }
 
 .next_btn_box {
-	margin-left: 25px
+	margin-left: 25px;
 }
 
 [class*=arr-page-] {
 	height: 22px;
-	width: 18px
+	width: 18px;
 }
 /*pagination end */
 
 /* modal start */
 .modal {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(34, 34, 34, 0.5);
-    z-index: 1010;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(34, 34, 34, 0.5);
+	z-index: 1010;
 }
 
 .modal-container {
-    position: relative;
-    width: 599px;
-    height: auto;
-    background: #FFFFFF;
-    border-radius: 20px;
-    padding: 40px 20px;
-    box-sizing: border-box;
+	position: relative;
+	width: 599px;
+	height: auto;
+	background: #FFFFFF;
+	border-radius: 20px;
+	padding: 40px 20px;
+	box-sizing: border-box;
 }
 
 .modal-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
 }
 
 .modal-header {
-
-    font-weight: 700;
-    font-size: 32px;
-    color: #000000;
-    text-align: center;
-    margin-bottom: 40px;
+	font-weight: 700;
+	font-size: 32px;
+	color: #000000;
+	text-align: center;
+	margin-bottom: 40px;
 }
 
 .profile-section {
-    display: flex;
-    align-items: center;
-    margin-bottom: 40px;
+	display: flex;
+	align-items: center;
+	margin-bottom: 40px;
 }
 
 .profile-image {
-    width: 80px;
-    height: 80px;
-    border-radius: 10px;
-    background: url('./img/woman.jpg') no-repeat center center;
-    background-size: cover;
-    margin-right: 20px;
+	width: 80px;
+	height: 80px;
+	border-radius: 10px;
+	background-size: cover;
+	margin-right: 20px;
 }
 
-
 .profile-info .user-type {
-    font-weight: 600;
-    font-size: 18px;
-    color: rgba(0, 0, 0, 0.27);
+	font-weight: 600;
+	font-size: 18px;
+	color: rgba(0, 0, 0, 0.27);
 }
 
 .profile-info .user-name {
-    font-weight: 600;
-    font-size: 18px;
-    color: #000000;
+	font-weight: 600;
+	font-size: 18px;
+	color: #000000;
 }
 
 .profile-info .user-email {
-    font-weight: 400;
-    font-size: 14px;
-    color: rgba(34, 34, 34, 0.5);
+	font-weight: 400;
+	font-size: 14px;
+	color: rgba(34, 34, 34, 0.5);
 }
 
 .modal-divider {
-    width: 100%;
-    height: 1px;
-    background: #D9D9D9;
-    margin: 20px 0;
+	width: 100%;
+	height: 1px;
+	background: #D9D9D9;
+	margin: 20px 0;
 }
+
 .modal-transaction-info {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
 }
 
 .modal-transaction-info div {
-   
-    font-weight: 600;
-    font-size: 18px;
-    color: #D3D3D3;
+	font-weight: 600;
+	font-size: 18px;
+	color: #D3D3D3;
 }
 
-.modal-transaction-info .modal-transaction-id,.modal-transaction-info  .modal-transaction-date {
-   
-    font-weight: 400;
-    font-size: 18px;
-    color: #000000;
+.modal-transaction-info .modal-transaction-id, .modal-transaction-info .modal-transaction-date {
+	font-weight: 400;
+	font-size: 18px;
+	color: #000000;
 }
 
 .modal-report-title {
-   
-    font-weight: 600;
-    font-size: 23px;
-    color: #000000;
-    margin-bottom: 20px;
+	font-weight: 600;
+	font-size: 23px;
+	color: #000000;
+	margin-bottom: 20px;
 }
-
 
 .section-title {
-
-    font-weight: 600;
-    font-size: 18px;
-    color: #000000;
-    margin-bottom: 10px;
+	font-weight: 600;
+	font-size: 18px;
+	color: #000000;
+	margin-bottom: 10px;
 }
 
-
 .dropdown-content {
-    background: #FAFAFA;
-    border: 1px solid #EBEBEB;
-    border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 20px;
+	background: #FAFAFA;
+	border: 1px solid #EBEBEB;
+	border-radius: 20px;
+	padding: 20px;
+	margin-bottom: 20px;
 }
 
 .dropdown-content p {
-    margin: 0;
-
-    font-weight: 400;
-    font-size: 16px;
-    color: #000000;
+	margin: 0;
+	font-weight: 400;
+	font-size: 16px;
+	color: #000000;
 }
 /* modal end */
-</style>
 
+</style>
 
 </head>
 
@@ -463,18 +443,14 @@ li, ol, ul {
 
 				<div class="content_title border">
 					<div class="title">
-						<h2>구매자 차단 내역</h2>
+						<h2>판매자 차단 내역</h2>
 					</div>
 				</div>
 
-
-				<!---->
 				<div class="blacklist_list finished bid">
-
-					<!--sort head start : 구매내역에서 가져옴-->
 					<div class="bk_head">
 						<div class="head_totalcnt">
-							<div class="total-rows">전체 3</div>
+							<div class="total-rows">전체 </div>
 						</div>
 						<div class="head_sort">
 							<div class="sorting_box field_date_transaiont">
@@ -490,208 +466,209 @@ li, ol, ul {
 							</div>
 						</div>
 					</div>
-					<!--sort head end-->
 
-					<div class="modal_btn">
-						<div>
-							<div class="black_list_display_mem" style="background-color: rgb(255, 255, 255);">
+					<c:forEach items="${personSellerBlackList }" var="blacklist" varStatus="status">
+						<c:choose>
+							<c:when test="${personSellerBlackList.size() == 0}">
+								<h3>블랙리스트 목록이 없습니다.</h3>
+							</c:when>
+							<c:otherwise>
+								<div class="modal_btn">
+										<div class="black_list_display_mem" data-index="${status.index }"
+																			 data-blacknum="${blacklist.blackNum}"
+																		     data-personimage="${blacklist.personImage}"
+																		     data-blackcom="${blacklist.blackCom}"
+																		     data-blackperson="${blacklist.blackPerson}"
+																		     data-email="${blacklist.email}"
+																		     data-title="${blacklist.title}"
+																		     data-content="${blacklist.content}"
+																		     data-date="${blacklist.date}"
+																		     data-reportdate="${blacklist.reportDate}"
+																		     data-bidnum="${blacklist.bidNum}">
+											<div class="black_list_mem">
+												<div class="list_item_img_wrap">
+													<img src="image?file=${blacklist.personImage }"	alt="seller_image" class="mem_image">
+												</div>
+												<div class="list_item_title_wrap">
+													<c:choose>
+														<c:when test="${blacklist.blackCom != null }">
+															<p class="list_itme_div_user">[기업회원]</p>
+															<p class="list_item_title">${blacklist.blackCom }</p>
+														</c:when>
+														<c:when test="${blacklist.blackPerson != null }">
+															<p class="list_itme_div_user">[개인회원]</p>
+															<p class="list_item_title">${blacklist.blackPerson }</p>
+														</c:when>
+														<c:otherwise>
+															<p class="list_itme_div_user">[회원정보없음]</p>
+														</c:otherwise>
+													</c:choose>
+													<p class="list_item_description">
+														<span>${blacklist.auctionTitle }</span>
+													</p>
+												</div>
+											</div>
 
-								<div class="black_list_mem">
-									<div class="list_item_img_wrap">
-										<img alt="mem_image" src="../img/woman.jpg" class="mem_image">
-
-									</div>
-									<div class="list_item_title_wrap">
-										<!---->
-										<p class="list_itme_div_user">[개인회원]</p>
-										<p class="list_item_title">kimjava</p>
-										<p class="list_item_description">
-											<span>제일좋아하는것은김자바</span>
-										</p>
-									</div>
+											<div class="list_item_status">
+												<div class="list_item_column column_secondary">
+													<p class="text-lookup secondary_title display_paragraph"
+														style="color: rgb(34, 34, 34);">${blacklist.date }</p>
+												</div>
+												<div class="list_item_column column_secondary">
+													<p class="text-lookup secondary_title display_paragraph"
+														style="color: rgb(34, 34, 34);">${blacklist.reportDate }</p>
+												</div>
+												<div class="list_item_column column_last">
+													<button class="btn btn_add" type="button" data-index="${status.index}" data-blacknum="${blacklist.blackNum}">해제하기</button>
+												</div>
+											</div>
+										</div>	
 								</div>
-
-								<div class="list_item_status">
-									<div class="list_item_column column_secondary">
-										<p class="text-lookup secondary_title display_paragraph" style="color: rgb(34, 34, 34);">24/08/15</p>
-									</div>
-									<div class="list_item_column column_secondary">
-										<p class="text-lookup secondary_title display_paragraph" style="color: rgb(34, 34, 34);">24/08/15</p>
-									</div>
-									<div class="list_item_column column_last">
-										<button class="btn btn_add" type="button">해제하기</button>
-										<!-- 버튼에 해제 처리해야함  -->
-									</div>
-								</div>
-							</div>
-
-						</div>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					
+					<!--pagination start -->
+					<div class="pagination">
+					    <div class="pagination_box">
+					        <!-- 이전 버튼 -->
+					        <c:if test="${currentPage > 1}">
+					            <div class="prev_btn_box">
+					                <a href="?page=${currentPage - 1}" class="btn_arr"> 
+					                    <svg xmlns="http://www.w3.org/2000/svg" class="arr-page-prev icon sprite-icons">
+					                        <use href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-prev"
+					                             xlink:href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-prev"></use>
+					                    </svg>
+					                </a>
+					            </div>
+					        </c:if>
+					
+					        <!-- 페이지 번호 -->
+					        <div class="page_bind">
+					            <c:forEach begin="1" end="${totalPages}" var="i">
+					                <a href="?page=${i}" class="btn_page <c:if test='${i == currentPage}'>active</c:if>">
+					                    ${i}
+					                </a>
+					            </c:forEach>
+					        </div>
+					
+					        <!-- 다음 버튼 -->
+					        <c:if test="${currentPage < totalPages}">
+					            <div class="next_btn_box">
+					                <a href="?page=${currentPage + 1}" class="btn_arr">
+					                    <svg xmlns="http://www.w3.org/2000/svg" class="arr-page-next icon sprite-icons">
+					                        <use href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-next"
+					                             xlink:href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-next"></use>
+					                    </svg>
+					                </a>
+					            </div>
+					        </c:if>
+					    </div>
 					</div>
-
-					<div class="modal_btn">
-						<div>
-							<div class="black_list_display_mem" style="background-color: rgb(255, 255, 255);">
-
-								<div class="black_list_mem">
-									<div class="list_item_img_wrap">
-										<img alt="mem_image" src="../img/woman.jpg" class="mem_image">
-
-									</div>
-									<div class="list_item_title_wrap">
-										<!---->
-										<p class="list_itme_div_user">[개인회원]</p>
-										<p class="list_item_title">kimjava</p>
-										<p class="list_item_description">
-											<span>제일좋아하는것은김자바</span>
-										</p>
-									</div>
-								</div>
-
-								<div class="list_item_status">
-									<div class="list_item_column column_secondary">
-										<p class="text-lookup secondary_title display_paragraph" style="color: rgb(34, 34, 34);">24/08/15</p>
-									</div>
-									<div class="list_item_column column_secondary">
-										<p class="text-lookup secondary_title display_paragraph" style="color: rgb(34, 34, 34);">24/08/15</p>
-									</div>
-									<div class="list_item_column column_last">
-										<button class="btn btn_add" type="button">해제하기</button>
-									</div>
-								</div>
-							</div>
-
-						</div>
-					</div>
-					<div class="modal_btn">
-						<div>
-							<div class="black_list_display_mem" style="background-color: rgb(255, 255, 255);">
-
-								<div class="black_list_mem">
-									<div class="list_item_img_wrap">
-										<img alt="mem_image" src="../img/man.jpg" class="mem_image">
-
-									</div>
-									<div class="list_item_title_wrap">
-										<!---->
-										<p class="list_itme_div_user">[개인회원]</p>
-										<p class="list_item_title">developer</p>
-										<p class="list_item_description">
-											<span>제일좋아하는것은김자바</span>
-										</p>
-									</div>
-								</div>
-
-								<div class="list_item_status">
-									<div class="list_item_column column_secondary">
-										<p class="text-lookup secondary_title display_paragraph" style="color: rgb(34, 34, 34);">24/08/15</p>
-									</div>
-									<div class="list_item_column column_secondary">
-										<p class="text-lookup secondary_title display_paragraph" style="color: rgb(34, 34, 34);">24/08/15</p>
-									</div>
-									<div class="list_item_column column_last">
-										<button class="btn btn_add" type="button">해제하기</button>
-									</div>
-								</div>
-							</div>
-
-						</div>
-					</div>
-
+					<!--pagination end -->
+					
 				</div>
-				<!---->
-
-				<!--pagination start  -->
-				<div class="pagination">
-					<div class="pagination_box first last">
-						<div class="prev_btn_box">
-							<a href="#" class="btn_arr"> <svg xmlns="http://www.w3.org/2000/svg" class="arr-page-first icon sprite-icons">
-									<use href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-first" xlink:href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-first"></use>
-									</svg>
-							</a> <a href="#" class="btn_arr"> <svg xmlns="http://www.w3.org/2000/svg" class="arr-page-prev icon sprite-icons">
-								<use href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-prev" xlink:href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-prev"></use>
-								</svg>
-							</a>
-						</div>
-						<div class="page_bind">
-							<a href="#" class="btn_page active"> 1 </a>
-						</div>
-						<div class="next_btn_box">
-							<a href="#" class="btn_arr"> <svg xmlns="http://www.w3.org/2000/svg" class="arr-page-next icon sprite-icons">
-									<use href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-next" xlink:href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-next"></use>
-								</svg>
-							</a> <a href="#" class="btn_arr"> <svg xmlns="http://www.w3.org/2000/svg" class="arr-page-last icon sprite-icons">
-									<use href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-last" xlink:href="/_nuxt/902a7eb5512d7d4f25543902cfd1ccdc.svg#i-arr-page-last"></use>
-								</svg>
-							</a>
-						</div>
-					</div>
-				</div>
-				<!--pagination end  -->
-
-
-
-
-				<!-- Modal -->
-				<div class="modal">
-					<div class="modal-container">
-						<a href="#" class="modal-close"> <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M 20.496094 2.9921875 A 0.50005 0.50005 0 0 0 20.146484 3.1464844 L 12 11.292969 L 3.8535156 3.1464844 A 0.50005 0.50005 0 0 0 3.4941406 2.9941406 A 0.50005 0.50005 0 0 0 3.1464844 3.8535156 L 11.292969 12 L 3.1464844 20.146484 A 0.50005 0.50005 0 1 0 3.8535156 20.853516 L 12 12.707031 L 20.146484 20.853516 A 0.50005 0.50005 0 1 0 20.853516 20.146484 L 12.707031 12 L 20.853516 3.8535156 A 0.50005 0.50005 0 0 0 20.496094 2.9921875 z"></path>
-                </svg>
-						</a>
-						<div class="modal-header">차단 상세 내역</div>
-
-						<div class="profile-section">
-							<div class="profile-image"></div>
-							<div class="profile-info">
-								<div class="user-type">[개인회원]</div>
-								<div class="user-name">김자바</div>
-								<div class="user-email">kimjava@gmail.com</div>
-							</div>
-						</div>
-
-						<div class="modal-divider"></div>
-
-						<div class="modal-transaction-info">
-							<div>거래 내역</div>
-							<div>거래 일자</div>
-						</div>
-						<div class="modal-transaction-info">
-							<div class="modal-transaction-id">AB123-CD5678-90</div>
-							<div class="modal-transaction-date">24/04/05</div>
-						</div>
-
-
-						<div class="modal-divider"></div>
-
-						<div class="section-title">신고 제목</div>
-						<div class="dropdown-content">갑질이 너무 심합니다.</div>
-
-						<div class="section-title">신고 내용</div>
-						<div class="dropdown-content">
-							<p>처음 거래하는데</p>
-							<p>다시는 거래하고 싶지 않네요</p>
-						</div>
-					</div>
-				</div>
-
-				<script>
-        const modal = document.querySelector('.modal');
-        const modalCloseButton = document.querySelector('.modal-close');
-        const modalOpenButtons = document.querySelectorAll('.modal_btn');
-
-        modalOpenButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                modal.style.display = 'flex';
-            });
-        });
-
-        modalCloseButton.addEventListener('click', function() {
-            modal.style.display = 'none';
-        });
-    </script>
-	<!-- Modal End-->
 			</div>
 		</div>
 	</div>
+	
+	<!-- 상세내역 Modal -->
+	<div class="modal" id="common-modal">
+		<div class="modal-container">
+			<a href="#" class="modal-close">&times;</a>
+			<div class="modal-header">차단 상세 내역</div>
+			<div class="black-num"></div>
+
+			<div class="profile-section">
+				<div class="profile-image"><img src="" alt="seller_image"  class="mem_image" id="modal-person-image"></div>
+				<div class="profile-info">
+					<div class="user-type" id="modal-user-type"></div>
+					<div class="user-name" id="modal-user-name"></div>
+					<div class="user-email" id="modal-email"></div>
+				</div>
+			</div>
+
+			<div class="modal-divider"></div>
+			<div class="modal-transaction-info">
+				<div>거래 내역</div>
+				<div>거래 일자</div>
+			</div>
+			<div class="modal-transaction-info">
+				<div class="modal-transaction-id" id="modal-bidnum">AB123-CD5678</div>
+				<div class="modal-transaction-date" id="modal-date"></div>
+			</div>
+
+
+			<div class="modal-divider"></div>
+			<div class="dropdown-content" id="modal-title">신고 제목</div>
+			<div class="dropdown-content"></div>
+			<div class="section-title">신고 내용</div>
+			<div class="dropdown-content" id="modal-content"></div>
+		</div>
+	</div>
+	<!-- Modal End-->
+<script>
+$(document).ready(function() {
+	/* 리스트 항목 클릭 시 모달 열기 */
+    $('.black_list_display_mem').on('click', function(e) {
+    	const personImage = $(this).data('personimage');
+        const blackCom = $(this).data('blackcom');
+        const blackPerson = $(this).data('blackperson');
+        const email = $(this).data('email');
+        const title = $(this).data('title');
+        const content = $(this).data('content');
+        const bidNum = $(this).data('bidnum'); 
+        const date = $(this).data('date'); 
+        
+    	 // 모달에 데이터 삽입
+        $('#modal-person-image').attr('src', 'image?file=' + personImage);
+        $('#modal-user-type').text(blackCom ? '[기업회원]' : '[개인회원]');
+        $('#modal-user-name').text(blackCom ? blackCom : blackPerson);
+        $('#modal-email').text(email);
+        $('#modal-title').text(title);
+        $('#modal-content').text(content);
+        $('#modal-bidnum').text('AB123-CD5678-' + bidNum);
+        $('#modal-date').text(date);
+        
+     	// 모달 열기
+        $('#common-modal').css('display', 'flex');
+    });
+
+    /* 모달 닫기 */
+    $('.modal-close').on('click', function() {
+    	$(this).closest('.modal').css('display', 'none');
+    });
+    
+    /* 모달 바깥 영역 클릭 시 닫기 */
+    $(window).on('click', function(event) {
+        if ($(event.target).is('#common-modal')) {
+            $('#common-modal').css('display', 'none');
+        }
+    });
+
+    /* 해제하기 버튼 */
+    $('.btn.btn_add').on('click', function(e) {
+        e.stopPropagation(); // 해제하기 버튼 클릭 시 모달 열림 방지
+        const blackNum = $(this).closest('.black_list_display_mem').find('.black-num').text();
+
+        if (confirm('차단 해제하시겠습니까?')) {
+            $.ajax({
+                url: '${pageContext.request.contextPath}/deleteBlacklist', // 서블릿 URL
+                type: 'POST',
+                data: { blackNum: blackNum },
+                success: function(response) {
+                    alert('차단이 해제되었습니다.');
+                    location.reload(); // 성공 시 페이지 새로고침
+                },
+                error: function(xhr, status, error) {
+                    alert('차단 해제에 실패했습니다.');
+                    console.error(error);
+                }
+            });
+        }
+    });
+});
+</script>
+
 </body>
 </html>
