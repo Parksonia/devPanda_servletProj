@@ -84,6 +84,42 @@
 			(#{declPerson}, #{transactionNum}, #{bidNum}, #{blackCom}, #{title}, #{content}, DATE_FORMAT(NOW(), '%Y-%m-%d'), 'S');
 		]]>
 	</insert>
+	
+	<insert id="insertSellerBlack" parameterType="map">
+		<![CDATA[
+			INSERT INTO blacklist 
+			(declPerson, transactionNum, bidNum, blackPerson, title, content, reportDate, roleType)
+			VALUES 
+			(#{declPerson}, #{transactionNum}, #{bidNum}, #{blackPerson}, #{title}, #{content}, DATE_FORMAT(NOW(), '%Y-%m-%d'), 'B');
+		]]>
+	</insert>
+	
+	<select id="selectBlacklistById" parameterType="map" resultType="map">
+		<![CDATA[
+			select b.*, p.personImage, c.companyImage, t.date
+			from blacklist b 
+			left outer join person p
+				on b.blackPerson = p.id
+			LEFT OUTER JOIN company c
+				ON b.blackCom = c.id
+			JOIN transaction t
+				ON b.transactionNum = t.transactionNum
+			where declPerson=#{id}
+			limit #{limit} offset #{offset};
+		]]>
+	</select>
+	
+	<select id="countBlacklistById" parameterType="String" resultType="int">
+		<![CDATA[
+			select count(*) from blacklist where declPerson=#{id};
+		]]>
+	</select>
+	
+	<delete id="deleteBlacklistByNum" parameterType="Integer">
+		<![CDATA[
+			DELETE FROM blacklist WHERE blackNum = #{blackNum};
+		]]>
+	</delete>
 
 
 </mapper>
