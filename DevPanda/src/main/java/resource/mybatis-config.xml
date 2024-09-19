@@ -19,24 +19,23 @@
 	</typeAliases>
 
 
-<<<<<<< HEAD
-	
+
 
 	<environments default="development">
-    <environment id="development">
-        <transactionManager type="JDBC" />
-        <dataSource type="POOLED">
-            <property name="driver" value="com.mysql.cj.jdbc.Driver" />
-            <property name="url"
-                value="jdbc:mysql://localhost:3306/devPandaT?useSSL=false&amp;serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=UTF-8" />
-            <property name="username" value="root" />
-            <property name="password" value="98019801" />
-        </dataSource>
-    </environment>
-</environments>
+	    <environment id="development">
+	        <transactionManager type="JDBC" />
+	        <dataSource type="POOLED">
+	            <property name="driver" value="com.mysql.cj.jdbc.Driver" />
+	            <property name="url"
+	                value="jdbc:mysql://localhost:3306/devPandaT?useSSL=false&amp;serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=UTF-8" />
+	            <property name="username" value="root" />
+	            <property name="password" value="0000" />
+	        </dataSource>
+	    </environment>
+	</environments>
 
 	
-=======
+
 <!-- 	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
@@ -51,9 +50,9 @@
 			</dataSource>
 		</environment>
 	</environments>  -->
->>>>>>> branch 'main' of https://github.com/KIJ9801/devPanda.git
 
-	<environments default="development">
+
+	<!-- <environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
@@ -61,14 +60,13 @@
 				<property name="url"
 					value="jdbc:mariadb://localhost:3306/devpanda"></property>
 				<property name="username" value="root"></property>
-				<property name="password" value="7564"></property> <!-- 석준쓰 1590  -->
+				<property name="password" value="7564"></property> 
 			</dataSource>
 		</environment>
-<<<<<<< HEAD
+
 	</environments> --> 
-=======
-	</environments>
->>>>>>> branch 'main' of https://github.com/KIJ9801/devPanda.git
+
+
 
 	<mappers>
 		<mapper resource="mapper/person.xml" />

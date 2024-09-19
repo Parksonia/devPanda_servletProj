@@ -2,7 +2,10 @@ package service;
 
 import dto.Auction;
 import dto.AuctionAndPerson;
+import dto.MapperSearchCondition;
 import dto.Person;
+import dto.SearchCondition;
+
 import java.util.List;
 import java.util.Map;
 
@@ -17,5 +20,5 @@ public interface AuctionService {
 
 	AuctionAndPerson findAuctionAndPersonById(Integer auctionNum);
 
-	List<AuctionAndPerson> findAllAuctionWithOffset(Integer offset);
+	List<AuctionAndPerson> findAllAuctionWithOffset(String data);
 }
