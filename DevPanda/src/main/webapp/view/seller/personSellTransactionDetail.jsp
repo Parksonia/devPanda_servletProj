@@ -7,6 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<!-- 개인|판매내역조회|낙찰내역조회|거래성공 |상세보기 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<link href="${pageContext.request.contextPath }/css/details.css" rel="stylesheet">
+
 <style>
 .progress_item_description {
 	color: black; /* 기본 색상 */
@@ -35,14 +39,13 @@
 .modal-info-list li {
     margin-bottom: 8px; /* 목록 간 간격 */
 }
+
+.completed {
+    color: red; /* 계약 완료일 때 빨간색으로 변경 */
+    display: flex;
+    align-items: center;
+}
 </style>
-<!-- 개인|판매내역조회|낙찰내역조회|거래성공 |상세보기 -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<link href="${pageContext.request.contextPath }/css/details.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath }/css/personAuctionSellerSuc.css"
-	rel="stylesheet">
 </head>
 <body>
 	<!-- Header Start -->
@@ -155,9 +158,7 @@
 
 					<!-- 구매자(Seller) 프로필 -->
 					<div class="profile">
-						<img
-							src="${pageContext.request.contextPath}/img/${sperson.personImage}"
-							alt="SellerImg">
+						<img src="img?file=${sperson.personImage }"	alt="SellerImg">
 						<p style="color: #888; font-weight: bold;">[개인회원]</p>
 						<p style="font-weight: bold;">판매자 : ${sperson.nickName }</p>
 						<p>아이디: ${sperson.id }</p>
@@ -254,11 +255,15 @@
 							</a>
 					</div>
 					<div style="display: flex; flex-direction: column;">
-						<span class="progress_item_title completed">계약 완료</span> 
-						<a href="#" id="progressItemDescription" class="progress_item_description" style="display:flex; align-items:center;">
-							<img src="${pageContext.request.contextPath }/img/checkbox-check-svgrepo-com.svg" alt="" style="width:20px;height:20px;">완료로 변경
-						</a>
-					</div>
+			            <span id="contractCompleted" class="progress_item_title completed" style="color: red; display: ${state == 'f' ? 'flex' : 'none'};">
+			                <img src="${pageContext.request.contextPath}/img/checkbox-check-svgrepo-com.svg" alt="" style="width:20px;height:20px;">
+			                계약 완료
+			            </span>
+			            <a href="#" id="progressItemDescription" class="progress_item_description" style="display: ${state == 'f' ? 'none' : 'flex'};">
+			                <img src="${pageContext.request.contextPath}/img/unchecked.svg" alt="" style="width:20px;height:20px;">
+			                완료로 변경
+			            </a>
+			        </div>
 				</div>
 			</div>
 
@@ -267,13 +272,13 @@
 				<div class="modal-container">
 					<a href="#" class="modal-close">&times;</a>
 					<div class="modal-header">신고하기</div>
-					<!-- person or company  -->
+					
 					<c:choose>
 					
 						<c:when test="${memType == 'P'}">
 							<div class="modal-profile">
 								<div class="modal-profile-image">
-									<img src="${pageContext.request.contextPath}/img/${bperson.personImage}" alt="BuyerImg">
+									<img src="image?file=${bperson.personImage}" alt="BuyerImg">
 								</div>
 								<div class="modal-profile-info">
 									<div class="user-type">[개인회원]</div>
@@ -307,7 +312,7 @@
 						<c:otherwise>
 							<div class="modal-profile">
 								<div class="modal-profile-image">
-									<img src="${pageContext.request.contextPath}/img/${bcompany.companyImage}" alt="BuyerImg">
+									<img src="image?file=${bcompany.companyImage}" alt="BuyerImg">
 								</div>
 								<div class="modal-profile-info">
 									<div class="user-type">[기업회원]</div>
@@ -362,7 +367,7 @@
 					</form>
 				</div>
 			</div>
-<!-- Modal for sending mail end-->
+<!-- Send Email Modal End-->
 		</div>
 	</div>
 
@@ -382,7 +387,8 @@ modalCloseButton.addEventListener('click', function() {
 
 /* Ajax - 진행상황 */
 $(document).ready(function() {
-	$('#progressItemDescription').click(function(e) {				
+	$('#progressItemDescription').click(function(e) {
+		e.preventDefault();
 		$.ajax({
 			url: '${pageContext.request.contextPath}/progressItemDescription',
 			type: 'POST',
@@ -392,6 +398,8 @@ $(document).ready(function() {
 			success: function(response) {
 		        alert('완료로 변경되었습니다.');
 				$('.progress-bar').css('width', '100%');
+				$('#progressItemDescription').hide();
+                $('#contractCompleted').show();
 		    },
 		    error: function(xhr, status, error) {
 		        alert('오류가 발생하였습니다.');

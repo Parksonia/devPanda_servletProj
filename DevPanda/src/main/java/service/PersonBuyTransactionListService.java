@@ -7,9 +7,8 @@ import util.PageInfo;
 
 public interface PersonBuyTransactionListService {
 	
-	List<Map> personBuyTransactionList(String buyerId) throws Exception;
-	List<Map> personBuyTransactionListByDate(String buyerId, String filterDate) throws Exception;
-	List<Map> personBuyTransactionListByDateRange(String buyerId, String startDate, String endDate) throws Exception;
-	//void calcuatePaging(PageInfo page, Integer count) throws Exception;
-
+	List<Map> personBuyTransactionList(String buyerId, int limit, int offset) throws Exception;
+	List<Map> personBuyTransactionListByDate(String buyerId, String filterDate, int limit, int offset) throws Exception;
+	List<Map> personBuyTransactionListByDateRange(String buyerId, String startDate, String endDate, int limit, int offset) throws Exception;
+	int countTransactionListByBuyerId(String id) throws Exception;
 }

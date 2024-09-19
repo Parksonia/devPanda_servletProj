@@ -7,13 +7,12 @@
 	<insert id="insertAuction" parameterType="dto.Auction">
     INSERT INTO auction
     (title, minSalary, maxSalary, occupation, period,
-    education, employmentType, stack, certification, location, portfolio, startDate, endDate, state, startPrice, bidMaxPrice)
+    education, employmentType, stack, certification, location, portfolio, startDate, endDate, state, startPrice, bidMaxPrice,id)
     VALUES
     (#{title}, #{minSalary}, #{maxSalary}, #{occupation},
     #{period}, #{education}, #{employmentType}, #{stack},
-    #{certification}, #{location}, #{portfolio}, #{startDate}, #{endDate}, #{state}, #{startPrice}, #{bidMaxPrice});
-</insert>
-
+    #{certification}, #{location}, #{portfolio}, #{startDate}, #{endDate}, #{state}, #{startPrice}, #{bidMaxPrice},#{id});
+	</insert>
 
 
 
@@ -30,6 +29,13 @@
 		FROM auction a
 		JOIN person p ON a.id = p.id
 		LIMIT #{pageSize} OFFSET #{offset}
+	</select>
+	
+	<select id="findAuctionById" parameterType="int" resultType="dto.AuctionAndPerson">
+		select a.*,
+		p.nickname,p.email,p.address,p.sex,p.age,p.personimage,p.status 
+		from auction as a inner join person as p on a.id = p.id
+		where auctionNum=#{auctionNum}
 	</select>
 
 	<resultMap id="auctionPersonMap" type="map">
@@ -50,6 +56,72 @@
 	<![CDATA[
 		SELECT * FROM auction WHERE auctionNum = #{auctionNum};
 	]]>
+	</select>
+	
+	
+	<!-- offset limit 이용 경매 리스트 조회 -->
+	<select id="findAllAuctionWithOffset" parameterType="int"
+		resultType="dto.AuctionAndPerson">
+		select a.*,
+		p.nickname,p.email,p.address,p.sex,p.age,p.personimage,p.status 
+		from auction as a inner join person as p on a.id = p.id
+		order by a.auctionNum
+		limit 9 offset #{offset}
+		
+	</select>
+	
+	
+		<update id="updateAuction" parameterType="auction">
+	
+		update auction set bidMaxPrice=#{bidMaxPrice}
+		where auctionNum=#{auctionNum}
+	
+	
+	</update>
+	
+	<select id="selectPSAuctionList" parameterType="String" resultType="Map">
+		<![CDATA[
+			select a.* , p.*
+				from auction a
+				JOIN person p ON a.id = p.id
+				WHERE a.id = #{sellerId}
+				ORDER BY 
+					case
+						when a.state = '진행중' then 1
+						when a.state = '종료' then 2
+						ELSE 3
+					END,
+				a.endDate DESC;
+		]]>
+	</select>
+	
+	<select id="selectPSAuctionListByDate" parameterType="map" resultType="Map">
+		<![CDATA[
+			select a.* , p.*
+				from auction a
+				JOIN person p ON a.id = p.id
+				WHERE a.id = #{sellerId}
+				STR_TO_DATE(a.endDate, '%Y-%m-%d') >= STR_TO_DATE(#{filterDate}, '%Y-%m-%d')
+				ORDER BY 
+					case
+						when a.state = '진행중' then 1
+						when a.state = '종료' then 2
+						ELSE 3
+					END,
+				a.endDate DESC;
+		]]>
+	</select>
+	
+	<select id="selectPSAuctionListByDateRange" parameterType="map" resultType="Map">
+		<![CDATA[
+			select a.*, p.*
+			from auction a
+			join person p
+			on a.id = p.id
+			where id=#{sellerId} 
+			and STR_TO_DATE(a.endDate, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+			order by a.state and a.endDate;
+		]]>
 	</select>
 
 </mapper>
