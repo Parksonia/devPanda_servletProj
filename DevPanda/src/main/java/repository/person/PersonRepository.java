@@ -19,4 +19,8 @@ public interface PersonRepository {
 	Person findPersonByIdAndPassword(Map<String,String> parameterMap);
 	
 	Person selectOneId(String id) throws Exception;
+	
+	//마이페이지 개인 정보 수정
+	void updatePersonInfo(Person person,String id) throws Exception;
+	
 }

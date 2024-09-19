@@ -2,7 +2,8 @@ package service;
 
 import java.util.List;
 
-import dto.IdEmailJsonObject;
+import javax.servlet.http.HttpServletRequest;
+
 import dto.Person;
 
 public interface PersonService {
@@ -17,6 +18,9 @@ public interface PersonService {
 	
 	
 	List<Person> findPersonByEmail(String email);
+	
+	//personInfo수정
+	void modifyPersonInfo(HttpServletRequest request) throws Exception;
 	
 	
 	

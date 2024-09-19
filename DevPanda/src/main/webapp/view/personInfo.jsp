@@ -238,67 +238,20 @@
 				<div style="margin-left: 10%;">
 					<!-- user 사진관리 start -->
 					<div class="user_profile">
-						<input id="profileImageInput" type="file" accept="image/*" hidden>
+						
 						<div class="profile_thumb">
-							<img id="profileImage" src="./img/user2.png" alt="사용자 이미지"
-								class="thumb_img">
+							<img id="profileImage" src="image?file=${person.personImage}" alt=" 사용자 이미지" class="thumb_img">
 						</div>
 						<div class="profile_detail">
 							<p class="div_user">
 								<strong>[개인회원]</strong>
 							</p>
 							<p class="name">
-								<strong>김자바</strong>
+								<strong>${person.id}</strong>
 							</p>
-							<!-- js로 사진 업로드 구현해야 함 -->
-							<div class="profile_btn_box">
-								<button id="changeImageButton" type="button"
-									class="btn outlinegrey small">이미지변경</button>
-								<button id="deleteImageButton" type="button"
-									class="btn outlinegrey small">삭제</button>
-							</div>
 						</div>
 					</div>
-					<script>
-						$(document)
-								.ready(
-										function() {
-											// 이미지 변경 버튼 클릭 시 파일 선택창 열기
-											$('#changeImageButton').click(
-													function() {
-														$('#profileImageInput')
-																.click();
-													});
 
-											// 파일 선택 시 이미지 미리보기 업데이트
-											$('#profileImageInput')
-													.change(
-															function(event) {
-																var reader = new FileReader();
-																reader.onload = function(
-																		e) {
-																	$(
-																			'#profileImage')
-																			.attr(
-																					'src',
-																					e.target.result);// 여기서 이미지를 업데이트
-																}
-																reader
-																		.readAsDataURL(event.target.files[0]);
-															});
-
-											// 이미지 삭제 버튼 클릭 시 기본 이미지로 변경
-											$('#deleteImageButton')
-													.click(
-															function() {
-																$(
-																		'#profileImage')
-																		.attr(
-																				'src',
-																				'./img/user2.png'); // 기본 이미지로 변경
-															});
-										});
-					</script>
 					<!-- user 사진관리 end-->
 
 					<!-- 개인계정,개인정보 start -->
@@ -308,53 +261,25 @@
 							<div class="unit">
 								<h5 class="title">이메일 주소</h5>
 								<div class="unit_content">
-									<p class="desc email">kimjava@gmail.com</p>
+									<p class="desc email">${person.email}</p>
 								</div>
 							</div>
-
-							<script>
-								$(document)
-										.ready(
-												function() {
-													$('.btn_modify')
-															.click(
-																	function() {
-																		var $button = $(this);
-																		var $emailField = $button
-																				.siblings('.desc.email');
-
-																		// 만약 <p> 태그라면 input 태그로 변경
-																		if ($emailField
-																				.prop('tagName') === 'P') {
-																			var email = $emailField
-																					.text();
-																			$emailField
-																					.replaceWith('<input type="text" class="desc email" value="' + email + '">');
-																			$button
-																					.text('저장');
-																		}
-																		// 만약 input 태그라면 p 태그로 변경
-																		else if ($emailField
-																				.prop('tagName') === 'INPUT') {
-																			var updatedEmail = $emailField
-																					.val();
-																			$emailField
-																					.replaceWith('<p class="desc email">'
-																							+ updatedEmail
-																							+ '</p>');
-																			$button
-																					.text('변경');
-																		}
-																	});
-												});
-							</script>
 
 							<div class="unit">
 								<h5 class="title">비밀번호</h5>
 								<div class="unit_content">
-									<p class="desc password">●●●●●●●●●</p>
+									<p class="desc password" id="maskedPassword"></p>
 								</div>
 							</div>
+
+							<script>
+                                function maskPassword(password) {
+                                    return '●'.repeat(password.length);
+                                }
+  
+                                const originalPassword = "${person.password}";
+                                document.getElementById('maskedPassword').textContent = maskPassword(originalPassword);
+                            </script>
 
 							<div class="profile_group">
 								<h4 class="group_title">개인 정보</h4>
@@ -362,27 +287,27 @@
 								<div class="unit">
 									<h5 class="title">닉네임</h5>
 									<div class="unit_content">
-										<p class="desc">김자바</p>
+										<p class="desc">${person.nickName}</p>
 									</div>
 								</div>
 
 								<div class="unit">
 									<h5 class="title">성별</h5>
 									<div class="unit_content">
-										<p class="desc">남성</p>
+										<p class="desc">${person.sex}</p>
 									</div>
 								</div>
 								<div class="unit">
 									<h5 class="title">나이</h5>
 									<div class="unit_content">
-										<p class="desc">20</p>
+										<p class="desc">${person.age}</p>
 									</div>
 								</div>
 
 								<div class="unit">
 									<h5 class="title">주소</h5>
 									<div class="unit_content">
-										<p class="desc desc_modify placeholder">서울특별시 금천구 독산동</p>
+										<p class="desc desc_modify placeholder">${person.address}</p>
 									</div>
 								</div>
 							</div>
@@ -391,7 +316,7 @@
 					</div>
 					<!-- 개인계정,개인정보 End -->
 					<div class="empty_area">
-						<a href="#" data-v-420a5cda="" class="btn outlinegrey small">변경하기</a>
+						<a href="${pageContext.request.contextPath}/modifyPersonInfo" class="btn outlinegrey small">변경하기</a>
 					</div>
 					<a href="#" class="btn_withdrawal">회원 탈퇴</a>
 				</div>

@@ -32,8 +32,6 @@ public class BidRepositoryImpl implements BidRepository {
 	}
 
 
-	
-	
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	// 페이지 계산을 위한 Buyer의 BidList 전체 수 조회
 	@Override
@@ -110,6 +108,7 @@ public class BidRepositoryImpl implements BidRepository {
 			//성공 시 commit 진행
 			sqlSession.commit();
 			
+			
 		} catch (Exception e) {
 				e.printStackTrace();
 				sqlSession.rollback();
@@ -125,13 +124,15 @@ public class BidRepositoryImpl implements BidRepository {
 		param.put("bidNum", bidNum);
 		param.put("auctionNum", auctionNum);
 		param.put("newBidPrice", newBidPrice);
+
+		
 		try {
-			sqlSession.getConnection().setAutoCommit(false);
-			//1.mybid 수정
-			sqlSession.update("mapper.bid.updateMyBid",param);
-			//Auction 수정 
-			sqlSession.update("mapper.bid.updateAuctionStatus",param);
 			
+			//1.mybid 수정
+			sqlSession.update("mapper.bid.updateMyBidprice",param);
+			//2.Auction 수정 
+			sqlSession.update("mapper.bid.updateAuctionMaxPrice",param);
+			//성공 시 commit 진행
 			sqlSession.commit();
 			
 		} catch (Exception e) {

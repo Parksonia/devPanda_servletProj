@@ -37,6 +37,8 @@ public class FailAuctionBuyer extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		Integer auctionNum =Integer.parseInt(request.getParameter("auctionNum"));
 		String bidNum = request.getParameter("bidNum");
 		String bidDate = request.getParameter("bidDate"); // 바로 화면에 전달

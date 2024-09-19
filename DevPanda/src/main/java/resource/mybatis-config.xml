@@ -59,12 +59,7 @@
 			<mapper resource ="mapper/searchcondition.xml"/>  -->
 
 		<mapper resource ="mapper/emailCertification.xml"/> 
-		
-		
-	    <mapper resource ="mapper/blacklist.xml"/>  
-		<!-- <mapper resource ="mapper/searchcondition.xml"/>  -->
 
-			
 	</mappers>
 
 </configuration>

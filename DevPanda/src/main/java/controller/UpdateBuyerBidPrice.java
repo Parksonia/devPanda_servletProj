@@ -1,6 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,6 +32,7 @@ public class UpdateBuyerBidPrice extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
+		response.setContentType("application/json");
 		try {
 			
 		String param = request.getParameter("param");
@@ -41,9 +45,10 @@ public class UpdateBuyerBidPrice extends HttpServlet {
 		
 		Integer auctionNum = ((Long)jsonObj.get("auctionNum")).intValue(); 
 		Integer bidNum = ((Long)jsonObj.get("bidNum")).intValue(); 
-		Integer newBidPrice = ((Long)jsonObj.get("newBidPrice")).intValue(); 
-		Integer maxSalary = ((Long)jsonObj.get("maxSalary")).intValue(); 
-		String sellerId = (String)jsonObj.get("sellerId");
+		Integer newBidPrice = ((Long)jsonObj.get("newBidPrice")).intValue();
+		String sellerImage = (String)jsonObj.get("sellerImage");
+
+	
 		
 		//String myId = request.getSession().getId();
 		String myId = "comp001";
@@ -55,13 +60,32 @@ public class UpdateBuyerBidPrice extends HttpServlet {
 //		} else {
 //			id = ((Company)session.getAttribute("company")).getId();
 //		}
-		
+
 		BidService service = new BidServiceImpl();
-		boolean result =  service.updateMyBidPrice(auctionNum,bidNum,newBidPrice,maxSalary,sellerId,myId,userType);
-		response.getWriter().write(String.valueOf(result));
+		boolean result =  service.updateMyBidPrice(auctionNum,bidNum,newBidPrice);
+		Gson gson = new Gson();
+		Map<String, Object> jsonResponse = new HashMap<>();
+		
+	    if(result) {
+            jsonResponse.put("success", true);
+            jsonResponse.put("message", "입찰 금액이 성공적으로 변경되었습니다.");
+            String redirectUrl = request.getContextPath() + "/nowAuctionBuyer?" +
+                    "auctionNum=" + auctionNum +
+                    "&bidNum=" + bidNum +
+                    "&bidPrice=" + newBidPrice +
+                    "&sellerImage=" + URLEncoder.encode(sellerImage, "UTF-8");
+            jsonResponse.put("redirectUrl", redirectUrl);
+        } else {
+            jsonResponse.put("success", false);
+            jsonResponse.put("message", "입찰 금액 변경에 실패했습니다.");
+        }
+		
+	    String jsonString = gson.toJson(jsonResponse);
+        response.getWriter().write(jsonString);
 		
 		}catch(Exception e) {
 			e.printStackTrace();
+			
 	
 		}
 	

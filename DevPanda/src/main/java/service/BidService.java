@@ -1,10 +1,10 @@
 package service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import dto.Bid;
+import dto.Transaction;
 import util.PageInfo;
 
 public interface BidService {
@@ -21,6 +21,7 @@ public interface BidService {
 	
 	String bid(String data);
 
-	boolean updateMyBidPrice(Integer auctionNum,Integer bidNum,Integer newBidPrice,Integer maxSalary,String sellerId,String myId,String userType) throws Exception;
+	boolean updateMyBidPrice(Integer auctionNum,Integer bidNum,Integer newBidPrice) throws Exception;
 
+	boolean updateMyBidToTransactionSuc(Transaction transaction,Integer auctionNum,Integer bidNum,Integer newBidPrice)throws Exception;
 }

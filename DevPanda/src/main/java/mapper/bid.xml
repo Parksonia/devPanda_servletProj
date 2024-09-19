@@ -123,6 +123,20 @@
 	</insert>
 	<!--myPage nowAuctiond 즉시구매 종료-->
 	
+	<update id="updateMyBidprice" parameterType="MAP">
+		<![CDATA[
+		UPDATE bid SET bidPrice = #{newBidPrice},bidDate=DATE_FORMAT(NOW(),'%Y-%m-%d')
+		WHERE bidNum = #{bidNum}; 
+		]]>
+	</update>
+	
+	<!-- 2.Auction update -->
+	<update id="updateAuctionMaxPrice" parameterType="MAP">
+		<![CDATA[
+		UPDATE auction SET bidMaxPrice = #{newBidPrice} 
+		WHERE auctionNum = #{auctionNum}; 
+		]]>
+	</update>
 	
 
 </mapper>

@@ -32,8 +32,41 @@
 		join auction a ON t.auctionNum = a.auctionNum
 		where bl.declCom = #{blackNum}
 	</select>
-
-
+	
+	<!-- 개인(구매자)의 Seller에 대한 Blacklist 페이징 처리 위한 총 카운트 -->
+	<select id="selectBuyerPersontSellerBlackListCnt" parameterType="String" resultType="Integer">
+	 	<![CDATA[
+	 	SELECT COUNT(*) FROM blacklist WHERE declPerson = #{id} AND LOWER(roleType) ='b';
+	 	]]>
+	</select>
+	<!-- ////////////////////////////////////////////////////// -->
+	
+	<!-- 개인(구매자)의 Seller에 대한 Blacklist 리스트 띄우기 위해 필요한 정보 가져오기 -->
+	<select id="selectAllSellerBlackOfPersonBuyer" parameterType="MAP" resultType="MAP">
+		<![CDATA[
+		SELECT b.*,
+	 	t.date AS tansationDate,
+		a.title AS auctionTitle,
+		p.personImage,
+		p.email
+		FROM blacklist b JOIN transaction t
+		ON. b.transactionNum = t.transactionNum
+		JOIN auction a ON t.auctionNum = a.auctionNum
+		JOIN person p ON t.sellerId = p.id
+		WHERE b.declPerson=#{id} AND LOWER(roleType) ='b'
+		ORDER BY b.reportDate DESC LIMIT #{row},10;
+		]]>
+	</select>
+	<!-- 개인(구매자)의 Seller에 대한 Blacklist 삭제 -->
+	
+	<delete id="deleteSellerBlackForBuyerPerson" parameterType="Integer" >
+		DELETE FROM blacklist WHERE blackNum=#{blackNum};
+	</delete>
+	<!-- /////////////////////////////////////////////////////////////// -->
+		
+	
+	
+	
 	<insert id="insertBuyerPersonBlack" parameterType="map">
 		<![CDATA[
 			INSERT INTO blacklist 

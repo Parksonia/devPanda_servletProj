@@ -37,7 +37,8 @@ public class NowAuctionBuyer extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 
 		Integer auctionNum =Integer.parseInt(request.getParameter("auctionNum"));
 		String bidNum = request.getParameter("bidNum");
@@ -51,6 +52,10 @@ public class NowAuctionBuyer extends HttpServlet {
 		// 임의의 login in(P or C)
 		//String id = "abc001";
 		// userType="person";
+		// 세션에서 사용자 ID가져와 사용 예정 
+//		HttpSession session = request.getSession();
+//		String myId = (String) session.getAttribute("userId"); 
+
 		
 		String id = "comp001";
 		String userType="company";
@@ -91,7 +96,7 @@ public class NowAuctionBuyer extends HttpServlet {
 			request.setAttribute("bidDate", bidDate); // 나의 입찰일
 			request.setAttribute("sellerImage", sellerImage);  //판매자 신상 사진 
 			request.setAttribute("dDays", dDays); //경매 마감일과 현재날짜를 계산하여 dday표시 
-			
+			request.setAttribute("myId", id);
 			request.getRequestDispatcher("view/buyer/nowAuctionBuyer.jsp").forward(request, response);
 		
 		
@@ -102,7 +107,10 @@ public class NowAuctionBuyer extends HttpServlet {
 		
 
 	}
-
-	
-	
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		doPost(request, response);
+	}	
 }
