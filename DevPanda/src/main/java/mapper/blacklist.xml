@@ -119,7 +119,7 @@
 	
 	<select id="selectBlacklistById" parameterType="map" resultType="map">
 		<![CDATA[
-			select b.*, p.personImage, c.companyImage, t.date
+			select b.*, p.personImage, c.companyImage, t.date, a.title as auctionTitle
 			from blacklist b 
 			left outer join person p
 				on b.blackPerson = p.id
@@ -127,14 +127,16 @@
 				ON b.blackCom = c.id
 			JOIN transaction t
 				ON b.transactionNum = t.transactionNum
-			where declPerson=#{id}
+			JOIN auction a
+				ON a.auctionNum = t.auctionNum
+			where declPerson=#{id} and roleType='S'
 			limit #{limit} offset #{offset};
 		]]>
 	</select>
 	
 	<select id="countBlacklistById" parameterType="String" resultType="int">
 		<![CDATA[
-			select count(*) from blacklist where declPerson=#{id};
+			select count(*) from blacklist where declPerson=#{id} and roleType='S';
 		]]>
 	</select>
 	
