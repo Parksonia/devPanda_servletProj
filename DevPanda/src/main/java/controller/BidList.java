@@ -45,6 +45,7 @@ public class BidList extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
+		
 
 		// 조건에 따른 서비스 호출 : 기본/날짜계산
 		try {
