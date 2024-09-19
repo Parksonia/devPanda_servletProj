@@ -47,25 +47,30 @@ public class AuctionServlet extends HttpServlet {
 
 		System.out.println("Page: " + page + ", PageSize: " + pageSize);
 
-		List<Map<String, Object>> auctions = auctionService.getAllAuctionsWithPersonInfo(page, pageSize);
+		try {
+	        List<Map<String, Object>> auctions = auctionService.getAllAuctionsWithPersonInfo(page, pageSize);
 
-		// 로그 추가: 반환된 데이터 확인
-		System.out.println("Number of auctions fetched: " + (auctions != null ? auctions.size() : 0));
+	        // 로그 추가: 반환된 데이터 확인
+	        System.out.println("Number of auctions fetched: " + (auctions != null ? auctions.size() : 0));
 
-		// AJAX 요청인 경우 JSON 응답 반환
-		if ("application/json".equals(request.getHeader("Accept"))) {
-			response.setContentType("application/json");
-			PrintWriter out = response.getWriter();
-			Gson gson = new Gson();
-			String jsonResponse = gson.toJson(auctions);
-			out.print(jsonResponse);
-			out.flush();
-		} else {
-			// 일반 요청인 경우 JSP 페이지로 포워딩
-			request.setAttribute("auctions", auctions);
-			request.setAttribute("page", page);
-			request.setAttribute("pageSize", pageSize);
-			request.getRequestDispatcher("/view/main.jsp").forward(request, response);
-		}
+	        // AJAX 요청인 경우 JSON 응답 반환
+	        if ("application/json".equals(request.getHeader("Accept"))) {
+	            response.setContentType("application/json");
+	            PrintWriter out = response.getWriter();
+	            Gson gson = new Gson();
+	            String jsonResponse = gson.toJson(auctions);
+	            out.print(jsonResponse);
+	            out.flush();
+	        } else {
+	            // 일반 요청인 경우 JSP 페이지로 포워딩
+	            request.setAttribute("auctions", auctions);
+	            request.setAttribute("page", page);
+	            request.setAttribute("pageSize", pageSize);
+	            request.getRequestDispatcher("/view/main.jsp").forward(request, response);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error fetching auction data.");
+	    }
 	}
 }

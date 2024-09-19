@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import dto.Bid;
+import dto.Transaction;
 import util.PageInfo;
 
 public interface BidService {
@@ -19,4 +20,8 @@ public interface BidService {
 	String bidMaxSalary(String data);
 	
 	String bid(String data);
+
+	boolean updateMyBidPrice(Integer auctionNum,Integer bidNum,Integer newBidPrice) throws Exception;
+
+	boolean updateMyBidToTransactionSuc(Transaction transaction,Integer auctionNum,Integer bidNum,Integer newBidPrice)throws Exception;
 }

@@ -4,14 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.Gson;
+import javax.servlet.http.HttpServletRequest;
 
-import dto.EmailCertification;
-import dto.IdEmailJsonObject;
+import com.google.gson.Gson;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import dto.Person;
 import repository.person.PersonRepository;
 import repository.person.PersonRepositoryImpl;
-import util.MailUtil;
 
 public class PersonServiceImpl implements PersonService {
 
@@ -62,6 +63,28 @@ public class PersonServiceImpl implements PersonService {
 		return personList;
 	}
 
+	@Override
+	public void modifyPersonInfo(HttpServletRequest request) throws Exception {
+
+		//String id = request.getSession().getId();
+		String id ="abc001";
+		String path = request.getServletContext().getRealPath("upload");
+
+		int size = 10 * 1024 * 1024; // 크기지정 10MB
+
+		MultipartRequest multi = new MultipartRequest(request, path, size, "utf-8", new DefaultFileRenamePolicy());
+
+		Person person = new Person();
+		  // db에 존재하는 파일 명 찾아서 업데이트( 파일이 존재한다면  수정 )
+		  if(multi.getFile("personImage")!=null) {
+			  person.setPersonImage(multi.getFilesystemName("personImage"));
+		  }
+		  person.setPassword(multi.getParameter("password"));
+		  person.setNickName(multi.getParameter("nickName"));
+		  person.setAddress(multi.getParameter("address"));
+
+		  personRepository.updatePersonInfo(person,id);
+	}
 	
 
 	
