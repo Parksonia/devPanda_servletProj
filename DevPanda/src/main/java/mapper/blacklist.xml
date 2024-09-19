@@ -142,6 +142,7 @@
 		<![CDATA[
 			DELETE FROM blacklist WHERE blackNum = #{blackNum};
 		]]>
+	</delete>
 
 
 	<delete id="removeBlacklistById" parameterType="int">
