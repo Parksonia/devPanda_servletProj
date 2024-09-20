@@ -130,7 +130,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 		return session.selectOne("mapper.PersonMapper.selectOnePerson", id);
 	}
 
-	
+	//마이페이지 개인 정보 수정
 	@Override
 	public void updatePersonInfo(Person person,String id) throws Exception {
 		SqlSession session = getSqlSession();
@@ -139,10 +139,11 @@ public class PersonRepositoryImpl implements PersonRepository {
 			param.put("person", person);
 			param.put("id", id);
 			int result = session.update("mapper.PersonMapper.updatePersonInfo", param);
-	        if (result == 0) {
+			session.commit();
+			if (result == 0) {
 	            throw new Exception("업데이트된 행이 없습니다.");
 	        }
-	        session.commit();
+	       
 		}catch(Exception e) {
 			e.printStackTrace();
 			session.rollback();
@@ -150,5 +151,27 @@ public class PersonRepositoryImpl implements PersonRepository {
 			session.close();
 		}
 		
+	}
+	//마이페이지 개인 계정탈퇴
+	@Override
+	public Integer updatePersonStatus(String id) throws Exception {
+		SqlSession session = getSqlSession();
+		
+		try{
+			
+			int result = session.update("mapper.PersonMapper.updatePersonStatus", id);
+	        if (result == 0) {
+	            throw new Exception("업데이트된 행이 없습니다.");
+	        }
+	        session.commit();
+	        return result;
+	        
+		}catch(Exception e) {
+			e.printStackTrace();
+			session.rollback();
+		}finally {
+			session.close();
+		}
+		return 0;
 	}
 }

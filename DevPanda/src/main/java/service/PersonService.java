@@ -22,6 +22,8 @@ public interface PersonService {
 	//personInfo수정
 	void modifyPersonInfo(HttpServletRequest request) throws Exception;
 	
+	//personAccount inactive 업데이트
+	boolean inactivePersonAccount(String id) throws Exception;
 	
 	
 	

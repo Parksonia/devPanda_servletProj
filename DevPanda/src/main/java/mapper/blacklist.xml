@@ -83,6 +83,24 @@
 	<delete id="deleteSellerBlackForBuyerPerson" parameterType="Integer" >
 		DELETE FROM blacklist WHERE blackNum=#{blackNum}
 	</delete>
+	
+	<!-- 이미 신고된 블랙리스트 인지 확인 -->
+	<select id="isAlreadyReportedBlackList" parameterType="map" resultType="Integer">
+	 SELECT COUNT(*) FROM blacklist
+	 <where> 
+		<choose>
+			<when test="userType !=null and userType =='person'">	
+			 declPerson= #{declId} AND transactionNum= #{transactionNum} 
+				 <if test="roleType != null">
+                    AND roleType = #{roleType}
+                 </if>
+			</when>
+			<when test="userType !=null and userType =='company'">	
+	 		declCom= #{declId} AND transactionNum=#{transactionNum}
+			</when>
+		</choose>
+	</where> 
+	</select>	
 	<!-- /////////////////////////////////////////////////////////////// -->
 		
 	

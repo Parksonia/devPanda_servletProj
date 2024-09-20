@@ -97,7 +97,7 @@ public class BidServiceImpl implements BidService {
 		int row = (pageInfo.getCurPage() - 1) * 6;
 
 		List<Map> buyBidList = bidRepository.selectBuyBidWithCalDate(row, id, nowStr, pastDateStr, memType);
-		// 프론트에서 처리하지만 buybidList.size() 가 <6 작은경우 allPage를 1로 고정해도 좋을 것 같다..
+	
 		if (buyBidList.size() < 6 && pageInfo.getCurPage() == allPage) {
 			pageInfo.setAllPage(1);
 			// 끝페이지 정보 저장

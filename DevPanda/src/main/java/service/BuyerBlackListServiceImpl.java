@@ -47,6 +47,8 @@ public class BuyerBlackListServiceImpl implements BuyerBlackListService {
 		
 		List<Map>sellerAllList = new ArrayList<>();
 		sellerAllList = blRepo.allBuyerPersonSellerBlackList(id,row); 
+		
+		
 		return sellerAllList;
 	}
 

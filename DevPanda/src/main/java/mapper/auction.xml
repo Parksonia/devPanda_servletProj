@@ -214,8 +214,7 @@
 		</where>
 		order by a.auctionNum
 		limit 9 offset #{offset}
-		
-		
+
 	</select>
 
 
@@ -229,6 +228,7 @@
 	</update>
 
 
+
 	<select id="selectPSAuctionList" parameterType="String"
 		resultType="Map">
 
@@ -238,7 +238,7 @@
 				JOIN person p ON a.id = p.id
 				WHERE a.id = #{sellerId}
 		]]>
-
+		
 		<if test="filterDate != null and filterDate != ''">
 			<![CDATA[
 				and STR_TO_DATE(a.endDate, '%Y-%m-%d') between STR_TO_DATE(#{filterDate}, '%Y-%m-%d') and STR_TO_DATE(now(), '%Y-%m-%d')
@@ -264,19 +264,18 @@
 	</select>
 
 
-
-	<select id="countPSAuctionListBySellerId" parameterType="String"
-		resultType="int">
-
+	
+	<select id="countPSAuctionListBySellerId" parameterType="String" resultType="int">
 		<![CDATA[
 			select count(*) from auction where id=#{id};
 		]]>
 	</select>
+	
+
 
 
 	<select id="selectPSAuctionListByDate" parameterType="map"
 		resultType="Map">
-
 
 		<![CDATA[
 			select a.* , p.*

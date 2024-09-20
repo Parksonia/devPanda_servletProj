@@ -1,5 +1,6 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -14,6 +15,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import dto.Company;
+import repository.blacklist.BlacklistRepository;
+import repository.blacklist.BlacklistRepositoryImpl;
 import repository.transaction.PersonSellTransactionListRepository;
 import repository.transaction.PersonSellTransactionListRepositoryImpl;
 
@@ -101,6 +104,22 @@ public class PersonSellTransactionListServiceImpl implements PersonSellTransacti
 	@Override
 	public int countTransactionListBySellerId(String id) throws Exception {
 		return psRepo.countTransactionListBySellerId(id);
+	}
+
+	//transaction detail에서 필요한 블랙리스트 신고여부를 위한 메서드
+	@Override
+	public boolean isAlreadyReportedBlack(String sellerId, Integer transactionNum, String userType, String roleType)
+			throws Exception {
+		System.out.println("Params: sellerId=" + sellerId + ", transactionNum=" + transactionNum + ", userType=" + userType + ", roleType=" + roleType);
+		BlacklistRepository bkRepo = new BlacklistRepositoryImpl();
+		HashMap<String,Object> param = new HashMap<>();
+		param.put("declId", sellerId);
+		param.put("transactionNum", transactionNum);
+		param.put("userType", userType);
+		param.put("roleType", roleType);
+		boolean result = bkRepo.isAlreadyReported(param);  // true,false 반환
+		
+		return result;
 	}
 
 }

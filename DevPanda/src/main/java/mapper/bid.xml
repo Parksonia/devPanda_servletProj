@@ -69,7 +69,6 @@
     	ORDER BY 
         	b.bidDate DESC
    		LIMIT #{row}, 6;
- 
     	</select>
    	 
     

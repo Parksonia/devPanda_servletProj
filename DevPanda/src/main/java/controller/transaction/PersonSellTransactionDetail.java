@@ -87,6 +87,13 @@ public class PersonSellTransactionDetail extends HttpServlet {
 			Person sperson = pservice.selectPersonInfo(sellerId);
 				
 			
+			// 블랙 리스트 신고 여부 처리  
+			String userType = (String)request.getSession().getAttribute("userType");
+			PersonSellTransactionListService trService = new PersonSellTransactionListServiceImpl();
+			boolean isAlreadyReported = trService.isAlreadyReportedBlack(sellerId,transactionNum,userType,"S"); //"P"를 session의 userType으로 바꿔야함 
+			request.setAttribute("isAlreadyReported",isAlreadyReported);
+			
+			
 			// 판매자(Seller) person 정보 
 			request.setAttribute("sellerId", sellerId);
 			request.setAttribute("sellerImage", sellerImage);

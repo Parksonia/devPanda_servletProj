@@ -237,8 +237,14 @@
 	<!-- Header End-->
 
 	<div class="container my">
-		<%@ include file="../inc/personSideNav.jsp"%>
-
+                     <c:choose>
+                        <c:when test="${userType == 'person'}">	
+							<%@ include file="../inc/personSideNav.jsp"%>
+                        </c:when>
+                        <c:otherwise>
+                           <%@ include file="../inc/comSideNav.jsp"%>
+                        </c:otherwise>
+                     </c:choose>
 		<!-- list 정보 start -->
         <div class="content_area my-page-content">
             <div class="my_bidlist">

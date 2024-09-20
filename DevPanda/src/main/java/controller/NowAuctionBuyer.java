@@ -11,9 +11,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dto.Auction;
 import dto.Bid;
+import dto.Company;
+import dto.Person;
 import service.AuctionService;
 import service.AuctionServiceImpl;
 import service.BidService;
@@ -58,14 +61,15 @@ public class NowAuctionBuyer extends HttpServlet {
 
 		
 		String id = "comp001";
-		String userType="company";
+		HttpSession session = request.getSession();
+		//String userType="company";
 		//String myId = "abc001";
-//		String userType = (String)session.getAttribute("userType");
-//		if(userType.equals("person")) {
-//			id = ((Person)session.getAttribute("person")).getId();
-//		} else {
-//			id = ((Company)session.getAttribute("company")).getId();
-//		}
+		String userType = (String)session.getAttribute("userType");
+		if(userType.equals("person")) {
+			id = ((Person)session.getAttribute("person")).getId();
+		} else {
+			id = ((Company)session.getAttribute("company")).getId();
+		}
 		
 		
 		try {

@@ -76,8 +76,16 @@ public class BlacklistRepositoryImpl implements BlacklistRepository {
 	}
 
 	@Override
+
 	public List<BlackList> selectBlackList() throws Exception {
 		return sqlSession.selectList("mapper.blacklist.selectBlackList");
+	}
+	public boolean isAlreadyReported(HashMap<String,Object>param) throws Exception {
+		
+		Integer result = sqlSession.selectOne("mapper.blacklist.isAlreadyReportedBlackList",param);
+		System.out.println("Query result: " + result);
+		 return result != null && result > 0;
+
 	}
 
 	

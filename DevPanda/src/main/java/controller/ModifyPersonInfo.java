@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dto.Person;
 import service.PersonService;
@@ -31,9 +32,10 @@ public class ModifyPersonInfo extends HttpServlet {
     	request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		
-		//String id = request.getSession().getId();
+		HttpSession session = request.getSession();
+		String id = ((Person)session.getAttribute("person")).getId();
 		//임의의 id 사용
-		 String id ="abc001";
+		 //String id ="abc001";
 		
 		 try {
 			 Person pInfo = new Person();

@@ -16,4 +16,7 @@ public interface PersonSellTransactionListService {
 	void sendTransactionMail(String recipient, String subject, String content, String replyTo) throws MessagingException;
 	void updateStateTransactionState(Integer auctionNum) throws Exception;
 	int countTransactionListBySellerId(String id) throws Exception;
+	
+	//transaction detail에서 필요한 블랙리스트 신고여부를 위한 메서드
+	boolean isAlreadyReportedBlack(String sellerId,Integer transactionNum,String userType,String roleType) throws Exception; 
 }

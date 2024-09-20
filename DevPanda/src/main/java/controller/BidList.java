@@ -1,8 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +17,8 @@ import org.json.simple.parser.JSONParser;
 
 import com.google.gson.Gson;
 
+import dto.Company;
+import dto.Person;
 import service.BidService;
 import service.BidServiceImpl;
 import util.PageInfo;
@@ -65,14 +65,16 @@ public class BidList extends HttpServlet {
 			pageInfo.setCurPage(page);
 
 			String id = "comp001";
-			String userType = "company";
+			//String userType = "company";  // AuthService 에서 userType="P"와 "C"로 저장함 
+			
 			HttpSession session = request.getSession();
-//			String userType = (String)session.getAttribute("userType");
-//			if(userType.equals("person")) {
-//				id = ((Person)session.getAttribute("person")).getId();
-//			} else {
-//				id = ((Company)session.getAttribute("company")).getId();
-//			}
+			String userType = (String)session.getAttribute("userType");
+		
+			if(userType.equals("person")) {
+				id = ((Person)session.getAttribute("person")).getId();
+			} else {
+				id = ((Company)session.getAttribute("company")).getId();
+			}
 			
 			if(startDate == null) {
 				bidBuyList = service.bidListAll(pageInfo, id, userType);
@@ -83,7 +85,7 @@ public class BidList extends HttpServlet {
 			System.out.println(pageInfo.getAllPage());
 			System.out.println(bidBuyList);
 
-			Map result = new HashMap();
+			Map<String, Object> result = new HashMap<>();
 			result.put("page", pageInfo.getCurPage());
 			result.put("maxPage", pageInfo.getAllPage());
 			result.put("bidList", bidBuyList);

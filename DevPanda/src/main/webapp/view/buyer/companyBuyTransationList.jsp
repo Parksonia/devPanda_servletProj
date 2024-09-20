@@ -341,7 +341,7 @@ button {
 				<!-- 목록들 나열 -->
 				<c:forEach var="transaction" items="${transactionList}">
 					<a
-						href="${pageContext.request.contextPath}/CompanyAuctionBuyerSuc?auctionNum=${transaction.auctionNum}"
+						href="${pageContext.request.contextPath}/CompanyAuctionBuyerSuc?auctionNum=${transaction.auctionNum}&transactionNum=${transaction.transactionNum}"
 						style="text-decoration: none; color: inherit;">
 						<div class="history-item"
 							data-auction-num="${transaction.auctionNum}">

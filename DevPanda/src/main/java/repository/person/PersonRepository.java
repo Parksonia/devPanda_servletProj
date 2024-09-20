@@ -23,4 +23,7 @@ public interface PersonRepository {
 	//마이페이지 개인 정보 수정
 	void updatePersonInfo(Person person,String id) throws Exception;
 	
+	//마이페이지 개인 계정탈퇴
+	Integer updatePersonStatus(String id) throws Exception;
+	
 }

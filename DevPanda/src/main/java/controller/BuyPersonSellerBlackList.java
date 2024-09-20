@@ -10,7 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import dto.Company;
+import dto.Person;
 import service.BuyerBlackListService;
 import service.BuyerBlackListServiceImpl;
 import util.PageInfo;
@@ -46,14 +49,14 @@ public class BuyPersonSellerBlackList extends HttpServlet {
 		
 		String id = "abc001";
 		// 세션에서 사용자 ID가져와 사용 예정 
-//		HttpSession session = request.getSession();
-//		String myId = (String) session.getAttribute("userId"); 
-//		String userType = (String)session.getAttribute("userType");
-//		if(userType.equals("person")) {
-//			id = ((Person)session.getAttribute("person")).getId();
-//		} else {
-//			id = ((Company)session.getAttribute("company")).getId();
-//		}
+		HttpSession session = request.getSession();
+//		String id = (String) session.getAttribute("userId"); 
+		String userType = (String)session.getAttribute("userType");
+		if(userType.equals("person")) {
+			id = ((Person)session.getAttribute("person")).getId();
+		} else {
+			id = ((Company)session.getAttribute("company")).getId();
+		}
 		
 		
 		//person 이 roleType "B" 일 때, 블랙리스트를 출력 

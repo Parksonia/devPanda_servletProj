@@ -4,11 +4,13 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <!-- mybatis 설정 -->
+<configuration>
+	<!--쿼리 로그  -->
+	<settings>
+    <setting name="logImpl" value="STDOUT_LOGGING" />
+	</settings>
 
 
-	
-	<configuration>
-	
 	<typeAliases>
 		<!-- dto 넣기 -->
 		<typeAlias type="dto.AuctionAndPerson" alias="auctionandperson" />
@@ -22,21 +24,20 @@
 		<typeAlias type="dto.Transaction" alias="transaction" />
 	</typeAliases>
 
-
-
+	
 
 	<environments default="development">
-	    <environment id="development">
-	        <transactionManager type="JDBC" />
-	        <dataSource type="POOLED">
-	            <property name="driver" value="com.mysql.cj.jdbc.Driver" />
-	            <property name="url"
-	                value="jdbc:mysql://localhost:3306/devPandaT?useSSL=false&amp;serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=UTF-8" />
-	            <property name="username" value="root" />
-	            <property name="password" value="98019801" />
-	        </dataSource>
-	    </environment>
-	</environments>
+    <environment id="development">
+        <transactionManager type="JDBC" />
+        <dataSource type="POOLED">
+            <property name="driver" value="com.mysql.cj.jdbc.Driver" />
+            <property name="url"
+                value="jdbc:mysql://localhost:3306/devPandaT?useSSL=false&amp;serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=UTF-8" />
+            <property name="username" value="root" />
+            <property name="password" value="98019801" />
+        </dataSource>
+    </environment>
+</environments>
 
 	
 
@@ -56,6 +57,8 @@
 	</environments>  -->
 
 
+
+
 	<!-- <environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
@@ -67,12 +70,9 @@
 				<property name="password" value="7564"></property>  석준쓰 1590
 			</dataSource>
 		</environment>
+
 	</environments>  -->
 
-	
-
-
-	
 
 	<mappers>
 		<mapper resource="mapper/person.xml" />
@@ -84,6 +84,7 @@
 		<mapper resource ="mapper/blacklist.xml"/> 
 		<mapper resource ="mapper/emailCertification.xml"/> 
 		<!-- <mapper resource ="mapper/searchcondition.xml"/>  -->
+
 
 	</mappers>
 </configuration>
