@@ -49,13 +49,13 @@ public class BidList extends HttpServlet {
 		// 조건에 따른 서비스 호출 : 기본/날짜계산
 		try {
 			String param = request.getParameter("param");
-			System.out.println(param);
+			//System.out.println(param);
 
 			JSONParser parser = new JSONParser();
 			JSONObject jsonObj = (JSONObject)parser.parse(param);
 			Integer page = ((Long)jsonObj.get("page")).intValue();
 			
-			System.out.println(page);
+			//System.out.println(page);
 			String startDate = (String)jsonObj.get("startDate");
 			String endDate = (String)jsonObj.get("endDate");
 			
@@ -82,8 +82,8 @@ public class BidList extends HttpServlet {
 				bidBuyList = service.bidListAllWithCalDate(pageInfo, id, endDate, startDate, userType);				
 			}
 			
-			System.out.println(pageInfo.getAllPage());
-			System.out.println(bidBuyList);
+			//System.out.println(pageInfo.getAllPage());
+			//System.out.println(bidBuyList);
 
 			Map<String, Object> result = new HashMap<>();
 			result.put("page", pageInfo.getCurPage());

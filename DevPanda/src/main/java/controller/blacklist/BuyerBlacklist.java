@@ -9,7 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import dto.Person;
 import service.SellerBlackListService;
 import service.SellerBlackListServiceImpl;
 
@@ -35,7 +37,9 @@ public class BuyerBlacklist extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		// 아이디
-		String declPerson = "abc001";
+		//String declPerson = "abc001";
+		HttpSession session = request.getSession();
+		String declPerson = ((Person)session.getAttribute("person")).getId();
 		// 페이지
 		int page = 1;
 		int pageSize = 10;

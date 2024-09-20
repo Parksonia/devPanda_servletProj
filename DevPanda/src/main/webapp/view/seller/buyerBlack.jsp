@@ -457,7 +457,7 @@ li, ol, ul {
 
 				<div class="content_title border">
 					<div class="title">
-						<h2>판매자 차단 내역</h2>
+						<h2>구매자 차단 내역</h2>
 					</div>
 				</div>
 
@@ -481,14 +481,13 @@ li, ol, ul {
 						</div>
 					</div>
 
-					<c:forEach items="${buyerBlackList }" var="blacklist" varStatus="status">
-						<c:choose>
-							<c:when test="${empty buyerBlackList}">
-								<div class="no-items-message">
-		                            <h2>차단 내역이 없습니다.</h2>
-		                        </div>
-							</c:when>
-							<c:otherwise>
+					<c:choose>
+						<c:when test="${empty buyerBlackList}">
+								<br>
+								<h3 style="text-align:center;">등록 정보가 존재하지 않습니다.</h3>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${buyerBlackList }" var="blacklist" varStatus="status">
 								<div class="modal_btn">
 										<div class="black_list_display_mem" data-index="${status.index }"
 																			 data-blacknum="${blacklist.blackNum}"
@@ -548,9 +547,9 @@ li, ol, ul {
 											</div>
 										</div>	
 								</div>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 					
 					<!--pagination start -->
 					<div class="pagination">
