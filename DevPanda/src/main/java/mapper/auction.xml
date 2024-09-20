@@ -166,16 +166,42 @@
 
 
 	<!-- offset limit 이용 경매 리스트 조회 -->
-	<select id="findAllAuctionWithOffset" parameterType="int"
+	
+	<select id="findAllAuctionWithOffset" parameterType="dto.MapperSearchCondition"
 		resultType="dto.AuctionAndPerson">
 		select a.*,
-		p.nickname,p.email,p.address,p.sex,p.age,p.personimage,p.status
-		from
-		auction as a inner join person as p on a.id = p.id
-		order by
-		a.auctionNum
+		p.nickname,p.email,p.address,p.sex,p.age,p.personimage,p.status 
+		from auction as a inner join person as p on a.id = p.id
+		
+		<where>
+			<if test="occupation != null and occupation != ''">
+			and occupation like #{occupation}
+			</if>
+			<if test="period != null and period != ''">
+			and period like #{period}
+			</if>
+			<if test="education != null and education != ''">
+			and education like #{education}
+			</if>
+			<if test="employmentType != null and employmentType != ''">
+			and employmentType like #{employmentType}
+			</if>
+			<if test="stack != null and stack != ''">
+			and stack like #{stack}
+			</if>
+			<if test="certification != null and certification != ''">
+			and certification like #{certification}
+			</if>
+			<if test="location != null and location != ''">
+			and location like #{location}
+			</if>
+			
+		
+		</where>
+		order by a.auctionNum
 		limit 9 offset #{offset}
-
+		
+		
 	</select>
 
 
@@ -187,11 +213,10 @@
 
 
 	</update>
-	
-	
 
 	<select id="selectPSAuctionList" parameterType="String"
 		resultType="Map">
+
 		<![CDATA[
 			select a.* , p.*
 				from auction a
@@ -221,6 +246,7 @@
 			limit #{limit} offset #{offset};
 		]]>
 	</select>
+
 	
 	<select id="countPSAuctionListBySellerId" parameterType="String" resultType="int">
 		<![CDATA[
@@ -232,6 +258,8 @@
 
 	<select id="selectPSAuctionListByDate" parameterType="map"
 		resultType="Map">
+
+
 		<![CDATA[
 			select a.* , p.*
 				from auction a

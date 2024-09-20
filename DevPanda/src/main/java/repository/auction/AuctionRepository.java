@@ -2,6 +2,7 @@ package repository.auction;
 
 import dto.Auction;
 import dto.AuctionAndPerson;
+import dto.MapperSearchCondition;
 import dto.Person;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,7 @@ public interface AuctionRepository {
 	AuctionAndPerson findAuctionAndPersonById(Integer auctionNum);
 	
 	
-	List<AuctionAndPerson> findAllAuctionWithOffset(Integer offset);
+	List<AuctionAndPerson> findAllAuctionWithOffset(MapperSearchCondition mapperSearchCondition);
 	
 	void updateAuction(Auction auction,SqlSession sqlSession);
 }
