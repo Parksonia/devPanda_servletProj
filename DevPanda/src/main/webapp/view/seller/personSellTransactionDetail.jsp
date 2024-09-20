@@ -140,7 +140,14 @@
 								<p>아이디 : ${bperson.id}</p>
 								<p>이메일 : ${bperson.email }</p>
 								<p>주소 : ${bperson.address }</p>
-								<button class="report-button">블랙리스트 등록</button>
+								<c:choose>
+									<c:when test="${isAlreadyReported}">
+										<button class="report-button" disabled style="background-color: #ccc; cursor: not-allowed;">이미 신고됨</button>
+									</c:when>
+									<c:otherwise>
+										<button class="report-button">블랙리스트 등록</button>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</c:when>
 						<c:otherwise>
@@ -151,7 +158,14 @@
 								<p>아이디 : ${bcompany.id}</p>
 								<p>이메일 : ${bcompany.email }</p>
 								<p>주소 : ${bcompany.address }</p>
-								<button class="report-button">블랙리스트 등록</button>
+									<c:choose>
+									<c:when test="${isAlreadyReported}">
+										<button class="report-button" disabled style="background-color: #ccc; cursor: not-allowed;">이미 신고됨</button>
+									</c:when>
+									<c:otherwise>
+										<button class="report-button">블랙리스트 등록</button>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</c:otherwise>
 					</c:choose>
@@ -305,6 +319,7 @@
 								<input type="hidden" name="bidNum" value="${bidNum}" />
 								<input type="hidden" name="buyerId" value="${bperson.id}" />
 								<input type="hidden" name="sellerId" value="${sperson.id}" />
+								<input type="hidden" name="memType" value="${memType }"/>
 								<button type="submit" class="modal-submit-button">제출하기</button>
 							</form>
 						</c:when>
@@ -415,9 +430,9 @@ $(document).ready(function() {
 		
 		var memType = $('input[name="memType"]').val();
 		var url = '';
-		if (memType === 'P') {
+		if (memType == 'P') {
 			url = '${pageContext.request.contextPath}/buyerPersonBlack';
-		} else if (memType === 'C'){
+		} else if (memType == 'C'){
 			url = '${pageContext.request.contextPath}/buyerComBlack';
 		}
 		

@@ -410,8 +410,14 @@ height:30px;
 	<!-- side+contents container  -->
 	<div class="container my">
 
-		<%@ include file="../inc/comSideNav.jsp"%>
-
+		<c:choose>
+			<c:when test="${userType == 'person'}">
+				<%@ include file="../inc/personSideNav.jsp"%>
+			</c:when>
+			<c:otherwise>
+				<%@ include file="../inc/comSideNav.jsp"%>
+			</c:otherwise>
+		</c:choose>
 		<div class="container">
 			<div class="title">거래 상세 보기</div>
 			<div class="transaction-id">AB123-CD5678-${auctionNum}</div>

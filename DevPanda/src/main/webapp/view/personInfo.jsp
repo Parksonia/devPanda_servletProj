@@ -318,7 +318,7 @@
 					<div class="empty_area">
 						<a href="${pageContext.request.contextPath}/modifyPersonInfo" class="btn outlinegrey small">변경하기</a>
 					</div>
-					<a href="#" class="btn_withdrawal">회원 탈퇴</a>
+					<%-- <a href="${pageContext.request.contextPath}/inactivePersonAccount?id=${person.id}" class="btn_withdrawal">회원 탈퇴</a> --%>
 				</div>
 			</div>
 		</div>

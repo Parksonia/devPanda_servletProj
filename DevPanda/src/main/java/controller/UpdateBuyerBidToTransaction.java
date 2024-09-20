@@ -9,12 +9,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import com.google.gson.Gson;
 
+import dto.Company;
+import dto.Person;
 import dto.Transaction;
 import service.BidService;
 import service.BidServiceImpl;
@@ -58,14 +61,15 @@ public class UpdateBuyerBidToTransaction extends HttpServlet {
 		
 		//String myId = request.getSession().getId();
 		String myId = "comp001";
-		String userType="company";
+		HttpSession session = request.getSession();
+//		String userType="company";
 		//String myId = "abc001";
-//		String userType = (String)session.getAttribute("userType");
-//		if(userType.equals("person")) {
-//			id = ((Person)session.getAttribute("person")).getId();
-//		} else {
-//			id = ((Company)session.getAttribute("company")).getId();
-//		}
+		String userType = (String)session.getAttribute("userType");
+		if(userType.equals("person")) {
+			myId = ((Person)session.getAttribute("person")).getId();
+		} else {
+			myId = ((Company)session.getAttribute("company")).getId();
+		}
 		
 		Transaction transaction = new Transaction();
 		transaction.setSellerId(sellerId);

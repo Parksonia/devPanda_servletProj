@@ -16,6 +16,7 @@ public class BidAuctionTransactionDto {
 	private String date; 			  
 	private String price; 			  
 	private String state;
+	
 	public String getBidNum() {
 		return bidNum;
 	}

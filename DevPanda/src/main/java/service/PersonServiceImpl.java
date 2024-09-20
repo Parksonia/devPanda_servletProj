@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
@@ -62,12 +63,22 @@ public class PersonServiceImpl implements PersonService {
 		List<Person> personList = personRepository.findPersonListByEmail(email);
 		return personList;
 	}
-
+	
+	
+	//personInfo수정
 	@Override
 	public void modifyPersonInfo(HttpServletRequest request) throws Exception {
 
-		//String id = request.getSession().getId();
-		String id ="abc001";
+	    HttpSession session = request.getSession();
+	    Person sessionPerson = (Person) session.getAttribute("person");
+	    
+	    if (sessionPerson == null) {
+	        throw new Exception("로그인된 사용자를 찾을 수 없습니다.");
+	    }
+
+	    String id = sessionPerson.getId();
+
+		//String id ="abc001";
 		String path = request.getServletContext().getRealPath("upload");
 
 		int size = 10 * 1024 * 1024; // 크기지정 10MB
@@ -84,6 +95,17 @@ public class PersonServiceImpl implements PersonService {
 		  person.setAddress(multi.getParameter("address"));
 
 		  personRepository.updatePersonInfo(person,id);
+	}
+	
+	//personAccount inactive 업데이트
+	@Override
+	public boolean inactivePersonAccount(String id) throws Exception {
+		
+		Integer result = personRepository.updatePersonStatus(id);
+		if(result>0) {
+			return true;
+		}
+		return false;
 	}
 	
 

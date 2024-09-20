@@ -126,14 +126,6 @@
 		LIMIT #{offset}, #{pageSize}
 	</select>
 
-
-
-
-
-
-
-
-
 	<select id="findAuctionById" parameterType="int"
 		resultType="dto.AuctionAndPerson">
 		select a.*,
@@ -187,14 +179,10 @@
 
 
 	</update>
-<<<<<<< HEAD
-	
-	<select id="selectPSAuctionList" parameterType="Map" resultType="Map">
-=======
 
 	<select id="selectPSAuctionList" parameterType="String"
 		resultType="Map">
->>>>>>> refs/heads/k1-55
+
 		<![CDATA[
 			select a.* , p.*
 				from auction a
@@ -224,8 +212,7 @@
 			limit #{limit} offset #{offset};
 		]]>
 	</select>
-<<<<<<< HEAD
-	
+
 	<select id="countPSAuctionListBySellerId" parameterType="String" resultType="int">
 		<![CDATA[
 			select count(*) from auction where id=#{id};
@@ -233,12 +220,11 @@
 	</select>
 	
 	
-	<select id="selectPSAuctionListByDate" parameterType="map" resultType="Map">
-=======
+
 
 	<select id="selectPSAuctionListByDate" parameterType="map"
 		resultType="Map">
->>>>>>> refs/heads/k1-55
+
 		<![CDATA[
 			select a.* , p.*
 				from auction a

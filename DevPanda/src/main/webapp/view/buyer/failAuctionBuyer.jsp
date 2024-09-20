@@ -67,8 +67,14 @@
 	<!-- side+contents container  -->
 	<div class="container my">
 
-	<%@ include file="../inc/personSideNav.jsp"%>
-
+		<c:choose>
+			<c:when test="${userType == 'person'}">
+				<%@ include file="../inc/personSideNav.jsp"%>
+			</c:when>
+			<c:otherwise>
+				<%@ include file="../inc/comSideNav.jsp"%>
+			</c:otherwise>
+		</c:choose>
 		<!--personAuctionSuc Start  -->
 		<div class="container">
 			<div class="title">거래 상세 보기</div>

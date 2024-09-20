@@ -18,8 +18,6 @@ import service.AuctionService;
 import service.AuctionServiceImpl;
 import service.BidService;
 import service.BidServiceImpl;
-import service.CompanyService;
-import service.CompanyServiceImpl;
 import service.PersonSellTransactionListService;
 import service.PersonSellTransactionListServiceImpl;
 import service.PersonService;
@@ -85,7 +83,13 @@ public class PersonSellTransactionDetail extends HttpServlet {
 			// person 처리
 			PersonService pservice = new PersonServiceImpl();
 			Person sperson = pservice.selectPersonInfo(sellerId);
-				
+			
+			// 블랙 리스트 신고 여부 처리  
+			String userType = (String)request.getSession().getAttribute("userType");
+			PersonSellTransactionListService trService = new PersonSellTransactionListServiceImpl();
+			boolean isAlreadyReported = trService.isAlreadyReportedBlack(sellerId,transactionNum,userType,"S"); //"P"를 session의 userType으로 바꿔야함 
+			request.setAttribute("isAlreadyReported",isAlreadyReported);
+			
 			
 			// 판매자(Seller) person 정보 
 			request.setAttribute("sellerId", sellerId);
@@ -110,8 +114,9 @@ public class PersonSellTransactionDetail extends HttpServlet {
 			
 			// bid 정보
 			request.setAttribute("allBuyers", allBuyers);
-			
-			
+
+		
+						
 			// request.set			
 			request.setAttribute("price", price); //낙찰액
 			request.setAttribute("date", date);  //낙찰일
@@ -120,8 +125,7 @@ public class PersonSellTransactionDetail extends HttpServlet {
 			request.setAttribute("transactionNum", transactionNum);
 			request.setAttribute("bidNum", bidNum);
 			
-			
-			request.getRequestDispatcher("/view/seller/personSellTransactionDetail.jsp?currentPage=personSellTransactionList").forward(request, response);
+			request.getRequestDispatcher("/view/seller/personSellTransactionDetail.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

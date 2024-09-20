@@ -17,6 +17,8 @@ import service.AuctionService;
 import service.AuctionServiceImpl;
 import service.BidService;
 import service.BidServiceImpl;
+import service.PersonSellTransactionListService;
+import service.PersonSellTransactionListServiceImpl;
 import service.PersonService;
 import service.PersonServiceImpl;
 
@@ -78,6 +80,13 @@ public class PersonBuyTransactionDetail extends HttpServlet {
 			Person sperson = pservice.selectPersonInfo(sellerId);
 			Person bperson = pservice.selectPersonInfo(buyerId);
 
+			// 블랙 리스트 신고 여부 처리  
+			String userType = (String)request.getSession().getAttribute("userType");
+			PersonSellTransactionListService trService = new PersonSellTransactionListServiceImpl(); // SellService로 동일하게 활용 가능 
+			boolean isAlreadyReported = trService.isAlreadyReportedBlack(sellerId,transactionNum,userType,"B"); 
+			request.setAttribute("isAlreadyReported",isAlreadyReported);
+						
+			
 			// 판매자(Seller) person 정보
 			request.setAttribute("sellerId", sellerId);
 			request.setAttribute("sellerImage", sellerImage);
@@ -99,7 +108,7 @@ public class PersonBuyTransactionDetail extends HttpServlet {
 			request.setAttribute("transactionNum", transactionNum);
 			request.setAttribute("memType", memType);
 
-			request.getRequestDispatcher("/view/buyer/personBuyTransactionDetail.jsp?currentPage=personBuyTransactionList").forward(request, response);
+			request.getRequestDispatcher("/view/buyer/personBuyTransactionDetail.jsp").forward(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();

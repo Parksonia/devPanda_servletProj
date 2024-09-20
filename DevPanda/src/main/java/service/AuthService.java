@@ -36,7 +36,7 @@ public class AuthService {
 			if(person.getId().equals(id)  && person.getPassword().equals(password)) {
 				HttpSession session = request.getSession();
 				session.setAttribute("person", person);
-				session.setAttribute("userType", "P");
+				session.setAttribute("userType", "person");
 				return person;
 			}
 			return null;
@@ -45,7 +45,6 @@ public class AuthService {
 		}
 				
 	}
-	
 	
 	public  Company companyLogin(HttpServletRequest request, HttpServletResponse response) {
 		String id= (String) request.getParameter("id");
@@ -66,7 +65,7 @@ public class AuthService {
 			if(company.getId().equals(id)  && company.getPassword().equals(password)) {
 				HttpSession session = request.getSession();
 				session.setAttribute("company", company);
-				session.setAttribute("userType", "C");
+				session.setAttribute("userType", "company");
 				return company;
 			}
 			return null;

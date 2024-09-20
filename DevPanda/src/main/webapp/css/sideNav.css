@@ -16,7 +16,6 @@ a,a:active,a:focus,a:hover {
     text-decoration: none
 }
 
-
 /* 꽉 채워서*/
 /* .container.my {
 	display: flex;
@@ -92,4 +91,9 @@ a,a:active,a:focus,a:hover {
 
 .snb_list+.snb_list {
 	margin-top: 40px
+}
+/*사이드 바 active 효과 */
+.menu_item.active .menu_link {
+	font-weight: bold;
+	color: #007bff; /* 원하는 하이라이트 색상으로 변경 */
 }

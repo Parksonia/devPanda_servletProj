@@ -108,7 +108,16 @@
 						<p>아이디: ${sperson.id }</p>
 						<p>이메일: ${sperson.email }</p>
 						<p>주소: ${sperson.address }</p>
-						<button class="report-button">블랙리스트 등록</button>
+						<c:choose>
+							<c:when test="${isAlreadyReported}">
+								<button class="report-button" disabled
+									style="background-color: #ccc; cursor: not-allowed;">이미
+									신고됨</button>
+							</c:when>
+							<c:otherwise>
+								<button class="report-button">블랙리스트 등록</button>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>
