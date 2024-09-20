@@ -5,8 +5,10 @@
 
 <!-- mybatis 설정 -->
 
-<configuration>
 
+	
+	<configuration>
+	
 	<typeAliases>
 		<!-- dto 넣기 -->
 		<typeAlias type="dto.AuctionAndPerson" alias="auctionandperson" />
@@ -19,6 +21,7 @@
 		<typeAlias type="dto.SearchCondition" alias="searchcondition" />
 		<typeAlias type="dto.Transaction" alias="transaction" />
 	</typeAliases>
+
 
 
 
@@ -70,6 +73,7 @@
 	
 
 
+	
 
 	<mappers>
 		<mapper resource="mapper/person.xml" />
@@ -86,5 +90,4 @@
 		<mapper resource ="mapper/emailCertification.xml"/> 
 
 	</mappers>
-
 </configuration>

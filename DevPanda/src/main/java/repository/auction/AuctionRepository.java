@@ -11,7 +11,7 @@ import org.apache.ibatis.session.SqlSession;
 
 public interface AuctionRepository {
 	 List<AuctionAndPerson> getFilteredAuctionsWithPersonInfo(int offset, int pageSize,
-			 String[] location, String[] stack, String[] Occupation, String[] period, String[] education, String[] Certification, String[] employmentType);
+	 String[] location, String[] stack, String[] Occupation, String[] period, String[] education, String[] Certification, String[] employmentType);
 	
 	// 개인 옥션정보 상세보기 조회
 	Auction selectOneAuction(Integer auctionNum) throws Exception;

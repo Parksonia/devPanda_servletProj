@@ -6,6 +6,7 @@
 <%@ page import="dto.AuctionAndPerson"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 
 <% 
@@ -46,17 +47,17 @@
                     <button type="button" id="category1-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#지역</button>
                     <div id="category1-content" class="category-content hidden">
                         <!-- 지역 체크박스들 -->
-<label><input type="checkbox" name="location[]" value="전국"> 전국</label><br>
-        <label><input type="checkbox" name="location[]" value="서울"> 서울</label><br>
-        <label><input type="checkbox" name="location[]" value="경/인"> 경/인</label><br>
-        <label><input type="checkbox" name="location[]" value="강원"> 강원</label><br>
-        <label><input type="checkbox" name="location[]" value="경남"> 경남</label><br>
-        <label><input type="checkbox" name="location[]" value="경북"> 경북</label><br>
-        <label><input type="checkbox" name="location[]" value="전남"> 전남</label><br>
-        <label><input type="checkbox" name="location[]" value="전북"> 전북</label><br>
-        <label><input type="checkbox" name="location[]" value="충남"> 충남</label><br>
-        <label><input type="checkbox" name="location[]" value="충북"> 충북</label><br>
-        <label><input type="checkbox" name="location[]" value="제주"> 제주</label><br>
+<label><input type="checkbox" name="location[]" value="전국" <c:if test="${fn:contains(param.location, '전국')}">checked</c:if>> 전국</label><br>
+<label><input type="checkbox" name="location[]" value="서울" <c:if test="${fn:contains(param.location, '서울')}">checked</c:if>> 서울</label><br>
+<label><input type="checkbox" name="location[]" value="경/인" <c:if test="${fn:contains(param.location, '경/인')}">checked</c:if>> 경/인</label><br>
+<label><input type="checkbox" name="location[]" value="강원" <c:if test="${fn:contains(param.location, '강원')}">checked</c:if>> 강원</label><br>
+<label><input type="checkbox" name="location[]" value="경남" <c:if test="${fn:contains(param.location, '경남')}">checked</c:if>> 경남</label><br>
+<label><input type="checkbox" name="location[]" value="경북" <c:if test="${fn:contains(param.location, '경북')}">checked</c:if>> 경북</label><br>
+<label><input type="checkbox" name="location[]" value="전남" <c:if test="${fn:contains(param.location, '전남')}">checked</c:if>> 전남</label><br>
+<label><input type="checkbox" name="location[]" value="전북" <c:if test="${fn:contains(param.location, '전북')}">checked</c:if>> 전북</label><br>
+<label><input type="checkbox" name="location[]" value="충남" <c:if test="${fn:contains(param.location, '충남')}">checked</c:if>> 충남</label><br>
+<label><input type="checkbox" name="location[]" value="충북" <c:if test="${fn:contains(param.location, '충북')}">checked</c:if>> 충북</label><br>
+<label><input type="checkbox" name="location[]" value="제주" <c:if test="${fn:contains(param.location, '제주')}">checked</c:if>> 제주</label><br>
                     </div>
                 </div>
 
@@ -65,29 +66,29 @@
                     <button type="button" id="category2-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#보유 기술</button>
                     <div id="category2-content" class="category-content hidden">
                         <!-- 보유 기술 체크박스들 -->
-                       <label><input type="checkbox" name="stack[]" value="JAVA"> JAVA</label><br>
-        <label><input type="checkbox" name="stack[]" value="Python"> Python</label><br>
-        <label><input type="checkbox" name="stack[]" value="C"> C</label><br>
-        <label><input type="checkbox" name="stack[]" value="C++"> C++</label><br>
-        <label><input type="checkbox" name="stack[]" value="C#"> C#</label><br>
-        <label><input type="checkbox" name="stack[]" value="html,css,js"> html,css,js</label><br>
-        <label><input type="checkbox" name="stack[]" value="Go"> Go</label><br>
-        <label><input type="checkbox" name="stack[]" value="kotlin"> kotlin</label><br>
-        <label><input type="checkbox" name="stack[]" value="aws"> aws</label><br>
-        <label><input type="checkbox" name="stack[]" value="springboot"> springboot</label><br>
-        <label><input type="checkbox" name="stack[]" value="react"> react</label><br>
-        <label><input type="checkbox" name="stack[]" value="vue"> vue</label><br>
-        <label><input type="checkbox" name="stack[]" value="django"> django</label><br>
-        <label><input type="checkbox" name="stack[]" value="tensorflow"> tensorflow</label><br>
-        <label><input type="checkbox" name="stack[]" value="flutter"> flutter</label><br>
-        <label><input type="checkbox" name="stack[]" value="ios"> ios</label><br>
-        <label><input type="checkbox" name="stack[]" value="android"> android</label><br>
-        <label><input type="checkbox" name="stack[]" value="swift"> swift</label><br>
-        <label><input type="checkbox" name="stack[]" value="oracle"> oracle</label><br>
-        <label><input type="checkbox" name="stack[]" value="redis"> redis</label><br>
-        <label><input type="checkbox" name="stack[]" value="mysql"> mysql</label><br>
-        <label><input type="checkbox" name="stack[]" value="nosql"> nosql</label><br>
-        <label><input type="checkbox" name="stack[]" value="mariadb"> mariadb</label><br>
+<label><input type="checkbox" name="stack[]" value="JAVA" <c:if test="${fn:contains(param.stack, 'JAVA')}">checked</c:if>> JAVA</label><br>
+<label><input type="checkbox" name="stack[]" value="Python" <c:if test="${fn:contains(param.stack, 'Python')}">checked</c:if>> Python</label><br>
+<label><input type="checkbox" name="stack[]" value="C" <c:if test="${fn:contains(param.stack, 'C')}">checked</c:if>> C</label><br>
+<label><input type="checkbox" name="stack[]" value="C++" <c:if test="${fn:contains(param.stack, 'C++')}">checked</c:if>> C++</label><br>
+<label><input type="checkbox" name="stack[]" value="C#" <c:if test="${fn:contains(param.stack, 'C#')}">checked</c:if>> C#</label><br>
+<label><input type="checkbox" name="stack[]" value="html,css,js" <c:if test="${fn:contains(param.stack, 'html,css,js')}">checked</c:if>> html,css,js</label><br>
+<label><input type="checkbox" name="stack[]" value="Go" <c:if test="${fn:contains(param.stack, 'Go')}">checked</c:if>> Go</label><br>
+<label><input type="checkbox" name="stack[]" value="Kotlin" <c:if test="${fn:contains(param.stack, 'Kotlin')}">checked</c:if>> Kotlin</label><br>
+<label><input type="checkbox" name="stack[]" value="aws" <c:if test="${fn:contains(param.stack, 'aws')}">checked</c:if>> aws</label><br>
+<label><input type="checkbox" name="stack[]" value="SpringBoot" <c:if test="${fn:contains(param.stack, 'SpringBoot')}">checked</c:if>> SpringBoot</label><br>
+<label><input type="checkbox" name="stack[]" value="react" <c:if test="${fn:contains(param.stack, 'react')}">checked</c:if>> react</label><br>
+<label><input type="checkbox" name="stack[]" value="vue" <c:if test="${fn:contains(param.stack, 'vue')}">checked</c:if>> vue</label><br>
+<label><input type="checkbox" name="stack[]" value="django" <c:if test="${fn:contains(param.stack, 'django')}">checked</c:if>> django</label><br>
+<label><input type="checkbox" name="stack[]" value="tensorflow" <c:if test="${fn:contains(param.stack, 'tensorflow')}">checked</c:if>> tensorflow</label><br>
+<label><input type="checkbox" name="stack[]" value="flutter" <c:if test="${fn:contains(param.stack, 'flutter')}">checked</c:if>> flutter</label><br>
+<label><input type="checkbox" name="stack[]" value="ios" <c:if test="${fn:contains(param.stack, 'ios')}">checked</c:if>> ios</label><br>
+<label><input type="checkbox" name="stack[]" value="android" <c:if test="${fn:contains(param.stack, 'android')}">checked</c:if>> android</label><br>
+<label><input type="checkbox" name="stack[]" value="swift" <c:if test="${fn:contains(param.stack, 'swift')}">checked</c:if>> swift</label><br>
+<label><input type="checkbox" name="stack[]" value="oracle" <c:if test="${fn:contains(param.stack, 'oracle')}">checked</c:if>> oracle</label><br>
+<label><input type="checkbox" name="stack[]" value="redis" <c:if test="${fn:contains(param.stack, 'redis')}">checked</c:if>> redis</label><br>
+<label><input type="checkbox" name="stack[]" value="mysql" <c:if test="${fn:contains(param.stack, 'mysql')}">checked</c:if>> mysql</label><br>
+<label><input type="checkbox" name="stack[]" value="nosql" <c:if test="${fn:contains(param.stack, 'nosql')}">checked</c:if>> nosql</label><br>
+<label><input type="checkbox" name="stack[]" value="mariadb" <c:if test="${fn:contains(param.stack, 'mariadb')}">checked</c:if>> mariadb</label><br>
                     </div>
                 </div>
 
@@ -96,19 +97,19 @@
                     <button type="button" id="category3-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#직무</button>
                     <div id="category3-content" class="category-content hidden">
                         <!-- 직무 체크박스들 -->
-                       <label><input type="checkbox" name="Occupation[]" value="백엔드"> 백엔드</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="프론트엔드"> 프론트엔드</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="웹"> 웹</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="앱"> 앱</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="시스템엔지니어"> 시스템엔지니어</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="네트워크엔지니어"> 네트워크엔지니어</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="데이터엔지니어"> 데이터엔지니어</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="보안엔지니어"> 보안엔지니어</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="게임 개발"> 게임 개발</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="임베디드 개발"> 임베디드 개발</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="머신러닝,AI,블록체인 개발"> 머신러닝,AI,블록체인 개발</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="클라우드엔지니어"> 클라우드엔지니어</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="웹퍼블리셔"> 웹퍼블리셔</label><br>
+<label><input type="checkbox" name="Occupation[]" value="백엔드" <c:if test="${fn:contains(param.Occupation, '백엔드')}">checked</c:if>> 백엔드</label><br>
+<label><input type="checkbox" name="Occupation[]" value="프론트엔드" <c:if test="${fn:contains(param.Occupation, '프론트엔드')}">checked</c:if>> 프론트엔드</label><br>
+<label><input type="checkbox" name="Occupation[]" value="웹" <c:if test="${fn:contains(param.Occupation, '웹')}">checked</c:if>> 웹</label><br>
+<label><input type="checkbox" name="Occupation[]" value="앱" <c:if test="${fn:contains(param.Occupation, '앱')}">checked</c:if>> 앱</label><br>
+<label><input type="checkbox" name="Occupation[]" value="시스템엔지니어" <c:if test="${fn:contains(param.Occupation, '시스템엔지니어')}">checked</c:if>> 시스템엔지니어</label><br>
+<label><input type="checkbox" name="Occupation[]" value="네트워크엔지니어" <c:if test="${fn:contains(param.Occupation, '네트워크엔지니어')}">checked</c:if>> 네트워크엔지니어 </label><br>
+<label><input type="checkbox" name="Occupation[]" value="데이터엔지니어" <c:if test="${fn:contains(param.Occupation, '데이터엔지니어')}">checked</c:if>> 데이터엔지니어</label><br>
+<label><input type="checkbox" name="Occupation[]" value="보안엔지니어" <c:if test="${fn:contains(param.Occupation, '보안엔지니어')}">checked</c:if>> 보안엔지니어</label><br>
+<label><input type="checkbox" name="Occupation[]" value="게임개발" <c:if test="${fn:contains(param.Occupation, '게임개발')}">checked</c:if>> 게임개발</label><br>
+<label><input type="checkbox" name="Occupation[]" value="임베디드개발" <c:if test="${fn:contains(param.Occupation, '임베디드개발')}">checked</c:if>> 임베디드개발</label><br>
+<label><input type="checkbox" name="Occupation[]" value="머신러닝,AI" <c:if test="${fn:contains(param.Occupation, '머신러닝,AI')}">checked</c:if>> 머신러닝,AI</label><br>
+<label><input type="checkbox" name="Occupation[]" value="클라우드엔지니어" <c:if test="${fn:contains(param.Occupation, '클라우드엔지니어')}">checked</c:if>> 클라우드엔지니어</label><br>
+<label><input type="checkbox" name="Occupation[]" value="웹퍼블리셔" <c:if test="${fn:contains(param.Occupation, '웹퍼블리셔')}">checked</c:if>> 웹퍼블리셔</label><br>
 
                     </div>
                 </div>
@@ -118,8 +119,8 @@
                     <button type="button" id="category4-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#경력</button>
                     <div id="category4-content" class="category-content hidden">
                         <!-- 경력 체크박스들 -->
-                        <label><input type="checkbox" name="period[]" value="신입"> 신입</label><br>
-                        <label><input type="checkbox" name="period[]" value="경력"> 경력</label><br>
+<label><input type="checkbox" name="period[]" value="신입" <c:if test="${fn:contains(param.period, '신입')}">checked</c:if>> 신입</label><br>
+<label><input type="checkbox" name="period[]" value="경력" <c:if test="${fn:contains(param.period, '경력')}">checked</c:if>> 경력</label><br>
                     </div>
                 </div>
 
@@ -128,12 +129,12 @@
                     <button type="button" id="category5-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#학력</button>
                     <div id="category5-content" class="category-content hidden">
                         <!-- 학력 체크박스들 -->
-                        <label><input type="checkbox" name="education[]" value="고졸"> 고졸</label><br>
-        <label><input type="checkbox" name="education[]" value="초대졸"> 초대졸</label><br>
-        <label><input type="checkbox" name="education[]" value="학사"> 학사</label><br>
-        <label><input type="checkbox" name="education[]" value="석사"> 석사</label><br>
-        <label><input type="checkbox" name="education[]" value="박사"> 박사</label><br>
-        <label><input type="checkbox" name="education[]" value="학력무관"> 학력무관</label><br>
+<label><input type="checkbox" name="education[]" value="고졸" <c:if test="${fn:contains(param.education, '고졸')}">checked</c:if>> 고졸</label><br>
+<label><input type="checkbox" name="education[]" value="초대졸" <c:if test="${fn:contains(param.education, '초대졸')}">checked</c:if>> 초대졸</label><br>
+<label><input type="checkbox" name="education[]" value="학사" <c:if test="${fn:contains(param.education, '학사')}">checked</c:if>> 학사</label><br>
+<label><input type="checkbox" name="education[]" value="석사" <c:if test="${fn:contains(param.education, '석사')}">checked</c:if>> 석사</label><br>
+<label><input type="checkbox" name="education[]" value="박사" <c:if test="${fn:contains(param.education, '박사')}">checked</c:if>> 박사</label><br>
+<label><input type="checkbox" name="education[]" value="학력무관" <c:if test="${fn:contains(param.education, '학력무관')}">checked</c:if>> 학력무관</label><br>
                     </div>
                 </div>
 
@@ -142,15 +143,15 @@
                     <button type="button" id="category6-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#자격증</button>
                     <div id="category6-content" class="category-content hidden">
                         <!-- 자격증 체크박스들 -->
-                       <label><input type="checkbox" name="Certification[]" value="토익700↑"> 토익700↑</label><br>
-        <label><input type="checkbox" name="Certification[]" value="토플700↑"> 토플700↑</label><br>
-        <label><input type="checkbox" name="Certification[]" value="토스IL↑"> 토스IL↑</label><br>
-        <label><input type="checkbox" name="Certification[]" value="정보처리기사"> 정보처리기사</label><br>
-        <label><input type="checkbox" name="Certification[]" value="SQLD"> SQLD</label><br>
-        <label><input type="checkbox" name="Certification[]" value="SQLP"> SQLP</label><br>
-        <label><input type="checkbox" name="Certification[]" value="리눅스마스터"> 리눅스마스터</label><br>
-        <label><input type="checkbox" name="Certification[]" value="AWS자격증"> AWS자격증</label><br>
-        <label><input type="checkbox" name="Certification[]" value="기타"> 기타</label><br>
+<label><input type="checkbox" name="Certification[]" value="토익700↑" <c:if test="${fn:contains(param.Certification, '토익700↑')}">checked</c:if>> 토익700↑</label><br>
+<label><input type="checkbox" name="Certification[]" value="토플700↑" <c:if test="${fn:contains(param.Certification, '토플700↑')}">checked</c:if>> 토플700↑</label><br>
+<label><input type="checkbox" name="Certification[]" value="토스IL↑" <c:if test="${fn:contains(param.Certification, '토스IL↑')}">checked</c:if>> 토스IL↑</label><br>
+<label><input type="checkbox" name="Certification[]" value="정보처리기사" <c:if test="${fn:contains(param.Certification, '정보처리기사')}">checked</c:if>> 정보처리기사</label><br>
+<label><input type="checkbox" name="Certification[]" value="SQLD" <c:if test="${fn:contains(param.Certification, 'SQLD')}">checked</c:if>> SQLD</label><br>
+<label><input type="checkbox" name="Certification[]" value="SQLP" <c:if test="${fn:contains(param.Certification, 'SQLP')}">checked</c:if>> SQLP</label><br>
+<label><input type="checkbox" name="Certification[]" value="리눅스마스터" <c:if test="${fn:contains(param.Certification, '리눅스마스터')}">checked</c:if>> 리눅스마스터</label><br>
+<label><input type="checkbox" name="Certification[]" value="AWS" <c:if test="${fn:contains(param.Certification, 'AWS')}">checked</c:if>>AWS</label><br>
+<label><input type="checkbox" name="Certification[]" value="기타" <c:if test="${fn:contains(param.Certification, '기타')}">checked</c:if>> 기타</label><br>
 
                     </div>
                 </div>
@@ -160,20 +161,24 @@
                     <button type="button" id="category7-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#고용형태</button>
                     <div id="category7-content" class="category-content hidden">
                         <!-- 고용형태 체크박스들 -->
-                         <label><input type="checkbox" name="employmentType[]" value="계약직3개월"> 계약직3개월</label><br>
-                    <label><input type="checkbox" name="employmentType[]" value="계약직6개월"> 계약직6개월</label><br>
-                    <label><input type="checkbox" name="employmentType[]" value="정규직"> 정규직</label><br>
-                    <label><input type="checkbox" name="employmentType[]" value="인턴"> 인턴</label><br>
-                    <label><input type="checkbox" name="employmentType[]" value="프리랜서"> 프리랜서</label><br>
+<label><input type="checkbox" name="employmentType[]" value="계약직3개월" <c:if test="${fn:contains(param.employmentType, '계약직3개월')}">checked</c:if>> 계약직3개월</label><br>
+<label><input type="checkbox" name="employmentType[]" value="계약직6개월" <c:if test="${fn:contains(param.employmentType, '계약직6개월')}">checked</c:if>> 계약직6개월</label><br>
+<label><input type="checkbox" name="employmentType[]" value="정규직" <c:if test="${fn:contains(param.employmentType, '정규직')}">checked</c:if>> 정규직</label><br>
+<label><input type="checkbox" name="employmentType[]" value="인턴" <c:if test="${fn:contains(param.employmentType, '인턴')}">checked</c:if>> 인턴</label><br>
+<label><input type="checkbox" name="employmentType[]" value="프리랜서" <c:if test="${fn:contains(param.employmentType, '프리랜서')}">checked</c:if>> 프리랜서</label><br>
                     </div>
                 </div>
             </div>
     
             <div class="flex justify-between mt-4">
     <button id="reset-button" class="bg-gray-300 text-gray-800 p-2 rounded">초기화</button>
-    <button type="submit" id="apply-button" class="bg-green-500 text-white p-2 rounded">적용</button>
+    <button type="submit" id="apply-button" class="bg-green-500 text-white p-2 rounded">검색</button>
 </div>
  </form>
+ 
+ <button onclick="openAuctionModal()"
+						class="bg-green-500 text-white p-2 rounded">경매 등록하기</button>
+ 
 
         </div>
     </section>
@@ -208,6 +213,9 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+	
+	
+	
     let offset = 0; // 초기 오프셋 값
     const pageSize = <%= pageSize %>; // 페이지당 아이템 수
     let isLoading = false; // 로딩 상태
@@ -226,21 +234,49 @@ document.addEventListener('DOMContentLoaded', function() {
         Certification: [],
         employmentType: []
     };
+    
+ 	// 필터 상태 유지
+    const filterParams = new URLSearchParams(window.location.search);
+    const categories = ['location', 'stack', 'Occupation', 'period', 'education', 'Certification', 'employmentType'];
 
-    // 적용 버튼 클릭 시
+    // 각 카테고리에 대해 반복
+    categories.forEach(category => {
+        // 현재 카테고리에 해당하는 체크박스들을 선택
+ 	   const checkboxes = document.querySelectorAll(`input[name="${category}[]"]`);
+
+ 	    // 체크박스 상태 설정
+ 	    checkboxes.forEach(checkbox => {
+ 	        if (filterParams.has(category) && filterParams.getAll(category).includes(checkbox.value)) {
+ 	            checkbox.checked = true; // 체크박스 체크
+ 	        } else {
+ 	            checkbox.checked = false; // 체크박스 해제
+ 	        }
+ 	    });
+ 	});
+
+
+    //검색 버튼 클릭 시
     document.getElementById('apply-button').addEventListener('click', applyFilters);
 
-    // 필터 적용 함수
     function applyFilters() {
         // 필터 변수 설정
         
 
-        // 필터링된 데이터 로드
+        // URL에 필터 값을 쿼리 파라미터로 추가
+        const queryParams = new URLSearchParams();
+        for (const [key, value] of Object.entries(filters)) {
+            if (value.length > 0) {
+                queryParams.append(key, value.join(',')); // 배열을 콤마로 구분하여 추가
+            }
+        }
+        window.location.search = queryParams.toString();
+
         offset = 0;
         container.innerHTML = '';
         loadMoreAuctions();
     }
-
+    
+	
     // 필터링된 데이터를 로드하는 함수
     function loadMoreAuctions() {
     	filters.location = Array.from(document.querySelectorAll('input[name="location[]"]:checked')).map(el => el.value);
@@ -285,16 +321,22 @@ document.addEventListener('DOMContentLoaded', function() {
             data: {
                 offset: offset,
                 pageSize: pageSize,
-                location: filters.location.join(','),  // 배열을 콤마로 구분하여 전송
-                stack: filters.stack.join(','),
-                Occupation: filters.Occupation.join(','),
-                period: filters.period.join(','),
-                education: filters.education.join(','),
-                Certification: filters.Certification.join(','),
-                employmentType: filters.employmentType.join(',')
+                // 비어 있는 파라미터는 추가하지 않음
+                location: filters.location.length > 0 ? filters.location.join(',') : undefined,
+                stack: filters.stack.length > 0 ? filters.stack.join(',') : undefined,
+                Occupation: filters.Occupation.length > 0 ? filters.Occupation.join(',') : undefined,
+                period: filters.period.length > 0 ? filters.period.join(',') : undefined,
+                education: filters.education.length > 0 ? filters.education.join(',') : undefined,
+                Certification: filters.Certification.length > 0 ? filters.Certification.join(',') : undefined,
+                employmentType: filters.employmentType.length > 0 ? filters.employmentType.join(',') : undefined
             },
-            dataType: 'html', // 서버로부터 HTML을 기대
             
+            
+            dataType: 'html', 
+            
+            beforeSend: function() {
+                console.log('Sending request to:', this.url);
+            },
             success: function(html) {
                 const tempDiv = document.createElement('div');
                 tempDiv.innerHTML = html;
@@ -318,13 +360,16 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             error: function(xhr, status, error) {
                 console.error('Fetch error:', error);
+                console.log('Status code:', xhr.status); // 상태 코드 로그
+
                 loading.classList.add('hidden');
-                isLoading = false;
-                alert('데이터를 불러오는 중 오류가 발생했습니다. 다시 시도해주세요.');
+                //isLoading = false;
+                alert('데이터를 불러오는 중 오류가 발생했습니다. 상태 코드: ' + xhr.status + ', 메시지: ' + error);
             }
         });
     }
 
+    $(window).on('scroll', onScroll); // jQuery에서 스크롤 이벤트 등록
     // 스크롤 이벤트 핸들러
     function onScroll() {
         if (!isScrollingEnabled) return; // 스크롤 이벤트 비활성화 상태일 때는 처리하지 않음
@@ -337,8 +382,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 150); // 디바운스 시간 150ms로 설정
     }
 
-    // 스크롤 이벤트 등록
-    $(window).on('scroll', onScroll); // jQuery에서 스크롤 이벤트 등록
 
     // 초기화 버튼 클릭 시
     document.getElementById('reset-button').addEventListener('click', resetSelections);    
@@ -374,47 +417,32 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 500); // 초기화가 완료된 후 500ms 후에 스크롤 이벤트 재활성화
     }
     
-    
- // 필터 상태 유지
-    const filterParams = new URLSearchParams(window.location.search);
-
-    // 필터 카테고리 목록 정의
-    const categories = ['location', 'stack', 'Occupation', 'period', 'education', 'Certification', 'employmentType'];
-
-    // 각 카테고리에 대해 반복
-    categories.forEach(category => {
-        // 현재 카테고리에 해당하는 체크박스들을 선택
-        const checkboxes = document.querySelectorAll(`input[name="${category}[]"]`);
-        
-        // 체크박스 상태 설정
-        checkboxes.forEach(checkbox => {
-            // URL의 쿼리 파라미터에 현재 카테고리 값이 존재하는지 확인
-            if (filterParams.has(category) && filterParams.getAll(category).includes(checkbox.value)) {
-                checkbox.checked = true; // 체크박스 체크
-            } else {
-                checkbox.checked = false; // 체크박스 해제
-            }
-        });
-    });
-
-    // 필터 상태 변경 시 URL 쿼리 업데이트
-    function updateFilters() {
-        const updatedParams = new URLSearchParams();
-        categories.forEach(category => {
-            const checkedValues = Array.from(document.querySelectorAll(`input[name="${category}[]"]:checked`))
-                                       .map(checkbox => checkbox.value);
-            if (checkedValues.length > 0) {
-                updatedParams.set(category, checkedValues);
-            }
-        });
-        // URL 업데이트
-        history.replaceState(null, '', `${window.location.pathname}?${updatedParams.toString()}`);
-    }
 
 
 });
 </script>
 
+	<script>
+	
+	document.addEventListener('DOMContentLoaded', function () {
+	    // 각 카테고리 버튼 클릭 이벤트
+	    document.querySelectorAll('[id$="-toggle"]').forEach(button => {
+	        button.addEventListener('click', function (event) {
+	            // 등록이 아니라 체크박스 보여주기만 할 수 있도록 stopPropagation 추가
+	            event.stopPropagation(); 
+
+	            // 클릭한 버튼의 관련된 체크박스 영역을 토글
+	            const contentId = this.id.replace('-toggle', '-content');
+	            const contentElement = document.getElementById(contentId);
+
+	            if (contentElement) {
+	                contentElement.classList.toggle('open');
+	            }
+	        });
+	    });
+	});
+
+	</script>
  
 	</main>
 
@@ -432,6 +460,17 @@ document.addEventListener('DOMContentLoaded', function() {
             <input type="number" name="minSalary" class="w-full p-2 mb-4 border rounded" placeholder="최소 금액을 입력하세요" required>
             <label class="block mb-2 text-left">최대 금액:</label> 
             <input type="number" name="maxSalary" class="w-full p-2 mb-4 border rounded" placeholder="최대 금액을 입력하세요" required>
+            
+            <!-- <label for="endDate">End Date:</label>
+    		<input type="date" id="endDate" name="endDate" required> -->
+            
+            
+            <label for="endDate">End Date:</label>
+			<input type="date" id="endDate" name="endDate" required>
+			<label for="endTime">End Time:</label>
+			<input type="time" id="endTime" name="endTime" required>
+            
+            
             <p class="text-sm text-gray-500 mt-1">최대 금액 입찰 시 즉시 구매됩니다.</p>
 
             <label class="block mb-2 text-left">카테고리 선택:</label>
@@ -573,27 +612,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	</div>
 
 
-	<script>
-	
-	document.addEventListener('DOMContentLoaded', function () {
-	    // 각 카테고리 버튼 클릭 이벤트
-	    document.querySelectorAll('[id$="-toggle"]').forEach(button => {
-	        button.addEventListener('click', function (event) {
-	            // 등록이 아니라 체크박스 보여주기만 할 수 있도록 stopPropagation 추가
-	            event.stopPropagation(); 
 
-	            // 클릭한 버튼의 관련된 체크박스 영역을 토글
-	            const contentId = this.id.replace('-toggle', '-content');
-	            const contentElement = document.getElementById(contentId);
-
-	            if (contentElement) {
-	                contentElement.classList.toggle('open');
-	            }
-	        });
-	    });
-	});
-
-	</script>
 	
 	<script>
 	document.addEventListener('DOMContentLoaded', function () {

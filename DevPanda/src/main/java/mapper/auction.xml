@@ -21,7 +21,21 @@
 		#{bidMaxPrice},#{id});
 	</insert>
 
-	
+	<!-- 경매 상태 업데이트 -->
+    <update id="updateAuctionStatusToSuccess" parameterType="map">
+        UPDATE auction
+        SET state = 'success'
+        WHERE endDate <![CDATA[<=]]> #{currentDate}
+        AND state = 'processing';
+    </update>
+
+    <!-- processing이 아닌 경매 삭제 -->
+    <delete id="deleteNonProcessingAuctions">
+        DELETE FROM auction
+        WHERE state != 'processing';
+    </delete>
+
+
 
 	<select id="getFilteredAuctionsWithPersonInfo"
 		parameterType="map" resultType="dto.AuctionAndPerson">
@@ -214,6 +228,7 @@
 
 	</update>
 
+
 	<select id="selectPSAuctionList" parameterType="String"
 		resultType="Map">
 
@@ -223,14 +238,15 @@
 				JOIN person p ON a.id = p.id
 				WHERE a.id = #{sellerId}
 		]]>
-		
+
 		<if test="filterDate != null and filterDate != ''">
 			<![CDATA[
 				and STR_TO_DATE(a.endDate, '%Y-%m-%d') between STR_TO_DATE(#{filterDate}, '%Y-%m-%d') and STR_TO_DATE(now(), '%Y-%m-%d')
 			]]>
 		</if>
-		
-		<if test="startDate != null and startDate !='' and endDate != null and endDate !=''">
+
+		<if
+			test="startDate != null and startDate !='' and endDate != null and endDate !=''">
 			<![CDATA[
 				and STR_TO_DATE(a.endDate, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 			]]>
@@ -247,14 +263,16 @@
 		]]>
 	</select>
 
-	
-	<select id="countPSAuctionListBySellerId" parameterType="String" resultType="int">
+
+
+	<select id="countPSAuctionListBySellerId" parameterType="String"
+		resultType="int">
+
 		<![CDATA[
 			select count(*) from auction where id=#{id};
 		]]>
 	</select>
-	
-	
+
 
 	<select id="selectPSAuctionListByDate" parameterType="map"
 		resultType="Map">
