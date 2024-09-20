@@ -190,8 +190,8 @@
         <!-- 프로필 카드들이 서버에서 렌더링됩니다 -->
         <c:forEach var="auction" items="${auctions}">
             <div class="profile-card bg-white shadow-md rounded p-4">
-                <img src="<c:out value='${auction.personImage}' default='/DevPanda/upload/default.jpg'/>"
-                     alt="${auction.nickName}의 이미지" class="rounded-full w-16 h-16 mx-auto mb-2">
+               <img src="<c:out value='${pageContext.request.contextPath}/upload/${auction.personImage}' default='${pageContext.request.contextPath}/upload/default.jpg'/>"
+    			 alt="${auction.nickName}의 이미지" class="rounded-full w-16 h-16 mx-auto mb-2">
                 <h3 class="text-lg font-semibold text-center">${auction.title}</h3>
                 <p class="text-center text-gray-600">${auction.nickName}</p>
                 <p class="text-center text-gray-600">최소 금액: <c:out value='${auction.minSalary}'/>원</p>
@@ -211,12 +211,11 @@
 </section>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-	
-	
-	
-    let offset = 0; // 초기 오프셋 값
+
+	let offset = 0; // 초기 오프셋 값
     const pageSize = <%= pageSize %>; // 페이지당 아이템 수
     let isLoading = false; // 로딩 상태
     let isScrollingEnabled = true; // 스크롤 이벤트 활성화 상태
@@ -235,63 +234,50 @@ document.addEventListener('DOMContentLoaded', function() {
         employmentType: []
     };
     
- 	// 필터 상태 유지
     const filterParams = new URLSearchParams(window.location.search);
     const categories = ['location', 'stack', 'Occupation', 'period', 'education', 'Certification', 'employmentType'];
 
     // 각 카테고리에 대해 반복
     categories.forEach(category => {
         // 현재 카테고리에 해당하는 체크박스들을 선택
- 	   const checkboxes = document.querySelectorAll(`input[name="${category}[]"]`);
+        const checkboxes = document.querySelectorAll(`input[name="${category}[]"]`);
 
- 	    // 체크박스 상태 설정
- 	    checkboxes.forEach(checkbox => {
- 	        if (filterParams.has(category) && filterParams.getAll(category).includes(checkbox.value)) {
- 	            checkbox.checked = true; // 체크박스 체크
- 	        } else {
- 	            checkbox.checked = false; // 체크박스 해제
- 	        }
- 	    });
- 	});
-
-
+        // 체크박스 상태 설정
+        checkboxes.forEach(checkbox => {
+            if (filterParams.has(category) && filterParams.getAll(category).includes(checkbox.value)) {
+                checkbox.checked = true; // 체크박스 체크
+                filters[category].push(checkbox.value); // 필터 상태 업데이트
+            } else {
+                checkbox.checked = false; // 체크박스 해제
+            }
+        });
+    });
+    
     //검색 버튼 클릭 시
     document.getElementById('apply-button').addEventListener('click', applyFilters);
 
     function applyFilters() {
-        // 필터 변수 설정
         
-
-        // URL에 필터 값을 쿼리 파라미터로 추가
-        const queryParams = new URLSearchParams();
-        for (const [key, value] of Object.entries(filters)) {
-            if (value.length > 0) {
-                queryParams.append(key, value.join(',')); // 배열을 콤마로 구분하여 추가
-            }
-        }
-        window.location.search = queryParams.toString();
-
-        offset = 0;
-        container.innerHTML = '';
+    	updateFilters();
         loadMoreAuctions();
+   
     }
     
-	
-    // 필터링된 데이터를 로드하는 함수
-    function loadMoreAuctions() {
-    	filters.location = Array.from(document.querySelectorAll('input[name="location[]"]:checked')).map(el => el.value);
+ 
+    function updateFilters() {
+        filters.location = Array.from(document.querySelectorAll('input[name="location[]"]:checked')).map(el => el.value);
         filters.stack = Array.from(document.querySelectorAll('input[name="stack[]"]:checked')).map(el => el.value);
         filters.Occupation = Array.from(document.querySelectorAll('input[name="Occupation[]"]:checked')).map(el => el.value);
         filters.period = Array.from(document.querySelectorAll('input[name="period[]"]:checked')).map(el => el.value);
         filters.education = Array.from(document.querySelectorAll('input[name="education[]"]:checked')).map(el => el.value);
         filters.Certification = Array.from(document.querySelectorAll('input[name="Certification[]"]:checked')).map(el => el.value);
         filters.employmentType = Array.from(document.querySelectorAll('input[name="employmentType[]"]:checked')).map(el => el.value);
+    }
+    
+    // 필터링된 데이터를 로드하는 함수
+    function loadMoreAuctions() {
     	
-    	
-    	
-    	
-    	
-    	
+    
     	if (isLoading) return;  // 이미 로딩 중일 때는 실행하지 않음
         isLoading = true;
         loading.classList.remove('hidden');
@@ -334,9 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             dataType: 'html', 
             
-            beforeSend: function() {
-                console.log('Sending request to:', this.url);
-            },
+           
             success: function(html) {
                 const tempDiv = document.createElement('div');
                 tempDiv.innerHTML = html;
@@ -345,14 +329,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 const newCards = tempDiv.querySelectorAll('.profile-card');
                 newCards.forEach(card => container.appendChild(card));
 
+                
+             // 데이터 개수를 확인하여 페이징 처리 여부 결정
+                if (newCards.length < pageSize) {
+                    
+                    $(window).off('scroll', onScroll); // 스크롤 이벤트 비활성화
+                } else {
+                    offset += pageSize; // 다음 오프셋 준비
+                }
+            
+             /* 
                 // 데이터가 없을 경우 스크롤 이벤트 제거
                 if (newCards.length === 0) {
                     $(window).off('scroll', onScroll); // jQuery에서 스크롤 이벤트 제거
                     loading.classList.add('hidden');
                     return;
                 }
-
-                offset += pageSize; // 다음 오프셋 준비
+ */
+                //offset += pageSize; // 다음 오프셋 준비
                 console.log('Updated offset:', offset); // 업데이트된 오프셋 로그
 
                 isLoading = false;
@@ -367,7 +361,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('데이터를 불러오는 중 오류가 발생했습니다. 상태 코드: ' + xhr.status + ', 메시지: ' + error);
             }
         });
-    }
+    }//load function
 
     $(window).on('scroll', onScroll); // jQuery에서 스크롤 이벤트 등록
     // 스크롤 이벤트 핸들러
@@ -651,14 +645,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	    }
 
 		function openProfilePage(auctionNum) {
-			window.location.href = `/view/auctionDetail.jsp?auctionNum=${auctionNum}`;
+		    window.location.href = `/Devpanda/auction/detail?auctionNum=${auctionNum}`;
 		}
 
-		/* function resetSelections() {
-			document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-				checkbox.checked = false;
-			});
-		} */
 		
 		
 		

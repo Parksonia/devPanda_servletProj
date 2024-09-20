@@ -62,7 +62,7 @@ public class SignUpPerson extends HttpServlet {
             System.out.println("파일 저장 경로: " + filePath);
             
             // 상대 경로를 저장 (웹에서 접근 가능한 경로)
-            //String relativeFilePath = "/upload/" + fileName;
+            //String relativeFilePath = "upload/" + fileName;
 
             
             // Person 객체 생성
