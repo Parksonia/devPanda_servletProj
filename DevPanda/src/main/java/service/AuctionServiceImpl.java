@@ -6,18 +6,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
+
+import com.google.gson.Gson;
+
 import dto.Auction;
 import dto.AuctionAndPerson;
+import dto.BidAuctionTransactionDto;
+import dto.MapperSearchCondition;
 import dto.Person;
-
+import dto.SearchCondition;
 import repository.auction.AuctionRepository;
 import repository.auction.AuctionRepositoryImpl;
 
 public class AuctionServiceImpl implements AuctionService {
 	private AuctionRepository auctionRepository;
+	private static Gson gson = new Gson();
 
 	public AuctionServiceImpl() {
 		this.auctionRepository = new AuctionRepositoryImpl();
+		
 	}
 
 	@Override
@@ -26,7 +34,6 @@ public class AuctionServiceImpl implements AuctionService {
 	    System.out.println("Fetching auctions with offset: " + offset + ", pageSize: " + pageSize);
 	    System.out.println("Test:"+auctionRepository.getFilteredAuctionsWithPersonInfo(offset, pageSize,
 				location, stack, Occupation, period, education, Certification, employmentType));
-	   
 	    return auctionRepository.getFilteredAuctionsWithPersonInfo(offset, pageSize,
 				location, stack, Occupation, period, education, Certification, employmentType);
 		
@@ -87,8 +94,35 @@ public class AuctionServiceImpl implements AuctionService {
 	}
 
 	@Override
-	public List<AuctionAndPerson> findAllAuctionWithOffset(Integer offset) {
+	public List<AuctionAndPerson> findAllAuctionWithOffset(String data) {
 		// TODO Auto-generated method stub
-		return auctionRepository.findAllAuctionWithOffset(offset);
+		SearchCondition searchCondition = getSearchCondition(data);
+		return auctionRepository.findAllAuctionWithOffset(MapperSearchCondition.extractMapperSearchCondition(searchCondition));
+	}
+	
+	
+	
+	public static SearchCondition getSearchCondition(String data) {
+
+		if (!data.startsWith("{")) {
+			String[] pairs = data.split("&");
+			JSONObject json = new JSONObject();
+
+			for (String pair : pairs) {
+				// 각 쌍을 =로 분리
+				String[] keyValue = pair.split("=");
+				if (keyValue.length == 2) {
+					String key = keyValue[0];
+					String value = keyValue[1];
+					// JSON 객체에 키와 값 추가
+					json.put(key, value);
+				}
+			}
+
+			return gson.fromJson(json.toString(), SearchCondition.class);
+		} else {
+			return gson.fromJson(data, SearchCondition.class);
+		}
+
 	}
 }

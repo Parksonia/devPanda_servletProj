@@ -13,7 +13,7 @@
 <body>
     <div class="header">
         <div class="header_logo">
-            <a href="main.jsp"><img src="${pageContext.request.contextPath}/img/logoS.png" alt="DevPanda Logo"></a>
+            <a href="${pageContext.request.contextPath }/auction"><img src="${pageContext.request.contextPath}/img/logoS.png" alt="DevPanda Logo"></a>
         	<span>DevPanda</span>
         </div>
 
@@ -30,9 +30,9 @@
                 <div class="gnb_area">
                     <nav class="gnb" id="pcGnbContainer">
                         <ul class="gnb_list" id="pcGnbList">
-                            <li class="gnb_item"><a class="gnb_link" href="main.jsp">AUCTION</a></li>
+                            <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/auction">AUCTION</a></li>
                             <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/bidList">MYPAGE</a></li>
-                            <li class="gnb_item"><a class="gnb_link" href="personInfo.jsp">LOGOUT</a></li>
+                            <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/start">LOGOUT</a></li>
                         </ul>
                     </nav>
                 </div>

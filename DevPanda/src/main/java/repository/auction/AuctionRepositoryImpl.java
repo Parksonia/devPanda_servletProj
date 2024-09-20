@@ -2,9 +2,15 @@ package repository.auction;
 
 import dto.Auction;
 import dto.AuctionAndPerson;
+import dto.MapperSearchCondition;
 import dto.Person;
+import dto.SearchCondition;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+
+import com.google.gson.Gson;
+
 import util.MybatisSqlSessionFactory;
 
 import java.util.HashMap;
@@ -34,7 +40,6 @@ public class AuctionRepositoryImpl implements AuctionRepository {
 	        params.put("Certification", (Certification != null && Certification.length > 0) ? Certification : null);
 	        params.put("employmentType", (employmentType != null && employmentType.length > 0) ? employmentType : null);
 
-	        // 로그 출력 - 실제 환경에서는 SLF4J 또는 다른 로깅 라이브러리를 사용하는 것이 좋습니다.
 	        System.out.println("Fetching auctions with offset: " + offset + ", pageSize: " + pageSize);
 
 	        List<AuctionAndPerson> auctions = session.selectList("mapper.auction.getFilteredAuctionsWithPersonInfo", params);
@@ -73,16 +78,22 @@ public class AuctionRepositoryImpl implements AuctionRepository {
 	}
 
 	@Override
-	public List<AuctionAndPerson> findAllAuctionWithOffset(Integer offset) {
+	public List<AuctionAndPerson> findAllAuctionWithOffset(MapperSearchCondition mapperSearchCondition) {
 		// TODO Auto-generated method stub
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		List<AuctionAndPerson> list = null;
 		try {
 			String statement = "mapper.auction.findAllAuctionWithOffset";
-			list = sqlSession.selectList(statement, offset);
-
-		} finally {
-
+			list = sqlSession.selectList(statement, mapperSearchCondition);
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			return list;
+		}
+		
+		finally {
+			
 		}
 		return list;
 	}
@@ -95,5 +106,20 @@ public class AuctionRepositoryImpl implements AuctionRepository {
 		sqlSession.update(statement, auction);
 
 	}
+	
+	
+	public static void main(String[] args) {
+		SearchCondition searchCondition = new SearchCondition();
+		searchCondition.setStack("Java,UML");
+		MapperSearchCondition mapperSearchCondition = MapperSearchCondition.extractMapperSearchCondition(searchCondition);
+		mapperSearchCondition.setOffset(0);
+		
+		
+		AuctionRepositoryImpl auctionRepositoryImpl = new AuctionRepositoryImpl();
+		
+		List<AuctionAndPerson> list = auctionRepositoryImpl.findAllAuctionWithOffset(mapperSearchCondition);
+		
+	}
+	
 
 }

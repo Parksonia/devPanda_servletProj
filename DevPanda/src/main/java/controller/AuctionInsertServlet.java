@@ -73,15 +73,18 @@ public class AuctionInsertServlet extends HttpServlet {
         // 파일 처리
         String portfolioFileName = multipartRequest.getFilesystemName("portfolio");
 
-        // 현재 시간과 하루 후의 날짜 계산
         Date now = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String startDate = sdf.format(now);
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(now);
-        calendar.add(Calendar.DATE, 1);
-        String endDate = sdf.format(calendar.getTime());
+        
+        // 사용자가 입력한 endDate를 가져옴
+        //String endDate = multipartRequest.getParameter("endDate");
+        
+        //endDate와 endTime 받아서 결합
+        String endDate = multipartRequest.getParameter("endDate");
+        String endTime = multipartRequest.getParameter("endTime");
+        String endDateTime = endDate + " " + endTime;
 
         // Auction 객체 생성
         Auction auction = new Auction();
@@ -105,7 +108,11 @@ public class AuctionInsertServlet extends HttpServlet {
         auction.setPortfolio(portfolioFileName);
         
         auction.setStartDate(startDate);
-        auction.setEndDate(endDate);
+        
+        //auction.setEndDate(endDate);
+        auction.setEndDate(endDateTime); // endDate에 결합된 값 저장
+
+        
         auction.setState("processing");  // state 필드 설정
 
         // 데이터베이스에 저장

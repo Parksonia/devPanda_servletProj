@@ -13,4 +13,6 @@ public class AuctionInsertRepositoryImpl implements AuctionInsertRepository {
 			session.commit();
 		}
 	}
+	
+	
 }
