@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-    String currentPage = request.getParameter("currentPage");
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,11 +7,30 @@
 <title>DEVPanda|개발자 거래플랫폼</title>
 <link href="${pageContext.request.contextPath}/css/sideNav.css" rel="stylesheet">
 <style>
-  .menu_item.active .menu_link {
-    font-weight: bold;
-    color: #007bff; /* 원하는 하이라이트 색상으로 변경 */
-  }
+.menu_item.active .menu_link {
+  font-weight: bold;
+  color: #007bff; /* 원하는 하이라이트 색상으로 변경 */
+}
 </style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const currentPath = window.location.pathname + window.location.search;
+  const menuItems = document.querySelectorAll('.menu_item');
+  
+  menuItems.forEach(item => {
+    const link = item.querySelector('.menu_link');
+    if (link) {
+      const href = link.getAttribute('href');
+      // URL의 기본 경로만 추출 (쿼리 파라미터 제외)
+      const hrefPath = href.split('?')[0];
+      // 현재 URL이 메뉴 항목의 href로 시작하는지 확인
+      if (currentPath.startsWith(hrefPath)) {
+        item.classList.add('active');
+      }
+    }
+  });
+});
+</script>
 </head>
 <body>
 
@@ -29,13 +46,13 @@
 				</strong>
 				<ul class="snb_menu">
 					<li class="menu_item">
-						<a href="bidList" class="menu_link">입찰내역조회</a>
+						<a href="${pageContext.request.contextPath}/bidList" class="menu_link">입찰내역조회</a>
 					</li>
 					<li class="menu_item">
-						<a href="personBuyTransactionList" class="menu_link">낙찰내역조회</a>
+						<a href="${pageContext.request.contextPath}/personBuyTransactionList" class="menu_link">낙찰내역조회</a>
 					</li>
 					<li class="menu_item">
-						<a href="blackList" class="menu_link">판매자 차단 내역</a>
+						<a href="${pageContext.request.contextPath}/BlackListAboutSeller" class="menu_link">판매자 차단 내역</a>
 					</li>
 				</ul>
 			</div>
@@ -48,13 +65,13 @@
 				</strong>
 				<ul class="snb_menu">
 					<li class="menu_item">
-						<a href="personSellAuctionList" class="menu_link">경매등록 내역조회</a>
+						<a href="${pageContext.request.contextPath}/personSellAuctionList" class="menu_link">경매등록 내역조회</a>
 					</li>
 					<li class="menu_item">
-						<a href="personSellTransactionList" class="menu_link">낙찰내역조회</a>
+						<a href="${pageContext.request.contextPath}/personSellTransactionList" class="menu_link">낙찰내역조회</a>
 					</li>
 					<li class="menu_item">
-						<a href="buyerBlacklist" class="menu_link">구매자 차단 내역</a>
+						<a href="${pageContext.request.contextPath}/buyerBlacklist" class="menu_link">구매자 차단 내역</a>
 					</li>
 				</ul>
 			</div>
@@ -69,7 +86,9 @@
 				내정보
 				</strong>
 				<ul class="snb_menu">
-					<li class="menu_item"><a href="./personInfo.jsp" class="menu_link">정보수정</a></li>
+					<li class="menu_item">
+					<a href="${pageContext.request.contextPath}/personInfo" class="menu_link">정보수정</a>
+					</li>
 				</ul>
 			</div>
 		</nav>
