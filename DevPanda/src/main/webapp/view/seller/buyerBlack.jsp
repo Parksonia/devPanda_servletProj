@@ -10,6 +10,20 @@
 <link href="${pageContext.request.contextPath}/css/sellerBlack.css"	rel="stylesheet">
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <style>
+#modal-seller-image{
+	border-radius: 12px;
+	height: 80px;
+	-o-object-fit: cover;
+	object-fit: cover;
+	width: 80px;
+}
+.no-items-message {
+	text-align: center;
+	padding: 50px 0;
+	font-size: 18px;
+	color: #888;
+}
+
 .container.my .content_area {
 	min-height: 380px;
 	overflow: hidden;
@@ -450,7 +464,7 @@ li, ol, ul {
 				<div class="blacklist_list finished bid">
 					<div class="bk_head">
 						<div class="head_totalcnt">
-							<div class="total-rows">전체 </div>
+							<div class="total-rows">전체&nbsp;&nbsp;${totalCnt}</div>
 						</div>
 						<div class="head_sort">
 							<div class="sorting_box field_date_transaiont">
@@ -467,16 +481,19 @@ li, ol, ul {
 						</div>
 					</div>
 
-					<c:forEach items="${personSellerBlackList }" var="blacklist" varStatus="status">
+					<c:forEach items="${buyerBlackList }" var="blacklist" varStatus="status">
 						<c:choose>
-							<c:when test="${personSellerBlackList.size() == 0}">
-								<h3>블랙리스트 목록이 없습니다.</h3>
+							<c:when test="${empty buyerBlackList}">
+								<div class="no-items-message">
+		                            <h2>차단 내역이 없습니다.</h2>
+		                        </div>
 							</c:when>
 							<c:otherwise>
 								<div class="modal_btn">
 										<div class="black_list_display_mem" data-index="${status.index }"
 																			 data-blacknum="${blacklist.blackNum}"
 																		     data-personimage="${blacklist.personImage}"
+																		     data-companyimage="${blacklist.companyImage}"
 																		     data-blackcom="${blacklist.blackCom}"
 																		     data-blackperson="${blacklist.blackPerson}"
 																		     data-email="${blacklist.email}"
@@ -487,7 +504,14 @@ li, ol, ul {
 																		     data-bidnum="${blacklist.bidNum}">
 											<div class="black_list_mem">
 												<div class="list_item_img_wrap">
-													<img src="image?file=${blacklist.personImage }"	alt="seller_image" class="mem_image">
+													<c:choose>
+														<c:when test="${blacklist.personImage != null }">
+															<img src="image?file=${blacklist.personImage}" alt="seller_image" class="mem_image">
+														</c:when>
+														<c:otherwise>
+															<img src="image?file=${blacklist.companyImage}" alt="seller_image" class="mem_image">
+														</c:otherwise>
+													</c:choose>
 												</div>
 												<div class="list_item_title_wrap">
 													<c:choose>
@@ -504,7 +528,7 @@ li, ol, ul {
 														</c:otherwise>
 													</c:choose>
 													<p class="list_item_description">
-														<span>${blacklist.auctionTitle }</span>
+														<span>${blacklist.title }</span>
 													</p>
 												</div>
 											</div>
@@ -580,7 +604,9 @@ li, ol, ul {
 			<div class="black-num"></div>
 
 			<div class="profile-section">
-				<div class="profile-image"><img src="" alt="seller_image"  class="mem_image" id="modal-person-image"></div>
+				<div class="profile-image">
+					<img src="" alt="seller_image"  class="mem_image" id="modal-seller-image">
+				</div>
 				<div class="profile-info">
 					<div class="user-type" id="modal-user-type"></div>
 					<div class="user-name" id="modal-user-name"></div>
@@ -600,8 +626,10 @@ li, ol, ul {
 
 
 			<div class="modal-divider"></div>
-			<div class="dropdown-content" id="modal-title">신고 제목</div>
-			<div class="dropdown-content"></div>
+			
+			<div class="section-title">신고 제목</div>
+			<div class="dropdown-content" id="modal-title"></div>
+			
 			<div class="section-title">신고 내용</div>
 			<div class="dropdown-content" id="modal-content"></div>
 		</div>
@@ -612,6 +640,7 @@ $(document).ready(function() {
 	/* 리스트 항목 클릭 시 모달 열기 */
     $('.black_list_display_mem').on('click', function(e) {
     	const personImage = $(this).data('personimage');
+    	const companyImage = $(this).data('companyimage');
         const blackCom = $(this).data('blackcom');
         const blackPerson = $(this).data('blackperson');
         const email = $(this).data('email');
@@ -621,7 +650,13 @@ $(document).ready(function() {
         const date = $(this).data('date'); 
         
     	 // 모달에 데이터 삽입
-        $('#modal-person-image').attr('src', 'image?file=' + personImage);
+    	 if(personImage){
+        	$('#modal-seller-image').attr('src', 'image?file=' + personImage); 
+    	 } else if (companyImage){
+	        $('#modal-seller-image').attr('src', 'image?file=' + companyImage);		 
+    	 } else {
+    		 
+    	 }
         $('#modal-user-type').text(blackCom ? '[기업회원]' : '[개인회원]');
         $('#modal-user-name').text(blackCom ? blackCom : blackPerson);
         $('#modal-email').text(email);
@@ -647,21 +682,28 @@ $(document).ready(function() {
     });
 
     /* 해제하기 버튼 */
-    $('.btn.btn_add').on('click', function(e) {
+    $('.btn_add').on('click', function(e) {
         e.stopPropagation(); // 해제하기 버튼 클릭 시 모달 열림 방지
-        const blackNum = $(this).closest('.black_list_display_mem').find('.black-num').text();
-
+        const blackNum = $(this).data('blacknum');
+		const rowDiv = $(this).parents(".black_list_display_mem");
+        console.log(rowDiv);
         if (confirm('차단 해제하시겠습니까?')) {
             $.ajax({
                 url: '${pageContext.request.contextPath}/deleteBlacklist', // 서블릿 URL
                 type: 'POST',
                 data: { blackNum: blackNum },
                 success: function(response) {
-                    alert('차단이 해제되었습니다.');
-                    location.reload(); // 성공 시 페이지 새로고침
+                	if(response=='true') {
+                        alert('차단이 해제되었습니다.');
+                        rowDiv.remove();
+                        
+                        //window.location.href="${pageContext.request.contextPath}/blackList2"; // 성공 시 페이지 새로고침
+                	} else {
+                        alert('차단 해제에 실패했습니다.');
+                        console.error(response);
+                	}
                 },
                 error: function(xhr, status, error) {
-                    alert('차단 해제에 실패했습니다.');
                     console.error(error);
                 }
             });

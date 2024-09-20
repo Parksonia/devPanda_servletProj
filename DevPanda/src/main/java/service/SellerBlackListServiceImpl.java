@@ -30,7 +30,7 @@ public class SellerBlackListServiceImpl implements SellerBlackListService {
 
 	@Override
 	public void deleteSellerBlack(Integer blackNum) throws Exception {
-		blRepo.deleteBlacklistByNum(blackNum);		
+		blRepo.deleteBlacklistByNum(blackNum);	
 	}
 
 	@Override

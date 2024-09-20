@@ -9,9 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import dto.Person;
 import service.PersonSellTransactionListService;
 import service.PersonSellTransactionListServiceImpl;
 
@@ -41,7 +43,9 @@ public class PersonSellTransactionList extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		//아이디
-		String sellerId = "abc001";
+		//String sellerId = "abc001";
+		HttpSession session = request.getSession();
+		String sellerId = ((Person)session.getAttribute("person")).getId();
 		
 		//더보기
 		int offset = 0;
@@ -84,7 +88,7 @@ public class PersonSellTransactionList extends HttpServlet {
 			} else {
 				request.setAttribute("personSellTransactionList", personSellTransactionList);
 				request.setAttribute("totalCount", totalCount);
-				request.getRequestDispatcher("/view/seller/personSellTransactionList.jsp?currentPage=personSellTransactionList").forward(request, response);
+				request.getRequestDispatcher("/view/seller/personSellTransactionList.jsp").forward(request, response);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import dto.BlackList;
 import util.MybatisSqlSessionFactory;
 
 public class BlacklistRepositoryImpl implements BlacklistRepository {
@@ -72,6 +73,11 @@ public class BlacklistRepositoryImpl implements BlacklistRepository {
 		int result = sqlSession.delete("mapper.blacklist.deleteSellerBlackForBuyerPerson",blackNum);
 		sqlSession.commit();
 		return result;
+	}
+
+	@Override
+	public List<BlackList> selectBlackList() throws Exception {
+		return sqlSession.selectList("mapper.blacklist.selectBlackList");
 	}
 
 	

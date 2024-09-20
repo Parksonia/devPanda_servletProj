@@ -8,6 +8,12 @@
 <meta charset="UTF-8">
 <title>BidList</title>
 <!-- 개인|판매내역조회|경매등록내역조회| -->
+<style>
+.period-button.active {
+	background-color: #ed6a60;
+	color: white;
+}
+</style>
 <script type="text/javascript"
 	src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript"
@@ -41,13 +47,14 @@
 				<!-- 필터 -->
 				<form id="dateForm" action="${pageContext.request.contextPath }/personSellAuctionList" method="get">
 					<div class="filters">
-						<button type="button" id="one">최근 1개월</button>
-						<button type="button" id="three">최근 3개월</button>
-						<button type="button" id="six">최근 6개월</button>
+						<button type="button" id="one" class="period-button">최근 1개월</button>
+						<button type="button" id="three" class="period-button">최근 3개월</button>
+						<button type="button" id="six" class="period-button">최근 6개월</button>
 						<input type="text" id="daterange" name="daterange" value=""
 							style="width: 200px;" /> 
 						<input type="hidden" id="startDate"	name="startDate" value=""> 
 						<input type="hidden" id="endDate" name="endDate" value="">
+						<input type="hidden" id="selectedPeriod" name="selectedPeriod" value="">
 						<button type="submit">조회</button>
 					</div>
 				</form>
@@ -186,44 +193,78 @@ $(document).ready(function() {
 	});
 });
     
-/*날짜 조회 버튼 */
+/*날짜 조회*/
 $(function() {
-	 $('input[name="daterange"]').daterangepicker({
-		opens: 'left',
-		autoUpdateInput: false,
-		locale : {
-			"separator": " ~ ",                 
-            "format": 'YYYY-MM-DD',
-            "applyLabel": "확인",
-            "cancelLabel": "취소",
-            "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
-            "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
-		}
-	}, function(start, end, label) {
-		$('#startDate').val(start.format('YYYY-MM-DD'));
-		$('#endDate').val(end.format('YYYY-MM-DD'));
-		$('input[name="daterange"]').val(start.format('YYYY-MM-DD') + '~' + end.format('YYYY-MM-DD'));
-	});
-	 
-	 //최근 1개월 , 최근 3개월, 최근 6개월
-	 $('#one').click(function() {
-		 setDateRange(1);
-	 });
-	 $('#three').click(function() {
-		 setDateRange(3);
-	 });
-	 $('#six').click(function() {
-		 setDateRange(6);
-	 });
-	 
-	 function setDateRange(months) {
-		 let endDate = moment(); //현재날짜 
-		 let startDate = moment().subtract(months, 'months');
-		 
-		 $('#startDate').val(startDate.format('YYYY-MM-DD'));
-		 $('#endDate').val(endDate.format('YYYY-MM-DD'));
-		 $('#dateForm').submit();
-	 }
+  // 날짜 선택기 초기화
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left',
+    autoUpdateInput: false,
+    locale: {
+      "separator": " ~ ",     // 시작일시와 종료일시 구분자
+      "format": 'YYYY-MM-DD',     // 일시 노출 포맷
+      "applyLabel": "확인",      // 확인 버튼 텍스트
+      "cancelLabel": "취소",    // 취소 버튼 텍스트
+      "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
+      "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
+    }
+  }, function(start, end, label) {
+    $('#startDate').val(start.format('YYYY-MM-DD'));
+    $('#endDate').val(end.format('YYYY-MM-DD'));
+    $('input[name="daterange"]').val(start.format('YYYY-MM-DD') + ' ~ ' + end.format('YYYY-MM-DD'));
+    
+    // 날짜 범위가 선택되면 버튼에서 active 클래스 제거
+    $('.period-button').removeClass('active');
+  });
+
+  // 최근 1개월, 3개월, 6개월 설정 및 active 클래스 추가
+  function setDateRange(months, button) {
+    let endDate = moment(); // 현재 날짜
+    let startDate = moment().subtract(months, 'months'); // 설정된 기간만큼 이전 날짜
+
+    $('#startDate').val(startDate.format('YYYY-MM-DD'));
+    $('#endDate').val(endDate.format('YYYY-MM-DD'));
+
+    // 선택된 버튼만 active로 만들기
+    $('.period-button').removeClass('active');
+    $(button).addClass('active');
+    
+	 // URL에 선택된 기간을 파라미터로 추가
+    $('#selectedPeriod').val(months);
+
+    // 폼을 제출하여 조회
+    $('#dateForm').submit();
+  }
+
+  // 최근 1개월 버튼 클릭 시
+  $('#one').click(function() {
+    setDateRange(1, this);
+  });
+
+  // 최근 3개월 버튼 클릭 시
+  $('#three').click(function() {
+    setDateRange(3, this);
+  });
+
+  // 최근 6개월 버튼 클릭 시
+  $('#six').click(function() {
+    setDateRange(6, this);
+  });
+  
+  //페이지 로드 시 URL 파라미터를 확인하고 버튼 활성화
+  function getUrlParameter(name) {
+	var urlParams = new URLSearchParams(window.location.search);
+	return urlParams.get(name) || '';
+  }
+
+  // URL 파라미터에 따라 버튼에 active 클래스 추가
+  var selectedPeriod = getUrlParameter('selectedPeriod');
+  if (selectedPeriod === '1') {
+    $('#one').addClass('active');
+  } else if (selectedPeriod === '3') {
+    $('#three').addClass('active');
+  } else if (selectedPeriod === '6') {
+    $('#six').addClass('active');
+  }
 });
 </script>
 </body>

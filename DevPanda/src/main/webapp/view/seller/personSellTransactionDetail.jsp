@@ -305,10 +305,11 @@
 								<input type="hidden" name="bidNum" value="${bidNum}" />
 								<input type="hidden" name="buyerId" value="${bperson.id}" />
 								<input type="hidden" name="sellerId" value="${sperson.id}" />
+								<input type="hidden" name="memType" value="${memType}"/>
 								<button type="submit" class="modal-submit-button">제출하기</button>
 							</form>
 						</c:when>
-						
+				
 						<c:otherwise>
 							<div class="modal-profile">
 								<div class="modal-profile-image">
@@ -339,7 +340,7 @@
 								<input type="hidden" name="bidNum" value="${bidNum}" />
 								<input type="hidden" name="buyerComId" value="${bcompany.id}" />
 								<input type="hidden" name="sellerId" value="${sperson.id}" />
-								<input type="hidden" name="memType" value="${memType }"/>
+								<input type="hidden" name="memType" value="${memType}"/>
 								<button type="submit" class="modal-submit-button">제출하기</button>
 							</form>
 						</c:otherwise>
@@ -415,9 +416,9 @@ $(document).ready(function() {
 		
 		var memType = $('input[name="memType"]').val();
 		var url = '';
-		if (memType === 'P') {
+		if (memType == 'P') {
 			url = '${pageContext.request.contextPath}/buyerPersonBlack';
-		} else if (memType === 'C'){
+		} else if (memType == 'C'){
 			url = '${pageContext.request.contextPath}/buyerComBlack';
 		}
 		

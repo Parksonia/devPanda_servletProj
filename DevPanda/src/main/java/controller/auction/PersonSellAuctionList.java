@@ -1,8 +1,6 @@
 package controller.auction;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -11,9 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import dto.Person;
 import service.PersonSellAuctionListService;
 import service.PersonSellAuctionListServiceImpl;
 
@@ -42,7 +42,9 @@ public class PersonSellAuctionList extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		// 아이디
-		String sellerId = "abc001";
+		//String sellerId = "abc001";
+		HttpSession session = request.getSession();
+		String sellerId = ((Person)session.getAttribute("person")).getId();
 		
 		// 더보기버튼
 		int offset = 0; 
@@ -86,7 +88,7 @@ public class PersonSellAuctionList extends HttpServlet {
 				// 일반 요청 시 전체 페이지 반환
 				request.setAttribute("personSellAuctionList", personSellAuctionList);
 				request.setAttribute("totalCount", totalCount);
-				request.getRequestDispatcher("/view/seller/personSellAuctionList.jsp?currentPage=personSellAuctionList").forward(request, response);
+				request.getRequestDispatcher("/view/seller/personSellAuctionList.jsp").forward(request, response);
 			}
 
 		} catch (Exception e) {

@@ -98,10 +98,12 @@ public class BlackList {
 		this.reportDate = reportDate;
 		this.roleType = roleType;
 	}
-	
-	
-	
-	
-	
+	@Override
+	public String toString() {
+		return "BlackList [blackNum=" + blackNum + ", declPerson=" + declPerson + ", declCom=" + declCom
+				+ ", transactionNum=" + transactionNum + ", bidNum=" + bidNum + ", blackPerson=" + blackPerson
+				+ ", blackCom=" + blackCom + ", title=" + title + ", content=" + content + ", reportDate=" + reportDate
+				+ ", roleType=" + roleType + "]";
+	}
 
 }

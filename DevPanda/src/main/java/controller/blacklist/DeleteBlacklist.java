@@ -35,9 +35,10 @@ public class DeleteBlacklist extends HttpServlet {
 		try {
 			Integer blackNum = Integer.parseInt(request.getParameter("blackNum"));
 			service.deleteSellerBlack(blackNum);
-			response.sendRedirect(request.getContextPath() + "/personBlackList.jsp");
+			response.getWriter().write("true");
 		} catch (Exception e) {
 			e.printStackTrace();
+			response.getWriter().write("false");
 		}
 		
 	}

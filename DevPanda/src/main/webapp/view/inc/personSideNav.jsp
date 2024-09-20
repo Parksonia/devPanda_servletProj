@@ -9,10 +9,10 @@
 <title>DEVPanda|개발자 거래플랫폼</title>
 <link href="${pageContext.request.contextPath}/css/sideNav.css" rel="stylesheet">
 <style>
-.menu_link.active {
-    color: red;
-    font-weight:bold;
-}
+  .menu_item.active .menu_link {
+    font-weight: bold;
+    color: #007bff; /* 원하는 하이라이트 색상으로 변경 */
+  }
 </style>
 </head>
 <body>
@@ -29,13 +29,13 @@
 				</strong>
 				<ul class="snb_menu">
 					<li class="menu_item">
-						<a href="bidList" class="menu_link <%= "bidList".equals(currentPage) ? "active" : "" %>">입찰내역조회</a>
+						<a href="bidList" class="menu_link">입찰내역조회</a>
 					</li>
 					<li class="menu_item">
-						<a href="personBuyTransactionList" class="menu_link <%= "personBuyTransactionList".equals(currentPage) ? "active" : "" %>">낙찰내역조회</a>
+						<a href="personBuyTransactionList" class="menu_link">낙찰내역조회</a>
 					</li>
 					<li class="menu_item">
-						<a href="blackList" class="menu_link <%= "blackList".equals(currentPage) ? "active" : "" %>">판매자 차단 내역</a>
+						<a href="blackList" class="menu_link">판매자 차단 내역</a>
 					</li>
 				</ul>
 			</div>
@@ -48,13 +48,13 @@
 				</strong>
 				<ul class="snb_menu">
 					<li class="menu_item">
-						<a href="personSellAuctionList" class="menu_link <%= "personSellAuctionList".equals(currentPage) ? "active" : "" %>">경매등록 내역조회</a>
+						<a href="personSellAuctionList" class="menu_link">경매등록 내역조회</a>
 					</li>
 					<li class="menu_item">
-						<a href="personSellTransactionList" class="menu_link <%= "personSellTransactionList".equals(currentPage) ? "active" : "" %>">낙찰내역조회</a>
+						<a href="personSellTransactionList" class="menu_link">낙찰내역조회</a>
 					</li>
 					<li class="menu_item">
-						<a href="../seller/buyerBlack.jsp" class="menu_link">구매자 차단 내역</a>
+						<a href="buyerBlacklist" class="menu_link">구매자 차단 내역</a>
 					</li>
 				</ul>
 			</div>

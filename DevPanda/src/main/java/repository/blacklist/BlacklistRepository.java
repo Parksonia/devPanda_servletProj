@@ -3,6 +3,9 @@ package repository.blacklist;
 import java.util.List;
 import java.util.Map;
 
+import dto.BlackList;
+
+
 public interface BlacklistRepository {
 	
 	void insertBuyerPersonBlack(Map<String, Object> blistMap) throws Exception;
@@ -17,5 +20,5 @@ public interface BlacklistRepository {
 	////buyerPersonSellerBlackList Total Cnt
 	Integer buyerPersontSellerBlackListCnt(String id) throws Exception;
 	Integer deleteSellerBlackForBuyerPerson(Integer blackNum);
-	
+	List<BlackList> selectBlackList() throws Exception;
 }

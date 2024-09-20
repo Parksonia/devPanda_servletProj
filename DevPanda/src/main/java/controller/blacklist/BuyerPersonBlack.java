@@ -56,7 +56,6 @@ public class BuyerPersonBlack extends HttpServlet {
 			
 			BuyerBlackListService blackService = new BuyerBlackListServiceImpl();
 			blackService.insertBuyerPersonBlack(blistMap);
-			
 			request.setAttribute("blistMap", blistMap); 
 			
 		} catch (Exception e) {

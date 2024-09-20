@@ -51,7 +51,7 @@ public class BuyerComBlack extends HttpServlet {
 			blistMap.put("content", request.getParameter("content"));
 			blistMap.put("roleType", "S");
 			
-			System.out.println(blistMap);
+			//System.out.println(blistMap);
 			
 			BuyerBlackListService blackService = new BuyerBlackListServiceImpl();
 			blackService.insertBuyerComBlack(blistMap);

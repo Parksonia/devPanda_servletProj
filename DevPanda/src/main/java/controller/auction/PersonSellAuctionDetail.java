@@ -94,7 +94,7 @@ public class PersonSellAuctionDetail extends HttpServlet {
 			request.setAttribute("dDays", dDays);
 			request.setAttribute("isAfterToday", isAfterToday);
 			
-			request.getRequestDispatcher("/view/seller/personSellAuctionDetail.jsp?currentPage=personSellAuctionList").forward(request, response);
+			request.getRequestDispatcher("/view/seller/personSellAuctionDetail.jsp").forward(request, response);
 			
 			
 		} catch (Exception e) {

@@ -99,7 +99,7 @@ public class PersonBuyTransactionDetail extends HttpServlet {
 			request.setAttribute("transactionNum", transactionNum);
 			request.setAttribute("memType", memType);
 
-			request.getRequestDispatcher("/view/buyer/personBuyTransactionDetail.jsp?currentPage=personBuyTransactionList").forward(request, response);
+			request.getRequestDispatcher("/view/buyer/personBuyTransactionDetail.jsp").forward(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();
