@@ -68,6 +68,7 @@ public class AuctionOffsetServlet extends HttpServlet{
 		
 		
 		List<AuctionAndPerson> auctions = auctionService.findAllAuctionWithOffset(data);
+		
 		if(auctions !=null) {
 			
 			System.out.println(auctions);	

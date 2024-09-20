@@ -101,6 +101,12 @@ public class MapperSearchCondition {
 	
 	
 	
+	@Override
+	public String toString() {
+		return "MapperSearchCondition [occupation=" + occupation + ", period=" + period + ", education=" + education
+				+ ", employmentType=" + employmentType + ", stack=" + stack + ", certification=" + certification
+				+ ", location=" + location + ", offset=" + offset + "]";
+	}
 	public static String StringUtil(String[] stringArray) {
 		
 		
@@ -111,9 +117,9 @@ public class MapperSearchCondition {
 			if(i==0) {
 				sb.append("%");
 				sb.append(stringArray[i]);
-				
-			}else {
 				sb.append("%");
+			}else {
+				
 				sb.append(stringArray[i]);
 				sb.append("%");
 			}
