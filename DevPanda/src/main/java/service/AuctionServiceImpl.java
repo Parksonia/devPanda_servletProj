@@ -97,6 +97,8 @@ public class AuctionServiceImpl implements AuctionService {
 	public List<AuctionAndPerson> findAllAuctionWithOffset(String data) {
 		// TODO Auto-generated method stub
 		SearchCondition searchCondition = getSearchCondition(data);
+		System.out.println(searchCondition);
+		System.out.println(MapperSearchCondition.extractMapperSearchCondition(searchCondition));
 		return auctionRepository.findAllAuctionWithOffset(MapperSearchCondition.extractMapperSearchCondition(searchCondition));
 	}
 	

@@ -16,6 +16,12 @@ public class SearchCondition {
 	public void setOccupation(String occupation) {
 		this.occupation = occupation;
 	}
+	@Override
+	public String toString() {
+		return "SearchCondition [occupation=" + occupation + ", period=" + period + ", education=" + education
+				+ ", employmentType=" + employmentType + ", stack=" + stack + ", certification=" + certification
+				+ ", location=" + location + ", offset=" + offset + "]";
+	}
 	public String getPeriod() {
 		return period;
 	}
