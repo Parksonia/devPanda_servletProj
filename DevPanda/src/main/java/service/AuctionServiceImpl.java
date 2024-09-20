@@ -26,7 +26,6 @@ public class AuctionServiceImpl implements AuctionService {
 	    System.out.println("Fetching auctions with offset: " + offset + ", pageSize: " + pageSize);
 	    System.out.println("Test:"+auctionRepository.getFilteredAuctionsWithPersonInfo(offset, pageSize,
 				location, stack, Occupation, period, education, Certification, employmentType));
-	   
 	    return auctionRepository.getFilteredAuctionsWithPersonInfo(offset, pageSize,
 				location, stack, Occupation, period, education, Certification, employmentType);
 		

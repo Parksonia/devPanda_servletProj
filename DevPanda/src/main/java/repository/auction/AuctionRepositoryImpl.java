@@ -34,7 +34,6 @@ public class AuctionRepositoryImpl implements AuctionRepository {
 	        params.put("Certification", (Certification != null && Certification.length > 0) ? Certification : null);
 	        params.put("employmentType", (employmentType != null && employmentType.length > 0) ? employmentType : null);
 
-	        // 로그 출력 - 실제 환경에서는 SLF4J 또는 다른 로깅 라이브러리를 사용하는 것이 좋습니다.
 	        System.out.println("Fetching auctions with offset: " + offset + ", pageSize: " + pageSize);
 
 	        List<AuctionAndPerson> auctions = session.selectList("mapper.auction.getFilteredAuctionsWithPersonInfo", params);

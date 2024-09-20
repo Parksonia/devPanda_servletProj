@@ -46,6 +46,15 @@ public class AuctionServlet extends HttpServlet {
             String[] Certification = request.getParameterValues("Certification[]");
             String[] employmentType = request.getParameterValues("employmentType[]");
             
+         // null 체크 및 필터링 로직 처리
+            location = (location != null) ? location : new String[0];
+            stack = (stack != null) ? stack : new String[0];
+            Occupation = (Occupation != null) ? Occupation : new String[0];
+            period = (period != null) ? period : new String[0];
+            education = (education != null) ? education : new String[0];
+            Certification = (Certification != null) ? Certification : new String[0];
+            employmentType = (employmentType != null) ? employmentType : new String[0];
+            
             List<AuctionAndPerson> auctions = auctionService.getFilteredAuctionsWithPersonInfo(offset, pageSize,
             		location, stack, Occupation, period, education, Certification, employmentType);
 
