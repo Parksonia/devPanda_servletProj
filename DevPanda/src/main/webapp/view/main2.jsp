@@ -34,180 +34,178 @@
         <h2 class="text-xl font-bold mb-4">관심 키워드</h2>
         <div class="bg-white p-4 shadow-md rounded">
         
-	        <!-- 필터링 폼 추가 -->
-	        <form action="auctionoffset" method="get">
-	        
-	            <!-- 카테고리들 -->
-	            <div class="category-container">
-	                <!-- 카테고리 1: 지역 -->
-	                <div>
-	                    <button type="button" id="category1-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#지역</button>
-	                    <div id="category1-content" class="category-content hidden">
-	                        <!-- 지역 체크박스들 -->
-							<label><input type="checkbox" name="location[]" value="전국"> 전국</label><br>
-					        <label><input type="checkbox" name="location[]" value="서울"> 서울</label><br>
-					        <label><input type="checkbox" name="location[]" value="경/인"> 경/인</label><br>
-					        <label><input type="checkbox" name="location[]" value="강원"> 강원</label><br>
-					        <label><input type="checkbox" name="location[]" value="경남"> 경남</label><br>
-					        <label><input type="checkbox" name="location[]" value="경북"> 경북</label><br>
-					        <label><input type="checkbox" name="location[]" value="전남"> 전남</label><br>
-					        <label><input type="checkbox" name="location[]" value="전북"> 전북</label><br>
-					        <label><input type="checkbox" name="location[]" value="충남"> 충남</label><br>
-					        <label><input type="checkbox" name="location[]" value="충북"> 충북</label><br>
-					        <label><input type="checkbox" name="location[]" value="제주"> 제주</label><br>
-	                    </div>
-	                </div>
-	
-	                <!-- 카테고리 2: 보유 기술 -->
-	                <div>
-	                    <button type="button" id="category2-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#보유 기술</button>
-	                    <div id="category2-content" class="category-content hidden">
-	                        <!-- 보유 기술 체크박스들 -->
-	                        <label><input type="checkbox" name="stack[]" value="JAVA"> JAVA</label><br>
-					        <label><input type="checkbox" name="stack[]" value="Python"> Python</label><br>
-					        <label><input type="checkbox" name="stack[]" value="C"> C</label><br>
-					        <label><input type="checkbox" name="stack[]" value="C++"> C++</label><br>
-					        <label><input type="checkbox" name="stack[]" value="C#"> C#</label><br>
-					        <label><input type="checkbox" name="stack[]" value="html,css,js"> html,css,js</label><br>
-					        <label><input type="checkbox" name="stack[]" value="Go"> Go</label><br>
-					        <label><input type="checkbox" name="stack[]" value="kotlin"> kotlin</label><br>
-					        <label><input type="checkbox" name="stack[]" value="aws"> aws</label><br>
-					        <label><input type="checkbox" name="stack[]" value="springboot"> springboot</label><br>
-					        <label><input type="checkbox" name="stack[]" value="react"> react</label><br>
-					        <label><input type="checkbox" name="stack[]" value="vue"> vue</label><br>
-					        <label><input type="checkbox" name="stack[]" value="django"> django</label><br>
-					        <label><input type="checkbox" name="stack[]" value="tensorflow"> tensorflow</label><br>
-					        <label><input type="checkbox" name="stack[]" value="flutter"> flutter</label><br>
-					        <label><input type="checkbox" name="stack[]" value="ios"> ios</label><br>
-					        <label><input type="checkbox" name="stack[]" value="android"> android</label><br>
-					        <label><input type="checkbox" name="stack[]" value="swift"> swift</label><br>
-					        <label><input type="checkbox" name="stack[]" value="oracle"> oracle</label><br>
-					        <label><input type="checkbox" name="stack[]" value="redis"> redis</label><br>
-					        <label><input type="checkbox" name="stack[]" value="mysql"> mysql</label><br>
-					        <label><input type="checkbox" name="stack[]" value="nosql"> nosql</label><br>
-					        <label><input type="checkbox" name="stack[]" value="mariadb"> mariadb</label><br>
-	                    </div>
-	                </div>
-	
-	                <!-- 카테고리 3: 직무 -->
-	                <div>
-	                    <button type="button" id="category3-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#직무</button>
-	                    <div id="category3-content" class="category-content hidden">
-	                        <!-- 직무 체크박스들 -->
-	                        <label><input type="checkbox" name="Occupation[]" value="백엔드"> 백엔드</label><br>
-					        <label><input type="checkbox" name="Occupation[]" value="프론트엔드"> 프론트엔드</label><br>
-					        <label><input type="checkbox" name="Occupation[]" value="웹"> 웹</label><br>
-					        <label><input type="checkbox" name="Occupation[]" value="앱"> 앱</label><br>
-					        <label><input type="checkbox" name="Occupation[]" value="시스템엔지니어"> 시스템엔지니어</label><br>
-					        <label><input type="checkbox" name="Occupation[]" value="네트워크엔지니어"> 네트워크엔지니어</label><br>
-					        <label><input type="checkbox" name="Occupation[]" value="데이터엔지니어"> 데이터엔지니어</label><br>
-					        <label><input type="checkbox" name="Occupation[]" value="보안엔지니어"> 보안엔지니어</label><br>
-					        <label><input type="checkbox" name="Occupation[]" value="게임 개발"> 게임 개발</label><br>
-					        <label><input type="checkbox" name="Occupation[]" value="임베디드 개발"> 임베디드 개발</label><br>
-					        <label><input type="checkbox" name="Occupation[]" value="머신러닝,AI,블록체인 개발"> 머신러닝,AI,블록체인 개발</label><br>
-					        <label><input type="checkbox" name="Occupation[]" value="클라우드엔지니어"> 클라우드엔지니어</label><br>
-					        <label><input type="checkbox" name="Occupation[]" value="웹퍼블리셔"> 웹퍼블리셔</label><br>
-	
-	                    </div>
-	                </div>
-	
-	                <!-- 카테고리 4: 경력 -->
-	                <div>
-	                    <button type="button" id="category4-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#경력</button>
-	                    <div id="category4-content" class="category-content hidden">
-	                        <!-- 경력 체크박스들 -->
-	                        <label><input type="checkbox" name="period[]" value="신입"> 신입</label><br>
-	                        <label><input type="checkbox" name="period[]" value="경력"> 경력</label><br>
-	                    </div>
-	                </div>
-	
-	                <!-- 카테고리 5: 학력 -->
-	                <div>
-	                    <button type="button" id="category5-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#학력</button>
-	                    <div id="category5-content" class="category-content hidden">
-	                        <!-- 학력 체크박스들 -->
-	                        <label><input type="checkbox" name="education[]" value="고졸"> 고졸</label><br>
-					        <label><input type="checkbox" name="education[]" value="초대졸"> 초대졸</label><br>
-					        <label><input type="checkbox" name="education[]" value="학사"> 학사</label><br>
-					        <label><input type="checkbox" name="education[]" value="석사"> 석사</label><br>
-					        <label><input type="checkbox" name="education[]" value="박사"> 박사</label><br>
-					        <label><input type="checkbox" name="education[]" value="학력무관"> 학력무관</label><br>
-	                    </div>
-	                </div>
-	
-	                <!-- 카테고리 6: 자격증 -->
-	                <div>
-	                    <button type="button" id="category6-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#자격증</button>
-	                    <div id="category6-content" class="category-content hidden">
-	                        <!-- 자격증 체크박스들 -->
-	                       <label><input type="checkbox" name="Certification[]" value="토익700↑"> 토익700↑</label><br>
-					        <label><input type="checkbox" name="Certification[]" value="토플700↑"> 토플700↑</label><br>
-					        <label><input type="checkbox" name="Certification[]" value="토스IL↑"> 토스IL↑</label><br>
-					        <label><input type="checkbox" name="Certification[]" value="정보처리기사"> 정보처리기사</label><br>
-					        <label><input type="checkbox" name="Certification[]" value="SQLD"> SQLD</label><br>
-					        <label><input type="checkbox" name="Certification[]" value="SQLP"> SQLP</label><br>
-					        <label><input type="checkbox" name="Certification[]" value="리눅스마스터"> 리눅스마스터</label><br>
-					        <label><input type="checkbox" name="Certification[]" value="AWS자격증"> AWS자격증</label><br>
-					        <label><input type="checkbox" name="Certification[]" value="기타"> 기타</label><br>
-	
-	                    </div>
-	                </div>
-	
-	                <!-- 카테고리 7: 고용형태 -->
-	                <div>
-	                    <button type="button" id="category7-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#고용형태</button>
-	                    <div id="category7-content" class="category-content hidden">
-	                        <!-- 고용형태 체크박스들 -->
-	                         <label><input type="checkbox" name="employmentType[]" value="계약직3개월"> 계약직3개월</label><br>
-	                    <label><input type="checkbox" name="employmentType[]" value="계약직6개월"> 계약직6개월</label><br>
-	                    <label><input type="checkbox" name="employmentType[]" value="정규직"> 정규직</label><br>
-	                    <label><input type="checkbox" name="employmentType[]" value="인턴"> 인턴</label><br>
-	                    <label><input type="checkbox" name="employmentType[]" value="프리랜서"> 프리랜서</label><br>
-	                    </div>
-	                </div>
-	            </div>
-	    
-	            <div class="flex justify-between mt-4">
-				    <button id="reset-button" class="bg-gray-300 text-gray-800 p-2 rounded">초기화</button>
-				    <button type="button" id="apply-button" class="bg-green-500 text-white p-2 rounded">적용</button>
-				</div>
-			 </form>
+        <!-- 필터링 폼 추가 -->
+        <div >
+        
+            <!-- 카테고리들 -->
+            <div class="category-container">
+                <!-- 카테고리 1: 지역 -->
+                <div>
+                    <button type="button" id="category1-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#지역</button>
+                    <div id="category1-content" class="category-content hidden">
+                        <!-- 지역 체크박스들 -->
+<label><input type="checkbox" name="location[]" value="전국"> 전국</label><br>
+        <label><input type="checkbox" name="location[]" value="서울"> 서울</label><br>
+        <label><input type="checkbox" name="location[]" value="경/인"> 경/인</label><br>
+        <label><input type="checkbox" name="location[]" value="강원"> 강원</label><br>
+        <label><input type="checkbox" name="location[]" value="경남"> 경남</label><br>
+        <label><input type="checkbox" name="location[]" value="경북"> 경북</label><br>
+        <label><input type="checkbox" name="location[]" value="전남"> 전남</label><br>
+        <label><input type="checkbox" name="location[]" value="전북"> 전북</label><br>
+        <label><input type="checkbox" name="location[]" value="충남"> 충남</label><br>
+        <label><input type="checkbox" name="location[]" value="충북"> 충북</label><br>
+        <label><input type="checkbox" name="location[]" value="제주"> 제주</label><br>
+                    </div>
+                </div>
+
+                <!-- 카테고리 2: 보유 기술 -->
+                <div>
+                    <button type="button" id="category2-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#보유 기술</button>
+                    <div id="category2-content" class="category-content hidden">
+                        <!-- 보유 기술 체크박스들 -->
+                       <label><input type="checkbox" name="stack[]" value="JAVA"> JAVA</label><br>
+        <label><input type="checkbox" name="stack[]" value="Python"> Python</label><br>
+        <label><input type="checkbox" name="stack[]" value="C"> C</label><br>
+        <label><input type="checkbox" name="stack[]" value="C++"> C++</label><br>
+        <label><input type="checkbox" name="stack[]" value="C#"> C#</label><br>
+        <label><input type="checkbox" name="stack[]" value="html,css,js"> html,css,js</label><br>
+        <label><input type="checkbox" name="stack[]" value="Go"> Go</label><br>
+        <label><input type="checkbox" name="stack[]" value="kotlin"> kotlin</label><br>
+        <label><input type="checkbox" name="stack[]" value="aws"> aws</label><br>
+        <label><input type="checkbox" name="stack[]" value="springboot"> springboot</label><br>
+        <label><input type="checkbox" name="stack[]" value="react"> react</label><br>
+        <label><input type="checkbox" name="stack[]" value="vue"> vue</label><br>
+        <label><input type="checkbox" name="stack[]" value="django"> django</label><br>
+        <label><input type="checkbox" name="stack[]" value="tensorflow"> tensorflow</label><br>
+        <label><input type="checkbox" name="stack[]" value="flutter"> flutter</label><br>
+        <label><input type="checkbox" name="stack[]" value="ios"> ios</label><br>
+        <label><input type="checkbox" name="stack[]" value="android"> android</label><br>
+        <label><input type="checkbox" name="stack[]" value="swift"> swift</label><br>
+        <label><input type="checkbox" name="stack[]" value="oracle"> oracle</label><br>
+        <label><input type="checkbox" name="stack[]" value="redis"> redis</label><br>
+        <label><input type="checkbox" name="stack[]" value="mysql"> mysql</label><br>
+        <label><input type="checkbox" name="stack[]" value="nosql"> nosql</label><br>
+        <label><input type="checkbox" name="stack[]" value="mariadb"> mariadb</label><br>
+                    </div>
+                </div>
+
+                <!-- 카테고리 3: 직무 -->
+                <div>
+                    <button type="button" id="category3-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#직무</button>
+                    <div id="category3-content" class="category-content hidden">
+                        <!-- 직무 체크박스들 -->
+                       <label><input type="checkbox" name="Occupation[]" value="백엔드"> 백엔드</label><br>
+        <label><input type="checkbox" name="Occupation[]" value="프론트엔드"> 프론트엔드</label><br>
+        <label><input type="checkbox" name="Occupation[]" value="웹"> 웹</label><br>
+        <label><input type="checkbox" name="Occupation[]" value="앱"> 앱</label><br>
+        <label><input type="checkbox" name="Occupation[]" value="시스템엔지니어"> 시스템엔지니어</label><br>
+        <label><input type="checkbox" name="Occupation[]" value="네트워크엔지니어"> 네트워크엔지니어</label><br>
+        <label><input type="checkbox" name="Occupation[]" value="데이터엔지니어"> 데이터엔지니어</label><br>
+        <label><input type="checkbox" name="Occupation[]" value="보안엔지니어"> 보안엔지니어</label><br>
+        <label><input type="checkbox" name="Occupation[]" value="게임 개발"> 게임 개발</label><br>
+        <label><input type="checkbox" name="Occupation[]" value="임베디드 개발"> 임베디드 개발</label><br>
+        <label><input type="checkbox" name="Occupation[]" value="머신러닝,AI,블록체인 개발"> 머신러닝,AI,블록체인 개발</label><br>
+        <label><input type="checkbox" name="Occupation[]" value="클라우드엔지니어"> 클라우드엔지니어</label><br>
+        <label><input type="checkbox" name="Occupation[]" value="웹퍼블리셔"> 웹퍼블리셔</label><br>
+
+                    </div>
+                </div>
+
+                <!-- 카테고리 4: 경력 -->
+                <div>
+                    <button type="button" id="category4-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#경력</button>
+                    <div id="category4-content" class="category-content hidden">
+                        <!-- 경력 체크박스들 -->
+                        <label><input type="checkbox" name="period[]" value="신입"> 신입</label><br>
+                        <label><input type="checkbox" name="period[]" value="경력"> 경력</label><br>
+                    </div>
+                </div>
+
+                <!-- 카테고리 5: 학력 -->
+                <div>
+                    <button type="button" id="category5-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#학력</button>
+                    <div id="category5-content" class="category-content hidden">
+                        <!-- 학력 체크박스들 -->
+                        <label><input type="checkbox" name="education[]" value="고졸"> 고졸</label><br>
+        <label><input type="checkbox" name="education[]" value="초대졸"> 초대졸</label><br>
+        <label><input type="checkbox" name="education[]" value="학사"> 학사</label><br>
+        <label><input type="checkbox" name="education[]" value="석사"> 석사</label><br>
+        <label><input type="checkbox" name="education[]" value="박사"> 박사</label><br>
+        <label><input type="checkbox" name="education[]" value="학력무관"> 학력무관</label><br>
+                    </div>
+                </div>
+
+                <!-- 카테고리 6: 자격증 -->
+                <div>
+                    <button type="button" id="category6-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#자격증</button>
+                    <div id="category6-content" class="category-content hidden">
+                        <!-- 자격증 체크박스들 -->
+                       <label><input type="checkbox" name="Certification[]" value="토익700↑"> 토익700↑</label><br>
+        <label><input type="checkbox" name="Certification[]" value="토플700↑"> 토플700↑</label><br>
+        <label><input type="checkbox" name="Certification[]" value="토스IL↑"> 토스IL↑</label><br>
+        <label><input type="checkbox" name="Certification[]" value="정보처리기사"> 정보처리기사</label><br>
+        <label><input type="checkbox" name="Certification[]" value="SQLD"> SQLD</label><br>
+        <label><input type="checkbox" name="Certification[]" value="SQLP"> SQLP</label><br>
+        <label><input type="checkbox" name="Certification[]" value="리눅스마스터"> 리눅스마스터</label><br>
+        <label><input type="checkbox" name="Certification[]" value="AWS자격증"> AWS자격증</label><br>
+        <label><input type="checkbox" name="Certification[]" value="기타"> 기타</label><br>
+
+                    </div>
+                </div>
+
+                <!-- 카테고리 7: 고용형태 -->
+                <div>
+                    <button type="button" id="category7-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#고용형태</button>
+                    <div id="category7-content" class="category-content hidden">
+                        <!-- 고용형태 체크박스들 -->
+                         <label><input type="checkbox" name="employmentType[]" value="계약직3개월"> 계약직3개월</label><br>
+                    <label><input type="checkbox" name="employmentType[]" value="계약직6개월"> 계약직6개월</label><br>
+                    <label><input type="checkbox" name="employmentType[]" value="정규직"> 정규직</label><br>
+                    <label><input type="checkbox" name="employmentType[]" value="인턴"> 인턴</label><br>
+                    <label><input type="checkbox" name="employmentType[]" value="프리랜서"> 프리랜서</label><br>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="flex justify-between mt-4">
+    <button id="reset-button" class="bg-gray-300 text-gray-800 p-2 rounded">초기화</button>
+    <button type="submit" id="apply-button" class="bg-green-500 text-white p-2 rounded">적용</button>
+</div>
+ </div>
 
         </div>
     </section>
 
-	<!-- 나만의 개발자 Section ajax로 jsp  -->
-	<section class="mb-8">
-	    <h2 class="text-xl font-bold mb-4">나만의 개발자</h2>
-	    <div id="auction-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-	        <!-- 프로필 카드들이 서버에서 렌더링됩니다 -->
-	        <c:forEach var="auction" items="${auctions}">
-	            <div class="profile-card bg-white shadow-md rounded p-4">
-	                <img src="<c:out value='${auction.personImage}' default='/DevPanda/upload/default.jpg'/>"
-	                     alt="${auction.nickName}의 이미지" class="rounded-full w-16 h-16 mx-auto mb-2">
-	                <h3 class="text-lg font-semibold text-center">${auction.title}</h3>
-	                <p class="text-center text-gray-600">${auction.nickName}</p>
-	                <p class="text-center text-gray-600">최소 금액: <c:out value='${auction.minSalary}'/>원</p>
-	                <p class="text-center text-gray-600">최대 금액: <c:out value='${auction.maxSalary}'/>원</p>
-	                <div class="text-center mt-4">
-	                    <button onclick="openProfilePage(${auction.auctionNum})" class="bg-blue-500 text-white p-2 rounded">
-	                        상세보기
-	                    </button>
-	                </div>
-	            </div>
-	        </c:forEach>
-	    </div>
-	    <div id="loading" class="text-center mt-4 hidden">
-	        <p>로딩 중...</p>
-	    </div>
-	   
-	</section>
+<!-- 나만의 개발자 Section ajax로 jsp  -->
+<section class="mb-8">
+    <h2 class="text-xl font-bold mb-4">나만의 개발자</h2>
+    <div id="auction-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <!-- 프로필 카드들이 서버에서 렌더링됩니다 -->
+        <c:forEach var="auction" items="${auctions}">
+            <div class="profile-card bg-white shadow-md rounded p-4">
+                <img src="<c:out value='${auction.personImage}' default='/DevPanda/upload/default.jpg'/>"
+                     alt="${auction.nickName}의 이미지" class="rounded-full w-16 h-16 mx-auto mb-2">
+                <h3 class="text-lg font-semibold text-center">${auction.title}</h3>
+                <p class="text-center text-gray-600">${auction.nickName}</p>
+                <p class="text-center text-gray-600">최소 금액: <c:out value='${auction.minSalary}'/>원</p>
+                <p class="text-center text-gray-600">최대 금액: <c:out value='${auction.maxSalary}'/>원</p>
+                <div class="text-center mt-4">
+                    <button onclick="openProfilePage(${auction.auctionNum})" class="bg-blue-500 text-white p-2 rounded">
+                        상세보기
+                    </button>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
+    <div id="loading" class="text-center mt-4 hidden">
+        <p>로딩 중...</p>
+    </div>
+   
+</section>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+
     var offset = 0; // 초기 오프셋 값
      // 페이지당 아이템 수
     let isLoading = false; // 로딩 상태
@@ -237,15 +235,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // 필터링된 데이터 로드
         offset = 0;
-        container.innerHTML = '';
+        
+        
         loadMoreAuctions();
+        
     }
 
     // 필터링된 데이터를 로드하는 함수
     function loadMoreAuctions() {
-    	
-    	
-    	
+        
     	filters.location = Array.from(document.querySelectorAll('input[name="location[]"]:checked')).map(el => el.value);
         filters.stack = Array.from(document.querySelectorAll('input[name="stack[]"]:checked')).map(el => el.value);
         filters.Occupation = Array.from(document.querySelectorAll('input[name="Occupation[]"]:checked')).map(el => el.value);
@@ -254,8 +252,9 @@ document.addEventListener('DOMContentLoaded', function() {
         filters.Certification = Array.from(document.querySelectorAll('input[name="Certification[]"]:checked')).map(el => el.value);
         filters.employmentType = Array.from(document.querySelectorAll('input[name="employmentType[]"]:checked')).map(el => el.value);
     	
-    	
-    	if (isLoading) return;  // 이미 로딩 중일 때는 실행하지 않음
+        console.log(isLoading)
+    	if (isLoading) return;
+    	// 이미 로딩 중일 때는 실행하지 않음
         isLoading = true;
         loading.classList.remove('hidden');
 
@@ -263,48 +262,96 @@ document.addEventListener('DOMContentLoaded', function() {
             isScrollingEnabled = true; // 스크롤 이벤트 비활성화 해제
         }
 
-        
-       
+        let param= {
+                offset: offset,
+                location: filters.location.join(','),  // 배열을 콤마로 구분하여 전송  서울,부산
+                stack: filters.stack.join(','),
+                occupation: filters.Occupation.join(','),
+                period: filters.period.join(','),
+                education: filters.education.join(','),
+                certification: filters.Certification.join(','),
+                employmentType: filters.employmentType.join(',')
+            };
+
+        console.log(param);
 
         // 필터링된 데이터 요청
         $.ajax({
             url: '/DevPanda/auctionoffset',
-            method: 'GET',
-            data: {
-                offset: offset,
-                location: filters.location.join(','),  // 배열을 콤마로 구분하여 전송
-                stack: filters.stack.join(','),
-                Occupation: filters.Occupation.join(','),
-                period: filters.period.join(','),
-                education: filters.education.join(','),
-                Certification: filters.Certification.join(','),
-                employmentType: filters.employmentType.join(',')
-            },
-            dataType: 'html', // 서버로부터 HTML을 기대
-                 
-            
-            success: function(html) {
-            	console.log(html)
-                const tempDiv = document.createElement('div');
-                
-                tempDiv.innerHTML = html;
+            method: 'POST',
 
-                // 렌더링된 카드들을 추가
-                const newCards = tempDiv.querySelectorAll('.profile-card');
-                newCards.forEach(card => container.appendChild(card));
+            
+            data: {param:JSON.stringify(param)},
+            dataType: 'text',
+
+            
+            success: function(result) {
+                console.log(result)
+				if(offset === 0 ){
+					container.innerHTML = '';
+				}
+				
+            	const array = JSON.parse(result)
+            	console.log(array)
+            	
+            	
+            	
+            	array.forEach(item =>{
+            	console.log(`\${item.minSalary}`);
+				const superDiv = document.createElement('div');
+				const img = document.createElement('img');
+				const h3 = document.createElement('h3');
+				const p1 = document.createElement('p');
+				const p2 = document.createElement("p");
+				const p3 = document.createElement('p');
+				const subDiv = document.createElement('div');
+				const button = document.createElement('button');
+				button.setAttribute('onclick',`openProfilePage(\${item.personImage})`)
+				button.className='bg-blue-500 text-white p-2 rounded'
+				button.innerText='상세보기'
+				subDiv.className='text-center mt-4'
+				p1.className='text-center text-gray-600'
+				p1.innerText=`\${item.nickName}`
+				p2.innerText=`최소 금액: \${item.minSalary}원`
+				p3.innerText=`최대 금액: \${item.maxSalary}원`
+				h3.className='text-lg font-semibold text-center'
+				h3.innerText=`\${item.title}`
+				img.setAttribute('src',`\${item.personImage}`)
+				img.setAttribute('default','/DevPanda/upload/default.jpg')
+				img.setAttribute('alt',`\${item.nickName}의 이미지`)
+				img.className='rounded-full w-16 h-16 mx-auto mb-2'
+				superDiv.className='profile-card bg-white shadow-md rounded p-4'
+				subDiv.appendChild(button)
+				superDiv.appendChild(img)
+				superDiv.appendChild(h3)
+				superDiv.appendChild(p1)
+				superDiv.appendChild(p2)
+				superDiv.appendChild(p3)
+				superDiv.appendChild(subDiv)
+				
+				container.appendChild(superDiv);
+			
+            	});
+				
+                
 
                 // 데이터가 없을 경우 스크롤 이벤트 제거
-                if (newCards.length === 0) {
-                    $(window).off('scroll', onScroll); // jQuery에서 스크롤 이벤트 제거
+                if (array.length === 0) {
+                   //$(window).off('scroll', onScroll); // jQuery에서 스크롤 이벤트 제거
+                   loading.classList.add('hidden');
+                   isLoading = false;
+                   
+                    
+                   return;
+                }else{
+                	offset = offset +9; // 다음 오프셋 준비
+                    console.log('Updated offset:', offset); // 업데이트된 오프셋 로그
+
+                    isLoading = false;
                     loading.classList.add('hidden');
-                    return;
                 }
 
-                offset += 9; // 다음 오프셋 준비
                 
-
-                isLoading = false;
-                loading.classList.add('hidden');
             },
             error: function(xhr, status, error) {
                 console.error('Fetch error:', error);
@@ -364,45 +411,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 500); // 초기화가 완료된 후 500ms 후에 스크롤 이벤트 재활성화
     }
     
-    
- // 필터 상태 유지
-    const filterParams = new URLSearchParams(window.location.search);
-
-    // 필터 카테고리 목록 정의
-    const categories = ['location', 'stack', 'Occupation', 'period', 'education', 'Certification', 'employmentType'];
-
-    // 각 카테고리에 대해 반복
-    categories.forEach(category => {
-        // 현재 카테고리에 해당하는 체크박스들을 선택
-        const checkboxes = document.querySelectorAll(`input[name="${category}[]"]`);
-        
-        // 체크박스 상태 설정
-        checkboxes.forEach(checkbox => {
-            // URL의 쿼리 파라미터에 현재 카테고리 값이 존재하는지 확인
-            if (filterParams.has(category) && filterParams.getAll(category).includes(checkbox.value)) {
-                checkbox.checked = true; // 체크박스 체크
-            } else {
-                checkbox.checked = false; // 체크박스 해제
-            }
-        });
-    });
-
-    // 필터 상태 변경 시 URL 쿼리 업데이트
-    function updateFilters() {
-        const updatedParams = new URLSearchParams();
-        categories.forEach(category => {
-            const checkedValues = Array.from(document.querySelectorAll(`input[name="${category}[]"]:checked`))
-                                       .map(checkbox => checkbox.value);
-            if (checkedValues.length > 0) {
-                updatedParams.set(category, checkedValues);
-            }
-        });
-        // URL 업데이트
-        history.replaceState(null, '', `${window.location.pathname}?${updatedParams.toString()}`);
-    }
 
 
-});
+
 </script>
 
  

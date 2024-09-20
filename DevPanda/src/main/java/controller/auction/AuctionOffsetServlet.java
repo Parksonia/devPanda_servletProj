@@ -54,37 +54,72 @@ public class AuctionOffsetServlet extends HttpServlet{
 	
 	
 	
+	
+	
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
+		String data = request.getParameter("param");
+		
+		System.out.println(data);
+		
+		
+		
+		List<AuctionAndPerson> auctions = auctionService.findAllAuctionWithOffset(data);
+		if(auctions !=null) {
+			
+			System.out.println(auctions);	
+            String jsonResponse = gson.toJson(auctions);
+			response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            PrintWriter out = response.getWriter();
+            out.print(jsonResponse);
+            
+            
+		}
+	}
+
+
+
+
+
+
 	public static String getBody(HttpServletRequest request) throws IOException {
-		 
-        String body = null;
-        StringBuilder stringBuilder = new StringBuilder();
-        BufferedReader bufferedReader = null;
- 
-        try {
-            InputStream inputStream = request.getInputStream();
-            if (inputStream != null) {
-                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                char[] charBuffer = new char[128];
-                int bytesRead = -1;
-                while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
-                    stringBuilder.append(charBuffer, 0, bytesRead);
-                }
-            }
-        } catch (IOException ex) {
-            throw ex;
-        } finally {
-            if (bufferedReader != null) {
-                try {
-                    bufferedReader.close();
-                } catch (IOException ex) {
-                    throw ex;
-                }
-            }
-        }
- 
-        body = stringBuilder.toString();
-        
-        return body;
-    }
+	    // 요청의 인코딩 설정
+	    request.setCharacterEncoding("UTF-8");
+
+	    String body = null;
+	    StringBuilder stringBuilder = new StringBuilder();
+	    BufferedReader bufferedReader = null;
+
+	    try {
+	        InputStream inputStream = request.getInputStream();
+	        if (inputStream != null) {
+	            // UTF-8 인코딩을 명시적으로 설정
+	            bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+	            char[] charBuffer = new char[128];
+	            int bytesRead;
+	            while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
+	                stringBuilder.append(charBuffer, 0, bytesRead);
+	            }
+	        }
+	    } catch (IOException ex) {
+	        throw ex;
+	    } finally {
+	        if (bufferedReader != null) {
+	            try {
+	                bufferedReader.close();
+	            } catch (IOException ex) {
+	                throw ex;
+	            }
+	        }
+	    }
+
+	    body = stringBuilder.toString();
+	    return body;
+	}
+
 
 }
