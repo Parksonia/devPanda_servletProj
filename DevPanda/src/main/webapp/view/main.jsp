@@ -645,7 +645,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	    }
 
 		function openProfilePage(auctionNum) {
-		    window.location.href = `/Devpanda/auction/detail?auctionNum=${auctionNum}`;
+		    window.location.href = `/DevPanda/auction/detail?auctionNum=\${auctionNum}`;
 		}
 
 		
