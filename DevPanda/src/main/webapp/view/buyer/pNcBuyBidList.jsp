@@ -371,7 +371,7 @@
 			                           				'<input type="hidden" name="bidPrice" value="' + item.bidPrice + '">' +
 			                           				'<input type="hidden" name="bidDate" value="' + item.bidDate + '">' +
 			                           				'<div class="history-item"  style="' + backgroundColor + '">' +
-               										'<img src="' + item.personImage + '" alt="User">' +
+               										'<img src="image?file=' + item.personImage + '" alt="User">' +
                										'<div class="history-content">' +
                										'<span>' + item.title + '</span>' +
                										'</div>' +

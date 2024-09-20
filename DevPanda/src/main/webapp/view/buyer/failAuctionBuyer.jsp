@@ -83,7 +83,7 @@
 			<div class="user-info-container">
 				<div class="user-info">
 					<div class="user">
-						<img src="/image?file=${sellerImage}" alt="SellerImg">
+						<img src="image?file=${sellerImage}" alt="SellerImg">
 						<p class="user_type">[개인회원]</p>
 						<p class="bold">${auction.id}</p>
 						<p class="title">${auction.title}</p>

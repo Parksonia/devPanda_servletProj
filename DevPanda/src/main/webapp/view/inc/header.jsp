@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<% 
+    String userType = (String)session.getAttribute("userType");
+    request.setAttribute("userType", userType);  
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,13 +14,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet">
 </head>
-<body>
+<body> 
     <div class="header">
         <div class="header_logo">
             <a href="${pageContext.request.contextPath }/auction"><img src="${pageContext.request.contextPath}/img/logoS.png" alt="DevPanda Logo"></a>
-
         	<span>DevPanda</span>
-
         </div>
 
         <div class="header_content">
@@ -33,18 +35,14 @@
                     <nav class="gnb" id="pcGnbContainer">
                         <ul class="gnb_list" id="pcGnbList">
                             <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/auction">AUCTION</a></li>
-                            <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/bidList">MYPAGE</a></li>
-
-                     <% String userType = (String)session.getAttribute("userType");%>
-                     <c:choose>
-                        <c:when test="${userType == 'person'}">
-                           <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/personInfo">MYPAGE</a></li>
-                        </c:when>
-                        <c:otherwise>
-                           <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/companyInfo">MYPAGE</a></li>
-                        </c:otherwise>
-                     </c:choose>
-
+	                            <c:choose>
+	                                <c:when test="${userType == 'person'}">
+	                                    <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/personInfo">MYPAGE</a></li>
+	                                </c:when>
+	                                <c:when test="${userType == 'company'}">
+	                                    <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/companyInfo">MYPAGE</a></li>
+	                                </c:when>
+	                            </c:choose>
                             <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/start">LOGOUT</a></li>
                         </ul>
                     </nav>

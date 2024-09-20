@@ -449,10 +449,13 @@
 	width: 80px;
 	height: 80px;
 	border-radius: 10px;
-	background: url('https://via.placeholder.com/60') no-repeat center
-		center;
 	background-size: cover;
 	margin-right: 20px;
+}
+
+.modal-profile-image img {
+	width: 80px;
+	height: 80px;
 }
 
 .modal-profile-info .user-type {

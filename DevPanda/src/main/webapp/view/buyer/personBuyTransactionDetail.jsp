@@ -215,7 +215,9 @@
 					<a href="#" class="modal-close">&times;</a>
 					<div class="modal-header">신고하기</div>
 					<div class="modal-profile">
-						<div class="modal-profile-image"><img src="image?file=${sellerImage}" alt="SellerImg"></div>
+						<div class="modal-profile-image">
+							<img src="image?file=${sellerImage}" alt="SellerImg">
+						</div>
 						<div class="modal-profile-info">
 							<div class="user-type">[개인회원]</div>
 							<div class="user-id">${sperson.id }</div>
@@ -228,8 +230,8 @@
 						<div>거래 일자</div>
 					</div>
 					<div class="modal-transaction-info">
-						<div class="modal-transaction-id">AB123-CD5678-${auctionNum }</div>
-						<div class="modal-transaction-date">${date }</div>
+						<div class="modal-transaction-id">AB123-CD5678-${auctionNum}</div>
+						<div class="modal-transaction-date">${date}</div>
 					</div>
 					<div class="modal-divider"></div>
 					<div class="modal-report-title">신고 내용</div>

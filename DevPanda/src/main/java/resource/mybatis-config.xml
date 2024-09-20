@@ -6,9 +6,9 @@
 <!-- mybatis 설정 -->
 <configuration>
 	<!--쿼리 로그  -->
-	<settings>
+	<!-- <settings>
     <setting name="logImpl" value="STDOUT_LOGGING" />
-	</settings>
+	</settings> -->
 
 
 	<typeAliases>
@@ -26,7 +26,7 @@
 
 	
 
-	<environments default="development">
+<!-- 	<environments default="development">
     <environment id="development">
         <transactionManager type="JDBC" />
         <dataSource type="POOLED">
@@ -37,7 +37,7 @@
             <property name="password" value="98019801" />
         </dataSource>
     </environment>
-</environments>
+</environments> -->
 
 	
 
@@ -59,7 +59,7 @@
 
 
 
-	<!-- <environments default="development">
+	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
@@ -67,11 +67,10 @@
 				<property name="url"
 					value="jdbc:mariadb://localhost:3306/devpanda"></property>
 				<property name="username" value="root"></property>
-				<property name="password" value="7564"></property>  석준쓰 1590
+				<property name="password" value="7564"></property> 
 			</dataSource>
 		</environment>
-
-	</environments>  -->
+	</environments>
 
 
 	<mappers>

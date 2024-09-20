@@ -69,7 +69,7 @@
 			<div class="user-info-container">
 				<div class="user-info">
 					<div class="user">
-						<img src="image?file=${personImage}" alt="SellerImage">
+						<img src="image?file=${sellerImage}" alt="SellerImage">
 						<p class="user_type">[개인회원]</p>
 						<p class="bold">${auction.id }</p>
 						<p class="title">${auction.title }</p>
@@ -172,7 +172,7 @@
 
 					<!-- 구매자(Seller) 프로필 -->
 					<div class="profile">
-						<img src="img?file=${sperson.personImage }"	alt="SellerImg">
+						<img src="image?file=${sperson.personImage }"	alt="SellerImg">
 						<p style="color: #888; font-weight: bold;">[개인회원]</p>
 						<p style="font-weight: bold;">판매자 : ${sperson.nickName }</p>
 						<p>아이디: ${sperson.id }</p>
