@@ -119,7 +119,7 @@ public class AuctionInsertServlet extends HttpServlet {
         auctionInsertService.insertAuction(auction);
 
         // 페이지 리다이렉트 또는 성공 메시지 표시
-        response.sendRedirect(request.getContextPath() + "/auction");
+        response.sendRedirect(request.getContextPath() + "/auctionoffset");
         //response.sendRedirect("/view/main.jsp");  // 경매 등록 성공 후 이동할 페이지
     }
 }

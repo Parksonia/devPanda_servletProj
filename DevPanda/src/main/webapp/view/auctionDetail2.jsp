@@ -28,8 +28,8 @@
 
 	<main class="p-8">
 		<div id="profile-details" class="bg-white p-4 shadow-md rounded">
-			<img id="profile-pic" src="${auctionAndPerson.personImage}" alt="Profile Picture"
-				class="rounded-full w-32 h-32 mx-auto mb-4">
+		 <img src="<c:out value='${pageContext.request.contextPath}/upload/${auction.personImage}' default='${pageContext.request.contextPath}/upload/default.jpg'/>"
+    			 alt="${auction.nickName}의 이미지" class="rounded-full w-16 h-16 mx-auto mb-2">
 			<h2 id="profile-name" class="text-xl font-bold text-center">${auctionAndPerson.nickName}</h2>
 			<p id="profile-job-title" class="text-lg text-center text-gray-600">${auctionAndPerson.occupation}</p>
 			

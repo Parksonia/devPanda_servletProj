@@ -187,7 +187,7 @@
         <!-- 프로필 카드들이 서버에서 렌더링됩니다 -->
         <c:forEach var="auction" items="${auctions}">
             <div class="profile-card bg-white shadow-md rounded p-4">
-                <img src="<c:out value='${auction.personImage}' default='/DevPanda/upload/default.jpg'/>"
+               <img src="<c:out value='${pageContext.request.contextPath}/upload/${auction.personImage}' default='${pageContext.request.contextPath}/upload/default.jpg'/>"
                      alt="${auction.nickName}의 이미지" class="rounded-full w-16 h-16 mx-auto mb-2">
                 <h3 class="text-lg font-semibold text-center">${auction.title}</h3>
                 <p class="text-center text-gray-600">${auction.nickName}</p>
@@ -648,7 +648,7 @@
 	    }
 
 		function openProfilePage(auctionNum) {
-			window.location.href = `/view/auctionDetail.jsp?auctionNum=${auctionNum}`;
+		    window.location.href = `/DevPanda/auction/detail?auctionNum=\${auctionNum}`;
 		}
 
 		/* function resetSelections() {
