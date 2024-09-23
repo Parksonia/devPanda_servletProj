@@ -23,7 +23,7 @@ import service.PersonSellAuctionListServiceImpl;
 @WebServlet("/personSellAuctionList")
 public class PersonSellAuctionList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private PersonSellAuctionListService service = new PersonSellAuctionListServiceImpl();
+		
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -39,6 +39,8 @@ public class PersonSellAuctionList extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		PersonSellAuctionListService service = new PersonSellAuctionListServiceImpl();
 		request.setCharacterEncoding("utf-8");
 		
 		// 아이디

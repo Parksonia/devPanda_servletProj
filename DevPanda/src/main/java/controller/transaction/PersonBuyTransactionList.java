@@ -26,7 +26,7 @@ import util.PageInfo;
 @WebServlet("/personBuyTransactionList")
 public class PersonBuyTransactionList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private PersonBuyTransactionListService service = new PersonBuyTransactionListServiceImpl();
+	
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -44,6 +44,7 @@ public class PersonBuyTransactionList extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		PersonBuyTransactionListService service = new PersonBuyTransactionListServiceImpl();
 		request.setCharacterEncoding("utf-8");
 
 		// 아이디
