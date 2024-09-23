@@ -30,7 +30,9 @@ public class MyFilter implements Filter{
 				|| check.startsWith("Person")
 				|| check.startsWith("signUpPerson")
 				|| check.startsWith("Company")
-				|| check.startsWith("signUpCom")
+
+				|| check.startsWith("checkCertification")
+				|| check.startsWith("mailsend")
 				) {
 			
 			chain.doFilter(request, response);
