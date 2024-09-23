@@ -183,7 +183,7 @@ body{
 				<div class="password-container">
 					<div class="input-password-title">비밀번호</div>
 					<div class="input-password-container">
-						<input placeholder="비밀번호를 입력해 주세요" name="password" class="password-input">
+						<input placeholder="비밀번호를 입력해 주세요" type="password" name="password" class="password-input">
 					</div>
 					<div class="password-option-container">
 						<div class="password-option-container-item"><a href="/DevPanda/signUpPerson">회원가입</a></div>

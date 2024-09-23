@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					<div class="input-title-2">비밀번호 확인*</div>
 					<div class="input-2-container">
 						<input class="input-2" id="confirmPassword" name="confirmPassword"
-							type="password" placeholder="비밀번호를 입력해 주세요">
+							type="password" type="password" placeholder="비밀번호를 입력해 주세요">
 						<div class="check-button-container">
 							<div class="check-button" id="checkPasswords">V</div>
 						</div>
