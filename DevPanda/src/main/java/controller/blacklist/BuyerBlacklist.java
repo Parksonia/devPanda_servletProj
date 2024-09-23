@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,6 +40,10 @@ public class BuyerBlacklist extends HttpServlet {
 		// 아이디
 		//String declPerson = "abc001";
 		HttpSession session = request.getSession();
+		if (session == null || session.getAttribute("person") == null) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/start");
+			dispatcher.forward(request, response);
+		}
 		String declPerson = ((Person)session.getAttribute("person")).getId();
 		// 페이지
 		int page = 1;

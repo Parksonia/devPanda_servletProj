@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -50,6 +51,10 @@ public class BuyPersonSellerBlackList extends HttpServlet {
 		String id = "abc001";
 		// 세션에서 사용자 ID가져와 사용 예정 
 		HttpSession session = request.getSession();
+		if (session == null) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/start");
+			dispatcher.forward(request, response);
+		}
 //		String id = (String) session.getAttribute("userId"); 
 		String userType = (String)session.getAttribute("userType");
 		if(userType.equals("person")) {

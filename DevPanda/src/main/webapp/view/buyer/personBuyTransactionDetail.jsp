@@ -109,7 +109,7 @@
 						<p>이메일: ${sperson.email }</p>
 						<p>주소: ${sperson.address }</p>
 						<c:choose>
-							<c:when test="${isAlreadyReported}">
+							<c:when test="${!isAlreadyReported}">
 								<button class="report-button" disabled
 									style="background-color: #ccc; cursor: not-allowed;">이미
 									신고됨</button>
