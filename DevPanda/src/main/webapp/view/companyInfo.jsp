@@ -293,15 +293,20 @@ input::placeholder {
 						<h2>로그인 정보</h2>
 					</div>
 				</div>
-
+				
 				<div style="margin-left: 10%;">
+				<form action="${pageContext.request.contextPath}/companyInfoUpdate"
+						method="post" accept-charset="UTF-8" enctype="multipart/form-data">
 					<!-- user 사진관리 start -->
 					<div class="user_profile">
-						<input id="profileImageInput" type="file" accept="image/*" hidden>
+						<input id="profileImageInput" type="file" accept="image/*" name="companyImageFile" hidden>
+						
 						<div class="profile_thumb">
 							<!-- <img id="profileImage" src="./img/user2.png" alt="사용자 이미지" class="thumb_img"> -->
+							
+							
 							<img id="profileImage" src="image?file=${company.companyImage}"
-								alt=" 사용자 이미지" class="thumb_img">
+								alt=" 사용자 이미지" class="thumb_img" >
 						</div>
 						<div class="profile_detail">
 							<p class="div_user">
@@ -316,37 +321,15 @@ input::placeholder {
 									class="btn outlinegrey small">이미지변경</button>
 								<button id="deleteImageButton" type="button"
 									class="btn outlinegrey small">삭제</button>
+								<input type="hidden" id="deleteImageHidden" name="deleteImage" value="false">
 							</div>
 						</div>
 					</div>
-					<script>
-					$(document).ready(function() {
-					    // 이미지 변경 버튼 클릭 시 파일 선택창 열기
-					    $('#changeImageButton').click(function() {
-					        $('#profileImageInput').click();
-					    });
-
-					    // 파일 선택 시 이미지 미리보기 업데이트
-					    $('#profileImageInput').change(function(event) {
-					        var reader = new FileReader();
-					        reader.onload = function(e) {
-					            $('#profileImage').attr('src', e.target.result);
-					        };
-					        reader.readAsDataURL(event.target.files[0]);
-					    });
-
-					    // 이미지 삭제 버튼 클릭 시 기본 이미지로 변경
-					    $('#deleteImageButton').click(function() {
-					        $('#profileImage').attr('src', './img/user2.png');
-					    });
-					});
-
-					</script>
+					
 					<!-- user 사진관리 end-->
 
-					<!-- form 태그로 감싸서 서버로 데이터를 전송할 수 있도록 수정 -->
-					<form action="${pageContext.request.contextPath}/companyInfoUpdate"
-						method="post" accept-charset="UTF-8">
+					<!-- f	orm 태그로 감싸서 서버로 데이터를 전송할 수 있도록 수정 -->
+				
 						<!-- 개인계정,개인정보 start -->
 						<input type="hidden" name="companyId" value="${company.id}">
 						<div class="profile_info">
@@ -447,7 +430,36 @@ input::placeholder {
 					    });
 					});
 					</script>
+					<script>
+					$(document).ready(function() {
+					    // 이미지 변경 버튼 클릭 시 파일 선택창 열기
+					    $('#changeImageButton').click(function() {
+					        $('#profileImageInput').click();
+					    });
 
+					    // 파일 선택 시 이미지 미리보기 업데이트
+					    $('#profileImageInput').change(function(event) {
+					        var reader = new FileReader();
+					        reader.onload = function(e) {
+					            $('#profileImage').attr('src', e.target.result);
+
+					            // 이미지가 변경되었으므로 삭제 여부를 false로 설정
+					            $('#deleteImageHidden').val('false');
+					        };
+					        reader.readAsDataURL(event.target.files[0]);
+					    });
+
+					    // 이미지 삭제 버튼 클릭 시 기본 이미지로 변경 및 삭제 여부 표시
+					    $('#deleteImageButton').click(function() {
+					        $('#profileImage').attr('src', './img/user2.png');
+
+					        // 삭제 여부를 true로 설정하여 서버로 전송
+					        $('#deleteImageHidden').val('true');
+					    });
+					});
+
+					</script>
+					
 				</div>
 			</div>
 		</div>

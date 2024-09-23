@@ -58,7 +58,8 @@
         SET email = #{email},
             password = #{password},
             companyName = #{companyName},
-            Address = #{address}
+            Address = #{address},
+            companyImage = #{companyImage}
         WHERE Id = #{companyId}
     </update>
 	
