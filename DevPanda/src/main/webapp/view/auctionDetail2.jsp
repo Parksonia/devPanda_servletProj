@@ -313,7 +313,7 @@
 								'bidMaxPrice' : '${auctionAndPerson.maxSalary}',
 								'date' : inputdate,
 								'price' : '${auctionAndPerson.maxSalary}',
-								'state' : 'success'
+								'state' : 'i'
 							},
 							success : function(result) {
 								if (result === 'success') {
