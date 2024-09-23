@@ -23,9 +23,10 @@ public class AuctionSchedulerServiceImpl implements AuctionSchedulerService {
                 String currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date());
                 System.out.println("Scheduler running at: " + currentDate);
 
-                // 경매 상태를 'success'로 업데이트
+                // 경매 상태를 'unprocessing'으로 업데이트
                 try {
                     auctionSchedulerRepository.updateAuctionStatusToSuccess(currentDate);
+                    auctionSchedulerRepository.updateBidStateToTwo(currentDate);
                     System.out.println("Updated auction status to success for date: " + currentDate);
                 } catch (Exception e) {
                     e.printStackTrace();
