@@ -52,13 +52,13 @@
 		JOIN
 		person p ON p.id = bl.blackPerson
 		WHERE
-		bl.declCom = #{companyId};
+		bl.declCom = #{companyId}
 	</select>
 	
 	<!-- 개인(구매자)의 Seller에 대한 Blacklist 페이징 처리 위한 총 카운트 -->
 	<select id="selectBuyerPersontSellerBlackListCnt" parameterType="String" resultType="Integer">
 	 	<![CDATA[
-	 	SELECT COUNT(*) FROM blacklist WHERE declPerson = #{id} AND LOWER(roleType) ='b';
+	 	SELECT COUNT(*) FROM blacklist WHERE declPerson = #{id} AND LOWER(roleType) ='b'
 	 	]]>
 	</select>
 	<!-- ////////////////////////////////////////////////////// -->
@@ -76,14 +76,32 @@
 		JOIN auction a ON t.auctionNum = a.auctionNum
 		JOIN person p ON t.sellerId = p.id
 		WHERE b.declPerson=#{id} AND LOWER(roleType) ='b'
-		ORDER BY b.reportDate DESC LIMIT #{row},10;
+		ORDER BY b.reportDate DESC LIMIT #{row},10
 		]]>
 	</select>
 	<!-- 개인(구매자)의 Seller에 대한 Blacklist 삭제 -->
 	
 	<delete id="deleteSellerBlackForBuyerPerson" parameterType="Integer" >
-		DELETE FROM blacklist WHERE blackNum=#{blackNum};
+		DELETE FROM blacklist WHERE blackNum=#{blackNum}
 	</delete>
+	
+	<!-- 이미 신고된 블랙리스트 인지 확인 -->
+	<select id="isAlreadyReportedBlackList" parameterType="map" resultType="Integer">
+	 SELECT COUNT(*) FROM blacklist
+	 <where> 
+		<choose>
+			<when test="userType !=null and userType =='person'">	
+			 declPerson= #{declId} AND transactionNum= #{transactionNum} 
+				 <if test="roleType != null">
+                    AND roleType = #{roleType}
+                 </if>
+			</when>
+			<when test="userType !=null and userType =='company'">	
+	 		declCom= #{declId} AND transactionNum=#{transactionNum}
+			</when>
+		</choose>
+	</where> 
+	</select>	
 	<!-- /////////////////////////////////////////////////////////////// -->
 		
 	
@@ -94,7 +112,7 @@
 			INSERT INTO blacklist 
 			(declPerson, transactionNum, bidNum, blackPerson, title, content, reportDate, roleType)
 			VALUES 
-			(#{declPerson}, #{transactionNum}, #{bidNum}, #{blackPerson}, #{title}, #{content}, DATE_FORMAT(NOW(), '%Y-%m-%d'), 'S');
+			(#{declPerson}, #{transactionNum}, #{bidNum}, #{blackPerson}, #{title}, #{content}, DATE_FORMAT(NOW(), '%Y-%m-%d'), 'S')
 		]]>
 	</insert>
 
@@ -103,7 +121,7 @@
 			INSERT INTO blacklist 
 			(declPerson, transactionNum, bidNum, blackCom, title, content, reportDate, roleType)
 			VALUES 
-			(#{declPerson}, #{transactionNum}, #{bidNum}, #{blackCom}, #{title}, #{content}, DATE_FORMAT(NOW(), '%Y-%m-%d'), 'S');
+			(#{declPerson}, #{transactionNum}, #{bidNum}, #{blackCom}, #{title}, #{content}, DATE_FORMAT(NOW(), '%Y-%m-%d'), 'S')
 		]]>
 	</insert>
 	 
@@ -114,14 +132,18 @@
 			INSERT INTO blacklist 
 			(declPerson, transactionNum, bidNum, blackPerson, title, content, reportDate, roleType)
 			VALUES 
-			(#{declPerson}, #{transactionNum}, #{bidNum}, #{blackPerson}, #{title}, #{content}, DATE_FORMAT(NOW(), '%Y-%m-%d'), 'B');
+			(#{declPerson}, #{transactionNum}, #{bidNum}, #{blackPerson}, #{title}, #{content}, DATE_FORMAT(NOW(), '%Y-%m-%d'), 'B')
 		]]>
 	</insert>
 	
+	<select id="selectBlackList" resultType="blackList">
+		select * from blacklist
+	
+	</select>
+	
 	<select id="selectBlacklistById" parameterType="map" resultType="map">
-		<![CDATA[
-			select b.*, p.personImage, c.companyImage, t.date, a.title as auctionTitle
-			from blacklist b 
+ 			select b.*, p.personImage, c.companyImage, t.date, a.title as auctionTitle
+			from blacklist b
 			left outer join person p
 				on b.blackPerson = p.id
 			LEFT OUTER JOIN company c
@@ -130,20 +152,19 @@
 				ON b.transactionNum = t.transactionNum
 			JOIN auction a
 				ON a.auctionNum = t.auctionNum
-			where declPerson=#{id} and roleType='S'
-			limit #{limit} offset #{offset};
-		]]>
+			where b.declPerson=#{id} and b.roleType='S'
+			limit #{limit} offset #{offset}
 	</select>
 	
 	<select id="countBlacklistById" parameterType="String" resultType="int">
 		<![CDATA[
-			select count(*) from blacklist where declPerson=#{id} and roleType='S';
+			select count(*) from blacklist where declPerson=#{id} and roleType='S'
 		]]>
 	</select>
 	
 	<delete id="deleteBlacklistByNum" parameterType="Integer">
 		<![CDATA[
-			DELETE FROM blacklist WHERE blackNum = #{blackNum};
+			DELETE FROM blacklist WHERE blackNum = #{blackNum}
 		]]>
 	</delete>
 

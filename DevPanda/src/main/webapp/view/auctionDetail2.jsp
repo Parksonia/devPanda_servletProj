@@ -367,17 +367,8 @@
 		function submitBid() {
 			const bidAmount = parseInt(document.getElementById('bid-amount').value);
 			console.log(bidAmount);
-			const maxAmount = $
-			{
-				auctionAndPerson.maxSalary
-			}
-			;
-			let currentBid = $
-			{
-				auctionAndPerson.bidMaxPrice
-			}
-			;
-
+			const maxAmount = ${auctionAndPerson.maxSalary};
+			let currentBid = ${auctionAndPerson.bidMaxPrice};
 			if (bidAmount) {
 				if (bidAmount >= maxAmount) {
 					//bid insert, auction update insert transaction

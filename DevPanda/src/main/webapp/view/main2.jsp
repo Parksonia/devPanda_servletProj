@@ -44,7 +44,7 @@
                     <button type="button" id="category1-toggle" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#지역</button>
                     <div id="category1-content" class="category-content hidden">
                         <!-- 지역 체크박스들 -->
-<label><input type="checkbox" name="location[]" value="전국"> 전국</label><br>
+
         <label><input type="checkbox" name="location[]" value="서울"> 서울</label><br>
         <label><input type="checkbox" name="location[]" value="경/인"> 경/인</label><br>
         <label><input type="checkbox" name="location[]" value="강원"> 강원</label><br>
