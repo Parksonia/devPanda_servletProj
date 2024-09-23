@@ -217,7 +217,7 @@
     const container = document.getElementById('auction-container');
     const loading = document.getElementById('loading');
     let debounceTimer;
-	
+    var moreActions = true;
     // 필터 상태 저장
     let filters = {
         location: [],
@@ -236,13 +236,16 @@
     function applyFilters() {
         // 필터 변수 설정
         
-
+		moreActions=true;
+        
         // 필터링된 데이터 로드
         offset = 0;
         
         
-        
-        loadMoreAuctions();	
+        if(moreActions){
+        	loadMoreAuctions();	
+        }
+        	
         
         
         
@@ -347,6 +350,7 @@
                    //$(window).off('scroll', onScroll); // jQuery에서 스크롤 이벤트 제거
                    loading.classList.add('hidden');
                    isLoading = false;
+                   moreActions=false;
                    
                     
                    return;
