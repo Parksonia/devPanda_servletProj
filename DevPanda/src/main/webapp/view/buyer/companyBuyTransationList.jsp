@@ -98,14 +98,6 @@
 	cursor: pointer;
 }
 
-button {
-	width: 200px;
-	height: 40px;
-	padding: 10px 20px;
-	font-size: 16px;
-	box-sizing: border-box;
-}
-
 .filters button:hover {
 	background-color: #e0e0e0;
 }
@@ -125,10 +117,8 @@ button {
 }
 
 .item {
-	display: flex;
-	align-items: center;
-	position: relative;
-	margin-left: 20px;
+	width: 120px; /* prices와 동일한 너비 설정 */
+	text-align: right; /* 텍스트 가운데 정렬 */
 }
 
 .item span {
@@ -265,8 +255,6 @@ button:active {
 </style>
 </head>
 <body>
-	<%@ page import="dto.Transaction"%>
-	<!-- Header Start -->
 	<%@ include file="../inc/header.jsp"%>
 
 	<div class="container my">
@@ -295,24 +283,7 @@ button:active {
 
 				</div>
 
-					<!-- 날짜 범위 선택기 -->
-					<input type="text" name="daterange" value="" placeholder="날짜 범위 선택" />
-					<script>
-						$(function() {
-							$('input[name="daterange"]')
-									.daterangepicker(
-											{
-												opens : 'left',
-												autoUpdateInput : false
-											},
-											function(start, end) {
-												// 선택된 날짜 범위를 hidden input에 설정
-												document
-														.getElementById('startDate').value = start
-														.format('YYYY-MM-DD');
-												document
-														.getElementById('endDate').value = end
-														.format('YYYY-MM-DD');
+				<!-- 날짜 범위 선택기 -->
 
 				<div class="item_container">
 					<div class="item">
@@ -480,7 +451,7 @@ button:active {
 				            // transactionList 데이터를 기반으로 HTML 생성
 				            var transactionListHtml = '';
 				            $.each(transactionList, function(index, transaction) {
-				                transactionListHtml += '<a href="' + '${pageContext.request.contextPath}/CompanyAuctionBuyerSuc?auctionNum=' + transaction.auctionNum + '" style="text-decoration: none; color: inherit;">';
+				            	transactionListHtml += '<a href="' + '${pageContext.request.contextPath}/CompanyAuctionBuyerSuc?auctionNum=' + transaction.auctionNum + '&transactionNum=' + transaction.transactionNum + '" style="text-decoration: none; color: inherit;">';
 				                transactionListHtml += '<div class="history-item" data-auction-num="' + transaction.auctionNum + '">';
 				                transactionListHtml += '<img src="https://via.placeholder.com/50" alt="User">';
 				                transactionListHtml += '<div class="history-content">';
@@ -518,24 +489,7 @@ button:active {
 				    });
 
 
-				<!-- 목록들 나열 -->
-				<c:forEach var="transaction" items="${transactionList}">
-					<a
-						href="${pageContext.request.contextPath}/CompanyAuctionBuyerSuc?auctionNum=${transaction.auctionNum}&transactionNum=${transaction.transactionNum}"
-						style="text-decoration: none; color: inherit;">
-						<div class="history-item"
-							data-auction-num="${transaction.auctionNum}">
-							<img src="https://via.placeholder.com/50" alt="User">
-							<div class="history-content">
-								<span>${transaction.auctionTitle}</span>
-							</div>
-							<div class="prices">
-								<span> <fmt:formatNumber value="${transaction.maxSalary}"
-										type="number" pattern="#,###" />원
-								</span>
-
 				}
-
 
 				// 버튼 클릭 시 날짜 범위를 설정하고 거래 내역을 로드하는 함수
 				function sendDateRange(months) {
