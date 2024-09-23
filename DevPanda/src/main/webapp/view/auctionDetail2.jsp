@@ -181,8 +181,7 @@
 			<button class="close-button" onclick="closeBidModal()">×</button>
 			<h2 class="text-xl font-bold mb-4">입찰하기</h2>
 			<input type="number" id="bid-amount"
-				placeholder="현재 최고 입찰
-				금액: ${auctionAndPerson.bidMaxPrice}원"
+				placeholder="현재 최고 입찰 금액: ${auctionAndPerson.bidMaxPrice}원"
 				min="0" class="w-full p-2 border border-gray-300 rounded">
 			<p id="current-bid" class="text-sm text-gray-600 mt-2">현재 최고 입찰
 				금액: ${auctionAndPerson.bidMaxPrice}원</p>
@@ -193,6 +192,10 @@
 	</div>
 
 	<script>
+	
+		const input = document.getElementById('bid-amount');
+		const p = document.getElementById('current-bid');
+	
 		function bid() {
 			const today = new Date();
 
@@ -208,8 +211,7 @@
 
 			if ('${userType}' === 'person') {
 
-				$
-						.ajax({
+				$.ajax({
 							url : 'http://localhost:8080/DevPanda/bid',
 							dataType : 'text',
 							type : 'POST',
@@ -228,6 +230,9 @@
 								if (result === 'success') {
 									console.log(bidAmount)
 									const a = 1;
+									input.setAttribute('placeholder',`현재 최고 입찰 금액: \${bidAmount}원`)
+									input.value=null;
+									p.innerText=`현재 최고 입찰 금액: \${bidAmount}원`
 									alert(`입찰 금액 \${bidAmount}원이 입찰되었습니다.`);
 
 								} else {
@@ -240,8 +245,7 @@
 
 			} else {
 
-				$
-						.ajax({
+				$.ajax({
 							url : 'http://localhost:8080/DevPanda/bid',
 							dataType : 'text',
 							type : 'POST',
@@ -258,6 +262,9 @@
 							},
 							success : function(result) {
 								if (result === 'success') {
+									input.setAttribute('placeholder',`현재 최고 입찰 금액: \${bidAmount}원`)
+									input.value=null;
+									p.innerText=`현재 최고 입찰 금액: \${bidAmount}원`
 									alert(`입찰 금액 \${bidAmount}원이 입찰되었습니다.`);
 
 								} else {
@@ -285,11 +292,12 @@
 			const inputdate = year + "-" + month + "-" + day;
 
 			const bidAmount = $('#bid-amount').val();
+			
+			const Amount = ${auctionAndPerson.maxSalary};
 
 			if ('${userType}' === 'person') {
 
-				$
-						.ajax({
+				$.ajax({
 							url : 'http://localhost:8080/DevPanda/transactionbid',
 							dataType : 'text',
 							type : 'POST',
@@ -302,13 +310,16 @@
 								'bidPrice' : '${auctionAndPerson.maxSalary}',
 								'bidState' : '1',
 								'memType' : '${userType}',
-								'bidMaxPrice' : '${auctionAndPerson.bidMaxPrice}',
+								'bidMaxPrice' : '${auctionAndPerson.maxSalary}',
 								'date' : inputdate,
 								'price' : '${auctionAndPerson.maxSalary}',
 								'state' : 'i'
 							},
 							success : function(result) {
 								if (result === 'success') {
+									input.setAttribute('placeholder',`현재 최고 입찰 금액: \${Amount}원`)
+									input.value=null;
+									p.innerText=`현재 최고 입찰 금액: \${Amount}원`
 									alert(`입찰 금액 \${bidAmount}원이 최대 금액이므로 즉시 구매되었습니다.`);
 								} else {
 									alert(`입찰 금액 \${bidAmount}원이 입찰 실패하였습니다. 다시 시도해 주세요`);
@@ -319,8 +330,7 @@
 
 			} else {
 
-				$
-						.ajax({
+				$.ajax({
 							url : 'http://localhost:8080/DevPanda/transactionbid',
 							dataType : 'text',
 							type : 'POST',
@@ -333,13 +343,16 @@
 								'bidPrice' : '${auctionAndPerson.maxSalary}',
 								'bidState' : '1',
 								'memType' : '${userType}',
-								'bidMaxPrice' : '${auctionAndPerson.bidMaxPrice}',
+								'bidMaxPrice' : '${auctionAndPerson.maxSalary}',
 								'date' : inputdate,
 								'price' : '${auctionAndPerson.maxSalary}',
 								'state' : 'i'
 							},
 							success : function(result) {
 								if (result === 'success') {
+									input.setAttribute('placeholder',`현재 최고 입찰 금액: \${Amount}원`)
+									input.value=null;
+									p.innerText=`현재 최고 입찰 금액: \${Amount}원`
 									alert(`입찰 금액 \${bidAmount}원이 최대 금액이므로 즉시 구매되었습니다.`);
 								} else {
 									alert(`입찰 금액 \${bidAmount}원이 입찰 실패하였습니다. 다시 시도해 주세요`);

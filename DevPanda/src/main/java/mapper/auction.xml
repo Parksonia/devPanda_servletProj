@@ -24,7 +24,7 @@
 	<!-- 경매 상태 업데이트 -->
     <update id="updateAuctionStatusToSuccess" parameterType="map">
         UPDATE auction
-        SET state = 'success'
+        SET state = 'unprocessing'
         WHERE endDate <![CDATA[<=]]> #{currentDate}
         AND state = 'processing';
     </update>
