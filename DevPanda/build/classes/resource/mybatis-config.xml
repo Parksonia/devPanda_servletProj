@@ -5,6 +5,12 @@
 
 <!-- mybatis 설정 -->
 <configuration>
+	<!--쿼리 로그  -->
+	<!-- <settings>
+    <setting name="logImpl" value="STDOUT_LOGGING" />
+	</settings> -->
+
+
 	<typeAliases>
 		<!-- dto 넣기 -->
 		<typeAlias type="dto.AuctionAndPerson" alias="auctionandperson" />
@@ -23,7 +29,8 @@
 
 
 
-<!-- 	<environments default="development">
+
+ <environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
@@ -33,12 +40,15 @@
 				<property name="url"
 					value="jdbc:mysql://localhost:3306/devPandaT?useSSL=false&amp;serverTimezone=UTC" />
 				<property name="username" value="root" />
-				<property name="password" value="0000" />
+				<property name="password" value="98019801" />
 			</dataSource>
 		</environment>
-	</environments>  -->
+	</environments>  
 
-	<environments default="development">
+
+
+
+<!-- 	 <environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
@@ -46,11 +56,11 @@
 				<property name="url"
 					value="jdbc:mariadb://localhost:3306/devpanda"></property>
 				<property name="username" value="root"></property>
-				<property name="password" value="1590"></property> <!-- 석준쓰 1590  -->
+				<property name="password" value="7564"></property> 석준쓰 1590 
 			</dataSource>
 		</environment>
-		</environments>
-
+		</environments> 
+ -->
 
 	<mappers>
 		<mapper resource="mapper/person.xml" />
@@ -58,14 +68,11 @@
 		<mapper resource ="mapper/transaction.xml"/>
 		<mapper resource ="mapper/company.xml"/>
 		<mapper resource ="mapper/bid.xml"/>
-
 		<mapper resource ="mapper/emailCertification.xml"/>  
 		<mapper resource ="mapper/blacklist.xml"/>  
 			<!-- 
 			<mapper resource ="mapper/searchcondition.xml"/>  -->
 
-		<mapper resource ="mapper/emailCertification.xml"/> 
 
 	</mappers>
-
 </configuration>
