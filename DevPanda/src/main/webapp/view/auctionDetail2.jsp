@@ -341,7 +341,7 @@
 								'sellerId' : '${auctionAndPerson.id}',
 								'bidDate' : inputdate,
 								'bidPrice' : '${auctionAndPerson.maxSalary}',
-								'bidState' : '1',
+								'bidState' : '3',
 								'memType' : '${userType}',
 								'bidMaxPrice' : '${auctionAndPerson.maxSalary}',
 								'date' : inputdate,
