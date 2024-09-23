@@ -305,8 +305,7 @@ input::placeholder {
 							<!-- <img id="profileImage" src="./img/user2.png" alt="사용자 이미지" class="thumb_img"> -->
 							
 							
-							<img id="profileImage" src="image?file=${company.companyImage}"
-								alt=" 사용자 이미지" class="thumb_img" >
+							<img id="profileImage" src="image?file=${company.companyImage}" alt="사용자 이미지" class="thumb_img" >
 						</div>
 						<div class="profile_detail">
 							<p class="div_user">
@@ -317,10 +316,8 @@ input::placeholder {
 							</p>
 							<!-- js로 사진 업로드 구현해야 함 -->
 							<div class="profile_btn_box">
-								<button id="changeImageButton" type="button"
-									class="btn outlinegrey small">이미지변경</button>
-								<button id="deleteImageButton" type="button"
-									class="btn outlinegrey small">삭제</button>
+								<button id="changeImageButton" type="button" class="btn outlinegrey small" style="display: none;">이미지변경</button>
+								<button id="deleteImageButton" type="button" class="btn outlinegrey small" style="display: none;">삭제</button>
 								<input type="hidden" id="deleteImageHidden" name="deleteImage" value="false">
 							</div>
 						</div>
@@ -405,6 +402,9 @@ input::placeholder {
 					    const passwordError = document.getElementById('passwordError');
 					    const passwordInput = document.querySelector('input[name="password"]');
 
+					    const changeImageButton = document.getElementById('changeImageButton');
+					    const deleteImageButton = document.getElementById('deleteImageButton');
+					    
 					    // 수정 버튼 클릭 시
 					    editButton.addEventListener('click', function () {
 					        inputs.forEach(input => {
@@ -413,6 +413,10 @@ input::placeholder {
 					        passwordConfirmSection.style.display = 'block'; // 비밀번호 확인 필드 보이기
 					        saveButton.style.display = 'inline-block'; // 저장 버튼 표시
 					        editButton.style.display = 'none'; // 수정 버튼 숨기기
+
+					        // 이미지 관련 버튼들 보이게 하기
+					        changeImageButton.style.display = 'inline-block'; 
+					        deleteImageButton.style.display = 'inline-block'; 
 					    });
 
 					    // 저장 버튼 클릭 시 비밀번호 확인
