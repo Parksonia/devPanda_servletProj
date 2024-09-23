@@ -97,6 +97,7 @@ body{
     width: 450px;
     height: 50px;
     border-radius: 10px;
+    
 }
 
 .id-input::placeholder{

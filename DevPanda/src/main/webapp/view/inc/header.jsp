@@ -17,7 +17,8 @@
 <body> 
     <div class="header">
         <div class="header_logo">
-            <a href="${pageContext.request.contextPath }/auction"><img src="${pageContext.request.contextPath}/img/logoS.png" alt="DevPanda Logo"></a>
+            <a href="${pageContext.request.contextPath }/auctionoffset"><img src="${pageContext.request.contextPath}/img/logoS.png" alt="DevPanda Logo"></a>
+
         	<span>DevPanda</span>
         </div>
 
@@ -43,6 +44,19 @@
 	                                    <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/companyInfo">MYPAGE</a></li>
 	                                </c:when>
 	                            </c:choose>
+                            <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/auctionoffset">AUCTION</a></li>
+                            <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/bidList">MYPAGE</a></li>
+
+                     <% String userType = (String)session.getAttribute("userType");%>
+                     <c:choose>
+                        <c:when test="${userType == 'person'}">
+                           <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/personInfo">MYPAGE</a></li>
+                        </c:when>
+                        <c:otherwise>
+                           <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/companyInfo">MYPAGE</a></li>
+                        </c:otherwise>
+                     </c:choose>
+
                             <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/start">LOGOUT</a></li>
                         </ul>
                     </nav>

@@ -25,6 +25,19 @@
 .check-button {
 	margin-left: 10px;
 	cursor: pointer;
+	
+	 background-color: #4CAF50; /* 초록색 배경 */
+    color: white; /* 흰색 글자 */
+    border: none; /* 테두리 없앰 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    padding: 10px 20px; /* 상하 여백 10px, 좌우 여백 20px */
+    cursor: pointer; /* 마우스 포인터 변경 */
+    font-size: 16px; /* 글자 크기 */
+    height: 50px; /* 버튼 높이 설정 */
+    display: flex; /* Flexbox 사용 */
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    transition: background-color 0.3s; /* 배경색 변화 효과 */
 }
 
 .input-error-title-2 {
@@ -98,8 +111,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 const isExists = result === 'true';  // 응답을 boolean으로 변환
                 if (isExists) {
                     errorMessageContainer.textContent = '중복된 아이디입니다.';
+                    errorMessageContainer.style.color = 'red'; // 빨간색으로 표시
+
                 } else {
                     errorMessageContainer.textContent = '사용 가능한 아이디입니다.';
+                    errorMessageContainer.style.color = 'green'; 
+
                 }
             }
         })
@@ -141,9 +158,9 @@ document.addEventListener('DOMContentLoaded', function() {
 					<div class="input-2-container">
 						<input class="input-2" id="id" name="id"
 							placeholder="아이디를 입력해 주세요">
-						<button type="button" id="checkButton" class="check-button">확인</button>
-						<div class="input-error-title-2" id="idMessage"></div>
+						<button type="button" id="checkButton" class="check-button">V</button>
 					</div>
+						<div class="input-error-title-2" id="idMessage"></div>
 				</div>
 			</div>
 			<div class="form-container">
@@ -170,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
 						<input class="input-2" id="confirmPassword" name="confirmPassword"
 							type="password" placeholder="비밀번호를 입력해 주세요">
 						<div class="check-button-container">
-							<div class="check-button" id="checkPasswords">확인</div>
+							<div class="check-button" id="checkPasswords">V</div>
 						</div>
 					</div>
 					<div class="input-error-title-2" id="passwordMessage"></div>
@@ -268,6 +285,7 @@ body {
 	width: 500px;
 	height: 50px;
 	border-radius: 10px;
+	padding-left: 15px; /* 왼쪽에 15px 공간 추가 */
 }
 
 .input-error-title-1 {
@@ -289,6 +307,7 @@ body {
 	width: 440px;
 	height: 50px;
 	border-radius: 10px;
+	padding-left: 15px; /* 왼쪽에 15px 공간 추가 */
 }
 
 .check-button-container {

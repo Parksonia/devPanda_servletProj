@@ -174,6 +174,10 @@
  </div>
 
         </div>
+        
+        <button onclick="openAuctionModal()"
+						class="bg-green-500 text-white p-2 rounded">경매 등록하기</button>
+        
     </section>
 
 <!-- 나만의 개발자 Section ajax로 jsp  -->
@@ -419,6 +423,7 @@
  
 	</main>
 
+	
 	<!-- 경매 등록하기 모달 -->
 <div id="auctionModal" class="modal" onclick="closeAuctionModal(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
@@ -427,12 +432,23 @@
         
         <form id="auctionForm" method="POST" action="insertAuction" enctype="multipart/form-data">
             
-            <label class="block mb-2 text-left">TITLE:</label> 
+            <label class="block mb-2 text-left">경매 제목:</label> 
             <input type="text" name="title" class="w-full p-2 mb-4 border rounded" placeholder="한줄 소개를 입력하세요" required>
             <label class="block mb-2 text-left">최소 금액:</label> 
             <input type="number" name="minSalary" class="w-full p-2 mb-4 border rounded" placeholder="최소 금액을 입력하세요" required>
             <label class="block mb-2 text-left">최대 금액:</label> 
             <input type="number" name="maxSalary" class="w-full p-2 mb-4 border rounded" placeholder="최대 금액을 입력하세요" required>
+            
+            <!-- <label for="endDate">End Date:</label>
+    		<input type="date" id="endDate" name="endDate" required> -->
+            
+            
+            <label for="endDate">End Date:</label>
+			<input type="date" id="endDate" name="endDate" required>
+			<label for="endTime">End Time:</label>
+			<input type="time" id="endTime" name="endTime" required>
+            
+            
             <p class="text-sm text-gray-500 mt-1">최대 금액 입찰 시 즉시 구매됩니다.</p>
 
             <label class="block mb-2 text-left">카테고리 선택:</label>
@@ -572,7 +588,6 @@
 			</form>
 		</div>
 	</div>
-
 
 	<script>
 	
