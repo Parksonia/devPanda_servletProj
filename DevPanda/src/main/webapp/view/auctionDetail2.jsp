@@ -127,12 +127,12 @@
   <tr>
     <th>포트폴리오</th>
     <td>
-        <a href="${pageContext.request.contextPath}/download?file=${auctionAndPerson.portfolio}" target="_blank">
+        <a href="${pageContext.request.contextPath}/download?file=${auctionAndPerson.portfolio}">
             포트폴리오 다운로드
         </a>
     </td>
 </tr>
-  
+
 
 
     <tr>

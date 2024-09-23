@@ -45,7 +45,7 @@
 	                                </c:when>
 	                            </c:choose>
 
-                            <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/start">LOGOUT</a></li>
+                            <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/logout">LOGOUT</a></li>
                         </ul>
                     </nav>
                 </div>
