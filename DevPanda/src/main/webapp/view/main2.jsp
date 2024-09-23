@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="dto.Auction"%>
 <%@ page import="dto.Person"%>
@@ -21,14 +21,14 @@
 </head>
 <body class="bg-gray-100 text-gray-900">
 
-	<!-- Header Start -->
-	<header>
-		<%@ include file="./inc/header.jsp"%>
-	</header>
-	<!-- Header End -->
+   <!-- Header Start -->
+   <header>
+      <%@ include file="./inc/header.jsp"%>
+   </header>
+   <!-- Header End -->
 
-	<main class="p-8">
-	
+   <main class="p-8">
+   
 <!-- 관심 키워드 Section -->
     <section class="mb-8">
         <h2 class="text-xl font-bold mb-4">관심 키워드</h2>
@@ -176,7 +176,7 @@
         </div>
         
         <button onclick="openAuctionModal()"
-						class="bg-green-500 text-white p-2 rounded">경매 등록하기</button>
+                  class="bg-green-500 text-white p-2 rounded">경매 등록하기</button>
         
     </section>
 
@@ -236,16 +236,16 @@
     function applyFilters() {
         // 필터 변수 설정
         
-		moreActions=true;
-        
+      moreActions=true;
+      isLoading=false;
         // 필터링된 데이터 로드
         offset = 0;
         
         
         if(moreActions){
-        	loadMoreAuctions();	
+           loadMoreAuctions();   
         }
-        	
+           
         
         
         
@@ -254,17 +254,17 @@
     // 필터링된 데이터를 로드하는 함수
     function loadMoreAuctions() {
         
-    	filters.location = Array.from(document.querySelectorAll('input[name="location[]"]:checked')).map(el => el.value);
+       filters.location = Array.from(document.querySelectorAll('input[name="location[]"]:checked')).map(el => el.value);
         filters.stack = Array.from(document.querySelectorAll('input[name="stack[]"]:checked')).map(el => el.value);
         filters.Occupation = Array.from(document.querySelectorAll('input[name="Occupation[]"]:checked')).map(el => el.value);
         filters.period = Array.from(document.querySelectorAll('input[name="period[]"]:checked')).map(el => el.value);
         filters.education = Array.from(document.querySelectorAll('input[name="education[]"]:checked')).map(el => el.value);
         filters.Certification = Array.from(document.querySelectorAll('input[name="Certification[]"]:checked')).map(el => el.value);
         filters.employmentType = Array.from(document.querySelectorAll('input[name="employmentType[]"]:checked')).map(el => el.value);
-    	
+       
         console.log(isLoading)
-    	if (isLoading) return;
-    	// 이미 로딩 중일 때는 실행하지 않음
+       if (isLoading) return;
+       // 이미 로딩 중일 때는 실행하지 않음
         isLoading = true;
         loading.classList.remove('hidden');
 
@@ -297,65 +297,63 @@
             
             success: function(result) {
                 console.log(result)
-				if(offset === 0 ){
-					container.innerHTML = '';
-				}
-				
-            	const array = JSON.parse(result)
-            	console.log(array)
-            	
-            	
-            	
-            	array.forEach(item =>{
-            	console.log(`\${item.minSalary}`);
-				const superDiv = document.createElement('div');
-				const img = document.createElement('img');
-				const h3 = document.createElement('h3');
-				const p1 = document.createElement('p');
-				const p2 = document.createElement("p");
-				const p3 = document.createElement('p');
-				const subDiv = document.createElement('div');
-				const button = document.createElement('button');
-				button.setAttribute('onclick',`openProfilePage(\${item.auctionNum})`)
-				button.className='bg-blue-500 text-white p-2 rounded'
-				button.innerText='상세보기'
-				subDiv.className='text-center mt-4'
-				p1.className='text-center text-gray-600'
-				p1.innerText=`\${item.nickName}`
-				p2.innerText=`최소 금액: \${item.minSalary}원`
-				p3.innerText=`최대 금액: \${item.maxSalary}원`
-				h3.className='text-lg font-semibold text-center'
-				h3.innerText=`\${item.title}`
-				img.setAttribute('src',`/DevPanda/upload/\${item.personImage}`)
-				img.setAttribute('default','/DevPanda/upload/default.jpg')
-				img.setAttribute('alt',`\${item.nickName}의 이미지`)
-				img.className='rounded-full w-16 h-16 mx-auto mb-2'
-				superDiv.className='profile-card bg-white shadow-md rounded p-4'
-				subDiv.appendChild(button)
-				superDiv.appendChild(img)
-				superDiv.appendChild(h3)
-				superDiv.appendChild(p1)
-				superDiv.appendChild(p2)
-				superDiv.appendChild(p3)
-				superDiv.appendChild(subDiv)
-				
-				container.appendChild(superDiv);
-			
-            	});
-				
+            if(offset === 0 ){
+               container.innerHTML = '';
+            }
+            
+               const array = JSON.parse(result)
+               console.log(array)
+               
+               
+               
+               array.forEach(item =>{
+               console.log(`\${item.minSalary}`);
+            const superDiv = document.createElement('div');
+            const img = document.createElement('img');
+            const h3 = document.createElement('h3');
+            const p1 = document.createElement('p');
+            const p2 = document.createElement("p");
+            const p3 = document.createElement('p');
+            const subDiv = document.createElement('div');
+            const button = document.createElement('button');
+            button.setAttribute('onclick',`openProfilePage(\${item.auctionNum})`)
+            button.className='bg-blue-500 text-white p-2 rounded'
+            button.innerText='상세보기'
+            subDiv.className='text-center mt-4'
+            p1.className='text-center text-gray-600'
+            p1.innerText=`\${item.nickName}`
+            p2.innerText=`최소 금액: \${item.minSalary}원`
+            p3.innerText=`최대 금액: \${item.maxSalary}원`
+            h3.className='text-lg font-semibold text-center'
+            h3.innerText=`\${item.title}`
+            img.setAttribute('src',`/DevPanda/upload/\${item.personImage}`)
+            img.setAttribute('default','/DevPanda/upload/default.jpg')
+            img.setAttribute('alt',`\${item.nickName}의 이미지`)
+            img.className='rounded-full w-16 h-16 mx-auto mb-2'
+            superDiv.className='profile-card bg-white shadow-md rounded p-4'
+            subDiv.appendChild(button)
+            superDiv.appendChild(img)
+            superDiv.appendChild(h3)
+            superDiv.appendChild(p1)
+            superDiv.appendChild(p2)
+            superDiv.appendChild(p3)
+            superDiv.appendChild(subDiv)
+            
+            container.appendChild(superDiv);
+         
+               });
+            
                 
 
                 // 데이터가 없을 경우 스크롤 이벤트 제거
                 if (array.length === 0) {
-                   //$(window).off('scroll', onScroll); // jQuery에서 스크롤 이벤트 제거
+                   $(window).off('scroll', onScroll); // jQuery에서 스크롤 이벤트 제거
                    loading.classList.add('hidden');
                    isLoading = false;
-                   moreActions=false;
                    
-                    
                    return;
                 }else{
-                	offset = offset +9; // 다음 오프셋 준비
+                   offset = offset +9; // 다음 오프셋 준비
                     console.log('Updated offset:', offset); // 업데이트된 오프셋 로그
 
                     isLoading = false;
@@ -395,7 +393,8 @@
     function resetSelections() {
         // 스크롤 이벤트 비활성화
         isScrollingEnabled = false;
-
+      moreActions=true;
+      isLoading=false;
         // 모든 체크박스 해제
         document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
 
@@ -413,7 +412,7 @@
         // 필터링된 데이터 로드
         offset = 0;
         container.innerHTML = '';
-
+      
         loadMoreAuctions();
 
         // 스크롤 이벤트 재활성화
@@ -428,10 +427,10 @@
 </script>
 
  
-	</main>
+   </main>
 
-	
-	<!-- 경매 등록하기 모달 -->
+   
+   <!-- 경매 등록하기 모달 -->
 <div id="auctionModal" class="modal" onclick="closeAuctionModal(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
         <button class="close-button" onclick="closeAuctionModal(event)">×</button>
@@ -447,13 +446,13 @@
             <input type="number" name="maxSalary" class="w-full p-2 mb-4 border rounded" placeholder="최대 금액을 입력하세요" required>
             
             <!-- <label for="endDate">End Date:</label>
-    		<input type="date" id="endDate" name="endDate" required> -->
+          <input type="date" id="endDate" name="endDate" required> -->
             
             
             <label for="endDate">End Date:</label>
-			<input type="date" id="endDate" name="endDate" required>
-			<label for="endTime">End Time:</label>
-			<input type="time" id="endTime" name="endTime" required>
+         <input type="date" id="endDate" name="endDate" required>
+         <label for="endTime">End Time:</label>
+         <input type="time" id="endTime" name="endTime" required>
             
             
             <p class="text-sm text-gray-500 mt-1">최대 금액 입찰 시 즉시 구매됩니다.</p>
@@ -461,7 +460,7 @@
             <label class="block mb-2 text-left">카테고리 선택:</label>
             
             <div class="category-container">
-					<!-- 카테고리 1: 지역 -->
+               <!-- 카테고리 1: 지역 -->
 <div>
     <button type="button" id="category1-toggle-modal" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#지역</button>
     <div id="category1-content-modal" class="category-content hidden">
@@ -578,8 +577,8 @@
                     <label><input type="checkbox" name="employmentType[]" value="프리랜서"> 프리랜서</label><br>
                 </div>
             </div>
-					
-				<!-- 카테고리 8: 포트폴리오 -->
+               
+            <!-- 카테고리 8: 포트폴리오 -->
 <div>
     <button type="button" id="category8-toggle-modal" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#포트폴리오</button>
     <div id="category8-content-modal" class="category-content hidden">
@@ -589,120 +588,120 @@
     </div>
 </div>
 
-				</div>
+            </div>
 
-				<button type="submit" class="bg-blue-500 text-white p-2 rounded mt-4">등록</button>
-			</form>
-		</div>
-	</div>
+            <button type="submit" class="bg-blue-500 text-white p-2 rounded mt-4">등록</button>
+         </form>
+      </div>
+   </div>
 
-	<script>
-	
-	document.addEventListener('DOMContentLoaded', function () {
-	    // 각 카테고리 버튼 클릭 이벤트
-	    document.querySelectorAll('[id$="-toggle"]').forEach(button => {
-	        button.addEventListener('click', function (event) {
-	            // 등록이 아니라 체크박스 보여주기만 할 수 있도록 stopPropagation 추가
-	            event.stopPropagation(); 
+   <script>
+   
+   document.addEventListener('DOMContentLoaded', function () {
+       // 각 카테고리 버튼 클릭 이벤트
+       document.querySelectorAll('[id$="-toggle"]').forEach(button => {
+           button.addEventListener('click', function (event) {
+               // 등록이 아니라 체크박스 보여주기만 할 수 있도록 stopPropagation 추가
+               event.stopPropagation(); 
 
-	            // 클릭한 버튼의 관련된 체크박스 영역을 토글
-	            const contentId = this.id.replace('-toggle', '-content');
-	            const contentElement = document.getElementById(contentId);
+               // 클릭한 버튼의 관련된 체크박스 영역을 토글
+               const contentId = this.id.replace('-toggle', '-content');
+               const contentElement = document.getElementById(contentId);
 
-	            if (contentElement) {
-	                contentElement.classList.toggle('open');
-	            }
-	        });
-	    });
-	});
+               if (contentElement) {
+                   contentElement.classList.toggle('open');
+               }
+           });
+       });
+   });
 
-	</script>
-	
-	<script>
-	document.addEventListener('DOMContentLoaded', function () {
-	    // 각 카테고리 버튼 클릭 이벤트
-	    document.querySelectorAll('[id$="-toggle-modal"]').forEach(button => {
-	        button.addEventListener('click', function (event) {
-	            // 등록이 아니라 체크박스 보여주기만 할 수 있도록 stopPropagation 추가
-	            event.stopPropagation(); 
+   </script>
+   
+   <script>
+   document.addEventListener('DOMContentLoaded', function () {
+       // 각 카테고리 버튼 클릭 이벤트
+       document.querySelectorAll('[id$="-toggle-modal"]').forEach(button => {
+           button.addEventListener('click', function (event) {
+               // 등록이 아니라 체크박스 보여주기만 할 수 있도록 stopPropagation 추가
+               event.stopPropagation(); 
 
-	            // 클릭한 버튼의 관련된 체크박스 영역을 토글
-	            const contentId = this.id.replace('-toggle-modal', '-content-modal');
-	            const contentElement = document.getElementById(contentId);
+               // 클릭한 버튼의 관련된 체크박스 영역을 토글
+               const contentId = this.id.replace('-toggle-modal', '-content-modal');
+               const contentElement = document.getElementById(contentId);
 
-	            if (contentElement) {
-	                contentElement.classList.toggle('open');
-	            }
-	        });
-	    });
-	});
+               if (contentElement) {
+                   contentElement.classList.toggle('open');
+               }
+           });
+       });
+   });
 
-	
+   
 
-	</script>
+   </script>
 
-	<script>
-	
-		function openAuctionModal() {
-			document.getElementById('auctionModal').style.display = 'block';
-		}
+   <script>
+   
+      function openAuctionModal() {
+         document.getElementById('auctionModal').style.display = 'block';
+      }
 
-		// 모달 닫기
-	    function closeAuctionModal(event) {
-	        if (event.target.id === 'auctionModal' || event.target.classList.contains('close-button')) {
-	            document.getElementById('auctionModal').style.display = 'none';
-	        }
-	    }
+      // 모달 닫기
+       function closeAuctionModal(event) {
+           if (event.target.id === 'auctionModal' || event.target.classList.contains('close-button')) {
+               document.getElementById('auctionModal').style.display = 'none';
+           }
+       }
 
-		function openProfilePage(auctionNum) {
-		    window.location.href = `/DevPanda/auction/detail?auctionNum=\${auctionNum}`;
-		}
+      function openProfilePage(auctionNum) {
+          window.location.href = `/DevPanda/auction/detail?auctionNum=\${auctionNum}`;
+      }
 
-		/* function resetSelections() {
-			document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-				checkbox.checked = false;
-			});
-		} */
-		
-		
-		
-	</script>
+      /* function resetSelections() {
+         document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.checked = false;
+         });
+      } */
+      
+      
+      
+   </script>
 
 <style>
 /* Modal Styles */
 .modal {
-	display: none;
-	position: fixed;
-	z-index: 1000;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	background-color: rgba(0, 0, 0, 0.5);
+   display: none;
+   position: fixed;
+   z-index: 1000;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   overflow: auto;
+   background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
-	background-color: #fefefe;
-	margin: 15% auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 80%;
-	max-width: 600px;
-	border-radius: 8px;
+   background-color: #fefefe;
+   margin: 15% auto;
+   padding: 20px;
+   border: 1px solid #888;
+   width: 80%;
+   max-width: 600px;
+   border-radius: 8px;
 }
 
 .close-button {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
+   color: #aaa;
+   float: right;
+   font-size: 28px;
+   font-weight: bold;
 }
 
 .close-button:hover, .close-button:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
+   color: black;
+   text-decoration: none;
+   cursor: pointer;
 }
 
 .category-content-modal.hidden {
@@ -717,12 +716,12 @@
 
 
 .custom-bg-color {
-	background-color: #f0f0f0;
+   background-color: #f0f0f0;
 }
 
 .category-item {
-	cursor: pointer;
-	text-align: left;
+   cursor: pointer;
+   text-align: left;
 }
 
 

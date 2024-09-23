@@ -122,15 +122,19 @@
         <th>위치</th>
         <td>${auctionAndPerson.location}</td>
     </tr>
-   <tr>
+    
+    
+  <tr>
     <th>포트폴리오</th>
     <td>
-       <a href="${pageContext.request.contextPath}/upload/${auctionAndPerson.portfolio}" download>
-    다운로드
-</a>
-
+        <a href="${pageContext.request.contextPath}/download?file=${auctionAndPerson.portfolio}" target="_blank">
+            포트폴리오 다운로드
+        </a>
     </td>
 </tr>
+  
+
+
     <tr>
         <th>닉네임</th>
         <td>${auctionAndPerson.nickName}</td>
