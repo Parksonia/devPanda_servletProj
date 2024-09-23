@@ -208,8 +208,7 @@
 
 			if ('${userType}' === 'person') {
 
-				$
-						.ajax({
+				$.ajax({
 							url : 'http://localhost:8080/DevPanda/bid',
 							dataType : 'text',
 							type : 'POST',
@@ -240,8 +239,7 @@
 
 			} else {
 
-				$
-						.ajax({
+				$.ajax({
 							url : 'http://localhost:8080/DevPanda/bid',
 							dataType : 'text',
 							type : 'POST',
@@ -288,8 +286,7 @@
 
 			if ('${userType}' === 'person') {
 
-				$
-						.ajax({
+				$.ajax({
 							url : 'http://localhost:8080/DevPanda/transactionbid',
 							dataType : 'text',
 							type : 'POST',
@@ -319,8 +316,7 @@
 
 			} else {
 
-				$
-						.ajax({
+				$.ajax({
 							url : 'http://localhost:8080/DevPanda/transactionbid',
 							dataType : 'text',
 							type : 'POST',

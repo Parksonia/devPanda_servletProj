@@ -14,6 +14,7 @@ import service.AuthService;
 public class PersonAuthLoginServlet extends HttpServlet{
 
 	
+	private static final long serialVersionUID = 1L;
 	private AuthService authService = new AuthService();
 	
 	@Override
