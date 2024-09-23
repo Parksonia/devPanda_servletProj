@@ -170,7 +170,7 @@
 			const bidAmount = $('#bid-amount').val();
 			
 			
-			if('${userType}' === 'P'){
+			if('${userType}' === 'person'){
 				
 				$.ajax({
 			        url:'http://localhost:8080/DevPanda/transactionbid',
