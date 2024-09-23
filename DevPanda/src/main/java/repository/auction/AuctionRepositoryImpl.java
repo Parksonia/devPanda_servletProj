@@ -121,5 +121,12 @@ public class AuctionRepositoryImpl implements AuctionRepository {
 		
 	}
 	
+	@Override
+	   public void updateAuctionSuccess(Auction auction, SqlSession sqlSession) {
+	      // TODO Auto-generated method stub
+	      String statement = "mapper.auction.updateAuctionSuccess";
+	      sqlSession.update(statement, auction);
+	   }
+	
 
 }

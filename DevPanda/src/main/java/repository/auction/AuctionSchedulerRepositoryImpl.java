@@ -15,13 +15,13 @@ public class AuctionSchedulerRepositoryImpl implements AuctionSchedulerRepositor
         }
     }
 
-    @Override
-    public void deleteNonProcessingAuctions() {
-        try (SqlSession session = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
-            System.out.println("Deleting non-processing auctions");
-
-            session.delete("mapper.auction.deleteNonProcessingAuctions");
-            session.commit();
-        }
-    }
+//    @Override
+//    public void deleteNonProcessingAuctions() {
+//        try (SqlSession session = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+//            System.out.println("Deleting non-processing auctions");
+//
+//            session.delete("mapper.auction.deleteNonProcessingAuctions");
+//            session.commit();
+//        }
+//    }
 }
