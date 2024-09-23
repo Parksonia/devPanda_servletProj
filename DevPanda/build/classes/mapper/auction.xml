@@ -24,16 +24,16 @@
 	<!-- 경매 상태 업데이트 -->
     <update id="updateAuctionStatusToSuccess" parameterType="map">
         UPDATE auction
-        SET state = 'success'
+        SET state = 'unprocessing'
         WHERE endDate <![CDATA[<=]]> #{currentDate}
         AND state = 'processing';
     </update>
 
     <!-- processing이 아닌 경매 삭제 -->
-    <delete id="deleteNonProcessingAuctions">
+    <!-- <delete id="deleteNonProcessingAuctions">
         DELETE FROM auction
         WHERE state != 'processing';
-    </delete>
+    </delete> -->
 
 
 
@@ -143,7 +143,14 @@
 
 
 
+ <update id="updateAuctionSuccess" parameterType="auction">
 
+      update auction set
+      bidMaxPrice=#{bidMaxPrice},
+      state=#{state}
+      where auctionNum=#{auctionNum}
+
+   </update>
 
 
 
@@ -210,6 +217,7 @@
 			and location like #{location}
 			</if>
 			
+			and a.state = 'processing'
 		
 		</where>
 		order by a.auctionNum
@@ -237,19 +245,19 @@
 			select a.* , p.*
 				from auction a
 				JOIN person p ON a.id = p.id
-				WHERE a.id = #{sellerId}
+				WHERE a.id = #{sellerId} and a.state !='success'
 		]]>
 		
 		<if test="filterDate != null and filterDate != ''">
 			<![CDATA[
-				and STR_TO_DATE(a.endDate, '%Y-%m-%d') between STR_TO_DATE(#{filterDate}, '%Y-%m-%d') and STR_TO_DATE(now(), '%Y-%m-%d')
+				and STR_TO_DATE(a.startDate, '%Y-%m-%d') between STR_TO_DATE(#{filterDate}, '%Y-%m-%d') and STR_TO_DATE(now(), '%Y-%m-%d')
 			]]>
 		</if>
 
 		<if
 			test="startDate != null and startDate !='' and endDate != null and endDate !=''">
 			<![CDATA[
-				and STR_TO_DATE(a.endDate, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+				and STR_TO_DATE(a.startDate, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 			]]>
 		</if>
 		<![CDATA[
@@ -267,7 +275,7 @@
 	
 	<select id="countPSAuctionListBySellerId" parameterType="String" resultType="int">
 		<![CDATA[
-			select count(*) from auction where id=#{id};
+			select count(*) from auction where id=#{id} and state !='success'
 		]]>
 	</select>
 	
@@ -281,8 +289,8 @@
 			select a.* , p.*
 				from auction a
 				JOIN person p ON a.id = p.id
-				WHERE a.id = #{sellerId}
-				and STR_TO_DATE(a.endDate, '%Y-%m-%d') between STR_TO_DATE(#{filterDate}, '%Y-%m-%d') and STR_TO_DATE(now(), '%Y-%m-%d')
+				WHERE a.id = #{sellerId} and a.state !='success'
+				and STR_TO_DATE(a.startDate, '%Y-%m-%d') between STR_TO_DATE(#{filterDate}, '%Y-%m-%d') and STR_TO_DATE(now(), '%Y-%m-%d')
 				ORDER BY 
 					case
 						when a.state = 'processing' then 1
@@ -301,8 +309,8 @@
 				from auction a
 				join person p
 				on a.id = p.id
-				where a.id=#{sellerId}
-				and STR_TO_DATE(a.endDate, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+				where a.id=#{sellerId} and a.state !='success'
+				and STR_TO_DATE(a.startDate, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 				ORDER BY 
 					case
 						when a.state = 'processing' then 1
