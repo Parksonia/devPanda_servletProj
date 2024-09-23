@@ -64,7 +64,10 @@
 		</if>
 	</set>
 	WHERE id = #{id}
-	</update>	
+	</update>
+	<!--마이페이지 개인 계정 탈퇴-->	
+	<update id="updatePersonStatus" parameterType="String">
+	UPDATE person SET status = 'inactive' WHERE id= #{id};
+	</update>
 
-	
 </mapper>

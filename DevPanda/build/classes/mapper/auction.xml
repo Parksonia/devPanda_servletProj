@@ -24,7 +24,7 @@
 	<!-- 경매 상태 업데이트 -->
     <update id="updateAuctionStatusToSuccess" parameterType="map">
         UPDATE auction
-        SET state = 'success'
+        SET state = 'unprocessing'
         WHERE endDate <![CDATA[<=]]> #{currentDate}
         AND state = 'processing';
     </update>
@@ -242,14 +242,14 @@
 		
 		<if test="filterDate != null and filterDate != ''">
 			<![CDATA[
-				and STR_TO_DATE(a.endDate, '%Y-%m-%d') between STR_TO_DATE(#{filterDate}, '%Y-%m-%d') and STR_TO_DATE(now(), '%Y-%m-%d')
+				and STR_TO_DATE(a.startDate, '%Y-%m-%d') between STR_TO_DATE(#{filterDate}, '%Y-%m-%d') and STR_TO_DATE(now(), '%Y-%m-%d')
 			]]>
 		</if>
 
 		<if
 			test="startDate != null and startDate !='' and endDate != null and endDate !=''">
 			<![CDATA[
-				and STR_TO_DATE(a.endDate, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+				and STR_TO_DATE(a.startDate, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 			]]>
 		</if>
 		<![CDATA[
@@ -282,7 +282,7 @@
 				from auction a
 				JOIN person p ON a.id = p.id
 				WHERE a.id = #{sellerId}
-				and STR_TO_DATE(a.endDate, '%Y-%m-%d') between STR_TO_DATE(#{filterDate}, '%Y-%m-%d') and STR_TO_DATE(now(), '%Y-%m-%d')
+				and STR_TO_DATE(a.startDate, '%Y-%m-%d') between STR_TO_DATE(#{filterDate}, '%Y-%m-%d') and STR_TO_DATE(now(), '%Y-%m-%d')
 				ORDER BY 
 					case
 						when a.state = 'processing' then 1
@@ -302,7 +302,7 @@
 				join person p
 				on a.id = p.id
 				where a.id=#{sellerId}
-				and STR_TO_DATE(a.endDate, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
+				and STR_TO_DATE(a.startDate, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 				ORDER BY 
 					case
 						when a.state = 'processing' then 1
