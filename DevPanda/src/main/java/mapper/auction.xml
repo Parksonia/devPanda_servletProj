@@ -281,7 +281,7 @@
 			select a.* , p.*
 				from auction a
 				JOIN person p ON a.id = p.id
-				WHERE a.id = #{sellerId}
+				WHERE a.id = #{sellerId} and a.state !='success'
 				and STR_TO_DATE(a.startDate, '%Y-%m-%d') between STR_TO_DATE(#{filterDate}, '%Y-%m-%d') and STR_TO_DATE(now(), '%Y-%m-%d')
 				ORDER BY 
 					case
