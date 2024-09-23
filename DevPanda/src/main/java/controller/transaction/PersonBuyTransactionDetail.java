@@ -83,7 +83,7 @@ public class PersonBuyTransactionDetail extends HttpServlet {
 			// 블랙 리스트 신고 여부 처리  
 			String userType = (String)request.getSession().getAttribute("userType");
 			PersonSellTransactionListService trService = new PersonSellTransactionListServiceImpl(); // SellService로 동일하게 활용 가능 
-			boolean isAlreadyReported = trService.isAlreadyReportedBlack(sellerId,transactionNum,userType,"B"); 
+			boolean isAlreadyReported = trService.isAlreadyReportedBlack(buyerId,transactionNum,userType,"B"); 
 			request.setAttribute("isAlreadyReported",isAlreadyReported);
 						
 			
