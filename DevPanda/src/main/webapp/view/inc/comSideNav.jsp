@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					</a> 내정보
 				</strong>
 				<ul class="snb_menu">
-					<li class="menu_item"><a href="${pageContext.request.contextPath}/companyInfo" class="menu_link">정보수정</a></li>
+					<li class="menu_item"><a href="${pageContext.request.contextPath}/companyInfo?companyId=comp001" class="menu_link">정보수정</a></li>
 				</ul>
 			</div>
 		</nav>
