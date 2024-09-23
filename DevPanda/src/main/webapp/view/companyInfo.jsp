@@ -111,6 +111,10 @@
 	vertical-align: middle
 }
 
+.btn:hover {
+	background-color: #f1f3f5;
+}
+
 .outlinegrey {
 	border: 1px solid #d3d3d3;
 	color: rgba(34, 34, 34, .8)
@@ -161,12 +165,13 @@
 	border-bottom: 1px solid #ebebeb;
 	display: flex;
 	flex-direction: column;
-	padding: 25px 0 12px;
+	padding: 25px 0 8px;
 	position: relative;
 }
 
 .unit+.unit {
-	padding-top: 23px
+	padding-top: 23px;
+	margin-bottom: 20px;
 }
 
 .title {
@@ -180,7 +185,8 @@
 	align-items: center;
 	display: flex;
 	justify-content: center;
-	width: 100%
+	width: 100%;
+	margin-top: 2px;
 }
 
 .desc {
@@ -191,13 +197,13 @@
 	padding-bottom: 8px;
 	padding-top: 8px;
 	text-overflow: ellipsis;
-	white-space: nowrap
+	white-space: nowrap;
 }
 
 .desc_modify {
 	padding-right: 58px
 }
-/*개인계정,개인정보 End*/
+
 .btn_withdrawal {
 	color: rgba(34, 34, 34, .5);
 	display: inline-block;
@@ -207,60 +213,68 @@
 	padding: 5px 0
 }
 
-/*empty_area Start  */
 .empty_area {
 	padding: 81px 0 45px;
 	text-align: center
 }
-/*empty_area End  */
+
 .wrap {
 	margin-top: 121px;
 }
 
-/* 공통 input 스타일 */
-input[type="email"], input[type="password"], input[type="text"] {
-    width: 100%;
-    padding: 10px 15px;
-    margin-bottom: 15px;
-    border: 1px solid #d3d3d3;  
-    border-radius: 8px; 
-    font-size: 16px; 
-    transition: border-color 0.3s ease; 
-}
-
-/* input 필드 포커스 시 테두리 색상 변화 */
-input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus {
-    border-color: #000000;  
-    outline: none;  
-}
-
-/* input 필드 안의 플레이스홀더 스타일 */
-input::placeholder {
-    color: #888888;  
-    opacity: 0.7;  
-}
-
 .edit-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    cursor: pointer;
-    font-size: 12px;
-    border-radius: 0;
-    margin-left: 10px;
-    display: inline-block;
-    font-family: inherit;
-    transition: background-color 0.3s ease;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	padding: 6px 12px;
+	cursor: pointer;
+	font-size: 12px;
+	border-radius: 0;
+	margin-left: 10px;
+	display: inline-block;
+	font-family: inherit;
+	transition: background-color 0.3s ease;
 }
 
 .edit-button:hover {
-    background-color: #0056b3;
+	background-color: #0056b3;
 }
 
 .unit_content {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
+}
+
+input[readonly] {
+	border: none;
+	background-color: transparent; /* 투명한 배경 */
+	color: #000; /* 텍스트는 표시되도록 설정 */
+	pointer-events: none; /* 클릭 불가능 */
+}
+
+/* placeholder 색상 그대로 유지 */
+input::placeholder {
+	color: #888888;
+	opacity: 0.7;
+}
+
+.editable-input {
+	padding-left: 8px;
+	border: 1px solid #d3d3d3;
+	border-radius: 8px; /* 여기에서 border-radius 추가 */
+	transition: border-color 0.3s ease;
+	border: 1px solid #d3d3d3;
+}
+
+.editable-input:focus {
+	border-color: #000000;
+	outline: none;
+}
+
+#passwordError {
+	color: red;
+	font-size: 12px;
+	margin-left: 20px;
 }
 </style>
 </head>
@@ -285,8 +299,9 @@ input::placeholder {
 					<div class="user_profile">
 						<input id="profileImageInput" type="file" accept="image/*" hidden>
 						<div class="profile_thumb">
-							<img id="profileImage" src="./img/user2.png" alt="사용자 이미지"
-								class="thumb_img">
+							<!-- <img id="profileImage" src="./img/user2.png" alt="사용자 이미지" class="thumb_img"> -->
+							<img id="profileImage" src="image?file=${company.companyImage}"
+								alt=" 사용자 이미지" class="thumb_img">
 						</div>
 						<div class="profile_detail">
 							<p class="div_user">
@@ -305,133 +320,130 @@ input::placeholder {
 						</div>
 					</div>
 					<script>
-						$(document)
-								.ready(
-										function() {
-											// 이미지 변경 버튼 클릭 시 파일 선택창 열기
-											$('#changeImageButton').click(
-													function() {
-														$('#profileImageInput')
-																.click();
-													});
+					$(document).ready(function() {
+					    // 이미지 변경 버튼 클릭 시 파일 선택창 열기
+					    $('#changeImageButton').click(function() {
+					        $('#profileImageInput').click();
+					    });
 
-											// 파일 선택 시 이미지 미리보기 업데이트
-											$('#profileImageInput')
-													.change(
-															function(event) {
-																var reader = new FileReader();
-																reader.onload = function(
-																		e) {
-																	$(
-																			'#profileImage')
-																			.attr(
-																					'src',
-																					e.target.result);
-																}
-																reader
-																		.readAsDataURL(event.target.files[0]);
-															});
+					    // 파일 선택 시 이미지 미리보기 업데이트
+					    $('#profileImageInput').change(function(event) {
+					        var reader = new FileReader();
+					        reader.onload = function(e) {
+					            $('#profileImage').attr('src', e.target.result);
+					        };
+					        reader.readAsDataURL(event.target.files[0]);
+					    });
 
-											// 이미지 삭제 버튼 클릭 시 기본 이미지로 변경
-											$('#deleteImageButton')
-													.click(
-															function() {
-																$(
-																		'#profileImage')
-																		.attr(
-																				'src',
-																				'./img/user2.png');
-															});
-										});
+					    // 이미지 삭제 버튼 클릭 시 기본 이미지로 변경
+					    $('#deleteImageButton').click(function() {
+					        $('#profileImage').attr('src', './img/user2.png');
+					    });
+					});
+
 					</script>
 					<!-- user 사진관리 end-->
 
 					<!-- form 태그로 감싸서 서버로 데이터를 전송할 수 있도록 수정 -->
-					<form action="${pageContext.request.contextPath}/companyInfoUpdate" method="post" accept-charset="UTF-8">
-    				<!-- 개인계정,개인정보 start -->
-    				<input type="hidden" name="companyId" value="${company.id}">
-    				<div class="profile_info">
-       					<div class="profile_group">
-				            	<h4 class="group_title">기업 계정</h4>
-	
-				            	<div class="unit">
-				                	<h5 class="title">이메일 주소</h5>
-                					<div class="unit_content">
-				                	    <input type="email" id="email" name="email" class="desc email" value="${company.email}" readonly />
-				                	    <button type="button" class="edit-button" id="editEmail">수정</button>
-				                	</div>
-				            	</div>
+					<form action="${pageContext.request.contextPath}/companyInfoUpdate"
+						method="post" accept-charset="UTF-8">
+						<!-- 개인계정,개인정보 start -->
+						<input type="hidden" name="companyId" value="${company.id}">
+						<div class="profile_info">
+							<div class="profile_group">
+								<h4 class="group_title">기업 계정</h4>
 
-				            	<div class="unit">
-				            	    <h5 class="title">비밀번호</h5>
-				            	    <div class="unit_content">
-				            	        <input type="password" id="password" name="password" class="desc password" value="${company.password}" readonly />
-				            	        <button type="button" class="edit-button" id="editPassword">수정</button>
-				            	    </div>
-				            	</div>
+								<div class="unit">
+									<h5 class="title">이메일 주소</h5>
+									<div class="unit_content">
+										<input type="email" name="email" class="desc editable-input"
+											value="${company.email}" readonly />
+									</div>
+								</div>
 
-				            	<h4 class="group_title">기업 정보</h4>
+								<div class="unit">
+									<h5 class="title">비밀번호</h5>
+									<div class="unit_content">
+										<input type="password" name="password"
+											class="desc editable-input" value="${company.password}"
+											readonly />
+									</div>
+								</div>
 
-				            	<div class="unit">
-                					<h5 class="title">회사명</h5>
-                					<div class="unit_content">
-                    					<input type="text" id="companyName" name="companyName" class="desc" value="${company.companyName}" readonly />
-                    					<button type="button" class="edit-button" id="editCompanyName">수정</button>
-                					</div>
-            					</div>
+								<div class="unit" id="passwordConfirmSection"
+									style="display: none;">
+									<h5 class="title">비밀번호 확인</h5>
+									<div class="unit_content">
+										<input type="password" id="passwordConfirm"
+											class="desc editable-input" placeholder="비밀번호 확인을 입력하세요" />
+										<span id="passwordError" style="color: red; display: none;">비밀번호가
+											일치하지 않습니다.</span>
+									</div>
+								</div>
 
-            					<div class="unit">
-                					<h5 class="title">사업장주소</h5>
-                					<div class="unit_content">
-                    					<input type="text" id="address" name="address" class="desc" value="${company.address}" readonly />
-                    					<button type="button" class="edit-button" id="editAddress">수정</button>
-                					</div>
-            					</div>
-        					</div>
-    					</div>
-    					<!-- 개인계정,개인정보 End -->
-    					<div class="empty_area">
-        					<button type="submit" class="btn outlinegrey small">변경하기</button>
-    					</div>
+								<h4 class="group_title">기업 정보</h4>
+
+								<div class="unit">
+									<h5 class="title">회사명</h5>
+									<div class="unit_content">
+										<input type="text" name="companyName"
+											class="desc editable-input" value="${company.companyName}"
+											readonly />
+									</div>
+								</div>
+
+								<div class="unit">
+									<h5 class="title">사업장주소</h5>
+									<div class="unit_content">
+										<input type="text" name="address" class="desc editable-input"
+											value="${company.address}" readonly />
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!-- 개인계정,개인정보 End -->
+
+						<div class="empty_area">
+							<button type="button" id="editButton"
+								class="btn outlinegrey small">수정하기</button>
+							<button type="submit" class="btn outlinegrey small"
+								id="saveButton" style="display: none;">저장하기</button>
+						</div>
 					</form>
-					
+
 					<script>
-					document.addEventListener("DOMContentLoaded", function() {
-					    // 각 필드와 버튼을 선택
-					    const emailField = document.getElementById('email');
-					    const emailEditButton = document.getElementById('editEmail');
+					document.addEventListener("DOMContentLoaded", function () {
+					    const inputs = document.querySelectorAll('.editable-input');
+					    const editButton = document.getElementById('editButton');
+					    const saveButton = document.getElementById('saveButton');
+					    const passwordConfirmSection = document.getElementById('passwordConfirmSection');
+					    const passwordConfirmInput = document.getElementById('passwordConfirm');
+					    const passwordError = document.getElementById('passwordError');
+					    const passwordInput = document.querySelector('input[name="password"]');
 
-					    const passwordField = document.getElementById('password');
-					    const passwordEditButton = document.getElementById('editPassword');
-
-					    const companyNameField = document.getElementById('companyName');
-					    const companyNameEditButton = document.getElementById('editCompanyName');
-
-					    const addressField = document.getElementById('address');
-					    const addressEditButton = document.getElementById('editAddress');
-
-					    // 이메일 수정 버튼 클릭 시
-					    emailEditButton.addEventListener('click', function() {
-					        emailField.removeAttribute('readonly');
-					        emailField.focus(); // 포커스 추가
+					    // 수정 버튼 클릭 시
+					    editButton.addEventListener('click', function () {
+					        inputs.forEach(input => {
+					            input.removeAttribute('readonly'); // 읽기 전용 속성 제거
+					        });
+					        passwordConfirmSection.style.display = 'block'; // 비밀번호 확인 필드 보이기
+					        saveButton.style.display = 'inline-block'; // 저장 버튼 표시
+					        editButton.style.display = 'none'; // 수정 버튼 숨기기
 					    });
 
-					    // 비밀번호 수정 버튼 클릭 시
-					    passwordEditButton.addEventListener('click', function() {
-					        passwordField.removeAttribute('readonly');
-					        passwordField.focus(); // 포커스 추가
-					    });
+					    // 저장 버튼 클릭 시 비밀번호 확인
+					    saveButton.addEventListener('click', function (event) {
+					        const originalPassword = passwordInput.value;
+					        const confirmPassword = passwordConfirmInput.value;
 
-					    // 회사명 수정 버튼 클릭 시
-					    companyNameEditButton.addEventListener('click', function() {
-					        companyNameField.removeAttribute('readonly');
-					        companyNameField.focus(); // 포커스 추가
-					    });
-
-					    // 사업장주소 수정 버튼 클릭 시
-					    addressEditButton.addEventListener('click', function() {
-					        addressField.removeAttribute('readonly');
-					        addressField.focus(); // 포커스 추가
+					        if (originalPassword !== confirmPassword) {
+					            event.preventDefault(); // 제출 방지
+					            passwordError.style.display = 'inline'; // 에러 메시지 보이기
+					        } else {
+					            passwordError.style.display = 'none'; // 에러 메시지 숨기기
+					            alert('수정이 완료되었습니다.');
+					        }
 					    });
 					});
 					</script>

@@ -197,6 +197,29 @@
 	
 	</insert>
 
+	<select id="selectTransactionsByDate" parameterType="map"
+		resultType="map">
+		SELECT
+		t.transactionNum as transactionNum,
+		t.sellerId as sellerId,
+		t.auctionNum as auctionNum,
+		t.price as price,
+		t.date as date,
+		t.state as state,
+		c.companyName as companyName,
+		c.id as companyId,
+		a.maxSalary as maxSalary,
+		a.title as auctionTitle
+		FROM Transaction t
+		JOIN Company c ON t.buyerId = c.id
+		JOIN Auction a ON t.auctionNum = a.auctionNum
+		WHERE
+		c.id = #{companyId}
+		AND t.date BETWEEN #{startDate} AND #{endDate}
+		ORDER BY
+		t.date DESC
+		LIMIT #{pageSize} OFFSET #{offset}
+	</select>
 
 
 </mapper>

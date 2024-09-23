@@ -227,6 +227,7 @@
 
 	</update>
 
+	
 
 
 	<select id="selectPSAuctionList" parameterType="String"
@@ -263,7 +264,6 @@
 		]]>
 	</select>
 
-
 	
 	<select id="countPSAuctionListBySellerId" parameterType="String" resultType="int">
 		<![CDATA[
@@ -271,7 +271,7 @@
 		]]>
 	</select>
 	
-
+	
 
 
 	<select id="selectPSAuctionListByDate" parameterType="map"

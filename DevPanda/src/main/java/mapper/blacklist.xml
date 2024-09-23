@@ -38,7 +38,8 @@
 		bl.title AS title,
 		bl.content AS
 		content,
-		p.email AS email 
+		p.email AS email,
+		p.personImage as image
 		FROM
 		blacklist AS bl
 		JOIN

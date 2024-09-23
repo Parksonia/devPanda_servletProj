@@ -518,7 +518,8 @@ to {
 
 
 									<div class="list_item_img_wrap">
-										<img alt="mem_image" src="../img/woman.jpg" class="mem_image">
+										<img alt="mem_image" src="image?file=${black.image}" alt=" 사용자 이미지" class="mem_image">
+										<%-- <img id="profileImage" src="image?file=${company.companyImage}" alt=" 사용자 이미지" class="thumb_img"> --%>
 									</div>
 									<div class="list_item_title_wrap">
 										<p class="list_itme_div_user">[개인회원]</p>

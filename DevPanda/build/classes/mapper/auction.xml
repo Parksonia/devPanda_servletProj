@@ -5,37 +5,143 @@
 <mapper namespace="mapper.auction">
 
 	<insert id="insertAuction" parameterType="dto.Auction">
-    INSERT INTO auction
-    (title, minSalary, maxSalary, occupation, period,
-    education, employmentType, stack, certification, location, portfolio, startDate, endDate, state, startPrice, bidMaxPrice,id)
-    VALUES
-    (#{title}, #{minSalary}, #{maxSalary}, #{occupation},
-    #{period}, #{education}, #{employmentType}, #{stack},
-    #{certification}, #{location}, #{portfolio}, #{startDate}, #{endDate}, #{state}, #{startPrice}, #{bidMaxPrice},#{id});
+		INSERT INTO auction
+		(title, minSalary, maxSalary, occupation, period,
+		education,
+		employmentType, stack, certification, location, portfolio, startDate,
+		endDate, state, startPrice, bidMaxPrice,id)
+		VALUES
+		(#{title},
+		#{minSalary}, #{maxSalary}, #{occupation},
+		#{period}, #{education},
+		#{employmentType}, #{stack},
+		#{certification}, #{location},
+		#{portfolio}, #{startDate}, #{endDate}, #{state},
+		#{startPrice},
+		#{bidMaxPrice},#{id});
 	</insert>
 
+	
 
-
-
-	<select id="getAuctionsWithPersonInfo" parameterType="map"
-		resultType="map">
+	<select id="getFilteredAuctionsWithPersonInfo"
+		parameterType="map" resultType="dto.AuctionAndPerson">
 		SELECT
 		a.auctionNum,
+		a.id,
 		a.title,
+		a.startDate,
+		a.endDate,
+		a.state,
+		a.startPrice,
 		a.minSalary,
 		a.maxSalary,
+		a.bidMaxPrice,
+		a.Occupation,
+		a.period,
+		a.education,
+		a.employmentType,
+		a.stack,
+		a.Certification,
+		a.location,
+		a.portfolio,
+		p.nickName,
+		p.email,
+		p.password,
+		p.address,
+		p.sex,
+		p.age,
 		p.personImage,
-		p.nickName
-		FROM auction a
-		JOIN person p ON a.id = p.id
-		LIMIT #{pageSize} OFFSET #{offset}
+		p.status
+		FROM
+		auction a
+		JOIN
+		person p ON a.id = p.id
+		WHERE 1=1
+
+		<!-- location 필터 -->
+		<if test="location != null and location.length > 0">
+			AND a.location IN
+			<foreach item="location" collection="location" open="("
+				separator="," close=")">
+				#{location}
+			</foreach>
+		</if>
+
+		<!-- stack 필터 -->
+		<if test="stack != null and stack.length > 0">
+			AND a.stack IN
+			<foreach item="stack" collection="stack" open="("
+				separator="," close=")">
+				#{stack}
+			</foreach>
+		</if>
+
+		<!-- occupation 필터 -->
+		<if test="Occupation != null and Occupation.length > 0">
+			AND a.occupation IN
+			<foreach item="Occupation" collection="Occupation" open="("
+				separator="," close=")">
+				#{Occupation}
+			</foreach>
+		</if>
+
+		<!-- period 필터 -->
+		<if test="period != null and period.length > 0">
+			AND a.period IN
+			<foreach item="period" collection="period" open="("
+				separator="," close=")">
+				#{period}
+			</foreach>
+		</if>
+
+		<!-- education 필터 -->
+		<if test="education != null and education.length > 0">
+			AND a.education IN
+			<foreach item="education" collection="education" open="("
+				separator="," close=")">
+				#{education}
+			</foreach>
+		</if>
+
+		<!-- certification 필터 -->
+		<if test="Certification != null and Certification.length > 0">
+			AND a.certification IN
+			<foreach item="Certification" collection="Certification"
+				open="(" separator="," close=")">
+				#{Certification}
+			</foreach>
+		</if>
+
+		<!-- employmentType 필터 -->
+		<if test="employmentType != null and employmentType.length > 0">
+			AND a.employmentType IN
+			<foreach item="employmentType" collection="employmentType"
+				open="(" separator="," close=")">
+				#{employmentType}
+			</foreach>
+		</if>
+
+		ORDER BY
+		a.auctionNum
+		LIMIT #{offset}, #{pageSize}
 	</select>
-	
-	<select id="findAuctionById" parameterType="int" resultType="dto.AuctionAndPerson">
+
+
+
+
+
+
+
+
+
+	<select id="findAuctionById" parameterType="int"
+		resultType="dto.AuctionAndPerson">
 		select a.*,
-		p.nickname,p.email,p.address,p.sex,p.age,p.personimage,p.status 
-		from auction as a inner join person as p on a.id = p.id
-		where auctionNum=#{auctionNum}
+		p.nickname,p.email,p.address,p.sex,p.age,p.personimage,p.status
+		from
+		auction as a inner join person as p on a.id = p.id
+		where
+		auctionNum=#{auctionNum}
 	</select>
 
 	<resultMap id="auctionPersonMap" type="map">
@@ -57,29 +163,37 @@
 		SELECT * FROM auction WHERE auctionNum = #{auctionNum};
 	]]>
 	</select>
-	
-	
+
+
 	<!-- offset limit 이용 경매 리스트 조회 -->
 	<select id="findAllAuctionWithOffset" parameterType="int"
 		resultType="dto.AuctionAndPerson">
 		select a.*,
-		p.nickname,p.email,p.address,p.sex,p.age,p.personimage,p.status 
-		from auction as a inner join person as p on a.id = p.id
-		order by a.auctionNum
+		p.nickname,p.email,p.address,p.sex,p.age,p.personimage,p.status
+		from
+		auction as a inner join person as p on a.id = p.id
+		order by
+		a.auctionNum
 		limit 9 offset #{offset}
-		
+
 	</select>
-	
-	
-		<update id="updateAuction" parameterType="auction">
-	
-		update auction set bidMaxPrice=#{bidMaxPrice}
+
+
+	<update id="updateAuction" parameterType="auction">
+
+		update auction set
+		bidMaxPrice=#{bidMaxPrice}
 		where auctionNum=#{auctionNum}
-	
-	
+
+
 	</update>
+
 	
-	<select id="selectPSAuctionList" parameterType="Map" resultType="Map">
+
+
+	<select id="selectPSAuctionList" parameterType="String"
+		resultType="Map">
+
 		<![CDATA[
 			select a.* , p.*
 				from auction a
@@ -109,6 +223,7 @@
 			limit #{limit} offset #{offset};
 		]]>
 	</select>
+
 	
 	<select id="countPSAuctionListBySellerId" parameterType="String" resultType="int">
 		<![CDATA[
@@ -117,7 +232,11 @@
 	</select>
 	
 	
-	<select id="selectPSAuctionListByDate" parameterType="map" resultType="Map">
+
+
+	<select id="selectPSAuctionListByDate" parameterType="map"
+		resultType="Map">
+
 		<![CDATA[
 			select a.* , p.*
 				from auction a
@@ -134,8 +253,9 @@
 				limit #{limit} offset #{offset};
 		]]>
 	</select>
-	
-	<select id="selectPSAuctionListByDateRange" parameterType="map" resultType="Map">
+
+	<select id="selectPSAuctionListByDateRange" parameterType="map"
+		resultType="Map">
 		<![CDATA[
 			select a.*, p.*
 				from auction a

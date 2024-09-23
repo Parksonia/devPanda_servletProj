@@ -19,24 +19,10 @@
 	</typeAliases>
 
 
-<<<<<<< HEAD
-	
 
-	<environments default="development">
-    <environment id="development">
-        <transactionManager type="JDBC" />
-        <dataSource type="POOLED">
-            <property name="driver" value="com.mysql.cj.jdbc.Driver" />
-            <property name="url"
-                value="jdbc:mysql://localhost:3306/devPandaT?useSSL=false&amp;serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=UTF-8" />
-            <property name="username" value="root" />
-            <property name="password" value="98019801" />
-        </dataSource>
-    </environment>
-</environments>
 
-	
-=======
+
+
 <!-- 	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
@@ -51,7 +37,6 @@
 			</dataSource>
 		</environment>
 	</environments>  -->
->>>>>>> branch 'main' of https://github.com/KIJ9801/devPanda.git
 
 	<environments default="development">
 		<environment id="development">
@@ -61,14 +46,11 @@
 				<property name="url"
 					value="jdbc:mariadb://localhost:3306/devpanda"></property>
 				<property name="username" value="root"></property>
-				<property name="password" value="7564"></property> <!-- 석준쓰 1590  -->
+				<property name="password" value="1590"></property> <!-- 석준쓰 1590  -->
 			</dataSource>
 		</environment>
-<<<<<<< HEAD
-	</environments> --> 
-=======
-	</environments>
->>>>>>> branch 'main' of https://github.com/KIJ9801/devPanda.git
+		</environments>
+
 
 	<mappers>
 		<mapper resource="mapper/person.xml" />
@@ -78,7 +60,7 @@
 		<mapper resource ="mapper/bid.xml"/>
 
 		<mapper resource ="mapper/emailCertification.xml"/>  
-		<!-- <mapper resource ="mapper/blacklist.xml"/>  --> 
+		<mapper resource ="mapper/blacklist.xml"/>  
 			<!-- 
 			<mapper resource ="mapper/searchcondition.xml"/>  -->
 
