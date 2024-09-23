@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -69,6 +70,10 @@ public class BidList extends HttpServlet {
 			//String userType = "company";  // AuthService 에서 userType="P"와 "C"로 저장함 
 			
 			HttpSession session = request.getSession();
+			if(session == null) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/start");
+				dispatcher.forward(request, response);
+			}
 			String userType = (String)session.getAttribute("userType");
 		
 			if(userType.equals("person")) {

@@ -111,7 +111,7 @@
 }
 
 .item {
-	width: 120px; /* prices와 동일한 너비 설정 */
+	width: 140px; /* prices와 동일한 너비 설정 */
 	text-align: right; /* 텍스트 가운데 정렬 */
 }
 
@@ -179,7 +179,7 @@
 .prices span {
 	font-size: 14px;
 	font-weight: bold;
-	width: 120px; /* 일정한 너비 설정 */
+	width: 140px; /* 일정한 너비 설정 */
 	text-align: right; /* 금액을 오른쪽 정렬 */
 }
 

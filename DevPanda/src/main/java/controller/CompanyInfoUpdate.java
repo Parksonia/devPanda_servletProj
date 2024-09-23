@@ -12,7 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import dto.Company;
+import dto.Person;
 import repository.company.CompanyRepositoryImpl;
 
 @WebServlet("/companyInfoUpdate")
@@ -33,18 +37,26 @@ public class CompanyInfoUpdate extends HttpServlet {
 	        Company company = (Company) session.getAttribute("company");
 	        companyId = company.getId(); // 세션에 company가 있을 경우, companyId 사용
 	    }
+	    String path = request.getServletContext().getRealPath("upload");
+	    int size = 10 * 1024 * 1024; // 크기지정 10MB
+	    MultipartRequest multi = new MultipartRequest(request, path, size, "utf-8", new DefaultFileRenamePolicy());
+	        
+	    String companyImage = null;
+	    if (multi.getFile("companyImageFile") != null) { // name 속성이 companyImageFile인 파일을 받음
+	        companyImage = multi.getFilesystemName("companyImageFile");
+	        System.out.println("업로드된 파일 이름: " + companyImage);
+	    } else {
+	        System.out.println("이미지 파일이 업로드되지 않았습니다.");
+	    }
 	    
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String companyName = request.getParameter("companyName");
-        String address = request.getParameter("address");
-        System.out.println(companyId); 
-        System.out.println(email);
-        System.out.println(password);
-        System.out.println(companyName);
-        System.out.println(address);
+	    System.out.println(companyImage);
+        String email = multi.getParameter("email");
+        String password = multi.getParameter("password");
+        String companyName = multi.getParameter("companyName");
+        String address = multi.getParameter("address");
         // 데이터를 맵에 담기
         Map<String, Object> companyInfo = new HashMap<>();
+        companyInfo.put("companyImage", companyImage);
         companyInfo.put("companyId", companyId);
         companyInfo.put("email", email);
         companyInfo.put("password", password);
@@ -54,7 +66,7 @@ public class CompanyInfoUpdate extends HttpServlet {
         System.out.println(companyInfo);
         // DAO 호출하여 업데이트 처리
         int updateResult = Repository.updateCompanyInfo(companyInfo);
-
+   
         // 업데이트 결과에 따른 처리
         if (updateResult > 0) {
             response.sendRedirect(request.getContextPath() + "/companyInfo?companyId=" + companyId);
