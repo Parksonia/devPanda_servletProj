@@ -137,14 +137,17 @@ public class BidServiceImpl implements BidService {
 	public String bidMaxSalary(String data) {
 
 		BidAuctionTransactionDto bidAuctionTransactionDto = getBidAuctionTransactionDto(data);
-
+		System.out.println(bidAuctionTransactionDto);
+		
 		SqlSession sqlSession = null;
 		String result = "fail";
 		try {
 			sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession(ExecutorType.SIMPLE, false);
 			Bid bid = Bid.getBidFromBidAuctionTransactionDto(bidAuctionTransactionDto);
 			Auction auction = Auction.getAuctionFromBidAuctionTransactionDto(bidAuctionTransactionDto);
-			auction.setBidMaxPrice(auction.getMaxSalary());
+			auction.setBidMaxPrice(Integer.parseInt(bidAuctionTransactionDto.getBidMaxPrice()));
+			System.out.println(bid);
+			System.out.println(auction);
 
 			bidRepository.insertBid(bid, sqlSession);
 			auctionRepository.updateAuction(auction, sqlSession);
