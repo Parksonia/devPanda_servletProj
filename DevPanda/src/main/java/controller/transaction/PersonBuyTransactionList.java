@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -50,6 +51,10 @@ public class PersonBuyTransactionList extends HttpServlet {
 		// 아이디
 		//String buyerId = "abc001";
 		HttpSession session = request.getSession();
+		if (session == null || session.getAttribute("person") == null) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/start");
+			dispatcher.forward(request, response);
+		}
 		String buyerId = ((Person)session.getAttribute("person")).getId();
 		
 		//더보기

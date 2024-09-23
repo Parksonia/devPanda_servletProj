@@ -91,10 +91,11 @@ public class AuctionInsertServlet extends HttpServlet {
         auction.setTitle(title);
         auction.setMinSalary(minSalary);
         auction.setMaxSalary(maxSalary);
+        
        
         auction.setId(id);
-        auction.setStartPrice(0);  // startPrice를 0으로 설정
-        auction.setBidMaxPrice(0); // bidMaxPrice를 0으로 설정
+        auction.setStartPrice(minSalary);  // startPrice를 0으로 설정
+        auction.setBidMaxPrice(minSalary); // bidMaxPrice를 0으로 설정
         
         auction.setLocation(String.join(",", locationArray));
         auction.setStack(String.join(",", stackArray));

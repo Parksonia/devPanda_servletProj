@@ -117,7 +117,7 @@
 					<div class="detail_text" style="font-weight: bold;">${auction.endDate }</div>
 				</div>
 				<c:choose>
-					<c:when test="${isAfterToday }">
+					<c:when test="${!isAfterToday }">
 						<div class="detail_addition">
 							<div class="detail_title">
 								<span>남은 기간</span>
