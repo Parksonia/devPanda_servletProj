@@ -8,12 +8,20 @@ public class AuctionSchedulerRepositoryImpl implements AuctionSchedulerRepositor
     @Override
     public void updateAuctionStatusToSuccess(String currentDate) {
         try (SqlSession session = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
-            System.out.println("Updating auction status to 'success' where endDate <= " + currentDate);
+            System.out.println("Updating auction status to 'unprocessing' where endDate <= " + currentDate);
 
             session.update("mapper.auction.updateAuctionStatusToSuccess", currentDate);
             session.commit();
         }
     }
+    @Override
+    public void updateBidStateToTwo(String currentDate) {
+        try (SqlSession session = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+            
+            session.update("mapper.auction.updateBidStateToTwo", currentDate);
+            session.commit();
+        }
+    
 
 //    @Override
 //    public void deleteNonProcessingAuctions() {
@@ -24,4 +32,5 @@ public class AuctionSchedulerRepositoryImpl implements AuctionSchedulerRepositor
 //            session.commit();
 //        }
 //    }
+    }
 }
