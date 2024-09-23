@@ -11,7 +11,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import dto.Company;
+import dto.Person;
 import repository.blacklist.BlacklistRepository;
 import repository.blacklist.BlacklistRepositoryImpl;
 import repository.transaction.CompanyAuctionBuyerSucRepository;
@@ -36,12 +39,27 @@ public class CompanyBuyTransactionDetail extends HttpServlet {
 		
 		/* List<Map> get */
 
-		// 블랙 리스트 신고 여부 처리  
-		String userType = (String)request.getSession().getAttribute("userType");
+		// 블랙 리스트 신고 여부 처리 
 		BlacklistRepository bkRepo = new BlacklistRepositoryImpl();
+		
+		String id = "abc001";
+		// 세션에서 사용자 ID가져와 사용 예정 
+		HttpSession session = request.getSession();
+		if (session == null) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/start");
+			dispatcher.forward(request, response);
+		}
+		String userType = (String)session.getAttribute("userType");
+		if(userType.equals("person")) {
+			id = ((Person)session.getAttribute("person")).getId();
+		} else {
+			id = ((Company)session.getAttribute("company")).getId();
+		}
+		
 		HashMap<String, Object> param = new HashMap<>();
-		param.put("declId", "comp001"); // 세션아이디로 바꿔~
-		param.put("userType","company");// 세션 userType가져와~
+		
+		param.put("declId", id); 
+		param.put("userType",userType);
 		param.put("transactionNum", transactionNum);
 		boolean isAlreadyReported;
 		try {

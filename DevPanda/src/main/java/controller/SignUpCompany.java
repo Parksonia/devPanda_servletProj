@@ -31,6 +31,8 @@ public class SignUpCompany extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		try {
 			// 폼 데이터 가져오기
 			String id = request.getParameter("id");
