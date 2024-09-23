@@ -47,7 +47,7 @@
                             <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/auctionoffset">AUCTION</a></li>
                             <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/bidList">MYPAGE</a></li>
 
-                     <% String userType = (String)session.getAttribute("userType");%>
+                    <%--  <% String userType = (String)session.getAttribute("userType");%> --%>
                      <c:choose>
                         <c:when test="${userType == 'person'}">
                            <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/personInfo">MYPAGE</a></li>
