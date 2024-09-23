@@ -48,6 +48,25 @@ public class TransactionRepositoryImpl implements TransactionRepository {
 		
 	}
 	
+	 private SqlSession sqlSession; //추가한 부분
+	 public TransactionRepositoryImpl() {
+	        this.sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession();
+	    }
+	
+	
+	@Override
+	 public List<Map<String, Object>> getTransactionListByDate(String companyId, String startDate, String endDate, int offset, int pageSize) {
+	     Map<String, Object> params = new HashMap<>();
+	     params.put("companyId", companyId);
+	     params.put("startDate", startDate);
+	     params.put("endDate", endDate);
+	     params.put("offset", offset);
+	     params.put("pageSize", pageSize);
+	     System.out.println(params);
+	     List<Map<String, Object>> res = sqlSession.selectList("mapper.transaction.selectTransactionsByDate", params);
+	     System.out.println(res);
+	     return res;
+	 }
 
 
 }

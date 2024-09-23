@@ -1,7 +1,8 @@
 package controller;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,50 +12,60 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import repository.transaction.TransactionRepository;
+import com.google.gson.Gson;
+
 import repository.transaction.TransactionRepositoryImpl;
 
-@WebServlet("/CompanyBuyBidSucList")
+
+@WebServlet("/companyBuyTransactions")
 public class CompanyBuyTransactionList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// 요청에서 companyId 값을 받음 (예: 쿼리 파라미터로 넘어온 값)
-		String companyId = request.getParameter("companyId");
-		String startDate = request.getParameter("startDate");
-		String endDate = request.getParameter("endDate");
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			TransactionRepositoryImpl transactionRepository = new TransactionRepositoryImpl();
+			
+	        String startDate = request.getParameter("startDate");
+	        String endDate = request.getParameter("endDate");
+	        String companyId = request.getParameter("companyId");
+	        int page = Integer.parseInt(request.getParameter("page"));
+	        
+	        System.out.println(startDate);
+	        System.out.println(endDate);
+	        System.out.println(companyId);
+	        System.out.println(page);
 
-		if (startDate == null || startDate.isEmpty()) {
-			startDate = getDefaultStartDate(); // 5년 전 날짜로 설정
-		}
-		if (endDate == null || endDate.isEmpty()) {
-			endDate = getCurrentDate(); // 현재 날짜로 설정
-		}
 
-		try {
-			TransactionRepository transactionRepository = new TransactionRepositoryImpl();
-			List<Map> transactionList = transactionRepository.findTransactionsByCompanyId(companyId, startDate, endDate);
-			Map<String, Object> getAuctionMaxByCompanyId = transactionRepository.getAuctionMaxByCompanyId(companyId);
+	        int pageSize = 6; // 페이지당 표시할 트랜잭션 수
+	        int offset = (page - 1) * pageSize;
 
-			request.setAttribute("companyId", companyId);
-			request.setAttribute("transactionList", transactionList);
-			request.setAttribute("auction", getAuctionMaxByCompanyId);
+	        // 데이터 가져오기
+	        List<Map<String, Object>> transactionList = transactionRepository.getTransactionListByDate(companyId, startDate, endDate, offset, pageSize + 1);
+	        System.out.println(transactionList.size());
+	        // 더보기 버튼을 표시할지 결정하기 위해 리스트 사이즈 확인
+	        boolean hasMoreTransactions = transactionList.size() > pageSize;
 
-			request.getRequestDispatcher("/view/buyer/companyBuyTransationList.jsp").forward(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	        if (hasMoreTransactions) {
+	            transactionList.remove(transactionList.size() - 1); // 마지막 데이터는 더 있는지 확인용이니 삭제
+	        } 
+
+	        // JSON으로 변환할 데이터 준비
+	        Map<String, Object> jsonResponse = new HashMap<>();
+	        jsonResponse.put("transactionList", transactionList);
+	        jsonResponse.put("hasMoreTransactions", hasMoreTransactions);
+	        System.out.println(hasMoreTransactions);
+
+	        // Gson으로 변환
+	        Gson gson = new Gson();
+	        String json = gson.toJson(jsonResponse);
+
+	        // JSON 응답 설정
+	        response.setContentType("application/json");
+	        response.setCharacterEncoding("UTF-8");
+
+	        // JSON 응답 출력
+	        PrintWriter out = response.getWriter();
+	        out.print(json);
+	        out.flush();
 	}
 
-	private String getDefaultStartDate() {
-		LocalDate today = LocalDate.now();
-		LocalDate oneYearAgo = today.minusYears(5);
-		return oneYearAgo.toString();
-	}
-
-	private String getCurrentDate() {
-		LocalDate today = LocalDate.now();
-		return today.toString(); // yyyy-MM-dd 형식으로 반환
-	}
 }
