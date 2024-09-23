@@ -529,7 +529,7 @@ li, ol, ul {
 										<p class="list_itme_div_user">[개인회원]</p>
 										<p class="list_item_title">${item.blackPerson}</p>
 										<p class="list_item_description">
-											<span>${item.auctionTitle}</span>
+											<span>${item.title}</span>
 										</p>
 									</div>
 								</div>
