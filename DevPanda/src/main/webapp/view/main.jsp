@@ -176,11 +176,13 @@
 </div>
  </form>
  
- <button onclick="openAuctionModal()"
-						class="bg-green-500 text-white p-2 rounded">경매 등록하기</button>
+ 
  
 
         </div>
+        
+        <button onclick="openAuctionModal()"
+						class="bg-green-500 text-white p-2 rounded">경매 등록하기</button>
     </section>
 
 <!-- 나만의 개발자 Section ajax로 jsp  -->
@@ -448,7 +450,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <form id="auctionForm" method="POST" action="insertAuction" enctype="multipart/form-data">
             
-            <label class="block mb-2 text-left">TITLE:</label> 
+            <label class="block mb-2 text-left">경매 제목:</label> 
             <input type="text" name="title" class="w-full p-2 mb-4 border rounded" placeholder="한줄 소개를 입력하세요" required>
             <label class="block mb-2 text-left">최소 금액:</label> 
             <input type="number" name="minSalary" class="w-full p-2 mb-4 border rounded" placeholder="최소 금액을 입력하세요" required>

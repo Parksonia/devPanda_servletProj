@@ -287,6 +287,7 @@ body {
 	width: 500px;
 	height: 50px;
 	border-radius: 10px;
+	padding-left: 15px; /* 왼쪽에 15px 공간 추가 */
 }
 
 .input-error-title-1 {
@@ -308,6 +309,7 @@ body {
 	width: 440px;
 	height: 50px;
 	border-radius: 10px;
+	padding-left: 15px; /* 왼쪽에 15px 공간 추가 */
 }
 
 .check-button-container {

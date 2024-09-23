@@ -13,7 +13,7 @@
 <body>
     <div class="header">
         <div class="header_logo">
-            <a href="${pageContext.request.contextPath }/auction"><img src="${pageContext.request.contextPath}/img/logoS.png" alt="DevPanda Logo"></a>
+            <a href="${pageContext.request.contextPath }/auctionoffset"><img src="${pageContext.request.contextPath}/img/logoS.png" alt="DevPanda Logo"></a>
 
         	<span>DevPanda</span>
 
@@ -32,7 +32,7 @@
                 <div class="gnb_area">
                     <nav class="gnb" id="pcGnbContainer">
                         <ul class="gnb_list" id="pcGnbList">
-                            <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/auction">AUCTION</a></li>
+                            <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/auctionoffset">AUCTION</a></li>
                             <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/bidList">MYPAGE</a></li>
 
                      <% String userType = (String)session.getAttribute("userType");%>

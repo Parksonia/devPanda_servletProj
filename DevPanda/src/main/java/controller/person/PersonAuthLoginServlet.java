@@ -32,7 +32,7 @@ public class PersonAuthLoginServlet extends HttpServlet{
 		if(person == null) {
 			response.sendRedirect("/DevPanda/Person/login");
 		}else {
-			response.sendRedirect("/DevPanda/auction");
+			response.sendRedirect("/DevPanda/auctionoffset");
 		}
 		
 	}

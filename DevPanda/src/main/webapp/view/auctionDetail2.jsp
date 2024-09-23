@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -38,8 +40,121 @@
 			<p id="auction-min-bid" class="text-lg">최소 입찰가: ${auctionAndPerson.minSalary}원</p>
 			<p id="auction-max-bid" class="text-lg">최대 입찰가: ${auctionAndPerson.maxSalary}원</p>
 
-			<!-- 카테고리 체크박스 정보 표시 -->
-			<p id="auction-categories" class="text-lg">카테고리:${category}</p>
+			<%-- <!-- 카테고리 체크박스 정보 표시 -->
+			<p id="auction-categories" class="text-lg">카테고리:${category}</p> --%>
+
+			<%-- <!-- 카테고리 리스트 -->
+			<p id="auction-categories" class="text-lg font-bold mt-4">카테고리:</p>
+			<ul>
+			    <c:forEach var="categoryItem" items="${fn:split(category, ',')}">
+			        <li class="text-lg">${categoryItem.trim()}</li>
+			    </c:forEach>
+			</ul> --%>
+
+<h2>경매 상세 정보</h2>
+
+<table>
+    <tr>
+        <th>경매 번호</th>
+        <td>${auctionAndPerson.auctionNum}</td>
+    </tr>
+    <tr>
+        <th>아이디</th>
+        <td>${auctionAndPerson.id}</td>
+    </tr>
+    <tr>
+        <th>제목</th>
+        <td>${auctionAndPerson.title}</td>
+    </tr>
+    <tr>
+        <th>시작일</th>
+        <td>${auctionAndPerson.startDate}</td>
+    </tr>
+    <tr>
+        <th>종료일</th>
+        <td>${auctionAndPerson.endDate}</td>
+    </tr>
+    <tr>
+        <th>상태</th>
+        <td>${auctionAndPerson.state}</td>
+    </tr>
+    <tr>
+        <th>시작 가격</th>
+        <td>${auctionAndPerson.startPrice}</td>
+    </tr>
+    <tr>
+        <th>최소 입찰가</th>
+        <td>${auctionAndPerson.minSalary}</td>
+    </tr>
+    <tr>
+        <th>최대 입찰가</th>
+        <td>${auctionAndPerson.maxSalary}</td>
+    </tr>
+    <tr>
+        <th>최고 입찰가</th>
+        <td>${auctionAndPerson.bidMaxPrice}</td>
+    </tr>
+    <tr>
+        <th>직종</th>
+        <td>${auctionAndPerson.occupation}</td>
+    </tr>
+    <tr>
+        <th>경력</th>
+        <td>${auctionAndPerson.period}</td>
+    </tr>
+    <tr>
+        <th>학력</th>
+        <td>${auctionAndPerson.education}</td>
+    </tr>
+    <tr>
+        <th>고용 유형</th>
+        <td>${auctionAndPerson.employmentType}</td>
+    </tr>
+    <tr>
+        <th>기술 스택</th>
+        <td>${auctionAndPerson.stack}</td>
+    </tr>
+    <tr>
+        <th>자격증</th>
+        <td>${auctionAndPerson.certification}</td>
+    </tr>
+    <tr>
+        <th>위치</th>
+        <td>${auctionAndPerson.location}</td>
+    </tr>
+    <tr>
+        <th>포트폴리오</th>
+        <td><a href="${auctionAndPerson.portfolio}" target="_blank">다운로드</a></td>
+    </tr>
+    <tr>
+        <th>닉네임</th>
+        <td>${auctionAndPerson.nickName}</td>
+    </tr>
+    <tr>
+        <th>이메일</th>
+        <td>${auctionAndPerson.email}</td>
+    </tr>
+    <tr>
+        <th>주소</th>
+        <td>${auctionAndPerson.address}</td>
+    </tr>
+    <tr>
+        <th>성별</th>
+        <td>${auctionAndPerson.sex}</td>
+    </tr>
+    <tr>
+        <th>나이</th>
+        <td>${auctionAndPerson.age}</td>
+    </tr>
+    <tr>
+        <th>프로필 이미지</th>
+        <td><img src="${auctionAndPerson.personImage}" alt="프로필 이미지" width="100"></td>
+    </tr>
+    <tr>
+        <th>상태</th>
+        <td>${auctionAndPerson.status}</td>
+    </tr>
+</table>
 
 			<button onclick="bidOnProfile()"
 				class="mt-4 bg-blue-500 text-white p-2 rounded w-full">입찰하기</button>
@@ -288,6 +403,22 @@
         
     </script>
     
+<style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 
 </body>
 </html>

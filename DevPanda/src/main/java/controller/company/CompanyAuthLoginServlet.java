@@ -33,7 +33,7 @@ public class CompanyAuthLoginServlet extends HttpServlet{
 		if(company == null) {
 			response.sendRedirect("/DevPanda/Company/login");
 		}else {
-			response.sendRedirect("/DevPanda/auction");
+			response.sendRedirect("/DevPanda/auctionoffset");
 		}
 		
 	}
