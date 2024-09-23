@@ -37,6 +37,7 @@ public class AuthService {
 				HttpSession session = request.getSession();
 				session.setAttribute("person", person);
 				session.setAttribute("userType", "person");
+				session.setMaxInactiveInterval(1800);
 				return person;
 			}
 			return null;
@@ -66,6 +67,7 @@ public class AuthService {
 				HttpSession session = request.getSession();
 				session.setAttribute("company", company);
 				session.setAttribute("userType", "company");
+				session.setMaxInactiveInterval(1800);
 				return company;
 			}
 			return null;

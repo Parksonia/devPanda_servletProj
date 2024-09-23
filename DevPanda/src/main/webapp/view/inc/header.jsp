@@ -35,7 +35,7 @@
                 <div class="gnb_area">
                     <nav class="gnb" id="pcGnbContainer">
                         <ul class="gnb_list" id="pcGnbList">
-                            <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/auction">AUCTION</a></li>
+                            <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/auctionoffset">AUCTION</a></li>
 	                            <c:choose>
 	                                <c:when test="${userType == 'person'}">
 	                                    <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/personInfo">MYPAGE</a></li>
@@ -44,18 +44,6 @@
 	                                    <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/companyInfo">MYPAGE</a></li>
 	                                </c:when>
 	                            </c:choose>
-                            <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/auctionoffset">AUCTION</a></li>
-                            <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/bidList">MYPAGE</a></li>
-
-                  	
-                     <c:choose>
-                        <c:when test="${userType == 'person'}">
-                           <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/personInfo">MYPAGE</a></li>
-                        </c:when>
-                        <c:otherwise>
-                           <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/companyInfo">MYPAGE</a></li>
-                        </c:otherwise>
-                     </c:choose>
 
                             <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/start">LOGOUT</a></li>
                         </ul>
