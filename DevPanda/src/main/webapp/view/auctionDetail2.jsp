@@ -28,8 +28,8 @@
 
 	<main class="p-8">
 		<div id="profile-details" class="bg-white p-4 shadow-md rounded">
-		 <img src="<c:out value='${pageContext.request.contextPath}/upload/${auction.personImage}' default='${pageContext.request.contextPath}/upload/default.jpg'/>"
-    			 alt="${auction.nickName}의 이미지" class="rounded-full w-16 h-16 mx-auto mb-2">
+		  <img src="<c:out value='${pageContext.request.contextPath}/upload/${auctionAndPerson.personImage}' default='${pageContext.request.contextPath}/upload/default.jpg'/>"
+                     alt="${auctionAndPerson.nickName}의 이미지" class="rounded-full w-16 h-16 mx-auto mb-2">
 			<h2 id="profile-name" class="text-xl font-bold text-center">${auctionAndPerson.nickName}</h2>
 			<p id="profile-job-title" class="text-lg text-center text-gray-600">${auctionAndPerson.occupation}</p>
 			
@@ -146,10 +146,11 @@
         <th>나이</th>
         <td>${auctionAndPerson.age}</td>
     </tr>
-    <tr>
+   <%--  <tr>
         <th>프로필 이미지</th>
-        <td><img src="${auctionAndPerson.personImage}" alt="프로필 이미지" width="100"></td>
-    </tr>
+        <td> <img src="<c:out value='${pageContext.request.contextPath}/upload/${auction.personImage}' default='${pageContext.request.contextPath}/upload/default.jpg'/>"
+                     alt="${auction.nickName}의 이미지" class="rounded-full w-16 h-16 mx-auto mb-2"></td>
+    </tr> --%>
     <tr>
         <th>상태</th>
         <td>${auctionAndPerson.status}</td>
