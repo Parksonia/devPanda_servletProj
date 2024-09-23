@@ -22,4 +22,6 @@ public interface AuctionRepository {
 	List<AuctionAndPerson> findAllAuctionWithOffset(MapperSearchCondition mapperSearchCondition);
 	
 	void updateAuction(Auction auction,SqlSession sqlSession);
+	
+	void updateAuctionSuccess(Auction auction,SqlSession sqlSession);
 }

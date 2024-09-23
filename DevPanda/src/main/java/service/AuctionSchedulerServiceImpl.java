@@ -32,12 +32,12 @@ public class AuctionSchedulerServiceImpl implements AuctionSchedulerService {
                 }
 
                 // processing 상태가 아닌 경매 삭제
-                try {
-                    auctionSchedulerRepository.deleteNonProcessingAuctions();
-                    System.out.println("Deleted non-processing auctions");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    auctionSchedulerRepository.deleteNonProcessingAuctions();
+//                    System.out.println("Deleted non-processing auctions");
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
             }
         };
         

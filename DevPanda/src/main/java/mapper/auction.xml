@@ -30,10 +30,10 @@
     </update>
 
     <!-- processing이 아닌 경매 삭제 -->
-    <delete id="deleteNonProcessingAuctions">
+    <!-- <delete id="deleteNonProcessingAuctions">
         DELETE FROM auction
         WHERE state != 'processing';
-    </delete>
+    </delete> -->
 
 
 
@@ -143,7 +143,14 @@
 
 
 
+ <update id="updateAuctionSuccess" parameterType="auction">
 
+      update auction set
+      bidMaxPrice=#{bidMaxPrice},
+      state=#{state}
+      where auctionNum=#{auctionNum}
+
+   </update>
 
 
 
@@ -210,6 +217,7 @@
 			and location like #{location}
 			</if>
 			
+			and a.state = 'processing'
 		
 		</where>
 		order by a.auctionNum
