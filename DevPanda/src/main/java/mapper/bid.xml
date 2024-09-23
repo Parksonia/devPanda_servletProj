@@ -109,7 +109,7 @@
 	<!-- 2.Auction update -->
 	<update id="updateAuctionStatus" parameterType="MAP">
 		<![CDATA[
-		UPDATE auction SET bidMaxPrice = #{newBidPrice},state='unprocessing'
+		UPDATE auction SET bidMaxPrice = #{newBidPrice},state='success'
 		WHERE auctionNum = #{auctionNum}; 
 		]]>
 	</update>

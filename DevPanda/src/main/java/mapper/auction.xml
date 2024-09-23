@@ -237,7 +237,7 @@
 			select a.* , p.*
 				from auction a
 				JOIN person p ON a.id = p.id
-				WHERE a.id = #{sellerId}
+				WHERE a.id = #{sellerId} and a.state !='success'
 		]]>
 		
 		<if test="filterDate != null and filterDate != ''">
@@ -267,7 +267,7 @@
 	
 	<select id="countPSAuctionListBySellerId" parameterType="String" resultType="int">
 		<![CDATA[
-			select count(*) from auction where id=#{id};
+			select count(*) from auction where id=#{id} and state !='success'
 		]]>
 	</select>
 	
@@ -301,7 +301,7 @@
 				from auction a
 				join person p
 				on a.id = p.id
-				where a.id=#{sellerId}
+				where a.id=#{sellerId} and a.state !='success'
 				and STR_TO_DATE(a.startDate, '%Y-%m-%d') between STR_TO_DATE(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(#{endDate}, '%Y-%m-%d')
 				ORDER BY 
 					case
