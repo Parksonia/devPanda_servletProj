@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				</strong>
 				<ul class="snb_menu">
 					<li class="menu_item"><a href="${pageContext.request.contextPath}/bidList" class="menu_link">입찰내역조회</a></li>
-					<li class="menu_item"><a href="${pageContext.request.contextPath}/CompanyBuyBidSucList" class="menu_link">낙찰내역조회</a></li>					
+					<li class="menu_item"><a href="${pageContext.request.contextPath}/companyBuyTransactions" class="menu_link">낙찰내역조회</a></li>					
 					<li class="menu_item">
     					<a href="${pageContext.request.contextPath}/companySellerBlack" class="menu_link">판매자 차단 내역</a>
 					</li>
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					</a> 내정보
 				</strong>
 				<ul class="snb_menu">
-					<li class="menu_item"><a href="${pageContext.request.contextPath}/companyInfo?companyId=comp001" class="menu_link">정보수정</a></li>
+					<li class="menu_item"><a href="${pageContext.request.contextPath}/companyInfo" class="menu_link">정보수정</a></li>
 				</ul>
 			</div>
 		</nav>

@@ -6,14 +6,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import dto.Company;
 import repository.transaction.TransactionRepositoryImpl;
 
 
@@ -22,12 +25,40 @@ public class CompanyBuyTransactionList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("view/buyer/companyBuyTransationList.jsp").forward(request, response);
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			TransactionRepositoryImpl transactionRepository = new TransactionRepositoryImpl();
 			
 	        String startDate = request.getParameter("startDate");
 	        String endDate = request.getParameter("endDate");
-	        String companyId = request.getParameter("companyId");
-	        int page = Integer.parseInt(request.getParameter("page"));
+			/* String companyId = request.getParameter("companyId"); */
+	        
+
+
+	        HttpSession session = request.getSession(false);
+		    String companyId = null;
+
+		    if (session == null || session.getAttribute("company") == null) {
+		        RequestDispatcher dispatcher = request.getRequestDispatcher("/start");
+		        dispatcher.forward(request, response);
+		        return; // 포워딩 후 이후 코드를 실행하지 않도록 return
+		    } else {
+		        Company company = (Company) session.getAttribute("company");
+		        companyId = company.getId(); // 세션에 company가 있을 경우, companyId 사용
+		    }
+
+
+		    int page = 1; // 기본 페이지 값
+		    String pageParam = request.getParameter("page");
+		    if (pageParam != null && !pageParam.isEmpty()) {
+		        try {
+		            page = Integer.parseInt(pageParam);
+		        } catch (NumberFormatException e) {
+		            // page 파라미터가 유효하지 않을 때 기본값을 1로 설정
+		            page = 1;
+		        }
+		    }
 	        
 	        System.out.println(startDate);
 	        System.out.println(endDate);
