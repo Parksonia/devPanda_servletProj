@@ -217,7 +217,7 @@
     const container = document.getElementById('auction-container');
     const loading = document.getElementById('loading');
     let debounceTimer;
-
+	
     // 필터 상태 저장
     let filters = {
         location: [],
@@ -241,7 +241,10 @@
         offset = 0;
         
         
-        loadMoreAuctions();
+        
+        loadMoreAuctions();	
+        
+        
         
     }
 
@@ -310,7 +313,7 @@
 				const p3 = document.createElement('p');
 				const subDiv = document.createElement('div');
 				const button = document.createElement('button');
-				button.setAttribute('onclick',`openProfilePage(\${item.personImage})`)
+				button.setAttribute('onclick',`openProfilePage(\${item.auctionNum})`)
 				button.className='bg-blue-500 text-white p-2 rounded'
 				button.innerText='상세보기'
 				subDiv.className='text-center mt-4'
@@ -320,7 +323,7 @@
 				p3.innerText=`최대 금액: \${item.maxSalary}원`
 				h3.className='text-lg font-semibold text-center'
 				h3.innerText=`\${item.title}`
-				img.setAttribute('src',`\${item.personImage}`)
+				img.setAttribute('src',`/DevPanda/upload/\${item.personImage}`)
 				img.setAttribute('default','/DevPanda/upload/default.jpg')
 				img.setAttribute('alt',`\${item.nickName}의 이미지`)
 				img.className='rounded-full w-16 h-16 mx-auto mb-2'
@@ -458,7 +461,7 @@
 <div>
     <button type="button" id="category1-toggle-modal" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#지역</button>
     <div id="category1-content-modal" class="category-content hidden">
-        <label><input type="checkbox" name="location[]" value="전국"> 전국</label><br>
+       
         <label><input type="checkbox" name="location[]" value="서울"> 서울</label><br>
         <label><input type="checkbox" name="location[]" value="경/인"> 경/인</label><br>
         <label><input type="checkbox" name="location[]" value="강원"> 강원</label><br>
