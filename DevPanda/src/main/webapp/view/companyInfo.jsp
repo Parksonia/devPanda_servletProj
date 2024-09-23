@@ -448,7 +448,6 @@ input::placeholder {
 					});
 					</script>
 
-					<a href="#" class="btn_withdrawal">회원 탈퇴</a>
 				</div>
 			</div>
 		</div>

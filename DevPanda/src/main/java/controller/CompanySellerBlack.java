@@ -10,7 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import dto.Company;
 import repository.blacklist.CompanyBlacklistRepository;
 
 @WebServlet("/companySellerBlack")
@@ -20,7 +22,17 @@ public class CompanySellerBlack extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // 요청 파라미터로부터 companyId 값을 가져옴
-        String companyId = request.getParameter("companyId");
+    	HttpSession session = request.getSession(false);
+	    String companyId = null;
+
+	    if (session == null || session.getAttribute("company") == null) {
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/start");
+	        dispatcher.forward(request, response);
+	        return; // 포워딩 후 이후 코드를 실행하지 않도록 return
+	    } else {
+	        Company company = (Company) session.getAttribute("company");
+	        companyId = company.getId(); // 세션에 company가 있을 경우, companyId 사용
+	    }
 
         CompanyBlacklistRepository repository = new CompanyBlacklistRepository();
         List<Map<String, Object>> blacklist = repository.getComBlackListByBlackNum(companyId); // selectList 호출

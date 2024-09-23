@@ -437,7 +437,7 @@ button:active {
 
 				    $.ajax({
 				        url: "${pageContext.request.contextPath}/companyBuyTransactions",
-				        type: 'GET',
+				        type: 'POST',
 				        data: {
 				            startDate: startDate,
 				            endDate: endDate,
