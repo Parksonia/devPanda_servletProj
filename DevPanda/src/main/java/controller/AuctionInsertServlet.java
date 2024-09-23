@@ -62,6 +62,13 @@ public class AuctionInsertServlet extends HttpServlet {
         String title = multipartRequest.getParameter("title");
         int minSalary = Integer.parseInt(multipartRequest.getParameter("minSalary"));
         int maxSalary = Integer.parseInt(multipartRequest.getParameter("maxSalary"));
+//        String[] locationArray = multipartRequest.getParameterValues("location[]");
+//        String[] stackArray = multipartRequest.getParameterValues("stack[]");
+//        String[] occupationArray = multipartRequest.getParameterValues("Occupation[]");
+//        String[] periodArray = multipartRequest.getParameterValues("period[]");
+//        String[] educationArray = multipartRequest.getParameterValues("education[]");
+//        String[] certificationArray = multipartRequest.getParameterValues("Certification[]");
+//        String[] employmentTypeArray = multipartRequest.getParameterValues("employmentType[]");
         String[] locationArray = multipartRequest.getParameterValues("location[]");
         String[] stackArray = multipartRequest.getParameterValues("stack[]");
         String[] occupationArray = multipartRequest.getParameterValues("Occupation[]");
@@ -69,6 +76,15 @@ public class AuctionInsertServlet extends HttpServlet {
         String[] educationArray = multipartRequest.getParameterValues("education[]");
         String[] certificationArray = multipartRequest.getParameterValues("Certification[]");
         String[] employmentTypeArray = multipartRequest.getParameterValues("employmentType[]");
+
+        // null 값 처리
+        String location = (locationArray != null) ? String.join(",", locationArray) : "";
+        String stack = (stackArray != null) ? String.join(",", stackArray) : "";
+        String occupation = (occupationArray != null) ? String.join(",", occupationArray) : "";
+        String period = (periodArray != null) ? String.join(",", periodArray) : "";
+        String education = (educationArray != null) ? String.join(",", educationArray) : "";
+        String certification = (certificationArray != null) ? String.join(",", certificationArray) : "";
+        String employmentType = (employmentTypeArray != null) ? String.join(",", employmentTypeArray) : "";
 
         // 파일 처리
         String portfolioFileName = multipartRequest.getFilesystemName("portfolio");
@@ -94,16 +110,16 @@ public class AuctionInsertServlet extends HttpServlet {
         
        
         auction.setId(id);
-        auction.setStartPrice(minSalary);  // startPrice를 0으로 설정
-        auction.setBidMaxPrice(minSalary); // bidMaxPrice를 0으로 설정
+        auction.setStartPrice(minSalary);  
+        auction.setBidMaxPrice(minSalary); 
         
-        auction.setLocation(String.join(",", locationArray));
-        auction.setStack(String.join(",", stackArray));
-        auction.setOccupation(String.join(",", occupationArray));
-        auction.setPeriod(String.join(",", periodArray));
-        auction.setEducation(String.join(",", educationArray));
-        auction.setCertification(String.join(",", certificationArray));
-        auction.setEmploymentType(String.join(",", employmentTypeArray));
+        auction.setLocation(location);  // null 체크 후 값 설정
+        auction.setStack(stack);        // null 체크 후 값 설정
+        auction.setOccupation(occupation);  // null 체크 후 값 설정
+        auction.setPeriod(period);          // null 체크 후 값 설정
+        auction.setEducation(education);    // null 체크 후 값 설정
+        auction.setCertification(certification);  // null 체크 후 값 설정
+        auction.setEmploymentType(employmentType);  // null 체크 후 값 설정
         
         // 업로드된 포트폴리오 파일명 설정
         auction.setPortfolio(portfolioFileName);
