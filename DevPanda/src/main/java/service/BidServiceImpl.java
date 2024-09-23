@@ -147,6 +147,7 @@ public class BidServiceImpl implements BidService {
 			Auction auction = Auction.getAuctionFromBidAuctionTransactionDto(bidAuctionTransactionDto);
 			auction.setBidMaxPrice(Integer.parseInt(bidAuctionTransactionDto.getBidMaxPrice()));
 			auction.setState("success");
+			auction.setEndDate(bidAuctionTransactionDto.getBidDate());
 			System.out.println(bid);
 			System.out.println(auction);
 
