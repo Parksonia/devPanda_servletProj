@@ -147,7 +147,8 @@
 
       update auction set
       bidMaxPrice=#{bidMaxPrice},
-      state=#{state}
+      state=#{state},
+      endDate=#{endDate}
       where auctionNum=#{auctionNum}
 
    </update>
