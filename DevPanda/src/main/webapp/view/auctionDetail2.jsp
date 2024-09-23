@@ -77,7 +77,7 @@
 			
 			const bidAmount = $('#bid-amount').val();
 			
-			if('${userType}' === 'P'){
+			if('${userType}' === 'person'){
 				
 				
 				$.ajax({

@@ -36,7 +36,9 @@ public class AuctionDetailServlet extends HttpServlet{
 				auctionAndPerson.getCertification()+", "+
 				auctionAndPerson.getLocation());
 		req.setAttribute("userType", (String)req.getSession().getAttribute("userType"));
-		if(((String) req.getSession().getAttribute("userType")).equals("P")) {
+		
+		
+		if(((String) req.getSession().getAttribute("userType")).equals("person")) {
 			req.setAttribute("person", (Person)req.getSession().getAttribute("person"));
 		}else {
 			req.setAttribute("company", (Company)req.getSession().getAttribute("company"));
