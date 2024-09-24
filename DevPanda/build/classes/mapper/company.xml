@@ -58,8 +58,10 @@
         SET email = #{email},
             password = #{password},
             companyName = #{companyName},
-            Address = #{address},
-            companyImage = #{companyImage}
+            Address = #{address}
+            <if test="companyImage != null">
+            	, companyImage = #{companyImage}
+        	</if>
         WHERE Id = #{companyId}
     </update>
 	

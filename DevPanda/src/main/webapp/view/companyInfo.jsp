@@ -290,7 +290,7 @@ input::placeholder {
 			<div class="my_profile">
 				<div class="content_title border">
 					<div class="title">
-						<h2>로그인 정보</h2>
+						<h2>기업 정보</h2>
 					</div>
 				</div>
 				

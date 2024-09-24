@@ -22,20 +22,31 @@
 	</insert>
 
 	<!-- 경매 상태 업데이트 -->
-    <update id="updateAuctionStatusToSuccess" parameterType="map">
-        UPDATE auction
-        SET state = 'unprocessing'
+<update id="updateAuctionStatusToSuccess" parameterType="map">
+    UPDATE auction
+    SET state = 'unprocessing'
+    WHERE endDate <![CDATA[<=]]> #{currentDate}
+    AND state = 'processing';
+</update>
+
+<!-- bid 상태 업데이트 -->
+<update id="updateBidStateToTwo" parameterType="map">
+    UPDATE bid
+    SET bidState = 2
+    WHERE auctionNum IN (
+        SELECT auctionNum FROM auction
         WHERE endDate <![CDATA[<=]]> #{currentDate}
-        AND state = 'processing';
-    </update>
+        AND state = 'unprocessing'
+    );
+</update>
+
+<!-- 스케줄링 enddate가 지났고,즉시낙찰이 아닌 경우 기간종료 낙찰이므로 bidstate=2 transaction에 insert end -->
 
     <!-- processing이 아닌 경매 삭제 -->
     <!-- <delete id="deleteNonProcessingAuctions">
         DELETE FROM auction
         WHERE state != 'processing';
     </delete> -->
-
-
 
 	<select id="getFilteredAuctionsWithPersonInfo"
 		parameterType="map" resultType="dto.AuctionAndPerson">

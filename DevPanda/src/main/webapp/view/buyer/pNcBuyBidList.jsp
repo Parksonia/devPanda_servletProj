@@ -373,7 +373,7 @@
 			                           				'<div class="history-item"  style="' + backgroundColor + '">' +
                										'<img src="image?file=' + item.personImage + '" alt="User">' +
                										'<div class="history-content">' +
-               										'<span>' + item.title + '</span>' +
+               										'<span><b>A-No '+item.auctionNum +'</b>&nbsp;&nbsp;&nbsp;'+ item.title + '</span>' +
                										'</div>' +
                										'<div class="prices">' +
               										 '<span>' + item.bidPrice.toLocaleString() + '원</span>' +

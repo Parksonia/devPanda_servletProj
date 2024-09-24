@@ -97,7 +97,7 @@ public class UpdateBuyerBidToTransaction extends HttpServlet {
                 jsonResponse.put("success", true);
                 // userType에 따라 다른 URL로 이동 낙찰 리스트 페이지로 이동하기 위함 
                 if (userType.equals("company")) {
-                    jsonResponse.put("redirectUrl", request.getContextPath() + "/CompanyBuyBidSucList?companyId=" + myId);
+                    jsonResponse.put("redirectUrl", request.getContextPath() + "/companyBuyTransactions?companyId=" + myId);
                 } else {
                     jsonResponse.put("redirectUrl", request.getContextPath() + "/personBuyTransactionList?buyerId=" + myId);
                 }

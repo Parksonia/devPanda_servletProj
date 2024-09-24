@@ -290,7 +290,7 @@
 
 			<!-- Title -->
 			<div class="title">거래 상세 보기</div>
-			<div class="transaction-id">${auction.id}</div>
+			<div class="transaction-id"><b>Auction-No ${auction.auctionNum}</b></div>
 
 			<div class="user-info-container">
 				<div class="user-info">
