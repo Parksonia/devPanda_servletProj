@@ -7,7 +7,7 @@
 
 	<!-- 입찰 -->
 	<insert id="insertBid" parameterType="bid" useGeneratedKeys="true" keyProperty="bidNum">
-	
+		
 	
 		insert into bid(buyerId,buyPersonId,auctionNum,sellerId,bidDate,bidPrice,bidState,memType)
 		values(#{buyerId},#{buyPersonId},#{auctionNum},#{sellerId},#{bidDate},#{bidPrice},#{bidState},#{memType})

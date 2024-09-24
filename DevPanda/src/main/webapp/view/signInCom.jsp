@@ -172,7 +172,7 @@ body{
 				<div class="id-container">
 					<div class="input-id-title">아이디</div>
 					<div class="input-id-container">
-						<input class="id-input" name ="id" placeholder="아이디를 입력해 주세요">
+						<input class="id-input" name ="id" placeholder="아이디를 입력해 주세요" required>
 						<div class="id-text">기업</div>
 					</div>
 				</div>
@@ -181,7 +181,7 @@ body{
 				<div class="password-container">
 					<div class="input-password-title">비밀번호</div>
 					<div class="input-password-container">
-						<input placeholder="비밀번호를 입력해 주세요" name="password" class="password-input">
+						<input placeholder="비밀번호를 입력해 주세요" name="password" class="password-input" required>
 					</div>
 					<div class="password-option-container">
 						<div class="password-option-container-item"><a href="/DevPanda/signUpCom">회원가입</a></div>

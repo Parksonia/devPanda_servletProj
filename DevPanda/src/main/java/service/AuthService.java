@@ -36,6 +36,7 @@ public class AuthService {
 			if(person.getId().equals(id)  && person.getPassword().equals(password)) {
 				HttpSession session = request.getSession();
 				session.setAttribute("person", person);
+				session.setAttribute("id", person.getId());
 				session.setAttribute("userType", "person");
 				session.setMaxInactiveInterval(1800);
 				return person;
@@ -66,6 +67,7 @@ public class AuthService {
 			if(company.getId().equals(id)  && company.getPassword().equals(password)) {
 				HttpSession session = request.getSession();
 				session.setAttribute("company", company);
+				session.setAttribute("id", company.getId());
 				session.setAttribute("userType", "company");
 				session.setMaxInactiveInterval(1800);
 				return company;

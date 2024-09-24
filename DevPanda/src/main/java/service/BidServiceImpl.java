@@ -186,7 +186,7 @@ public class BidServiceImpl implements BidService {
 			sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession(ExecutorType.SIMPLE, false);
 			Bid bid = Bid.getBidFromBidAuctionTransactionDto(bidAuctionTransactionDto);
 			Auction auction = Auction.getAuctionFromBidAuctionTransactionDto(bidAuctionTransactionDto);
-
+			
 			bidRepository.insertBid(bid, sqlSession);
 
 			auctionRepository.updateAuction(auction, sqlSession);
