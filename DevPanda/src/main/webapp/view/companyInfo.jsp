@@ -355,7 +355,7 @@ input::placeholder {
 									<h5 class="title">비밀번호 확인</h5>
 									<div class="unit_content">
 										<input type="password" id="passwordConfirm"
-											class="desc editable-input" placeholder="비밀번호 확인을 입력하세요" />
+											class="desc editable-input" placeholder="비밀번호 확인을 입력하세요" /> 
 										<span id="passwordError" style="color: red; display: none;">비밀번호가
 											일치하지 않습니다.</span>
 									</div>
