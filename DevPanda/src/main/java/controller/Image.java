@@ -21,7 +21,7 @@ public class Image extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
     public Image() {
-        super();
+        super(); 
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
