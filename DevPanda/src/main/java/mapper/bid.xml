@@ -99,11 +99,17 @@
 	</select>
 	
 	<!--myPage nowAuctiond 즉시구매 및 입찰금 변경 시작-->
-	<!-- 1.bid update -->
+	<!-- 1-1.낙찰자의 bid update -->
 	<update id="updateMyBid" parameterType="MAP">
 		<![CDATA[
 		UPDATE bid SET bidPrice = #{newBidPrice},bidState=3,bidDate=DATE_FORMAT(NOW(),'%Y-%m-%d')
 		WHERE bidNum = #{bidNum}; 
+		]]>
+	</update>
+	<!--1-2.낙찰자 이외의 allbuyers bidstate update  -->
+	<update id="updateAllbuersState" parameterType="MAP">
+		<![CDATA[
+		UPDATE bid SET bidState=0 WHERE bidPrice != #{newBidPrice}; 
 		]]>
 	</update>
 	<!-- 2.Auction update -->
@@ -121,6 +127,8 @@
 		(#{sellerId},#{auctionNum},#{bidNum},#{buyerId},DATE_FORMAT(NOW(),'%Y-%m-%d'),#{price},#{state},#{memType})
 	</insert>
 	<!--myPage nowAuctiond 즉시구매 종료-->
+	
+	
 	
 	<update id="updateMyBidprice" parameterType="MAP">
 		<![CDATA[

@@ -79,9 +79,9 @@ public class UpdateBuyerBidToTransaction extends HttpServlet {
 		transaction.setPrice(newBidPrice);
 		transaction.setState("i");
 		if (userType.equals("company")) {
-			transaction.setMemType("C");
+			transaction.setMemType("company");
 		} else {
-			transaction.setMemType("P");
+			transaction.setMemType("person");
 		}
 	
 		BidService service = new BidServiceImpl();
