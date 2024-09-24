@@ -78,13 +78,15 @@ public class NowAuctionBuyer extends HttpServlet {
 			
 			//D-Day계산
 			String endDate = auction.getEndDate();
-			String nowDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())); // 오늘날짜)
+			String nowDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(System.currentTimeMillis())); // 오늘날짜)
 			
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			Date date = new Date(sdf.parse(endDate).getTime());
 			Date today = new Date(sdf.parse(nowDate).getTime());
 			Long calDay = date.getTime() - today.getTime();
 			int dDays = (int)(calDay/(24*60*60*1000));
+			long remainHours = (calDay/(60 * 60 * 1000)) % 24;
+			long remainMinutes = (calDay/(60 * 1000)) % 60;
 			
 			
 			BidService bService = new BidServiceImpl();
@@ -99,7 +101,9 @@ public class NowAuctionBuyer extends HttpServlet {
 			request.setAttribute("bidPrice", bidPrice); // 나의 입찰금
 			request.setAttribute("bidDate", bidDate); // 나의 입찰일
 			request.setAttribute("sellerImage", sellerImage);  //판매자 신상 사진 
-			request.setAttribute("dDays", dDays); //경매 마감일과 현재날짜를 계산하여 dday표시 
+			request.setAttribute("dDays", dDays); //경매 마감일과 현재날짜를 계산하여 dday표시
+			request.setAttribute("dHours", remainHours);
+			request.setAttribute("dMinutes", remainMinutes);
 			request.setAttribute("myId", id);
 			request.getRequestDispatcher("view/buyer/nowAuctionBuyer.jsp").forward(request, response);
 		

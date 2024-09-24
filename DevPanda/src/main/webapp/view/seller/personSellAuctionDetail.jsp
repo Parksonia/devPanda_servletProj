@@ -116,19 +116,17 @@
 					</div>
 					<div class="detail_text" style="font-weight: bold;">${auction.endDate }</div>
 				</div>
-				<c:choose>
-					<c:when test="${!isAfterToday }">
-						<div class="detail_addition">
-							<div class="detail_title">
-								<span>남은 기간</span>
-							</div>
-							<div class="detail_text">D - ${dDays }</div>
-						</div>
-					</c:when>
-					<c:otherwise>
-						<p style="font-size: 10px; text-align: right;">경매가 종료되었습니다.</p>
-					</c:otherwise>
-				</c:choose>
+				<div class="detail_addition">
+					<div class="detail_title">
+						<span>남은 기간</span>
+					</div>
+					<c:if test="${dDays>=0}">
+						<div class="detail_text">D&nbsp;&nbsp;-&nbsp;&nbsp;${dDays}일&nbsp;&nbsp;${dHours}시간&nbsp;&nbsp;${dMinutes}분</div>
+					</c:if>
+					<c:if test="${dDays<0}">
+						<div class="detail_text">종료</div>
+					</c:if>
+				</div>
 			</div>
 
 			<!-- Bid History -->

@@ -7,7 +7,7 @@ body {
 
 .container.my .content_area {
 	min-height: 380px;
-
+	overflow: hidden;
 }
 
 .container {

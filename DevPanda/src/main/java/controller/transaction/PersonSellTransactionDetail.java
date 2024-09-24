@@ -100,11 +100,11 @@ public class PersonSellTransactionDetail extends HttpServlet {
 			request.setAttribute("sperson", sperson);
 			
 			// 구매자(Buyer) 정보 : person or company 
-			if (memType != null && memType.equals("C")) {
+			if (memType != null && memType.equals("company")) {
 				PersonSellTransactionListService pstService = new PersonSellTransactionListServiceImpl();
 				Company bcompany = pstService.selectCompanyInfo(buyerId);
 				request.setAttribute("bcompany", bcompany);
-			} else if (memType != null && memType.equals("P")){
+			} else if (memType != null && memType.equals("person")){
 				PersonService bservice = new PersonServiceImpl();
 				Person bperson = bservice.selectPersonInfo(buyerId);
 				request.setAttribute("bperson", bperson);

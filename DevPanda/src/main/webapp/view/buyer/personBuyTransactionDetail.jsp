@@ -27,7 +27,7 @@
 
 			<!-- Title -->
 			<div class="title">거래 상세 보기</div>
-			<div class="transaction-id">AB123-CD5678-${auctionNum}</div>
+			<div class="transaction-id">A-No ${auctionNum}</div>
 
 			<div class="user-info-container">
 				<div class="user-info">

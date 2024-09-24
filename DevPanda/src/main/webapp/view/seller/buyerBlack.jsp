@@ -9,6 +9,7 @@
 <!-- 개인,기업|구매내역조회|판매자차단내역| -->
 <link href="${pageContext.request.contextPath}/css/sellerBlack.css"	rel="stylesheet">
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<link href="${pageContext.request.contextPath }/css/blacklist.css" rel="stylesheet">
 <style>
 #modal-seller-image{
 	border-radius: 12px;
@@ -24,66 +25,6 @@
 	color: #888;
 }
 
-.container.my .content_area {
-	min-height: 380px;
-	overflow: hidden;
-}
-
-.content_area {
-	overflow: hidden;
-}
-
-.my-page-content {
-	flex: 1;
-}
-
-.my_blacklist {
-	padding: 0 24px 80px;
-}
-
-.content_title {
-	display: flex;
-}
-
-.content_title.border {
-	border-bottom: 3px solid #222;
-	padding-bottom: 16px;
-}
-
-.title {
-	font-size: 24px;
-	letter-spacing: -.36px
-}
-
-.title>h3, h2 {
-	font-size: inherit;
-	line-height: 29px
-}
-
-/*블랙리스트 목록 시작 */
-a {
-	-webkit-tap-highlight-color: rgba(0, 0, 0, .1);
-	color: inherit;
-}
-
-/*sort head start*/
-.bk_head {
-	align-items: center;
-	border-bottom: 1px solid #ebebeb;
-	display: flex;
-	padding: 12px;
-}
-
-.head_totalcnt {
-	display: flex;
-}
-
-.total-rows {
-	color: rgba(34, 34, 34, .8);
-	font-size: 13px;
-	letter-spacing: -.07px;
-}
-
 .head_sort {
 	justify-content: space-between;
 	align-items: center;
@@ -97,79 +38,10 @@ a {
 	width: 150px; /* 너비를 줄여 균형 있게 만듦 */
 }
 
-.head_sort .sorting_box.active_first {
-	font-weight: 700;
-}
-
-.bid.finished .head_sort .sorting_box.field_date_transaiont {
-	display: block;
-}
-
-.bid.finished .head_sort .sorting_box.field_reported_at {
-	display: block;
-}
-
-.head_sort .sort_link {
-	display: inline-block;
-	font-size: 13px;
-	letter-spacing: -.07px;
-	line-height: 24px;
-	padding-right: 16px;
-	position: relative;
-}
-
-.head_sort .sort_link:after {
-	background-image: url("./img/expand-up-down-fill.png");
-	content: "";
-	height: 24px;
-	position: absolute;
-	top: 0;
-	width: 24px;
-}
-
-.head_sort .sort_txt {
-	display: inline-block;
-	vertical-align: top;
-}
-/*sort head end*/
-
-/*list start */
-li, ol, ul {
-	list-style: none;
-}
-
-.black_list_display_mem {
-	align-items: center;
-	border-bottom: 1px solid #ebebeb;
-	cursor: pointer;
-	display: flex;
-	padding: 12px;
-}
-
 .black_list_mem {
 	display: flex;
 	align-items: center;
 	width: 100%; /* 전체 너비로 정렬 */
-}
-
-.black_list_mem .list_item_img_wrap {
-	position: relative;
-}
-
-.black_list_mem .list_item_img_wrap .mem_image {
-	border-radius: 12px;
-	height: 80px;
-	-o-object-fit: cover;
-	object-fit: cover;
-	width: 80px;
-}
-
-.black_list_mem .list_item_title_wrap {
-	align-self: center;
-	display: flex;
-	flex-direction: column;
-	margin-left: 16px;
-	width: 60%; /* 아이템 제목 칸 너비 조정 */
 }
 
 .black_list_mem .list_item_title_wrap .list_itme_div_user {
@@ -178,30 +50,6 @@ li, ol, ul {
 	letter-spacing: -.27px;
 	line-height: 1.2222222222;
 	white-space: nowrap; /* 한 줄로 표시 */
-}
-
-.black_list_mem .list_item_title_wrap .list_item_title {
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-	display: -webkit-box;
-	font-size: 14px;
-	font-weight: 700;
-	line-height: 17px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.black_list_mem .list_item_title_wrap .list_item_description {
-	-webkit-line-clamp: 1;
-	-webkit-box-orient: vertical;
-	color: #0c0c0c7d;
-	display: -webkit-box;
-	font-size: 13px;
-	letter-spacing: -.21px;
-	line-height: 19px;
-	margin-top: 4px;
-	overflow: hidden;
-	text-overflow: ellipsis;
 }
 
 .list_item_status {
@@ -215,11 +63,6 @@ li, ol, ul {
 .list_item_status .list_item_column {
 	width: 150px; /* 날짜 너비 조정 */
 	text-align: center;
-}
-
-.list_item_status .column_secondary {
-	font-size: 13px;
-	letter-spacing: -.07px;
 }
 
 .list_item_status .column_last {
@@ -239,76 +82,6 @@ li, ol, ul {
 	font-weight: 700;
 }
 /*list end  */
-
-/*pagination  */
-.pagination {
-	padding: 28px 0;
-}
-
-.pagination_box {
-	font-size: 0;
-	position: relative;
-	text-align: center;
-}
-
-.pagination_box.first .prev_btn_box, .pagination_box.last .next_btn_box {
-	display: none;
-}
-
-.page_bind {
-	display: inline-block;
-	vertical-align: top;
-}
-
-.btn_page {
-	color: rgba(34, 34, 34, .5);
-	display: inline-block;
-	font-size: 16px;
-	padding: 0 8px;
-}
-
-.btn_page+.btn_page {
-	margin-left: 12px;
-}
-
-.btn_page:hover {
-	-webkit-text-decoration: underline;
-	text-decoration: underline;
-}
-
-.btn_page.active {
-	color: #222;
-	font-weight: 700;
-}
-
-.next_btn_box, .prev_btn_box {
-	display: inline-block;
-	vertical-align: top;
-}
-
-.next_btn_box .btn_arr, .prev_btn_box .btn_arr {
-	height: 24px;
-	padding: 3px;
-	width: 24px;
-}
-
-.next_btn_box .btn_arr+.btn_arr, .prev_btn_box .btn_arr+.btn_arr {
-	margin-left: 5px;
-}
-
-.prev_btn_box {
-	margin-right: 25px;
-}
-
-.next_btn_box {
-	margin-left: 25px;
-}
-
-[class*=arr-page-] {
-	height: 22px;
-	width: 18px;
-}
-/*pagination end */
 
 /* modal start */
 .modal {
@@ -341,100 +114,6 @@ li, ol, ul {
 	width: 24px;
 	height: 24px;
 	cursor: pointer;
-}
-
-.modal-header {
-	font-weight: 700;
-	font-size: 32px;
-	color: #000000;
-	text-align: center;
-	margin-bottom: 40px;
-}
-
-.profile-section {
-	display: flex;
-	align-items: center;
-	margin-bottom: 40px;
-}
-
-.profile-image {
-	width: 80px;
-	height: 80px;
-	border-radius: 10px;
-	background-size: cover;
-	margin-right: 20px;
-}
-
-.profile-info .user-type {
-	font-weight: 600;
-	font-size: 18px;
-	color: rgba(0, 0, 0, 0.27);
-}
-
-.profile-info .user-name {
-	font-weight: 600;
-	font-size: 18px;
-	color: #000000;
-}
-
-.profile-info .user-email {
-	font-weight: 400;
-	font-size: 14px;
-	color: rgba(34, 34, 34, 0.5);
-}
-
-.modal-divider {
-	width: 100%;
-	height: 1px;
-	background: #D9D9D9;
-	margin: 20px 0;
-}
-
-.modal-transaction-info {
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 20px;
-}
-
-.modal-transaction-info div {
-	font-weight: 600;
-	font-size: 18px;
-	color: #D3D3D3;
-}
-
-.modal-transaction-info .modal-transaction-id, .modal-transaction-info .modal-transaction-date {
-	font-weight: 400;
-	font-size: 18px;
-	color: #000000;
-}
-
-.modal-report-title {
-	font-weight: 600;
-	font-size: 23px;
-	color: #000000;
-	margin-bottom: 20px;
-}
-
-.section-title {
-	font-weight: 600;
-	font-size: 18px;
-	color: #000000;
-	margin-bottom: 10px;
-}
-
-.dropdown-content {
-	background: #FAFAFA;
-	border: 1px solid #EBEBEB;
-	border-radius: 20px;
-	padding: 20px;
-	margin-bottom: 20px;
-}
-
-.dropdown-content p {
-	margin: 0;
-	font-weight: 400;
-	font-size: 16px;
-	color: #000000;
 }
 /* modal end */
 
@@ -488,8 +167,10 @@ li, ol, ul {
 						</c:when>
 						<c:otherwise>
 							<c:forEach items="${buyerBlackList }" var="blacklist" varStatus="status">
+								<p>${blacklist.auctionNum }</p>
 								<div class="modal_btn">
-										<div class="black_list_display_mem" data-index="${status.index }"
+										<div class="black_list_display_mem" data-index="${status.index}"
+																			 data-auctionNum="${blacklist.auctionNum}"
 																			 data-blacknum="${blacklist.blackNum}"
 																		     data-personimage="${blacklist.personImage}"
 																		     data-companyimage="${blacklist.companyImage}"
@@ -619,7 +300,7 @@ li, ol, ul {
 				<div>거래 일자</div>
 			</div>
 			<div class="modal-transaction-info">
-				<div class="modal-transaction-id" id="modal-bidnum">AB123-CD5678</div>
+				<div class="modal-auctionNum" id="modal-auctionNum"></div>
 				<div class="modal-transaction-date" id="modal-date"></div>
 			</div>
 
@@ -645,8 +326,8 @@ $(document).ready(function() {
         const email = $(this).data('email');
         const title = $(this).data('title');
         const content = $(this).data('content');
-        const bidNum = $(this).data('bidnum'); 
-        const date = $(this).data('date'); 
+        const auctionNum = $(this).attr('data-auctionNum'); 
+        const date = $(this).data('date');
         
     	 // 모달에 데이터 삽입
     	 if(personImage){
@@ -661,7 +342,7 @@ $(document).ready(function() {
         $('#modal-email').text(email);
         $('#modal-title').text(title);
         $('#modal-content').text(content);
-        $('#modal-bidnum').text('AB123-CD5678-' + bidNum);
+        $('#modal-auctionNum').text('A-No ' + auctionNum);
         $('#modal-date').text(date);
         
      	// 모달 열기

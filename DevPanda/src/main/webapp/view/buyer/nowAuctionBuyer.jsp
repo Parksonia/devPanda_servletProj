@@ -261,8 +261,8 @@
 					<div class="detail_title">
 						<span>남은 기간</span>
 					</div>
-					<c:if test="${dDays>0}">
-						<div class="detail_text">D - ${dDays}</div>
+					<c:if test="${dDays>=0}">
+						<div class="detail_text">D&nbsp;&nbsp;-&nbsp;&nbsp;${dDays}일&nbsp;&nbsp;${dHours}시간&nbsp;&nbsp;${dMinutes}분</div>
 					</c:if>
 					<c:if test="${dDays<0}">
 						<div class="detail_text">종료</div>
