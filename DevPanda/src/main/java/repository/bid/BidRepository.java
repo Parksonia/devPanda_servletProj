@@ -11,7 +11,12 @@ import dto.Transaction;
 
 public interface BidRepository {
 
+	
+	void updateBidState(Integer auctionNum, SqlSession sqlSession);
+	
 	void insertBid(Bid bid,SqlSession sqlSession);
+	
+	
 
 	Integer selectBuyBidCnt(HashMap<String, Object> pageInfo) throws Exception;
 

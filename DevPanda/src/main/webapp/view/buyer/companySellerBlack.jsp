@@ -79,7 +79,7 @@ a {
 }
 
 .head_sort .sorting_box {
-	margin-left: 20px;
+	margin-left: 15px;
 	width: 184px;
 }
 
@@ -170,7 +170,7 @@ li, ol, ul {
 	-webkit-box-orient: vertical;
 	display: -webkit-box;
 	font-size: 14px;
-	font-weight: 700;
+	font-weight: 100;
 	line-height: 17px;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -460,7 +460,7 @@ to {
 
 </head>
 
-<body>
+<body style="margin:0;">
 
 
 	<!-- Header Start -->
@@ -485,7 +485,7 @@ to {
 				<div class="blacklist_list finished bid">
 
 					<!--sort head start : 구매내역에서 가져옴-->
-					<div class="bk_head">
+					<div class="bk_head" style="padding-left: 40px;">
 						<div class="head_totalcnt">
 							<div class="total-rows">전체</div>
 						</div>
@@ -514,8 +514,8 @@ to {
 									data-blackperson="${black.blackPerson}"
 									data-tdate="${black.tdate}" data-tnum="${black.tnum}"
 									data-content="${black.content}" data-email="${black.email}"
-									data-blackNum="${black.blackNum}">
-
+									data-blackNum="${black.blackNum}" data-nickname="${black.nickName}">
+									
 
 									<div class="list_item_img_wrap">
 										<img alt="mem_image" src="image?file=${black.image}" alt=" 사용자 이미지" class="mem_image">
@@ -523,7 +523,7 @@ to {
 									</div>
 									<div class="list_item_title_wrap">
 										<p class="list_itme_div_user">[개인회원]</p>
-										<p class="list_item_title">${black.blackPerson}</p>
+										<p class="list_item_title"><b>${black.nickName}</b> (${black.blackPerson})</p>
 										<p class="list_item_description">
 											<span>${black.atitle}</span>
 										</p>
@@ -624,7 +624,7 @@ to {
 						<div class="modal-divider"></div>
 
 						<div class="modal-transaction-info">
-							<div>거래 내역</div>
+							<div>거래 번호</div>
 							<div>거래 일자</div>
 						</div>
 						<div class="modal-transaction-info">
@@ -665,15 +665,16 @@ to {
 				            const tnum = blackListMem.dataset.tnum;
 				            const content = blackListMem.dataset.content;
 				            const email = blackListMem.dataset.email;
-
+				            const nickname = blackListMem.dataset.nickname;
+				            
 				            // 모달의 내용을 채움
-				            document.getElementById('blackPersonName').textContent = blackPerson;
-				            document.getElementById('transactionNum').textContent = tnum;
+				            document.getElementById('blackPersonName').textContent = nickname+'('+blackPerson+')';
+				            document.getElementById('transactionNum').textContent = 'Auction-No '+tnum;
 				            document.getElementById('transactionDate').textContent = tdate;
 				            document.getElementById('reportTitle').textContent = title;
 				            document.getElementById('reportContent').textContent = content;
 				            document.getElementById('email').textContent = email;
-
+				        
 				            // 모달을 보이도록 설정
 				            modal.style.display = 'flex';
 				        });

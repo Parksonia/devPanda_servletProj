@@ -14,6 +14,13 @@
 	
 	
 	</insert>
+	
+	
+	<!-- 낙찰시 bid state 변경 -->
+	<update id="updateBidState" parameterType="int">
+		update bid set bidstate = 0
+		where auctionNum=#{auctionNum}
+	</update>
 
 	<!--더보기 페이징 게산 위함 -->
 	<!-- 날짜 필터가 있을 경우 동적 쿼리 실행됨 -->
@@ -99,11 +106,17 @@
 	</select>
 	
 	<!--myPage nowAuctiond 즉시구매 및 입찰금 변경 시작-->
-	<!-- 1.bid update -->
+	<!-- 1-1.낙찰자의 bid update -->
 	<update id="updateMyBid" parameterType="MAP">
 		<![CDATA[
 		UPDATE bid SET bidPrice = #{newBidPrice},bidState=3,bidDate=DATE_FORMAT(NOW(),'%Y-%m-%d')
 		WHERE bidNum = #{bidNum}; 
+		]]>
+	</update>
+	<!--1-2.낙찰자 이외의 allbuyers bidstate update  -->
+	<update id="updateAllbuersState" parameterType="MAP">
+		<![CDATA[
+		UPDATE bid SET bidState=0 WHERE bidPrice != #{newBidPrice}; 
 		]]>
 	</update>
 	<!-- 2.Auction update -->
@@ -122,6 +135,8 @@
 	</insert>
 	<!--myPage nowAuctiond 즉시구매 종료-->
 	
+	
+	
 	<update id="updateMyBidprice" parameterType="MAP">
 		<![CDATA[
 		UPDATE bid SET bidPrice = #{newBidPrice},bidDate=DATE_FORMAT(NOW(),'%Y-%m-%d')
@@ -136,6 +151,8 @@
 		WHERE auctionNum = #{auctionNum}; 
 		]]>
 	</update>
+	
+
 	
 
 </mapper>

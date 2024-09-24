@@ -40,13 +40,13 @@
     );
 </update>
 
+<!-- 스케줄링 enddate가 지났고,즉시낙찰이 아닌 경우 기간종료 낙찰이므로 bidstate=2 transaction에 insert end -->
+
     <!-- processing이 아닌 경매 삭제 -->
     <!-- <delete id="deleteNonProcessingAuctions">
         DELETE FROM auction
         WHERE state != 'processing';
     </delete> -->
-
-
 
 	<select id="getFilteredAuctionsWithPersonInfo"
 		parameterType="map" resultType="dto.AuctionAndPerson">

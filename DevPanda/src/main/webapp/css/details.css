@@ -333,6 +333,7 @@
 	border-radius: 5px;
 	margin-top: 10px;
 	cursor: pointer;
+	transition: all 0.3s ease; /* 부드러운 전환 효과 */
 }
 
 /* 진행상황 start */
@@ -536,4 +537,5 @@
 	font-weight: 400;
 	font-size: 16px;
 	color: rgba(34, 34, 34, 0.8);
+	transition: all 0.3s ease; /* 부드러운 전환 효과 */
 }

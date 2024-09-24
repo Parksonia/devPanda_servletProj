@@ -13,46 +13,6 @@
 	href="${pageContext.request.contextPath}/css/details.css">
 
 <style>
-.profile-container {
-	margin-bottom: 40px;
-}
-
-.profile-container h2 {
-	font-size: 20px;
-	font-weight: bold;
-	margin-bottom: 20px;
-}
-
-.profile-container .profile {
-	flex: 1;
-	text-align: center;
-	padding: 20px;
-}
-
-.profile-container .profile img {
-	border-radius: 50%;
-	margin-bottom: 10px;
-}
-
-.profile-container .profile p {
-	margin-bottom: 10px;
-}
-
-.profile-container .profile:nth-child(1) {
-	border-right: 1px solid #ddd;
-}
-
-.report-button {
-	background-color: #ff6b6b;
-	color: white;
-	border: none;
-	padding: 10px 20px;
-	border-radius: 5px;
-	margin-top: 10px;
-	cursor: pointer;
-	transition: all 0.3s ease; /* 부드러운 전환 효과 */
-}
-
 .report-button:hover {
 	background-color: #ff4c4c; /* 호버 시 더 진한 빨간색 */
 }
@@ -64,108 +24,11 @@
 	padding: 24px 20px; /* 추가 */
 }
 
-.progress_title { /* 추가 */
-	font-size: 16px;
-	font-weight: 700;
-	line-height: 24px;
-	margin-bottom: 12px
-}
-
-.progress-bar-background {
-	width: 100%;
-	background-color: rgb(34, 34, 34, 0.1); /*  #f3f3f3; */
-	padding: 5px 0;
-	border-radius: 5px;
-}
-
 .progress-bar {
 	width: 50%;
 	height: 10px;
 	background-color: #6D6D6D;
 	border-radius: 5px;
-}
-
-.progress-status {
-	display: flex;
-	justify-content: space-between;
-	margin-top: 5px;
-}
-
-.progress-status span {
-	/* font-weight: normal; */
-	font-size: 14px;
-	line-height: 17px
-}
-
-.progress_item_description {
-	font-size: 13px;
-	overflow: hidden;
-	word-break: keep-all;
-	color: rgba(34, 34, 34, 0.8);
-}
-
-.progress-status .completed {
-	color: red;
-	font-weight: bold;
-}
-/* 진행상황 end */
-.gray-line {
-	border: 0;
-	height: 1px;
-	background-color: #ddd;
-	margin-bottom: 20px;
-}
-
-.prices {
-	padding: 20px;
-	margin: 20px 0;
-	/* 	background-color: #f3f3f3;  피그마처럼 여기는 빼고*/
-}
-/* 모달 */
-.modal {
-	display: none;
-	justify-content: center;
-	align-items: center;
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: rgba(34, 34, 34, 0.5);
-	z-index: 1010;
-}
-
-.modal-container {
-	position: relative;
-	width: 599px;
-	height: auto;
-	background: #FFFFFF;
-	border-radius: 20px;
-	padding: 40px 20px;
-	box-sizing: border-box;
-}
-
-.modal-close {
-	position: absolute;
-	top: 20px;
-	right: 20px;
-	width: 24px;
-	height: 24px;
-	cursor: pointer;
-}
-
-.modal-header {
-	font-weight: 700;
-	font-size: 32px;
-	color: #000000;
-	text-align: center;
-	margin-bottom: 40px;
-}
-
-.modal-profile {
-	display: flex;
-	align-items: center;
-	margin-bottom: 40px;
 }
 
 .modal-profile-image {
@@ -176,87 +39,6 @@
 		center;
 	background-size: cover;
 	margin-right: 20px;
-}
-
-.modal-profile-info .user-type {
-	font-weight: 600;
-	font-size: 18px;
-	color: rgba(0, 0, 0, 0.27);
-}
-
-.modal-profile-info .user-id {
-	font-weight: 600;
-	font-size: 18px;
-	color: #000000;
-}
-
-.modal-profile-info .user-email {
-	font-weight: 400;
-	font-size: 14px;
-	color: rgba(34, 34, 34, 0.5);
-}
-
-.modal-divider {
-	width: 100%;
-	height: 1px;
-	background: #D9D9D9;
-	margin: 20px 0;
-}
-
-.modal-transaction-info {
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 20px;
-}
-
-.modal-transaction-info div {
-	font-weight: 600;
-	font-size: 18px;
-	color: #D3D3D3;
-}
-
-.modal-transaction-info .modal-transaction-id, .modal-transaction-info  .modal-transaction-date
-	{
-	font-weight: 400;
-	font-size: 18px;
-	color: #000000;
-}
-
-.modal-report-title {
-	font-weight: 600;
-	font-size: 23px;
-	color: #000000;
-	margin-bottom: 20px;
-}
-
-.modal-input-title, .modal-input-content {
-	width: 100%;
-	padding: 15px;
-	margin-bottom: 20px;
-	background: #FAFAFA;
-	border: 1px solid #EBEBEB;
-	border-radius: 20px;
-	font-size: 18px;
-	color: #000000; /* #D3D3D3 색깔 너무 연해서 수정*/
-	box-sizing: border-box;
-	resize: none; /* textarea 크기 조절 제거 */
-}
-
-.modal-submit-button {
-	display: block;
-	width: 180px;
-	height: 35px;
-	margin: 0 auto;
-	background: #FFFFFF;
-	border: 1px solid #D3D3D3;
-	border-radius: 10px;
-	text-align: center;
-	line-height: 35px;
-	cursor: pointer;
-	font-weight: 400;
-	font-size: 16px;
-	color: rgba(34, 34, 34, 0.8);
-	transition: all 0.3s ease; /* 부드러운 전환 효과 */
 }
 
 .modal-submit-button:hover { /* @@@@@@@추가 */
@@ -273,7 +55,7 @@
 /*모달end */
 </style>
 </head>
-<body>
+<body style="margin:0;">
 
 	<!-- Header Start -->
 	<%@ include file="../inc/header.jsp"%>
@@ -290,7 +72,7 @@
 
 			<!-- Title -->
 			<div class="title">거래 상세 보기</div>
-			<div class="transaction-id">${auction.id}</div>
+			<div class="transaction-id"><b>Auction-No ${auction.auctionNum}</b></div>
 
 			<div class="user-info-container">
 				<div class="user-info">
@@ -322,33 +104,33 @@
 							<div class="column">
 								<dl>
 									<dt>직무</dt>
-									<dd>${auction.Occupation}</dd>
+									<dd>${!empty auction.occupation ? auction.occupation : "-"}</dd>
 								</dl>
 								<dl>
 									<dt>경력</dt>
-									<dd>${auction.period}</dd>
+									<dd>${!empty auction.period ? auction.period: "-"}</dd>
 								</dl>
 								<dl>
 									<dt>학력</dt>
-									<dd>${auction.education}</dd>
+									<dd>${!empty auction.education ? auction.education : "-"}</dd>
 								</dl>
 							</div>
 							<div class="column">
 								<dl>
 									<dt>근무형태</dt>
-									<dd>${auction.employmentType}</dd>
+									<dd>${!empty auction.employmentType ? auction.employmentType : "-"}</dd>
 								</dl>
 								<dl>
 									<dt>보유기술</dt>
-									<dd>${auction.stack}</dd>
+									<dd>${!empty auction.stack ? auction.stack : "-"}</dd>
 								</dl>
 								<dl>
 									<dt>자격증</dt>
-									<dd>${auction.Certification}</dd>
+									<dd>${!empty auction.certification ? auction.certification : "-"}</dd>
 								</dl>
 								<dl>
 									<dt>근무지역</dt>
-									<dd>${auction.location}</dd>
+									<dd>${!empty auction.location ? auction.location : "-" }</dd>
 								</dl>
 							</div>
 						</div>
