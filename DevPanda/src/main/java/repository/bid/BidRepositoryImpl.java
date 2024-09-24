@@ -98,8 +98,10 @@ public class BidRepositoryImpl implements BidRepository {
 		
 		try {
 			
-			//1.mybid 수정
+			//1-1.mybid 수정
 			sqlSession.update("mapper.bid.updateMyBid",param);
+			//1-2.allbuyers state=0 update
+			sqlSession.update("mapper.bid.updateAllbuersState",param);
 			//2.Auction수정
 			sqlSession.update("mapper.bid.updateAuctionStatus",param);
 			//3.Transaction 추가(nowAuction에서 즉시구매하는 경우) 
