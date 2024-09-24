@@ -30,7 +30,6 @@
     </update>
 
 	
-
 	<!-- bid 상태 업데이트 -->
 	<update id="updateBidStateToTwo" parameterType="map">
 		UPDATE bid
