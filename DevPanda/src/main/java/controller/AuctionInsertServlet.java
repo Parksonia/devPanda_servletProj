@@ -111,7 +111,7 @@ public class AuctionInsertServlet extends HttpServlet {
        
         auction.setId(id);
         auction.setStartPrice(minSalary);  
-        auction.setBidMaxPrice(minSalary); 
+        auction.setBidMaxPrice(0); //처음엔 입찰자가 없으니 0
         
         auction.setLocation(location);  // null 체크 후 값 설정
         auction.setStack(stack);        // null 체크 후 값 설정
