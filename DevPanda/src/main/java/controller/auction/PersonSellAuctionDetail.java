@@ -60,17 +60,15 @@ public class PersonSellAuctionDetail extends HttpServlet {
 			Auction auction = service.oneAuction(auctionNum);
 			
 			String endDate = auction.getEndDate(); //경매종료일
-			String nowDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()));
+			String nowDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(System.currentTimeMillis()));
 			
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			Date date = new Date(sdf.parse(endDate).getTime());
 			Date today = new Date(sdf.parse(nowDate).getTime());
-			
 			Long calDay = date.getTime() - today.getTime();
 			int dDays = (int)(calDay/(24*60*60*1000));
-			
-			//endDate가 오늘 이후인지 판단
-			boolean isAfterToday = date.after(today);
+			long remainHours = (calDay/(60 * 60 * 1000)) % 24;
+			long remainMinutes = (calDay/(60 * 1000)) % 60;
 			
 			BidService bidSerive = new BidServiceImpl();
 			List<Bid> allBuyers = new ArrayList<>();
@@ -92,7 +90,8 @@ public class PersonSellAuctionDetail extends HttpServlet {
 			request.setAttribute("allBuyers", allBuyers);
 			// day정보
 			request.setAttribute("dDays", dDays);
-			request.setAttribute("isAfterToday", isAfterToday);
+			request.setAttribute("dHours", remainHours);
+			request.setAttribute("dMinutes", remainMinutes);
 			
 			request.getRequestDispatcher("/view/seller/personSellAuctionDetail.jsp").forward(request, response);
 			

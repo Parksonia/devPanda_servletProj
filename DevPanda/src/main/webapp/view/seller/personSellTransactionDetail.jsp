@@ -10,7 +10,6 @@
 <!-- 개인|판매내역조회|낙찰내역조회|거래성공 |상세보기 -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <link href="${pageContext.request.contextPath }/css/details.css" rel="stylesheet">
-
 <style>
 .progress_item_description {
 	color: black; /* 기본 색상 */
@@ -63,7 +62,7 @@
 
 			<!-- Title -->
 			<div class="title">거래 상세 보기</div>
-			<div class="transaction-id">AB123-CD5678-${auctionNum }</div>
+			<div class="transaction-id">A-No ${auctionNum }</div>
 			
 <!-- userInfo -->
 			<div class="user-info-container">
@@ -132,7 +131,7 @@
 				<div style="display: flex; justify-content: space-between;">
 					<!-- 구매자(Buyer) 프로필 -->
 					<c:choose>
-						<c:when test="${memType == 'P'}">
+						<c:when test="${memType == 'person'}">
 							<div class="profile">
 								<img src="image?file=${bperson.personImage}" alt="BuyerImg">
 								<p style="color: #888; font-weight: bold;">[개인회원]</p>
@@ -231,8 +230,8 @@
 								<c:when test="${buyer.bidState == 2 || buyer.bidState == 3 }">
 									<tr style="background-color: rgba(128, 128, 128, 0.2);">
 										<td class="table_td"><span class="status final-bid">낙찰</span></td>
-										<td class="table_td">[${buyer.memType == 'C' ? '기업' : '개인'}회원]
-											${buyer.memType == 'C' ? buyer.buyerId : buyer.buyPersonId}</td>
+										<td class="table_td">[${buyer.memType == 'company' ? '기업' : '개인'}회원]
+											${buyer.memType == 'company' ? buyer.buyerId : buyer.buyPersonId}</td>
 										<td class="table_td align_right"><fmt:formatNumber
 												value="${buyer.bidPrice }" type="number" />원</td>
 										<td class="table_td align_right">${buyer.bidDate }</td>
@@ -241,8 +240,8 @@
 								<c:otherwise>
 									<tr>
 										<td class="table_td"><span class="status">입찰</span></td>
-										<td class="table_td">[${buyer.memType == 'C' ? '기업' : '개인'}회원]
-											${buyer.memType == 'C' ? buyer.buyerId : buyer.buyPersonId }</td>
+										<td class="table_td">[${buyer.memType == 'company' ? '기업' : '개인'}회원]
+											${buyer.memType == 'company' ? buyer.buyerId : buyer.buyPersonId }</td>
 										<td class="table_td align_right"><fmt:formatNumber
 												value="${buyer.bidPrice }" type="number" />원</td>
 										<td class="table_td align_right">${buyer.bidDate }</td>
@@ -289,7 +288,7 @@
 					
 					<c:choose>
 					
-						<c:when test="${memType == 'P'}">
+						<c:when test="${memType == 'person'}">
 							<div class="modal-profile">
 								<div class="modal-profile-image">
 									<img src="image?file=${bperson.personImage}" alt="BuyerImg">
@@ -431,9 +430,9 @@ $(document).ready(function() {
 		
 		var memType = $('input[name="memType"]').val();
 		var url = '';
-		if (memType == 'P') {
+		if (memType == 'person') {
 			url = '${pageContext.request.contextPath}/buyerPersonBlack';
-		} else if (memType == 'C'){
+		} else if (memType == 'company'){
 			url = '${pageContext.request.contextPath}/buyerComBlack';
 		}
 		
@@ -493,7 +492,7 @@ $(document).ready(function() {
         
      	// 수신자 이메일 주소
         var memType = '${memType}';
-        var recipient = memType === 'P' ? '${bperson.email}' : '${bcompany.email}';
+        var recipient = memType === 'person' ? '${bperson.email}' : '${bcompany.email}';
         var replyTo = '${sperson.email}';
 
         if (!recipient) {

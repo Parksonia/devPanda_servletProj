@@ -2,7 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% 
     String userType = (String)session.getAttribute("userType");
-    request.setAttribute("userType", userType);  
+	String id = (String)session.getAttribute("id");
+	//System.out.println(id);
 %>
 <!DOCTYPE html>
 <html>
@@ -23,13 +24,9 @@
         </div>
 
         <div class="header_content">
-    <!--         <div class="header_top">
-                <ul class="top_list">
-                    <li class="top_item"><a class="top_link" href="./personInfo.jsp">마이페이지</a></li>
-                    <li class="top_item"><a class="top_link" href="#notifications">알림</a></li>
-                    <li class="top_item"><a class="top_link" href="/">로그아웃</a></li>
-                </ul>
-            </div> -->
+    		<div class="header_top">
+            	<span style="font-weight:bold;">${id}님 환영합니다</span>
+            </div>
 
             <div class="header_main">
                 <div class="gnb_area">
@@ -44,7 +41,6 @@
 	                                    <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/companyInfo">MYPAGE</a></li>
 	                                </c:when>
 	                            </c:choose>
-
                             <li class="gnb_item"><a class="gnb_link" href="${pageContext.request.contextPath }/logout">LOGOUT</a></li>
                         </ul>
                     </nav>

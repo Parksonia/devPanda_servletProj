@@ -131,14 +131,16 @@
 
 				<tr>
 					<th>포트폴리오</th>
-					<td><a
-						href="${pageContext.request.contextPath}/download?file=${auctionAndPerson.portfolio}"
-						target="_blank">포트폴리오 다운로드</a></td>
+					<td>
+						<c:if test="${auctionAndPerson.portfolio != null}">
+							<a href="${pageContext.request.contextPath}/download?file=${auctionAndPerson.portfolio}"
+								target="_blank">
+							포트폴리오 다운로드
+								<img src="${pageContext.request.contextPath}/img/download.svg" alt="" style="width:20px; height:20px;display:inline;">
+							</a>
+						</c:if>
+					</td>
 				</tr>
-
-
-
-
 				<tr>
 					<th>닉네임</th>
 					<td>${auctionAndPerson.nickName}</td>
@@ -169,9 +171,9 @@
 					<td>${auctionAndPerson.status}</td>
 				</tr>
 			</table>
-
-			<button onclick="bidOnProfile()"
-				class="mt-4 bg-blue-500 text-white p-2 rounded w-full">입찰하기</button>
+			<c:if test="${id != auctionAndPerson.id}">
+				<button onclick="bidOnProfile()" class="mt-4 bg-blue-500 text-white p-2 rounded w-full">입찰하기</button>
+			</c:if>		
 		</div>
 	</main>
 
