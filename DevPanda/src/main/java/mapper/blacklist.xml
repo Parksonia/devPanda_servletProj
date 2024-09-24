@@ -39,7 +39,8 @@
 		bl.content AS
 		content,
 		p.email AS email,
-		p.personImage as image
+		p.personImage as image,
+		p.nickName as nickName
 		FROM
 		blacklist AS bl
 		JOIN

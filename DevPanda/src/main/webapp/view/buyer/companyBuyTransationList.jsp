@@ -455,7 +455,7 @@ button:active {
 				                transactionListHtml += '<div class="history-item" data-auction-num="' + transaction.auctionNum + '">';
 				                transactionListHtml += '<img src="https://via.placeholder.com/50" alt="User">';
 				                transactionListHtml += '<div class="history-content">';
-				                transactionListHtml += '<span>' + transaction.auctionTitle + '</span>';
+				                transactionListHtml += '<span><b>A-No ' + transaction.auctionNum+'</b>&nbsp;&nbsp;&nbsp;'+transaction.auctionTitle + '</span>';
 				                transactionListHtml += '</div>';
 				                transactionListHtml += '<div class="prices">';
 				                transactionListHtml += '<span>' + new Intl.NumberFormat().format(transaction.maxSalary) + '원</span>';

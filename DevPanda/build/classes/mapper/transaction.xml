@@ -189,11 +189,9 @@
 	</select> 
 	
 	
-		<insert id="insertTransaction" parameterType="transaction" >
+	<insert id="insertTransaction" parameterType="transaction" >
 		insert into transaction(sellerId,auctionNum,bidNum,buyerId,date,price,state,memType)
 		values(#{sellerId},#{auctionNum},#{bidNum},#{buyerId},#{date},#{price},#{state},#{memType})
-	
-	
 	
 	</insert>
 
