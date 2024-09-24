@@ -73,6 +73,7 @@ public class Bid {
 		this.memType = memType;
 	}
 	
+	
 	public static Bid getBidFromBidAuctionTransactionDto(BidAuctionTransactionDto bidAuctionTransactionDto) {
 		Bid bid = new Bid();
 		
