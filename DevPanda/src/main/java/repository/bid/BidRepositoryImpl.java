@@ -29,6 +29,15 @@ public class BidRepositoryImpl implements BidRepository {
 		
 		
 		
+		
+	}
+	
+	
+	@Override
+	public void updateBidState(Integer auctionNum, SqlSession sqlSession) {
+		String statement = "mapper.bid.updateBidState";
+		sqlSession.update(statement,auctionNum);
+		sqlSession.commit();
 	}
 
 
@@ -144,4 +153,7 @@ public class BidRepositoryImpl implements BidRepository {
 		}
 		return true;
 	}
+	
+
+
 }
