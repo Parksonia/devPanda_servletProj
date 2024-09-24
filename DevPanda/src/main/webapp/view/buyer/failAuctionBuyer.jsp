@@ -9,57 +9,8 @@
 <title></title>
 <!-- 개인,기업|구매내역조회|입찰내역조회|입찰 거래실패 |상세보기 -->
 <link href="${pageContext.request.contextPath}/css/details.css" rel="stylesheet">
-<style>
-/*  price start */
-.prices {
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 20px;
-	align-items: center;
-}
-
-.prices .price_type {
-	flex: 1;
-	text-align: center;
-	line-height: 30px;
-	position: relative;
-}
-
-/* 첫 번째 price_type에는 :before를 추가하지 않음 */
-.prices .price_type:not(:first-child):before {
-	content: "";
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 1px;
-	height: 100%;
-	background-color: #ddd;
-}
-
-/* 세 번째 price_type에는 :after를 추가하지 않음 */
-.prices .price_type:not(:last-child):after {
-	content: "";
-	position: absolute;
-	right: 0;
-	top: 0;
-	width: 1px;
-	height: 100%;
-	background-color: #ddd;
-}
-
-.price_type>p {
-	font-size: 18px;
-	color: #22222280;
-}
-
-.price_type>span {
-	font-size: 26px;
-}
-
-/*  price end */
-</style>
 </head>
-<body>
+<body  style="margin:0;">
 	<!-- Header Start -->
 	<%@ include file="../inc/header.jsp"%>
 	<!-- Header End-->
@@ -105,33 +56,33 @@
 							<div class="column">
 								<dl>
 									<dt>직무</dt>
-									<dd>${auction.occupation}</dd>
+									<dd>${!empty auction.occupation ? auction.occupation : "-"}</dd>
 								</dl>
 								<dl>
 									<dt>경력</dt>
-									<dd>${auction.period}</dd>
+									<dd>${!empty auction.period ? auction.period: "-"}</dd>
 								</dl>
 								<dl>
 									<dt>학력</dt>
-									<dd>${auction.education}</dd>
+									<dd>${!empty auction.education ? auction.education : "-"}</dd>
 								</dl>
 							</div>
 							<div class="column">
 								<dl>
 									<dt>근무형태</dt>
-									<dd>${auction.employmentType}</dd>
+									<dd>${!empty auction.employmentType ? auction.employmentType : "-"}</dd>
 								</dl>
 								<dl>
 									<dt>보유기술</dt>
-									<dd>${auction.stack}</dd>
+									<dd>${!empty auction.stack ? auction.stack : "-"}</dd>
 								</dl>
 								<dl>
 									<dt>자격증</dt>
-									<dd>${auction.certification}</dd>
+									<dd>${!empty auction.certification ? auction.certification : "-"}</dd>
 								</dl>
 								<dl>
 									<dt>근무지역</dt>
-									<dd>${auction.location}</dd>
+									<dd>${!empty auction.location ? auction.location : "-" }</dd>
 								</dl>
 							</div>
 						</div>

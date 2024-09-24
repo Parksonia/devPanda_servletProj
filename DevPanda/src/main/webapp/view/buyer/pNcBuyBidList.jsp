@@ -12,212 +12,8 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link href="${pageContext.request.contextPath}/css/mypageList.css" rel="stylesheet">
 <style>
-.container.my .content_area {
-	min-height: 380px;
-}
-
-.container {
-	background-color: #fff;
-	padding: 0px 20px 20px 20px;
-	border-radius: 10px;
-	box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
-}
-
-.my_bidlist {
-	padding: 0 24px 80px;
-}
-
-.content_title {
-	display: flex;
-}
-
-.content_title.border {
-	border-bottom: 3px solid #222;
-	padding-bottom: 16px;
-}
-
-.title {
-	font-size: 24px;
-	letter-spacing: -.36px
-}
-
-.title>h3, h2 {
-	font-size: inherit;
-	line-height: 29px
-}
-
-.list_header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 20px;
-}
-
-.list_header input {
-	margin: 10px;
-	padding: 10px;
-	border-radius: 5px;
-	border: 1px solid #ddd;
-	width: 60%;
-}
-
-.list_header select, .header button {
-	margin: 10px;
-	padding: 10px;
-	border-radius: 5px;
-	border: 1px solid #ddd;
-}
-
-.searchBtn {
-	margin: 10px;
-	padding: 10px;
-	border-radius: 5px;
-	border: 1px solid #ddd;
-}
-
-.filters {
-	display: flex;
-	gap: 10px;
-	margin-bottom: 20px;
-	margin-top: 20px;
-}
-
-.filters button {
-	flex: 1;
-	padding: 10px;
-	border-radius: 5px;
-	border: 1px solid #ddd;
-	background-color: #f0f0f0;
-	cursor: pointer;
-}
-
-.filters button:hover {
-	background-color: #e0e0e0;
-}
-
-#daterange {
-	text-align: center;
-	width: 200px;
-}
-
-.item_container {
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	gap: 10px;
-	padding: 0 15px;
-	margin-bottom: 10px;
-}
-
-.item {
-	width: 140px; /* prices와 동일한 너비 설정 */
-	text-align: right; /* 텍스트 가운데 정렬 */
-}
-
-.item span {
-	font-size: 14px;
-	font-weight: bold;
-	margin-right: 5px;
-	margin-bottom: 10px;
-}
-
-.history-item {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 15px;
-	border: 1px solid #ddd;
-	border-radius: 10px;
-	margin-bottom: 10px;
-	background-color: #fafafa;
-	transition: transform 0.3s ease, background-color 0.3s ease;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	transform-origin: center; /* 확대될 때 중심을 기준으로 확대되도록 설정 */
-}
-
-.history-item:hover {
-	background-color: #f5f5f5;
-	transform: scale(1.02);
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* 확대 효과에 따른 그림자 */
-}
-
-.history-item img {
-	border-radius: 10px;
-	width: 80px;
-	height: 80px;
-	margin-right: 10px;
-}
-
-.history-content {
-	margin-left: 20px;
-	display: flex;
-	flex-direction: column;
-	flex: 1;
-}
-
-.history-content .tags {
-	display: flex;
-	gap: 10px;
-	margin-top: 10px;
-}
-
-.history-content .tags span {
-	padding: 5px 10px;
-	background-color: #e0e0e0;
-	border-radius: 20px;
-	font-size: 12px;
-}
-
-.prices {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 10px;
-}
-
-.prices span {
-	font-size: 14px;
-	font-weight: bold;
-	width: 140px; /* 일정한 너비 설정 */
-	text-align: right; /* 금액을 오른쪽 정렬 */
-}
-
-.empty_area {
-	padding: 81px 0 45px;
-	text-align: center
-}
-
-.btn {
-	align-items: center;
-	background-color: #fff;
-	color: rgba(34, 34, 34, .8);
-	cursor: pointer;
-	display: inline-flex;
-	justify-content: center;
-	text-align: center;
-	vertical-align: middle
-}
-
-.outlinegrey {
-	border: 1px solid #d3d3d3;
-	color: rgba(34, 34, 34, .8)
-}
-
-.outlinegrey:active {
-	background-color: #f4f4f4;
-	border-color: #ebebeb;
-	color: rgba(34, 34, 34, .5)
-}
-
-.small {
-	border-radius: 10px;
-	font-size: 12px;
-	height: 34px;
-	letter-spacing: -.06px;
-	padding: 0 14px
-}
-
 .no-items-message {
 	text-align: center;
 	font-size: 18px;
@@ -231,7 +27,7 @@
 }
 </style>
 </head>
-<body>
+<body style="margin:0;">
 	<!-- Header Start -->
 	<%@ include file="../inc/header.jsp"%>
 	<!-- Header End-->
@@ -276,6 +72,9 @@
 			                todayHighlight: true,
 			                autoApply: true
 			            });
+			            
+			            //'오늘' 버튼 추가
+			            $('.daterangepicker').append('<button class="today-button">오늘</button>');
 
 			            $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
 			                $(this).val(picker.startDate.format('YYYY-MM-DD') + ' ~ ' + picker.endDate.format('YYYY-MM-DD'));
@@ -471,6 +270,18 @@
 		reqeustData();
 	});
 	reqeustData(); // 처음 호출 
+	
+// '오늘' 버튼 클릭 이벤트
+ $(document).on('click', '.today-button', function() {
+   var today = moment();
+   $('input[name="daterange"]').data('daterangepicker').setStartDate(today);
+   $('input[name="daterange"]').data('daterangepicker').setEndDate(today);
+   $('input[name="daterange"]').val(today.format('YYYY-MM-DD') + ' ~ ' + today.format('YYYY-MM-DD'));
+   $('#startDate').val(today.format('YYYY-MM-DD'));
+   $('#endDate').val(today.format('YYYY-MM-DD'));
+   $('.period-button').removeClass('active');
+   $('.daterangepicker').hide();
+});
 //});	
 </script>
         	</div>
