@@ -29,14 +29,7 @@
         AND state = 'processing';
     </update>
 
-	<update id="updateAuctionStatusToSuccess" parameterType="map">
-		UPDATE auction
-		SET state = 'unprocessing'
-		WHERE endDate <![CDATA[<=]]>
-		#{currentDate}
-		AND state = 'processing';
-	</update>
-
+	
 	<!-- bid 상태 업데이트 -->
 	<update id="updateBidStateToTwo" parameterType="map">
 		UPDATE bid

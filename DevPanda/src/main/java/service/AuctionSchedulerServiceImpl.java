@@ -2,7 +2,9 @@ package service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -13,6 +15,9 @@ import repository.auction.AuctionSchedulerRepositoryImpl;
 public class AuctionSchedulerServiceImpl implements AuctionSchedulerService {
 
     private AuctionSchedulerRepository auctionSchedulerRepository = new AuctionSchedulerRepositoryImpl();
+    
+    // 이미 처리된 경매 번호를 저장하는 Set
+    private Set<Integer> processedAuctions = new HashSet<>();
     
     @Override
     public void startScheduler() {
@@ -27,6 +32,12 @@ public class AuctionSchedulerServiceImpl implements AuctionSchedulerService {
                     auctionSchedulerRepository.updateAuctionStatusToSuccess(currentDate);
                     List<Integer> finishedAuctions = auctionSchedulerRepository.getFinishedAuctions(currentDate);
                     for (Integer auctionNum : finishedAuctions) {
+                        // 이미 처리된 경매는 건너뜀
+                        if (processedAuctions.contains(auctionNum)) {
+                            System.out.println("Auction " + auctionNum + " already processed, skipping.");
+                            continue; // 이미 처리된 경매는 생략
+                        }
+
                         // 낙찰자 상태 업데이트
                         auctionSchedulerRepository.updateWinningBidState(auctionNum);
 
@@ -44,6 +55,9 @@ public class AuctionSchedulerServiceImpl implements AuctionSchedulerService {
                         }
 
                         auctionSchedulerRepository.updateLosingBiddersState(auctionNum);
+                        
+                        // 처리된 경매 번호를 추가
+                        processedAuctions.add(auctionNum);
                     }
                     System.out.println("Updated auction and bid states for date: " + currentDate);
                 } catch (Exception e) {
