@@ -8,280 +8,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-.container {
-	padding: 0px 20px 20px 20px;
-	border-radius: 10px;
-	margin: 0 50px 50px 50px;
-}
-
-.title {
-	text-align: center;
-	font-size: 24px;
-	font-weight: bold;
-	margin-bottom: 20px;
-}
-
-.transaction-id {
-	text-align: center;
-	color: #aaa;
-	margin-bottom: 20px;
-}
-
-.user-info-container {
-	background-color: #f9f9f9;
-	border-radius: 30px;
-	padding: 20px;
-	margin-bottom: 20px;
-}
-
-.user-info {
-	width: 100%;
-	height: auto;
-}
-
-.user-info .user {
-	/* width: 48%; */
-	text-align: center;
-	line-height: 30px;
-}
-
-.user_type {
-	color: #cccccc; /* 수정 */
-	font-size: 18px;
-	font-weight: 400;
-}
-
-.user img {
-	width: 80px;
-	height: 80px;
-	border-radius: 10px; /* 수정 */
-	margin-bottom: 10px;
-	margin-top: 10px;
-}
-
-/* .user p 삭제 */
-.bold {
-	font-weight: bold;
-}
-
 .minmax {
 	padding: 0;
 	width: 30%;
 	text-align: left;
 	display: flex;
 	justify-content: space-between;
-}
-
-.filter_bind {
-	display: flex;
-	justify-content: space-between;
-	padding-top: 10px;
-	border-top: 1px solid #ddd;
-	margin-top: 20px;
-	font-size: 14px;
-	position: relative;
-}
-
-.filter_bind  .column {
-	width: 48%;
-}
-
-.filter_bind  dl {
-	display: flex;
-	margin: 10px 0;
-	align-items: center; /* dt와 dd를 수직 정렬 */
-}
-
-.filter_bind  dt {
-	font-weight: bold;
-	color: #555;
-	flex-shrink: 0; /* dt의 크기를 고정하여 공백 문제 해결 */
-	margin-right: 10px; /* dt와 dd 사이의 간격 */
-	white-space: nowrap; /* dt가 줄 바꿈 없이 한 줄로 유지되도록 설정 */
-}
-
-.filter_bind  dd {
-	margin: 0;
-	color: #2D65F2;
-	text-align: right; /* dd의 텍스트를 오른쪽 정렬 */
-	flex-grow: 1; /* dd가 남은 공간을 채우도록 설정 */
-}
-
-.user .quote {
-	color: #666;
-	font-size: 14px;
-}
-
-/*  price start */
-.prices {
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 20px;
-	align-items: center;
-}
-
-.prices .price_type {
-	flex: 1;
-	text-align: center;
-	line-height: 30px;
-	position: relative;
-}
-
-/* 첫 번째 price_type에는 :before를 추가하지 않음 */
-.prices .price_type:not(:first-child):before {
-	content: "";
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 1px;
-	height: 100%;
-	background-color: #ddd;
-}
-
-/* 세 번째 price_type에는 :after를 추가하지 않음 */
-.prices .price_type:not(:last-child):after {
-	content: "";
-	position: absolute;
-	right: 0;
-	top: 0;
-	width: 1px;
-	height: 100%;
-	background-color: #ddd;
-}
-
-.price_type>p {
-	font-size: 18px;
-	color: #22222280;
-}
-
-.price_type>span {
-	font-size: 26px;
-}
-
-/*  price end */
-
-/* button start  */
-.button-container {
-	display: flex;
-	justify-content: space-around;
-	margin: 40px;
-}
-
-.button-wrapper {
-	box-sizing: border-box;
-	position: relative;
-	width: 266px;
-	height: 100px;
-	background: #FF7575;
-	border: 1px solid #D3D3D3;
-	border-radius: 10px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-/* 첫 번째 버튼 래퍼에만 적용될 스타일 */
-.button-wrapper.white-background {
-	background: #FFFFFF;
-}
-
-.custom-button {
-	background: none;
-	border: none;
-	color: white;
-	font-size: 24px;
-	cursor: pointer;
-	width: 100%;
-	height: 100%;
-	border-radius: 10px;
-}
-
-/* 첫 번째 버튼에만 적용될 스타일 */
-.custom-button.black-text {
-	color: black;
-}
-
-.custom-button:hover {
-	/* background: rgba(255, 255, 255, 0.3); */
-	background: rgba(0, 0, 0, 0.1);
-}
-
-/* button end */
-.final-bid {
-	color: red;
-	font-weight: bold;
-}
-
-/* 추가 */
-.detail_bind {
-	border-top: 1px solid black;
-	font-size: 14px;
-	padding: 10px;
-	margin-bottom: 20px;
-}
-
-.detail_addition {
-	align-items: center;
-	display: flex;
-	font-size: 13px;
-	justify-content: space-between;
-	min-height: 20px;
-}
-
-.detail_addition+.detail_addition {
-	margin-top: 10px;
-}
-
-.detail_title {
-	color: #22222280;
-}
-
-.detail_text {
-	color: #222;
-	font-size: 14px;
-	letter-spacing: -.21px;
-	text-align: right;
-	white-space: nowrap;
-}
-
-.line-separator {
-	border-top: 1px solid #ddd;
-	margin: 20px 0;
-}
-
-.bid-history {
-	margin-bottom: 20px;
-}
-
-.bid-history table {
-	width: 100%;
-	border: 0;
-	border-collapse: collapse;
-	margin-bottom: 20px;
-}
-
-.table_th {
-	border-bottom: 1px solid #ebebeb;
-	color: rgba(34, 34, 34, .5);
-	font-size: 16px;
-	font-weight: 400;
-	letter-spacing: -.06px;
-	line-height: 14px;
-	padding: 10px;
-	text-align: left
-}
-
-.align_right {
-	text-align: right
-}
-
-.table_td {
-	padding: 10px;
-	border-bottom: 1px solid #f0f0f0;
-	/* 추가 */
-	font-size: 14px;
-	line-height: 17px;
-	padding-top: 9px;
 }
 
 .bid-history .highest-bid {
@@ -324,14 +56,6 @@
 	width: 599px;
 	text-align: center;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.modal-header {
-	font-weight: 700;
-	font-size: 32px;
-	color: #000000;
-	text-align: center;
-	margin-bottom: 40px;
 }
 
 .modal .price-info {
@@ -394,15 +118,17 @@
 	text-decoration: none;
 	cursor: pointer;
 }
-#congImgae{
-width:30px;
-height:30px;
+
+#congImgae {
+	width:30px;
+	height:30px;
 }
 </style>
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<link href="${pageContext.request.contextPath}/css/details.css"	rel="stylesheet">
 </head>
-<body>
+<body style="margin:0;">
 	<!-- Header Start -->
 	<%@ include file="../inc/header.jsp"%>
 	<!-- Header End-->
@@ -448,34 +174,34 @@ height:30px;
 							<div class="column">
 								<dl>
 									<dt>직무</dt>
-									<dd>${auction.occupation}</dd>
+									<dd>${!empty auction.occupation ? auction.occupation : "-"}</dd>
 								</dl>
 								<dl>
 									<dt>경력</dt>
-									<dd>${auction.period}</dd>
+									<dd>${!empty auction.period ? auction.period: "-"}</dd>
 								</dl>
 								<dl>
 									<dt>학력</dt>
-									<dd>${auction.education}</dd>
+									<dd>${!empty auction.education ? auction.education : "-"}</dd>
 								</dl>
 							</div>
 
 							<div class="column">
 								<dl>
 									<dt>근무형태</dt>
-									<dd>${auction.employmentType}</dd>
+									<dd>${!empty auction.employmentType ? auction.employmentType : "-"}</dd>
 								</dl>
 								<dl>
 									<dt>보유기술</dt>
-									<dd>${auction.stack}</dd>
+									<dd>${!empty auction.stack ? auction.stack : "-"}</dd>
 								</dl>
 								<dl>
 									<dt>자격증</dt>
-									<dd>${auction.certification}</dd>
+									<dd>${!empty auction.certification ? auction.certification : "-"}</dd>
 								</dl>
 								<dl>
 									<dt>근무지역</dt>
-									<dd>${auction.location}</dd>
+									<dd>${!empty auction.location ? auction.location : "-" }</dd>
 								</dl>
 							</div>
 						</div>

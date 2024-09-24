@@ -47,7 +47,7 @@
 }
 </style>
 </head>
-<body>
+<body style="margin:0;">
 	<!-- Header Start -->
 	<%@ include file="../inc/header.jsp"%>
 	<!-- Header End-->
@@ -91,33 +91,33 @@
 							<div class="column">
 								<dl>
 									<dt>직무</dt>
-									<dd>${auction.occupation }</dd>
+									<dd>${!empty auction.occupation ? auction.occupation : "-"}</dd>
 								</dl>
 								<dl>
 									<dt>경력</dt>
-									<dd>${auction.period }</dd>
+									<dd>${!empty auction.period ? auction.period: "-"}</dd>
 								</dl>
 								<dl>
 									<dt>학력</dt>
-									<dd>${auction.education }</dd>
+									<dd>${!empty auction.education ? auction.education : "-"}</dd>
 								</dl>
 							</div>
 							<div class="column">
 								<dl>
 									<dt>근무형태</dt>
-									<dd>${auction.employmentType }</dd>
+									<dd>${!empty auction.employmentType ? auction.employmentType : "-"}</dd>
 								</dl>
 								<dl>
 									<dt>보유기술</dt>
-									<dd>${auction.stack }</dd>
+									<dd>${!empty auction.stack ? auction.stack : "-"}</dd>
 								</dl>
 								<dl>
 									<dt>자격증</dt>
-									<dd>${auction.certification }</dd>
+									<dd>${!empty auction.certification ? auction.certification : "-"}</dd>
 								</dl>
 								<dl>
 									<dt>근무지역</dt>
-									<dd>${auction.location }</dd>
+									<dd>${!empty auction.location ? auction.location : "-" }</dd>
 								</dl>
 							</div>
 						</div>

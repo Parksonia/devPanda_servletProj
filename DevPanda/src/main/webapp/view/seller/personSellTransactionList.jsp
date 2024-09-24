@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>BidList</title>
+<title>Person Sell Transaction List</title>
 <!-- 개인|판매내역조회|낙찰내역조회| -->
 <style>
 .period-button.active {
@@ -25,7 +25,7 @@
 <link href="${pageContext.request.contextPath}/css/mypageList.css"
 	rel="stylesheet">
 </head>
-<body>
+<body style="margin:0;">
 	<!-- Header Start -->
 	<%@ include file="../inc/header.jsp"%>
 	<!-- Header End-->
@@ -207,15 +207,15 @@ $(document).ready(function() {
    // 날짜 선택기 초기화
    $('input[name="daterange"]').daterangepicker({
      opens: 'left',
-     autoUpdateInput: false,
      locale: {
        "separator": " ~ ",     // 시작일시와 종료일시 구분자
        "format": 'YYYY-MM-DD',     // 일시 노출 포맷
-       "applyLabel": "확인",      // 확인 버튼 텍스트
-       "cancelLabel": "취소",    // 취소 버튼 텍스트
        "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
        "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
-     }
+     },
+     autoUpdateInput: false,
+     todayHighlight: true,
+     autoApply:true
    }, function(start, end, label) {
      $('#startDate').val(start.format('YYYY-MM-DD'));
      $('#endDate').val(end.format('YYYY-MM-DD'));
@@ -224,6 +224,21 @@ $(document).ready(function() {
      // 날짜 범위가 선택되면 버튼에서 active 클래스 제거
      $('.period-button').removeClass('active');
    });
+   
+ 	//'오늘' 버튼 추가
+ 	$('.daterangepicker').append('<button class="today-button">오늘</button>');
+
+	 // '오늘' 버튼 클릭 이벤트
+	 $(document).on('click', '.today-button', function() {
+	   var today = moment();
+	   $('input[name="daterange"]').data('daterangepicker').setStartDate(today);
+	   $('input[name="daterange"]').data('daterangepicker').setEndDate(today);
+	   $('input[name="daterange"]').val(today.format('YYYY-MM-DD') + ' ~ ' + today.format('YYYY-MM-DD'));
+	   $('#startDate').val(today.format('YYYY-MM-DD'));
+	   $('#endDate').val(today.format('YYYY-MM-DD'));
+	   $('.period-button').removeClass('active');
+	   $('.daterangepicker').hide();
+	 });
 
    // 최근 1개월, 3개월, 6개월 설정 및 active 클래스 추가
    function setDateRange(months, button) {
