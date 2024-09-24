@@ -16,7 +16,7 @@
 <link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet">
 </head>
 <body> 
-    <div class="header">
+    <div class="header" style=" box-sizing: border-box;">
         <div class="header_logo">
             <a href="${pageContext.request.contextPath }/auctionoffset"><img src="${pageContext.request.contextPath}/img/logoS.png" alt="DevPanda Logo"></a>
 
