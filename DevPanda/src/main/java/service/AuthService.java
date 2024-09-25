@@ -33,7 +33,7 @@ public class AuthService {
 			parameterMap.put("id", id);
 			parameterMap.put("password", password);
 			person = personRepository.findPersonByIdAndPassword(parameterMap);
-			if(person.getId().equals(id)  && person.getPassword().equals(password)) {
+			if(person != null && person.getId().equals(id)  && person.getPassword().equals(password)) {
 				HttpSession session = request.getSession();
 				session.setAttribute("person", person);
 				session.setAttribute("id", person.getId());
@@ -64,7 +64,7 @@ public class AuthService {
 			
 			company = companyRepository.findCompanyByIdAndPassword(parameterMap);
 			
-			if(company.getId().equals(id)  && company.getPassword().equals(password)) {
+			if(company != null && company.getId().equals(id)  && company.getPassword().equals(password)) {
 				HttpSession session = request.getSession();
 				session.setAttribute("company", company);
 				session.setAttribute("id", company.getId());
