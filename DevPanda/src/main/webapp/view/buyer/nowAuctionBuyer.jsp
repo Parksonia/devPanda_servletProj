@@ -332,7 +332,7 @@
                 <span>현재 최고 입찰가</span>
                 <span class="final-bid" id="bidMaxPrice"></span>
             </div>
-            <div class="register-tra" id="register-tra"><h2><img src="image?file=cong.png" id="congImgae" /><span style="color:blue;">${auction.maxSalary}</span> 로 낙찰됩니다.<img src="image?file=cong.png" id="congImgae"/></h2></div>
+            <div class="register-tra" id="register-tra"><h2><img src="image?file=cong.png" id="congImgae" /><span style="color:blue;"><fmt:formatNumber value="${auction.maxSalary}" type="Number"></fmt:formatNumber></span> 로 낙찰됩니다.<img src="image?file=cong.png" id="congImgae"/></h2></div>
             <div class="register-bid" id="register-bid">
             	<input type="text" placeholder="금액을 입력해주세요" id="newBidPrice" name="newBidPrice"  />
 	            <div class="info-text"><span class="text-detail">현재 최고 입찰가보다 큰 금액을 입력하세요.</span></div>
@@ -355,8 +355,8 @@ $(document).ready(function() {
 
 	$(".open-modal-btn").click(function(e) {
 	
-		var bidMaxPrice = $(this).attr('data-bidMaxPrice');
-    	var myBidPrice = $(this).attr('data-myBidPrice');
+		var bidMaxPrice = parseInt($(this).attr('data-bidMaxPrice')).toLocaleString();
+    	var myBidPrice = parseInt($(this).attr('data-myBidPrice')).toLocaleString();
    	 	maxSalary = parseInt($(this).attr('data-maxSalary'),10); //10진수로 변환함 , 안하면 NaN으로 뜸 
     	minBidPrice = parseInt(bidMaxPrice, 10);
    
