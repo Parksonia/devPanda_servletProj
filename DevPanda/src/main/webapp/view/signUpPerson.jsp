@@ -24,6 +24,7 @@
 
 .check-button {
 	background-color: #4CAF50;
+	width:150px;
 	cursor: pointer;
 	font-weight: bold;
 	color: white; /* 흰색 글자 */
@@ -34,11 +35,31 @@
 	justify-content: center; /* 가로 중앙 정렬 */
 	transition: background-color 0.3s; /* 배경색 변화 효과 */
 }
+
 .input-error-title-2 {
 	margin-left: 10px;
 }
+
+.select-image-btn {
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+#profileImage:hover {
+	opacity: 0.8;
+}
 </style>
 <script>
+
 document.addEventListener('DOMContentLoaded', function() {
     const checkPasswordsButton = document.querySelector('#checkPasswords');
     const passwordInput = document.querySelector('#password');
@@ -78,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     checkButton.onclick = function() {
         const idValue = idInput.value;
-        
+        console.log(idValue);
         if (idValue.trim() === '') {
             errorMessageContainer.textContent = '아이디를 입력해 주세요.';
             return;
@@ -102,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     errorMessageContainer.textContent = '중복된 아이디입니다.';
                     errorMessageContainer.style.color = 'red'; // 빨간색으로 표시
 
-                } else {I
+                } else {
                     errorMessageContainer.textContent = '사용 가능한 아이디입니다.';
                     errorMessageContainer.style.color = 'green'; // 초록색으로 표시
 
@@ -120,8 +141,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 </script>
-
 </head>
+
 <body>
 	<div class="entire-container">
 		<div class="container" style="margin-top: 70px;">
@@ -145,8 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				<div class="input-container">
 					<div class="input-title-2">아이디*</div>
 					<div class="input-2-container">
-						<input class="input-2" id="id" name="id"
-							placeholder="아이디를 입력해 주세요">
+						<input class="input-2" id="id" name="id" placeholder="아이디를 입력해 주세요">
 						<div class="check-button-container">
 						<button type="button" id="checkButton" class="check-button"><p>중복확인</p></button>
 						</div>
@@ -207,8 +227,13 @@ document.addEventListener('DOMContentLoaded', function() {
 			<div class="form-container">
 				<div class="input-container">
 					<div class="input-title-2">사진*</div>
+
 					<div class="input-2-container">
-						<input type="file" name="personImage" class="input-2">
+						<div id="imagePreviewContainer">
+                			<button type="button" id="selectImageBtn" class="select-image-btn">사진 선택</button>
+               				 <img id="profileImage" style="display: none; width: 100px; height: 100px; object-fit: cover; cursor: pointer;" alt="프로필 이미지">
+            			</div>
+           				 <input type="file" style="display: none" id="profileImageInput" accept="image/*" name="personImage" class="input-2">
 					</div>
 				</div>
 			</div>
@@ -218,6 +243,34 @@ document.addEventListener('DOMContentLoaded', function() {
 		</form>
 	</div>
 
+ 	<script>
+ 	document.addEventListener('DOMContentLoaded', function() {
+ 	    const selectImageBtn = document.getElementById('selectImageBtn');
+ 	    const profileImageInput = document.getElementById('profileImageInput');
+ 	    const profileImage = document.getElementById('profileImage');
+
+ 	    function openFileDialog() {
+ 	        profileImageInput.click();
+ 	    }
+
+ 	    selectImageBtn.addEventListener('click', openFileDialog);
+ 	    profileImage.addEventListener('click', openFileDialog);
+
+ 	    profileImageInput.addEventListener('change', function(event) {
+ 	        if (event.target.files && event.target.files[0]) {
+ 	            const reader = new FileReader();
+ 	            
+ 	            reader.onload = function(e) {
+ 	                profileImage.src = e.target.result;
+ 	                profileImage.style.display = 'block';
+ 	                selectImageBtn.style.display = 'none';
+ 	            }
+ 	            
+ 	            reader.readAsDataURL(event.target.files[0]);
+ 	        }
+ 	    });
+ 	});
+ 	</script>
 
 </body>
 </html>
