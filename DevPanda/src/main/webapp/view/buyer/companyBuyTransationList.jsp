@@ -268,7 +268,7 @@ button:active {
 				            $.each(transactionList, function(index, transaction) {
 				            	transactionListHtml += '<a href="' + '${pageContext.request.contextPath}/CompanyAuctionBuyerSuc?auctionNum=' + transaction.auctionNum + '&transactionNum=' + transaction.transactionNum + '" style="text-decoration: none; color: inherit;">';
 				                transactionListHtml += '<div class="history-item" data-auction-num="' + transaction.auctionNum + '">';
-				                transactionListHtml += '<img src="https://via.placeholder.com/50" alt="User">';
+				                transactionListHtml += '<img src="image?file='+ transaction.personImage + '" alt="User">';
 				                transactionListHtml += '<div class="history-content">';
 				                transactionListHtml += '<span><b>A-No ' + transaction.auctionNum+'</b>&nbsp;&nbsp;&nbsp;'+transaction.auctionTitle + '</span>';
 				                transactionListHtml += '</div>';

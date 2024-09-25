@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
 						<input class="input-2" id="confirmPassword" name="confirmPassword"
 							type="password" placeholder="비밀번호를 입력해 주세요">
 						<div class="check-button-container">
-						<button type="button" id="checkButton" class="check-button"><p>비밀번호확인</p></button>
+						<button type="button" id="checkPasswords" class="check-button"><p>비밀번호확인</p></button>
 						</div>
 					</div>
 					<div class="input-error-title-2" id="passwordMessage"></div>

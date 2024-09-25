@@ -77,7 +77,7 @@
 			<div class="user-info-container">
 				<div class="user-info">
 					<div class="user">
-						<img src="https://via.placeholder.com/80" alt="User Icon">
+						<img src="image?file=${person.personImage}" alt="User Icon">
 						<p class="user_type">[개인회원]</p>
 						<p class="bold">${person.nickName}</p>
 						<p class="title">${auction.title}</p>
@@ -145,7 +145,7 @@
 				<div style="display: flex; justify-content: space-between;">
 					<!-- 구매자 프로필(Company) -->
 					<div class="profile">
-						<img src="https://via.placeholder.com/80" alt="User Icon">
+						<img src="image?file=${company.companyImage}" alt="User Icon">
 						<p style="color: #888; font-weight: bold;">[기업회원]</p>
 						<p style="font-weight: bold;">${company.name}</p>
 						<p>아이디: ${company.id}</p>
@@ -154,7 +154,7 @@
 					</div>
 					<!-- 판매자 프로필(Person) -->
 					<div class="profile">
-						<img src="https://via.placeholder.com/80" alt="User Icon">
+						<img src="image?file=${person.personImage}" alt="User Icon">
 						<p style="color: #888; font-weight: bold;">[개인회원]</p>
 						<p style="font-weight: bold;">${person.nickName}</p>
 						<p>아이디: ${person.id}</p>
@@ -199,7 +199,6 @@
 					</div>
 					<div class="detail_text">${transaction.date}</div>
 				</div>
-				<div class="detail_addition"></div>
 				<div class="detail_addition">
 					<div class="detail_title">
 						<span>낙찰유형</span>
@@ -258,9 +257,8 @@
 					<span class="progress_item_title">낙찰 완료</span>
 					<div style="display: flex; flex-direction: column;">
 						<span class="progress_item_title">계약서 검토중</span>
-						<!-- 	<a href="#" class="progress_item_description">계약서확인</a> -->
 					</div>
-					<span class=" progress_item_title completed">계약서 수신 완료</span>
+					<span class=" progress_item_title completed">계약 완료</span>
 				</div>
 			</div>
 

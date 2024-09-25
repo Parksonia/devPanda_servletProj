@@ -207,10 +207,12 @@
 		c.companyName as companyName,
 		c.id as companyId,
 		a.maxSalary as maxSalary,
-		a.title as auctionTitle
+		a.title as auctionTitle,
+		p.personImage AS personImage
 		FROM Transaction t
 		JOIN Company c ON t.buyerId = c.id
 		JOIN Auction a ON t.auctionNum = a.auctionNum
+		JOIN person p ON t.sellerId = p.id
 		WHERE
 		c.id = #{companyId}
 		AND t.date BETWEEN #{startDate} AND #{endDate}
