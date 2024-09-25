@@ -75,15 +75,13 @@
 						<div class="minmax">
 							<span class="bold">희망 최소 연봉</span>
 							<div>
-								<span><fmt:formatNumber value="${auction.minSalary}"
-										type="number" />원</span>
+								<span><fmt:formatNumber value="${auction.minSalary}" type="number" />원</span>
 							</div>
 						</div>
 						<div class="minmax">
 							<span class="bold">희망 최대 연봉</span>
 							<div>
-								<span><fmt:formatNumber value="${auction.maxSalary}"
-										type="number" />원</span>
+								<span><fmt:formatNumber value="${auction.maxSalary}" type="number" />원</span>
 							</div>
 						</div>
 						<div class="filter_bind">

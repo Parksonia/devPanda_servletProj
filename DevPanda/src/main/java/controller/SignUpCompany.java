@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -34,35 +37,23 @@ public class SignUpCompany extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		try {
+			String path = request.getServletContext().getRealPath("upload");
+			int size = 10*1024*1024;
+			
+			MultipartRequest multi = new MultipartRequest(request,path,size,"utf-8", new DefaultFileRenamePolicy());
+			
+			
 			// 폼 데이터 가져오기
-			String id = request.getParameter("id");
-			String companyName = request.getParameter("companyName");
-			String email = request.getParameter("email");
-			String password = request.getParameter("password");
-			String address = request.getParameter("address");
-			String companyNum = request.getParameter("companyNum");
+			String id = multi.getParameter("id");
+			String companyName = multi.getParameter("companyName");
+			String email = multi.getParameter("email");
+			String password = multi.getParameter("password");
+			String address = multi.getParameter("address");
+			String companyNum = multi.getParameter("companyNum");
 			String status = "active";
 
 			// 파일 업로드 처리
-			Part companyImagePart = request.getPart("companyImage");
-			String fileName = companyImagePart.getSubmittedFileName(); // 파일 이름 추출
-
-			// 저장될 경로 지정 (webapp 밑의 upload 폴더)
-			String uploadDir = getServletContext().getRealPath("/upload");
-			String filePath = uploadDir + File.separator + fileName;
-
-			// 경로가 존재하지 않으면 디렉토리를 생성
-			File uploadDirFile = new File(uploadDir);
-			if (!uploadDirFile.exists()) {
-				uploadDirFile.mkdirs();
-			}
-
-			// 파일을 지정한 경로에 저장
-			companyImagePart.write(filePath);
-            System.out.println("파일 저장 경로: " + filePath);
-
-			// 상대 경로를 저장 (웹에서 접근 가능한 경로)
-			//String relativeFilePath = "/upload/" + fileName;
+			String fileName = multi.getOriginalFileName("companyImage");
 
 			// Company 객체 생성
 			Company company = new Company();

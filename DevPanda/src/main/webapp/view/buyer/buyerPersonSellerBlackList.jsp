@@ -77,7 +77,7 @@
 									<div class="list_item_title_wrap">
 										<!---->
 										<p class="list_itme_div_user">[개인회원]</p>
-										<p class="list_item_title">${item.blackPerson}</p>
+										<p class="list_item_title"><b>${item.nickName}</b>(${item.blackPerson})</p>
 										<p class="list_item_description">
 											<span>${item.title}</span>
 										</p>

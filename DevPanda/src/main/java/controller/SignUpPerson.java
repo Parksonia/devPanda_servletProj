@@ -1,8 +1,7 @@
 package controller;
 
-import dto.Person;
-import service.PersonService;
-import service.PersonServiceImpl;
+import java.io.File;
+import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -12,8 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import java.io.File;
-import java.io.IOException;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+import dto.Person;
+import service.PersonService;
+import service.PersonServiceImpl;
 
 @WebServlet("/signUpPerson")
 @MultipartConfig
@@ -34,38 +37,23 @@ public class SignUpPerson extends HttpServlet {
     	request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
         try {
+        	String path = request.getServletContext().getRealPath("upload");
+			int size = 10*1024*1024;
+			
+			MultipartRequest multi = new MultipartRequest(request,path,size,"utf-8", new DefaultFileRenamePolicy());
+        	
             // 요청 파라미터를 가져옴
-            String id = request.getParameter("id");
-            String nickName = request.getParameter("nickName");
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
-            String address = request.getParameter("address");
-            String sex = request.getParameter("sex");
-            String age = request.getParameter("age");
+            String id = multi.getParameter("id");
+            String nickName = multi.getParameter("nickName");
+            String email = multi.getParameter("email");
+            String password = multi.getParameter("password");
+            String address = multi.getParameter("address");
+            String sex = multi.getParameter("sex");
+            String age = multi.getParameter("age");
             String status = "active";
 
             // 파일 업로드 처리
-            Part personImagePart = request.getPart("personImage");
-            String fileName = personImagePart.getSubmittedFileName(); // 파일 이름 추출
-
-            // 웹 애플리케이션의 루트 경로를 가져오기
-            String uploadDir = getServletContext().getRealPath("/upload");
-            String filePath = uploadDir + File.separator + fileName;
-
-            // 경로가 존재하지 않으면 디렉토리를 생성
-            File uploadDirFile = new File(uploadDir);
-            if (!uploadDirFile.exists()) {
-                uploadDirFile.mkdirs();
-            }
- 
-            // 파일을 지정한 경로에 저장
-            personImagePart.write(filePath);
-            // 저장된 파일 경로를 출력
-            System.out.println("파일 저장 경로: " + filePath);
-            
-            // 상대 경로를 저장 (웹에서 접근 가능한 경로)
-            //String relativeFilePath = "upload/" + fileName;
-
+            String fileName = multi.getOriginalFileName("personImage");
             
             // Person 객체 생성
             Person person = new Person();

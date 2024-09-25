@@ -525,7 +525,7 @@ to {
 										<p class="list_itme_div_user">[개인회원]</p>
 										<p class="list_item_title"><b>${black.nickName}</b> (${black.blackPerson})</p>
 										<p class="list_item_description">
-											<span>${black.atitle}</span>
+											<span>${black.title}</span>
 										</p>
 									</div>
 								</div>
