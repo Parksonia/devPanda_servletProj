@@ -73,7 +73,7 @@
 		a.title AS auctionTitle,
 		p.*
 		FROM blacklist b JOIN transaction t
-		ON. b.transactionNum = t.transactionNum
+		ON b.transactionNum = t.transactionNum
 		JOIN auction a ON t.auctionNum = a.auctionNum
 		JOIN person p ON t.sellerId = p.id
 		WHERE b.declPerson=#{id} AND LOWER(roleType) ='b'
