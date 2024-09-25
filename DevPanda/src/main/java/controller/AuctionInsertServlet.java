@@ -29,7 +29,8 @@ public class AuctionInsertServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+    	request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
     	
     	//로그인 회원 정보 조회
     	HttpSession session = request.getSession(false);
