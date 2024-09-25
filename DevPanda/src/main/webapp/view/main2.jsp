@@ -6,7 +6,6 @@
 <%@ page import="dto.AuctionAndPerson"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -74,9 +73,11 @@ input[type="checkbox"]:checked + label::after{
 <!-- 관심 키워드 Section -->
     <section class="mb-8">
     <div class="text-xl font-bold mb-4" style="display: flex;justify-content: space-between;">
-        <span>관심 키워드</span>        
-        	<button onclick="openAuctionModal()" 
+        <span>관심 키워드</span>
+        	<c:if test="${userType == 'person' }">
+        		<button onclick="openAuctionModal()" 
                   class="bg-red-auctioninput-btn text-white p-2 rounded" style="display:inline-block;width:150px;">경매 등록하기</button>
+        	</c:if>
    	</div>
    	
         <div class="bg-white p-4 shadow-md rounded">
