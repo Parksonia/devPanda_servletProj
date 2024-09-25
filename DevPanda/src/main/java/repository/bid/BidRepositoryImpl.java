@@ -34,6 +34,27 @@ public class BidRepositoryImpl implements BidRepository {
 	
 	
 	@Override
+	public Integer selectCount(Map<String, Object> map, SqlSession sqlSession) {
+		String statement = "mapper.bid.selectCount";
+		return sqlSession.selectOne(statement, map);
+		
+	}
+
+
+	
+	
+	
+	@Override
+	public void updateBid(Map<String, Object> map, SqlSession sqlSession) {
+		String statement = "mapper.bid.updateBid";
+		sqlSession.update(statement,map);
+	}
+
+
+	
+	
+	
+	@Override
 	public void updateBidState(Integer auctionNum, SqlSession sqlSession) {
 		String statement = "mapper.bid.updateBidState";
 		sqlSession.update(statement,auctionNum);
@@ -153,7 +174,12 @@ public class BidRepositoryImpl implements BidRepository {
 		}
 		return true;
 	}
-	
+
+
+
+
+
+
 
 
 }

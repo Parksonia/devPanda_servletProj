@@ -16,6 +16,12 @@ public interface BidRepository {
 	
 	void insertBid(Bid bid,SqlSession sqlSession);
 	
+	Integer selectCount(Map<String,Object> map,SqlSession sqlSession);
+	
+	
+	
+	void updateBid(Map<String,Object> map,SqlSession sqlSession);
+	
 	
 
 	Integer selectBuyBidCnt(HashMap<String, Object> pageInfo) throws Exception;

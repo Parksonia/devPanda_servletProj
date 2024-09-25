@@ -4,7 +4,62 @@
 
 <mapper namespace="mapper.bid">
 
+	
+	<!-- count 확인 쿼리 -->
+	<select id="selectCount" parameterType="Map" resultType="int">
+	
+		select count(*) as count from bid 
+		
+		
+		<where>
+			<if test="buyPersonId != null and buyPersonId != ''">
+				and buyPersonId=#{buyPersonId}
+			</if>
+			
+			<if test="buyerId != null and buyerId != ''">
+				and buyerId=#{buyerId}
+			</if>
+			
+			<if test="auctionNum != null and auctionNum != ''">
+				and auctionNum=#{auctionNum}
+			</if>
+			
+			and  bidstate=1;
+		
+		</where>
+		
+	</select>
+	
+	
+	<!-- update 입찰 -->
+	<update id="updateBid">
+		update bid set bidPrice=#{bidPrice},bidDate=#{bidDate}
+		
+		<where>
+			<if test="buyPersonId != null and buyPersonId != ''">
+			and buyPersonId=#{buyPersonId}
+			</if>
+			
+			<if test="buyerId != null and buyerId != ''">
+				and buyerId=#{buyerId}
+			</if>
+			
+			<if test="auctionNum != null and auctionNum != ''">
+				and auctionNum=#{auctionNum}
+			</if>
+			
+			and  bidstate=1;
+		
+		</where>
+		
+		
+		
+		
+	
+	</update>
+	
 
+	
 	<!-- 입찰 -->
 	<insert id="insertBid" parameterType="bid" useGeneratedKeys="true" keyProperty="bidNum">
 		

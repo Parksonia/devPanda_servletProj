@@ -183,16 +183,40 @@ public class BidServiceImpl implements BidService {
 		String result = "fail";
 
 		try {
-			sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession(ExecutorType.SIMPLE, false);
-			Bid bid = Bid.getBidFromBidAuctionTransactionDto(bidAuctionTransactionDto);
-			Auction auction = Auction.getAuctionFromBidAuctionTransactionDto(bidAuctionTransactionDto);
 			
-			bidRepository.insertBid(bid, sqlSession);
+			sqlSession = MybatisSqlSessionFactory.getSqlSessionFactory().openSession(ExecutorType.SIMPLE, false);
+			Map<String,Object> countMap = new HashMap<String, Object>();
+			countMap.put("buyPersonId",bidAuctionTransactionDto.getBuyPersonId());
+			countMap.put("buyerId",bidAuctionTransactionDto.getBuyerId());
+			countMap.put("auctionNum",Integer.parseInt(bidAuctionTransactionDto.getAuctionNum()));
+			
+			if(bidRepository.selectCount(countMap, sqlSession)>0) {
+				Bid bid = Bid.getBidFromBidAuctionTransactionDto(bidAuctionTransactionDto);
+				Auction auction = Auction.getAuctionFromBidAuctionTransactionDto(bidAuctionTransactionDto);
+				Map<String,Object> updateMap = new HashMap<String, Object>();
+				updateMap.put("buyPersonId",bidAuctionTransactionDto.getBuyPersonId());
+				updateMap.put("buyerId",bidAuctionTransactionDto.getBuyerId());
+				updateMap.put("auctionNum",Integer.parseInt(bidAuctionTransactionDto.getAuctionNum()));
+				updateMap.put("bidPrice", Integer.parseInt(bidAuctionTransactionDto.getBidPrice()));
+				updateMap.put("bidDate", bidAuctionTransactionDto.getBidDate());
+				bidRepository.updateBid(updateMap, sqlSession);
+				auctionRepository.updateAuction(auction, sqlSession);
+				result = "success";
+				sqlSession.commit();
+				
+			}else {
+				Bid bid = Bid.getBidFromBidAuctionTransactionDto(bidAuctionTransactionDto);
+				Auction auction = Auction.getAuctionFromBidAuctionTransactionDto(bidAuctionTransactionDto);
+				
+				bidRepository.insertBid(bid, sqlSession);
 
-			auctionRepository.updateAuction(auction, sqlSession);
+				auctionRepository.updateAuction(auction, sqlSession);
 
-			result = "success";
-			sqlSession.commit();
+				result = "success";
+				sqlSession.commit();
+			}
+			
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
