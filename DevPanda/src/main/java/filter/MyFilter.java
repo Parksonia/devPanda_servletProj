@@ -29,9 +29,11 @@ public class MyFilter implements Filter{
 				|| check.startsWith("start")
 				|| check.startsWith("Person")
 				|| check.startsWith("signUpPerson")
+				|| check.startsWith("signUpCom")
 				|| check.startsWith("Company")
-
 				|| check.startsWith("checkCertification")
+				|| check.startsWith("checkId")
+				|| check.startsWith("checkCompanyId")
 				|| check.startsWith("mailsend")
 				
 				) {
