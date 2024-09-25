@@ -55,8 +55,8 @@
             <!-- 필터 -->
             <div class="filters">
                 <button type="button" class="period-button" onclick="calcPeriod(1);">최근 1개월</button>
-                <button  type="button" class="period-button" onclick="calcPeriod(3);">3개월</button>
-                <button  type="button"  class="period-button" onclick="calcPeriod(6);">6개월</button>
+                <button  type="button" class="period-button" onclick="calcPeriod(3);">최근 3개월</button>
+                <button  type="button"  class="period-button" onclick="calcPeriod(6);">최근 6개월</button>
                 <input type="text" id="daterange" name="daterange" value='' placeholder=""/>
 				
 				<script>
