@@ -29,7 +29,9 @@ public class AuctionSchedulerServiceImpl implements AuctionSchedulerService {
                 System.out.println("Scheduler running at: " + currentDate);
 
                 try {
+                    // 경매 상태 업데이트
                     auctionSchedulerRepository.updateAuctionStatusToSuccess(currentDate);
+                    // 종료된 경매 가져오기
                     List<Integer> finishedAuctions = auctionSchedulerRepository.getFinishedAuctions(currentDate);
                     for (Integer auctionNum : finishedAuctions) {
                         // 이미 처리된 경매는 건너뜀
@@ -50,10 +52,16 @@ public class AuctionSchedulerServiceImpl implements AuctionSchedulerService {
                                 continue; 
                             }
 
-                            // Bid 객체를 사용하여 Transaction을 삽입
-                            auctionSchedulerRepository.insertTransaction(winningBid); // Bid 객체를 사용하여 트랜잭션 삽입
+                         // 이미 트랜잭션 테이블에 해당 경매의 트랜잭션이 존재하는지 확인
+                            boolean transactionExists = auctionSchedulerRepository.checkIfTransactionExists(winningBid.getAuctionNum().intValue());
+                            if (!transactionExists) {
+                                // Bid 객체를 사용하여 Transaction을 삽입
+                                auctionSchedulerRepository.insertTransaction(winningBid); // Bid 객체를 사용하여 트랜잭션 삽입
+                            } else {
+                                System.out.println("Transaction already exists for auctionNum: " + auctionNum);
+                            }
                         }
-
+                        // 낙찰에 실패한 입찰자 상태 업데이트
                         auctionSchedulerRepository.updateLosingBiddersState(auctionNum);
                         
                         // 처리된 경매 번호를 추가

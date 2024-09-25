@@ -16,6 +16,8 @@ public interface AuctionSchedulerRepository {
     void insertTransaction(Bid bid); 
 	List<Bid> getWinningBids(Integer auctionNum);
 
+	// 트랜잭션 중복 확인 메서드
+    boolean checkIfTransactionExists(Integer auctionNum);
   
 
 }

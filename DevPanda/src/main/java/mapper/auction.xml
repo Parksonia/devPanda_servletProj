@@ -82,7 +82,12 @@
     SELECT * FROM bid WHERE auctionNum = #{auctionNum} AND bidState = 2;
 </select>
 
-
+ <!-- 트랜잭션 중복 확인을 위한 SQL -->
+    <select id="checkIfTransactionExists" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM transaction
+        WHERE auctionNum = #{auctionNum}
+    </select>
 	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
 

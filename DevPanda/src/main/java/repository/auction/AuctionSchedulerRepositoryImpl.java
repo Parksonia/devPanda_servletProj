@@ -1,5 +1,6 @@
 package repository.auction;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -104,6 +105,19 @@ public class AuctionSchedulerRepositoryImpl implements AuctionSchedulerRepositor
         }
     }
 
+    @Override
+    public boolean checkIfTransactionExists(Integer auctionNum) {
+        try (SqlSession session = MybatisSqlSessionFactory.getSqlSessionFactory().openSession()) {
+            // 파라미터로 전달할 정보
+            Map<String, Object> params = new HashMap<>();
+            params.put("auctionNum", auctionNum); // auctionNum을 파라미터로 사용
 
+            // 쿼리 실행 후 결과 받기
+            int count = session.selectOne("mapper.auction.checkIfTransactionExists", params);
+            System.out.println("checkIfTransactionExists 호출: auctionNum = " + auctionNum);
+
+            return count > 0;  // 0보다 크면 이미 트랜잭션이 존재
+        }
+    }
 
 }
