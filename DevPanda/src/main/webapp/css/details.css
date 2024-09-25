@@ -518,7 +518,7 @@
 	border: 1px solid #EBEBEB;
 	border-radius: 20px;
 	font-size: 18px;
-	color: #D3D3D3;
+	color : #353131db;
 	box-sizing: border-box;
 	resize: none; /* textarea 크기 조절 제거 */
 }

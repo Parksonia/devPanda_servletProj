@@ -7,7 +7,43 @@
 <title>PersonBlack</title>
 <!-- 개인|구매내역조회|판매자차단내역| -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<link href="${pageContext.request.contextPath}/css/blacklist.css" rel="stylesheet">
+<style>
+/* modal start */
+.modal {
+	display: none;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(34, 34, 34, 0.5);
+	z-index: 1010;
+}
+
+.modal-container {
+	position: relative;
+	width: 599px;
+	height: auto;
+	background: #FFFFFF;
+	border-radius: 20px;
+	padding: 40px 20px;
+	box-sizing: border-box;
+}
+
+.modal-close {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+/* modal end */
+
+</style>
+<link href="${pageContext.request.contextPath }/css/blacklist.css" rel="stylesheet">
 </head>
 
 <body style="margin:0;">
@@ -161,15 +197,15 @@
 				</div>
 				<!--pagination end  -->
 
-
-
-
 				<!-- Modal -->
 				<div id="blacklistModal" class="modal">
 					<div class="modal-container">
 		
-						 <span class="close">&times;</span>	
-						
+			<a href="#" class="modal-close"> 
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path d="M20.5 3.1L12 11.6 3.5 3.1 2.1 4.5l8.6 8.5-8.6 8.5 1.4 1.4 8.5-8.6 8.5 8.6 1.4-1.4-8.6-8.5 8.6-8.5z"></path>
+                </svg>
+			</a>
 						<div class="modal-header">차단 상세 내역</div>
 
 						<div class="profile-section">
@@ -188,7 +224,7 @@
 							<div>거래 일자</div>
 						</div>
 						<div class="modal-transaction-info">
-							<div class="modal-auction-num">A-No</div>
+							<div class="modal-transaction-num">T-No </div>
 							<div class="modal-transaction-date"></div>
 						</div>
 
@@ -206,8 +242,19 @@
 				<script>
 				 $(document).ready(function() {
 				        var modal = document.getElementById("blacklistModal");
-				        var span = document.getElementsByClassName("close")[0];
+				        const modalCloseButton = document.querySelector('.modal-close');
 
+				        /* 모달 닫기 */
+				        $('.modal-close').on('click', function() {
+				        	$(this).closest('.modal').css('display', 'none');
+				        });
+				    	//모달 외 영역 클릭 닫기
+				        window.onclick = function(event) {
+				            if (event.target == modal) {
+				                modal.style.display = "none";
+				            }
+				        };
+				        
 				        $(".black_list_display_mem").click(function(e) {
 				            if (!$(e.target).hasClass('btn_add')) { // 해제하기 버튼 눌렀을 때 모달 뜨지 않도록 함 
 				                var $this = $(this);
@@ -221,7 +268,7 @@
 				                
 				                // 거래 정보 업데이트
 				        
-				                $(".modal-auction-num").append($this.attr('data-auctionNum'));
+				                $(".modal-transaction-num").append($this.attr('data-transaction-num'));
 				                $(".modal-transaction-date").text($this.attr('data-transaction-date'));
 				                
 				                // 신고 제목과 내용 업데이트
@@ -258,20 +305,15 @@
 				            }
 				        });
 
-				        span.onclick = function() {
-				            modal.style.display = "none";
-				        };
-
-				        window.onclick = function(event) {
-				            if (event.target == modal) {
-				                modal.style.display = "none";
-				            }
-				        };
+					
 				    });
     </script>
 	<!-- Modal End-->
+	
 			</div>
 		</div>
 	</div>
+
+	
 </body>
 </html>

@@ -411,7 +411,7 @@ li, ol, ul {
 	color: #D3D3D3;
 }
 
-.modal-transaction-info .modal-transaction-id, .modal-transaction-info  .modal-transaction-date
+.modal-transaction-info .modal-transaction-id, .modal-transaction-info  .modal-transaction-date,.modal-transaction-info .modal-transaction-num
 	{
 	font-weight: 400;
 	font-size: 18px;

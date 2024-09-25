@@ -72,7 +72,7 @@
 
 			<!-- Title -->
 			<div class="title">거래 상세 보기</div>
-			<div class="transaction-id"><b>Auction-No ${auction.auctionNum}</b></div>
+			<div class="transaction-id"><b>A-No ${auction.auctionNum}</b></div>
 
 			<div class="user-info-container">
 				<div class="user-info">
@@ -291,7 +291,7 @@
 						<div>거래 일자</div>
 					</div>
 					<div class="modal-transaction-info">
-						<div class="modal-transaction-id">${transaction.transactionNum}</div>
+						<div class="modal-transaction-id">T-No ${transaction.transactionNum}</div>
 						<div class="modal-transaction-date">${transaction.date}</div>
 					</div>
 

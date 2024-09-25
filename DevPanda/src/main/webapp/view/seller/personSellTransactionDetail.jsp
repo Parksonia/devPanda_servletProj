@@ -281,7 +281,12 @@
 <!-- BlackList Report Modal  start-->
 			<div class="modal">
 				<div class="modal-container">
-					<a href="#" class="modal-close">&times;</a>
+					<!-- <a href="#" class="modal-close">&times;</a> -->
+					<a href="#" class="modal-close"> 
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    	<path d="M20.5 3.1L12 11.6 3.5 3.1 2.1 4.5l8.6 8.5-8.6 8.5 1.4 1.4 8.5-8.6 8.5 8.6 1.4-1.4-8.6-8.5 8.6-8.5z"></path>
+                		</svg>
+					</a>
 					<div class="modal-header">신고하기</div>
 					
 					<c:choose>
@@ -303,7 +308,7 @@
 								<div>거래 일자</div>
 							</div>
 							<div class="modal-transaction-info">
-								<div class="modal-transaction-id">AB123-CD5678-${auctionNum }</div>
+								<div class="modal-transaction-id">T-No ${transactionNum}</div>
 								<div class="modal-transaction-date">${date }</div>
 							</div>
 							<div class="modal-divider"></div>
@@ -339,7 +344,7 @@
 								<div>거래 일자</div>
 							</div>
 							<div class="modal-transaction-info">
-								<div class="modal-transaction-id">AB123-CD5678-${auctionNum }</div>
+								<div class="modal-transaction-id">T-No ${transactionNum}</div>
 								<div class="modal-transaction-date">${date }</div>
 							</div>
 							<div class="modal-divider"></div>

@@ -25,7 +25,15 @@
 
         <div class="header_content">
     		<div class="header_top">
-            	<span style="font-weight:bold;">${id}님 환영합니다</span>
+				<c:choose>
+					<c:when test="${userType == 'person'}">
+						<img src="${pageContext.request.contextPath}/img/individual.png"  style="width:15px;height:15px;">
+					</c:when>
+					<c:when test="${userType == 'company'}">
+						<img src="${pageContext.request.contextPath}/img/company.png"  style="width:15px;height:15px;">
+					</c:when>
+				</c:choose>
+            	<span style="font-weight:bold; padding-left:5px;">${id}님 환영합니다</span>
             </div>
 
             <div class="header_main">

@@ -302,6 +302,17 @@
                                 document.getElementById('profileImage').src = 'image?file=defaultPerson.png';
                                 document.getElementById('profileImageInput').value = '';
                             }
+                            
+                            
+                            function previewImage(input) {
+                                if (input.files && input.files[0]) {
+                                    var reader = new FileReader();
+                                    reader.onload = function(e) {
+                                        document.getElementById('profileImage').src = e.target.result;
+                                    }
+                                    reader.readAsDataURL(input.files[0]);
+                                }
+                            }
                         </script>
 
 						<!-- 개인계정,개인정보 start -->
@@ -376,16 +387,7 @@
     <!-- 로그인 정보 End -->
 
     <script>
-    function previewImage(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('profileImage').src = e.target.result;
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-    
+ 
     $(document).ready(function() {
         const regex_pwd = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&#.~_-])[A-Za-z\d@$!%*?&#.~_-]{8,20}$/;
         

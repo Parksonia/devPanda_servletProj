@@ -5,6 +5,7 @@ body {
     font-weight: 400;
     font-style: normal;
     margin: 0px;
+    line-height: 1.5; /*메인과 통합위해 추가   */
 }
 
 .header {
@@ -18,7 +19,7 @@ body {
     align-items: center;
     padding: 0 40px;
     height: 150px;
-   box-sizing: border-box; /* 메인 통일 위해 추가  */
+   	
 }
 
 .header_logo {
@@ -50,6 +51,7 @@ body {
 .header_top {
     display: flex;
     padding-top: 8px;
+    align-items: center;
 }
 
 .header_top .top_list {

@@ -167,11 +167,12 @@
 						</c:when>
 						<c:otherwise>
 							<c:forEach items="${buyerBlackList }" var="blacklist" varStatus="status">
-								<p>${blacklist.auctionNum }</p>
+								
 								<div class="modal_btn">
 										<div class="black_list_display_mem" data-index="${status.index}"
 																			 data-auctionNum="${blacklist.auctionNum}"
 																			 data-blacknum="${blacklist.blackNum}"
+																			 data-transactionNum="${blacklist.transactionNum}"
 																		     data-personimage="${blacklist.personImage}"
 																		     data-companyimage="${blacklist.companyImage}"
 																		     data-blackcom="${blacklist.blackCom}"
@@ -279,7 +280,12 @@
 	<!-- 상세내역 Modal -->
 	<div class="modal" id="common-modal">
 		<div class="modal-container">
-			<a href="#" class="modal-close">&times;</a>
+			<!-- <a href="#" class="modal-close">&times;</a> -->
+			<a href="#" class="modal-close"> 
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path d="M20.5 3.1L12 11.6 3.5 3.1 2.1 4.5l8.6 8.5-8.6 8.5 1.4 1.4 8.5-8.6 8.5 8.6 1.4-1.4-8.6-8.5 8.6-8.5z"></path>
+                </svg>
+			</a>
 			<div class="modal-header">차단 상세 내역</div>
 			<div class="black-num"></div>
 
@@ -300,7 +306,7 @@
 				<div>거래 일자</div>
 			</div>
 			<div class="modal-transaction-info">
-				<div class="modal-auctionNum" id="modal-auctionNum"></div>
+				<div class="modal-transaction-num" id="modal-transactionNum"></div>
 				<div class="modal-transaction-date" id="modal-date"></div>
 			</div>
 
@@ -327,6 +333,7 @@ $(document).ready(function() {
         const title = $(this).data('title');
         const content = $(this).data('content');
         const auctionNum = $(this).attr('data-auctionNum'); 
+        const transactionNum = $(this).attr('data-transactionNum');
         const date = $(this).data('date');
         
     	 // 모달에 데이터 삽입
@@ -342,7 +349,7 @@ $(document).ready(function() {
         $('#modal-email').text(email);
         $('#modal-title').text(title);
         $('#modal-content').text(content);
-        $('#modal-auctionNum').text('A-No ' + auctionNum);
+        $('#modal-transactionNum').text('T-No ' + transactionNum);
         $('#modal-date').text(date);
         
      	// 모달 열기

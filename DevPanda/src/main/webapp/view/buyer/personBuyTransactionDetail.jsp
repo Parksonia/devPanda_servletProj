@@ -9,9 +9,9 @@
 <title></title>
 <!-- 개인|구매내역조회|낙찰내역조회|입찰 거래성공 |상세보기 -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<link href="${pageContext.request.contextPath}/css/details.css"	rel="stylesheet">
+<link href="${pageContext.request.contextPath }/css/details.css" rel="stylesheet">
 </head>
-<body>
+<body style="margin:0;">
 	<!-- Header Start -->
 	<%@ include file="../inc/header.jsp"%>
 	<!-- Header End-->
@@ -212,7 +212,12 @@
 <!-- BlackList Modal  start-->
 			<div class="modal">
 				<div class="modal-container">
-					<a href="#" class="modal-close">&times;</a>
+					<!-- <a href="#" class="modal-close">&times;</a> -->
+					<a href="#" class="modal-close"> 
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    	<path d="M20.5 3.1L12 11.6 3.5 3.1 2.1 4.5l8.6 8.5-8.6 8.5 1.4 1.4 8.5-8.6 8.5 8.6 1.4-1.4-8.6-8.5 8.6-8.5z"></path>
+                		</svg>
+					</a>
 					<div class="modal-header">신고하기</div>
 					<div class="modal-profile">
 						<div class="modal-profile-image">
@@ -230,14 +235,14 @@
 						<div>거래 일자</div>
 					</div>
 					<div class="modal-transaction-info">
-						<div class="modal-transaction-id">AB123-CD5678-${auctionNum}</div>
+						<div class="modal-transaction-id">T-NO ${transactionNum}</div>
 						<div class="modal-transaction-date">${date}</div>
 					</div>
 					<div class="modal-divider"></div>
 					<div class="modal-report-title">신고 내용</div>
 					<form id="sellerPeronsBlack">
 						<input type="text" class="modal-input-title" name="title" placeholder="제목을 입력하세요">
-						<textarea class="modal-input-content" name="content" placeholder="신고 내용을 입력하세요"></textarea>
+						<textarea class="modal-input-content" name="content" style="min-height: 350px;" placeholder="신고 내용을 입력하세요"></textarea>
 						<input type="hidden" name="transactionNum" value="${transactionNum}" />
 						<input type="hidden" name="auctionNum" value="${auctionNum}" />
 						<input type="hidden" name="bidNum" value="${bidNum}" />

@@ -669,7 +669,7 @@ to {
 				            
 				            // 모달의 내용을 채움
 				            document.getElementById('blackPersonName').textContent = nickname+'('+blackPerson+')';
-				            document.getElementById('transactionNum').textContent = 'Auction-No '+tnum;
+				            document.getElementById('transactionNum').textContent = 'T-No '+tnum;
 				            document.getElementById('transactionDate').textContent = tdate;
 				            document.getElementById('reportTitle').textContent = title;
 				            document.getElementById('reportContent').textContent = content;
