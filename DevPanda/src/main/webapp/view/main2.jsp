@@ -14,18 +14,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DevPanda</title>
 <script src="https://cdn.tailwindcss.com"></script>
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
   <style type="text/tailwindcss">
     @layer utilities {
       .bg-red-auctioninput-btn {
         background-color: #ed6a60;
    	    padding: 10px;
-      }
+      	}
 	  .main-btn-size {
 		width: 80px;
 		font-weight: bold; 
-    }
-}
+		}
+	
+	}
   </style>
 <style>
 .checkDiv {
@@ -47,16 +49,6 @@ input[type="checkbox"]{
 }
 
       
-input[id="check_seoul"]:checked + label::after{
-        content:'✔';
-        font-size: 15px;
-        width: 20px;
-        height: 20px;
-        text-align: center;
-        position: absolute;
-        left: 0;
-        top:0;
-      }
 input[type="checkbox"]:checked + label::after{
         content:'✔';
         font-size: 15px;
@@ -503,9 +495,9 @@ input[type="checkbox"]:checked + label::after{
             
             <label for="endDate">End Date:</label>
          <input type="date" id="endDate" name="endDate" required>
-         <label for="endTime">End Time:</label>
-         <input type="time" id="endTime" name="endTime" required>
-            
+	      <label for="endTime">End Time:</label>
+         <input type="time" id="endTime" name="endTime" required >
+       
             
             <p class="text-sm text-gray-500 mt-1">최대 금액 입찰 시 즉시 구매됩니다.</p>
 
@@ -517,16 +509,16 @@ input[type="checkbox"]:checked + label::after{
     <button type="button" id="category1-toggle-modal" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#지역</button>
     <div id="category1-content-modal" class="category-content hidden">
        
-        <label><input type="checkbox" name="location[]" value="서울"> 서울</label><br>
-        <label><input type="checkbox" name="location[]" value="경/인"> 경/인</label><br>
-        <label><input type="checkbox" name="location[]" value="강원"> 강원</label><br>
-        <label><input type="checkbox" name="location[]" value="경남"> 경남</label><br>
-        <label><input type="checkbox" name="location[]" value="경북"> 경북</label><br>
-        <label><input type="checkbox" name="location[]" value="전남"> 전남</label><br>
-        <label><input type="checkbox" name="location[]" value="전북"> 전북</label><br>
-        <label><input type="checkbox" name="location[]" value="충남"> 충남</label><br>
-        <label><input type="checkbox" name="location[]" value="충북"> 충북</label><br>
-        <label><input type="checkbox" name="location[]" value="제주"> 제주</label><br>
+        <div class="checkDiv"><input type="checkbox" name="location[]" value="서울" id="check_mseoul"><label for="check_mseoul" class="check"></label>&nbsp;&nbsp;<label for="check_mseoul" >서울</label></div>
+        <div class="checkDiv"><input type="checkbox" name="location[]" value="경/인" id="check_mkyungin"><label for="check_mkyungin" class="check"></label>&nbsp;&nbsp;<label for="check_mkyungin">경/인</label></div>
+        <div class="checkDiv"><input type="checkbox" name="location[]" value="강원" id="check_mkangwon"><label for="check_mkangwon" class="check"></label>&nbsp;&nbsp;<label for="check_mkangwon">강원</label></div>
+        <div class="checkDiv"><input type="checkbox" name="location[]" value="경남" id="check_mkyungnam"><label for="check_mkyungnam" class="check"></label>&nbsp;&nbsp;<label for="check_mkyungnam">경남</label></div>
+        <div class="checkDiv"><input type="checkbox" name="location[]" value="경북" id="check_mkyungbook"><label for="check_mkyungbook" class="check"></label>&nbsp;&nbsp;<label for="check_mkyungbook">경북</label></div>
+        <div class="checkDiv"><input type="checkbox" name="location[]" value="전남" id="check_mjeonnam"><label for="check_mjeonnam" class="check"></label>&nbsp;&nbsp;<label for="check_mjeonnam">전남</label></div>
+        <div class="checkDiv"><input type="checkbox" name="location[]" value="전북" id="check_mjeonbook"><label for="check_mjeonbook" class="check"></label>&nbsp;&nbsp;<label for="check_mjeonbook">전북</label></div>
+        <div class="checkDiv"><input type="checkbox" name="location[]" value="충남" id="check_mchungnam"><label for="check_mchungnam" class="check"></label>&nbsp;&nbsp;<label for="check_mchungnam">충남</label></div>
+        <div class="checkDiv"><input type="checkbox" name="location[]" value="충북" id="check_mchungbook"><label for="check_mchungbook" class="check"></label>&nbsp;&nbsp;<label for="check_mchungbook">충북</label></div>
+        <div class="checkDiv"><input type="checkbox" name="location[]" value="제주" id="check_mjeju"><label for="check_mjeju" class="check"></label>&nbsp;&nbsp;<label for="check_mjeju">제주</label></div>
     </div>
 </div>
 
@@ -534,29 +526,29 @@ input[type="checkbox"]:checked + label::after{
 <div>
     <button type="button" id="category2-toggle-modal" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#보유 기술</button>
     <div id="category2-content-modal" class="category-content hidden">
-        <label><input type="checkbox" name="stack[]" value="JAVA"> JAVA</label><br>
-        <label><input type="checkbox" name="stack[]" value="Python"> Python</label><br>
-        <label><input type="checkbox" name="stack[]" value="C"> C</label><br>
-        <label><input type="checkbox" name="stack[]" value="C++"> C++</label><br>
-        <label><input type="checkbox" name="stack[]" value="C#"> C#</label><br>
-        <label><input type="checkbox" name="stack[]" value="html,css,js"> html,css,js</label><br>
-        <label><input type="checkbox" name="stack[]" value="Go"> Go</label><br>
-        <label><input type="checkbox" name="stack[]" value="kotlin"> kotlin</label><br>
-        <label><input type="checkbox" name="stack[]" value="aws"> aws</label><br>
-        <label><input type="checkbox" name="stack[]" value="springboot"> springboot</label><br>
-        <label><input type="checkbox" name="stack[]" value="react"> react</label><br>
-        <label><input type="checkbox" name="stack[]" value="vue"> vue</label><br>
-        <label><input type="checkbox" name="stack[]" value="django"> django</label><br>
-        <label><input type="checkbox" name="stack[]" value="tensorflow"> tensorflow</label><br>
-        <label><input type="checkbox" name="stack[]" value="flutter"> flutter</label><br>
-        <label><input type="checkbox" name="stack[]" value="ios"> ios</label><br>
-        <label><input type="checkbox" name="stack[]" value="android"> android</label><br>
-        <label><input type="checkbox" name="stack[]" value="swift"> swift</label><br>
-        <label><input type="checkbox" name="stack[]" value="oracle"> oracle</label><br>
-        <label><input type="checkbox" name="stack[]" value="redis"> redis</label><br>
-        <label><input type="checkbox" name="stack[]" value="mysql"> mysql</label><br>
-        <label><input type="checkbox" name="stack[]" value="nosql"> nosql</label><br>
-        <label><input type="checkbox" name="stack[]" value="mariadb"> mariadb</label><br>
+     <div class="checkDiv"><input type="checkbox" name="stack[]" value="JAVA" id="check_mJAVA"><label for="check_mJAVA" class="check"></label>&nbsp;&nbsp;<label for="check_mJAVA" >JAVA</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="Python" id="mcheck_Python"><label for="mcheck_Python" class="check"></label>&nbsp;&nbsp;<label for="mcheck_Python">Python</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="C" id="check_mC"><label for="check_mC" class="check"></label>&nbsp;&nbsp;<label for="check_mC">C</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="C++"  id="check_mC++"><label for="check_mC++" class="check"></label>&nbsp;&nbsp;<label for="check_mC++"> C++</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="C#" id="check_mC#"><label for="check_mC#" class="check"></label>&nbsp;&nbsp;<label for="check_mC#" > C#</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="html,css,js" id="check_mhtml,css,js"><label for="check_mhtml,css,js" class="check"></label>&nbsp;&nbsp;<label for="check_mhtml,css,js" > html,css,js</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="Go" id="check_mGo"><label for="check_mGo" class="check"></label>&nbsp;&nbsp;<label for="check_mGo" > Go</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="kotlin" id="check_mkotlin"><label for="check_mkotlin" class="check"></label>&nbsp;&nbsp;<label for="check_mkotlin"> kotlin</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="aws" id="check_maws"><label for="check_maws" class="check"></label>&nbsp;&nbsp;<label for="check_maws" >aws</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="springboot" id="check_mspringboot"><label for="check_mspringboot" class="check"></label>&nbsp;&nbsp;<label for="check_mspringboot" > springboot</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="react" id="check_mreact"><label for="check_mreact" class="check"></label>&nbsp;&nbsp;<label for="check_mreact" > react</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="vue" id="check_mvue"><label for="check_mvue" class="check"></label>&nbsp;&nbsp;<label for="check_mvue" > vue</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="django" id="check_mdjango"><label for="check_mdjango" class="check"></label>&nbsp;&nbsp;<label for="check_mdjango" > django</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="tensorflow" id="check_mtensorflow"><label for="check_mtensorflow" class="check"></label>&nbsp;&nbsp;<label for="check_mtensorflow" > tensorflow</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="flutter" id="check_mflutter"><label for="check_mflutter" class="check"></label>&nbsp;&nbsp;<label for="check_mflutter" > flutter</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="ios" id="check_mios"><label for="check_mios" class="check"></label>&nbsp;&nbsp;<label for="check_mios" > ios</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="android" id="check_mandroid"><label for="check_mandroid" class="check"></label>&nbsp;&nbsp;<label for="check_mandroid" > android</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="swift" id="check_mswift"><label for="check_mswift" class="check"></label>&nbsp;&nbsp;<label for="check_mswift" > swift</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="oracle" id="check_moracle"> <label for="check_moracle" class="check"></label>&nbsp;&nbsp;<label for="check_moracle" >oracle</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="redis" id="check_mredis"><label for="check_mredis" class="check"></label>&nbsp;&nbsp;<label for="check_mredis" > redis</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="mysql" id="check_mmysql"><label for="check_mmysql" class="check"></label>&nbsp;&nbsp;<label for="check_mmysql" > mysql</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="nosql" id="check_mnosql"><label for="check_mnosql" class="check"></label>&nbsp;&nbsp;<label for="check_mnosql" > nosql</label></div>
+        <div class="checkDiv"><input type="checkbox" name="stack[]" value="mariadb" id="check_mmariadb"><label for="check_mmariadb" class="check"></label>&nbsp;&nbsp;<label for="check_mmariadb" > mariadb</label></div>
     </div>
 </div>
 
@@ -564,19 +556,20 @@ input[type="checkbox"]:checked + label::after{
 <div>
     <button type="button" id="category3-toggle-modal" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#직무</button>
     <div id="category3-content-modal" class="category-content hidden">
-        <label><input type="checkbox" name="Occupation[]" value="백엔드"> 백엔드</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="프론트엔드"> 프론트엔드</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="웹"> 웹</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="앱"> 앱</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="시스템엔지니어"> 시스템엔지니어</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="네트워크엔지니어"> 네트워크엔지니어</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="데이터엔지니어"> 데이터엔지니어</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="보안엔지니어"> 보안엔지니어</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="게임 개발"> 게임 개발</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="임베디드 개발"> 임베디드 개발</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="머신러닝,AI,블록체인 개발"> 머신러닝,AI,블록체인 개발</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="클라우드엔지니어"> 클라우드엔지니어</label><br>
-        <label><input type="checkbox" name="Occupation[]" value="웹퍼블리셔"> 웹퍼블리셔</label><br>
+       <div class="checkDiv"><input type="checkbox" name="Occupation[]" value="백엔드" id="check_mbackend"><label for="check_mbackend" class="check"></label>&nbsp;&nbsp;<label for="check_mbackend" >백엔드</label></div>
+        <div class="checkDiv"><input type="checkbox" name="Occupation[]" value="프론트엔드" id="check_mfront"><label for="check_mfront" class="check"></label>&nbsp;&nbsp;<label for="check_mfront" >프론트엔드</label></div>
+        <div class="checkDiv"><input type="checkbox" name="Occupation[]" value="웹" id="check_mweb"><label for="check_mweb" class="check"></label>&nbsp;&nbsp;<label for="check_mweb" > 웹</label></div>
+        <div class="checkDiv"><input type="checkbox" name="Occupation[]" value="앱" id="check_mapp"><label for="check_mapp" class="check"></label>&nbsp;&nbsp;<label for="check_mapp" > 앱</label></div>
+        <div class="checkDiv"><input type="checkbox" name="Occupation[]" value="시스템엔지니어" id="check_msysengine"><label for="check_msysengine" class="check"></label>&nbsp;&nbsp;<label for="check_msysengine" > 시스템엔지니어</label></div>
+        <div class="checkDiv"><input type="checkbox" name="Occupation[]" value="네트워크엔지니어" id="check_mnetengine"><label for="check_mnetengine" class="check"></label>&nbsp;&nbsp;<label for="check_mnetengine" > 네트워크엔지니어</label></div>
+       	<div class="checkDiv"><input type="checkbox" name="Occupation[]" value="데이터엔지니어" id="check_mdataengine"><label for="check_mdataengine" class="check"></label>&nbsp;&nbsp;<label for="check_mdataengine" > 데이터엔지니어</label></div>
+        <div class="checkDiv"><input type="checkbox" name="Occupation[]" value="보안엔지니어" id="check_msecuengine"><label for="check_msecuengine" class="check"></label>&nbsp;&nbsp;<label for="check_msecuengine" > 보안엔지니어</label></div>
+        <div class="checkDiv"><input type="checkbox" name="Occupation[]" value="게임 개발" id="check_mgamedevel"><label for="check_mgamedevel" class="check"></label>&nbsp;&nbsp;<label for="check_mgamedevel" > 게임 개발</label></div>
+        <div class="checkDiv"><input type="checkbox" name="Occupation[]" value="임베디드 개발" id="check_memdevel"><label for="check_memdevel" class="check"></label>&nbsp;&nbsp;<label for="check_memdevel" >임베디드 개발</label></div>
+        <div class="checkDiv"><input type="checkbox" name="Occupation[]" value="머신러닝,AI,블록체인 개발" id="check_mAIdevel"><label for="check_mAIdevel" class="check"></label>&nbsp;&nbsp;<label for="check_mAIdevel" > 머신러닝,AI,블록체인 개발</label></div>
+        <div class="checkDiv"><input type="checkbox" name="Occupation[]" value="클라우드엔지니어" id="check_mcloudengine"><label for="check_mcloudengine" class="check"></label>&nbsp;&nbsp;<label for="check_mcloudengine" > 클라우드엔지니어</label></div>
+        <div class="checkDiv"><input type="checkbox" name="Occupation[]" value="웹퍼블리셔" id="check_mwebpub"><label for="check_mwebpub" class="check"></label>&nbsp;&nbsp;<label for="check_mwebpub" > 웹퍼블리셔</label></div>
+
     </div>
 </div>
 
@@ -584,8 +577,8 @@ input[type="checkbox"]:checked + label::after{
 <div>
     <button type="button" id="category4-toggle-modal" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#경력</button>
     <div id="category4-content-modal" class="category-content hidden">
-        <label><input type="checkbox" name="period[]" value="신입"> 신입</label><br>
-        <label><input type="checkbox" name="period[]" value="경력"> 경력</label><br>
+        <div class="checkDiv"><input type="checkbox" name="period[]" value="신입" id="check_mnew"><label for="check_mnew" class="check"></label>&nbsp;&nbsp;<label for="check_mnew" > 신입</label></div>
+       	<div class="checkDiv"><input type="checkbox" name="period[]" value="경력" id="check_mworked"><label for="check_mworked" class="check"></label>&nbsp;&nbsp;<label for="check_mworked"> 경력</label></div>
     </div>
 </div>
 
@@ -593,12 +586,12 @@ input[type="checkbox"]:checked + label::after{
 <div>
     <button type="button" id="category5-toggle-modal" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#학력</button>
     <div id="category5-content-modal" class="category-content hidden">
-        <label><input type="checkbox" name="education[]" value="고졸"> 고졸</label><br>
-        <label><input type="checkbox" name="education[]" value="초대졸"> 초대졸</label><br>
-        <label><input type="checkbox" name="education[]" value="학사"> 학사</label><br>
-        <label><input type="checkbox" name="education[]" value="석사"> 석사</label><br>
-        <label><input type="checkbox" name="education[]" value="박사"> 박사</label><br>
-        <label><input type="checkbox" name="education[]" value="학력무관"> 학력무관</label><br>
+         <div class="checkDiv"><input type="checkbox" name="education[]" value="고졸" id="check_mhigh"><label for="check_mhigh" class="check"></label>&nbsp;&nbsp;<label for="check_mhigh"> 고졸</label></div>
+       	<div class="checkDiv"><input type="checkbox" name="education[]" value="초대졸" id="check_massociate"><label for="check_massociate" class="check"></label>&nbsp;&nbsp;<label for="check_massociate" > 초대졸</label></div>
+        <div class="checkDiv"><input type="checkbox" name="education[]" value="학사" id="check_mbachelor"><label for="check_mbachelor" class="check"></label>&nbsp;&nbsp;<label for="check_mbachelor" > 학사</label></div>
+        <div class="checkDiv"><input type="checkbox" name="education[]" value="석사" id="check_mmaster"><label for="check_mmaster" class="check"></label>&nbsp;&nbsp;<label for="check_mmaster" > 석사</label></div>
+        <div class="checkDiv"><input type="checkbox" name="education[]" value="박사" id="check_mdoctorate"><label for="check_mdoctorate" class="check"></label>&nbsp;&nbsp;<label for="check_mdoctorate" > 박사</label></div>
+        <div class="checkDiv"><input type="checkbox" name="education[]" value="학력무관" id="check_mnone"><label for="check_mnone" class="check"></label>&nbsp;&nbsp;<label for="check_mnone" > 학력무관</label></div>
     </div>
 </div>
 
@@ -606,15 +599,16 @@ input[type="checkbox"]:checked + label::after{
 <div>
     <button type="button" id="category6-toggle-modal" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#자격증</button>
     <div id="category6-content-modal" class="category-content hidden">
-        <label><input type="checkbox" name="Certification[]" value="토익700↑"> 토익700↑</label><br>
-        <label><input type="checkbox" name="Certification[]" value="토플700↑"> 토플700↑</label><br>
-        <label><input type="checkbox" name="Certification[]" value="토스IL↑"> 토스IL↑</label><br>
-        <label><input type="checkbox" name="Certification[]" value="정보처리기사"> 정보처리기사</label><br>
-        <label><input type="checkbox" name="Certification[]" value="SQLD"> SQLD</label><br>
-        <label><input type="checkbox" name="Certification[]" value="SQLP"> SQLP</label><br>
-        <label><input type="checkbox" name="Certification[]" value="리눅스마스터"> 리눅스마스터</label><br>
-        <label><input type="checkbox" name="Certification[]" value="AWS자격증"> AWS자격증</label><br>
-        <label><input type="checkbox" name="Certification[]" value="기타"> 기타</label><br>
+                       <!-- 자격증 체크박스들 -->
+       	<div class="checkDiv"><input type="checkbox" name="Certification[]" value="토익700↑" id="check_mtoeic"><label for="check_mtoeic" class="check"></label>&nbsp;&nbsp;<label for="check_mtoeic">  토익700↑</label></div>
+        <div class="checkDiv"><input type="checkbox" name="Certification[]" value="토플700↑" id="check_mtoefl"><label for="check_mtoefl" class="check"></label>&nbsp;&nbsp;<label for="check_mtoefl">  토플700↑</label></div>
+        <div class="checkDiv"><input type="checkbox" name="Certification[]" value="토스IL↑"  id="check_mticspeaking"><label for="check_mticspeaking" class="check"></label>&nbsp;&nbsp;<label for="check_mticspeaking">  토스IL↑</label></div>
+        <div class="checkDiv"><input type="checkbox" name="Certification[]" value="정보처리기사"  id="check_mengineerCerti"><label for="check_mengineerCerti" class="check"></label>&nbsp;&nbsp;<label for="check_mengineerCerti">  정보처리기사</label></div>
+        <div class="checkDiv"><input type="checkbox" name="Certification[]" value="SQLD"  id="check_msqld"><label for="check_msqld" class="check"></label>&nbsp;&nbsp;<label for="check_msqld">  SQLD</label></div>
+        <div class="checkDiv"><input type="checkbox" name="Certification[]" value="SQLP"  id="check_msqlp"><label for="check_msqlp" class="check"></label>&nbsp;&nbsp;<label for="check_msqlp">  SQLP</label></div>
+        <div class="checkDiv"><input type="checkbox" name="Certification[]" value="리눅스마스터"  id="check_mlinuxCerti"><label for="check_mlinuxCerti" class="check"></label>&nbsp;&nbsp;<label for="check_mlinuxCerti">  리눅스마스터</label></div>
+        <div class="checkDiv"><input type="checkbox" name="Certification[]" value="AWS자격증"  id="check_mawsCerti"><label for="check_mawsCerti" class="check"></label>&nbsp;&nbsp;<label for="check_mawsCerti">  AWS자격증</label></div>
+        <div class="checkDiv"><input type="checkbox" name="Certification[]" value="기타"  id="check_mothers"><label for="check_mothers" class="check"></label>&nbsp;&nbsp;<label for="check_mothers">  기타</label></div>
     </div>
 </div>
 
@@ -622,11 +616,11 @@ input[type="checkbox"]:checked + label::after{
             <div>
                 <button type="button" id="category7-toggle-modal" class="custom-bg-color text-black p-2 rounded w-full text-left category-item">#고용형태</button>
                 <div id="category7-content-modal" class="category-content hidden">
-                    <label><input type="checkbox" name="employmentType[]" value="계약직3개월"> 계약직3개월</label><br>
-                    <label><input type="checkbox" name="employmentType[]" value="계약직6개월"> 계약직6개월</label><br>
-                    <label><input type="checkbox" name="employmentType[]" value="정규직"> 정규직</label><br>
-                    <label><input type="checkbox" name="employmentType[]" value="인턴"> 인턴</label><br>
-                    <label><input type="checkbox" name="employmentType[]" value="프리랜서"> 프리랜서</label><br>
+          <div class="checkDiv"><input type="checkbox" name="employmentType[]" value="계약직3개월" id="check_m3month"><label for="check_m3month" class="check"></label>&nbsp;&nbsp;<label for="check_m3month"> 계약직3개월</label></div>
+	   <div class="checkDiv"><input type="checkbox" name="employmentType[]" value="계약직6개월" id="check_m6month"><label for="check_m6month" class="check"></label>&nbsp;&nbsp;<label for="check_m6month"> 계약직6개월</label></div>
+	   <div class="checkDiv"><input type="checkbox" name="employmentType[]" value="정규직" id="check_mfulltime"><label for="check_mfulltime" class="check"></label>&nbsp;&nbsp;<label for="check_mfulltime"> 정규직</label></div>
+	   <div class="checkDiv"><input type="checkbox" name="employmentType[]" value="인턴" id="check_mintern"><label for="check_mintern" class="check"></label>&nbsp;&nbsp;<label for="check_mintern"> 인턴</label></div>
+	   <div class="checkDiv"><input type="checkbox" name="employmentType[]" value="프리랜서" id="check_mfreelancer"><label for="check_mfreelancer" class="check"></label>&nbsp;&nbsp;<label for="check_mfreelancer"> 프리랜서</label></div>
                 </div>
             </div>
                
@@ -642,7 +636,7 @@ input[type="checkbox"]:checked + label::after{
 
             </div>
 
-            <button type="submit" class="bg-blue-500 text-white p-2 rounded mt-4">등록</button>
+            <button type="submit" class="bg-blue-500 text-white p-2 rounded mt-4 main-btn-size">등록</button>
          </form>
       </div>
    </div>
@@ -894,7 +888,7 @@ header {
     border-radius: 8px;
     text-align: center;
     position: relative;
-    max-width: 800px;
+    max-width: 1100px;
     width: 100%;
 }
 

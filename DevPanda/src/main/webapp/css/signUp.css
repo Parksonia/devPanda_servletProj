@@ -13,8 +13,6 @@ body{
     
 }
 
-
-
 .container{
     display : flex;
     flex-direction: row;
@@ -92,18 +90,12 @@ body{
     display : flex;
     justify-content: center;
     align-items : center;
+    width: 130px;
+    height: 50px;
+    justify-content: flex-end;
   
 }
-.check-button{
-    background-color: rgb(165,232,176);
-    border-radius: 5px;
-    padding-top : 3px;
-    padding-bottom : 3px;
-    
-    
-    
-    
-}
+
 .input-error-title-2{
     color : rgba(255,5,5,0.8);
 }
