@@ -74,8 +74,8 @@ public class PersonSellTransactionListServiceImpl implements PersonSellTransacti
 	    properties.put("mail.smtp.ssl.trust", "smtp.gmail.com"); // SSL 신뢰 설정
 	    properties.put("mail.smtp.ssl.protocols", "TLSv1.2"); // TLS 버전 지정
         
-        final String username = "rena1010dev@gmail.com";
-        final String password = "ycyjenaubbbsyosd";
+        final String username = "";
+        final String password = "";
         
         // 세션 생성
         Session session = Session.getInstance(properties, new Authenticator() {
