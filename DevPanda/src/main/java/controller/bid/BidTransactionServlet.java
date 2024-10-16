@@ -17,8 +17,8 @@ import service.BidServiceImpl;
 @WebServlet("/transactionbid")
 public class BidTransactionServlet extends HttpServlet{
 
-	
-	
+
+	//옥션디테일에서 즉시낙찰
 	private static BidService bidservice = new BidServiceImpl();
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

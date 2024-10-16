@@ -69,11 +69,11 @@
 		<![CDATA[
 		SELECT b.*,
 	 	t.date AS tansationDate,
+		a.auctionNum as auctionNum,
 		a.title AS auctionTitle,
-		p.personImage,
-		p.email
+		p.*
 		FROM blacklist b JOIN transaction t
-		ON. b.transactionNum = t.transactionNum
+		ON b.transactionNum = t.transactionNum
 		JOIN auction a ON t.auctionNum = a.auctionNum
 		JOIN person p ON t.sellerId = p.id
 		WHERE b.declPerson=#{id} AND LOWER(roleType) ='b'
@@ -143,7 +143,7 @@
 	</select>
 	
 	<select id="selectBlacklistById" parameterType="map" resultType="map">
- 			select b.*, p.personImage, c.companyImage, t.date, a.title as auctionTitle
+ 			select b.*, p.personImage, c.companyImage, t.date, a.title as auctionTitle, a.auctionNum as auctionNum
 			from blacklist b
 			left outer join person p
 				on b.blackPerson = p.id

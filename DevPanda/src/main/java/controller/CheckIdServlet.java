@@ -19,6 +19,7 @@ public class CheckIdServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String id = request.getParameter("id");
+		System.out.print(id);
 		try {
 			boolean isIdExists = personService.isIdExists(id);
 			response.setContentType("text/plain");

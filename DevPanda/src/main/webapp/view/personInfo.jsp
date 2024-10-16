@@ -7,6 +7,7 @@
 <title>personInfo</title>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <style>
+
 .container.my .content_area {
 	min-height: 380px;
 	overflow: hidden;
@@ -218,7 +219,7 @@
 }
 </style>
 </head>
-<body>
+<body style="margin:0px;">
 	<!-- Header Start -->
 	<%@ include file="./inc/header.jsp"%>
 	<!-- Header End-->

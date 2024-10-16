@@ -29,14 +29,7 @@
         AND state = 'processing';
     </update>
 
-	<update id="updateAuctionStatusToSuccess" parameterType="map">
-		UPDATE auction
-		SET state = 'unprocessing'
-		WHERE endDate <![CDATA[<=]]>
-		#{currentDate}
-		AND state = 'processing';
-	</update>
-
+	
 	<!-- bid 상태 업데이트 -->
 	<update id="updateBidStateToTwo" parameterType="map">
 		UPDATE bid
@@ -89,7 +82,12 @@
     SELECT * FROM bid WHERE auctionNum = #{auctionNum} AND bidState = 2;
 </select>
 
-
+ <!-- 트랜잭션 중복 확인을 위한 SQL -->
+    <select id="checkIfTransactionExists" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM transaction
+        WHERE auctionNum = #{auctionNum}
+    </select>
 	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
 
@@ -215,7 +213,7 @@
 
 
 	<select id="findAuctionById" parameterType="int"
-		resultType="dto.AuctionAndPerson">
+		resultType="auctionandperson">
 		select a.*,
 		p.nickname,p.email,p.address,p.sex,p.age,p.personimage,p.status
 		from
